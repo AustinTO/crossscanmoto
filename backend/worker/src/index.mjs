@@ -28,6 +28,21 @@ export function purchaseVerificationConfiguration(env) {
   };
 }
 
+// Evaluated only after OTP verification or requireSession's database checks.
+// Never accept a VIP flag, email header, or request-body email as authority.
+export function effectiveAccountAccess(verifiedEmail, storedEntitlement) {
+  const vip = typeof verifiedEmail === 'string' &&
+    verifiedEmail.trim().toLowerCase() === 'austintaylorodell@gmail.com';
+  const unlocked = vip || storedEntitlement?.status === 'active';
+  return {
+    unlocked,
+    status: unlocked ? 'active' : storedEntitlement?.status ?? 'none',
+    vip,
+    unlimited: vip,
+    source: vip ? 'vip' : unlocked ? 'store' : 'none',
+  };
+}
+
 function requireConfig(config, keys) {
   const missing = keys.filter((key) => !config[key]);
   if (missing.length) {
@@ -1400,14 +1415,14 @@ export default {
         });
 
         const entitlement = await repository.getEntitlement(user.account_id, ENTITLEMENT_ID);
-        const unlocked = entitlement?.status === 'active';
+        const access = effectiveAccountAccess(user.email, entitlement);
 
         return jsonResponse({
           ok: true,
           sessionToken,
           email,
           accountId: user.account_id,
-          unlocked,
+          ...access,
         });
       }
 
@@ -1420,7 +1435,7 @@ export default {
           ok: true,
           email: claims.email,
           accountId: claims.accountId,
-          unlocked: entitlement?.status === 'active',
+          ...effectiveAccountAccess(claims.email, entitlement),
         });
       }
 
@@ -1533,7 +1548,7 @@ export default {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
         const session = await requireSession(request, env, repository);
         const entitlement = await repository.getEntitlement(session.accountId, ENTITLEMENT_ID);
-        return jsonResponse({ unlocked: entitlement?.status === 'active', status: entitlement?.status ?? 'none', verificationConfigured: purchaseVerificationConfiguration(env) });
+        return jsonResponse({ ...effectiveAccountAccess(session.email, entitlement), verificationConfigured: purchaseVerificationConfiguration(env) });
       }
       const entitlementMatch = request.method === 'GET' && url.pathname.match(/^\/v1\/entitlements\/([^/]+)$/);
       if (entitlementMatch) {
@@ -1543,7 +1558,7 @@ export default {
         if (!validAccountId(accountId)) throw new PurchaseError(400, 'invalid_account_id');
         if (accountId !== session.accountId) throw new PurchaseError(403, 'account_mismatch');
         const entitlement = await repository.getEntitlement(session.accountId, ENTITLEMENT_ID);
-        return jsonResponse({ unlocked: entitlement?.status === 'active', status: entitlement?.status ?? 'none', verificationConfigured: purchaseVerificationConfiguration(env) });
+        return jsonResponse({ ...effectiveAccountAccess(session.email, entitlement), verificationConfigured: purchaseVerificationConfiguration(env) });
       }
       return jsonResponse({ error: 'not_found' }, 404);
     } catch (error) {

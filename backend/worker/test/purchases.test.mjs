@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   D1PurchaseRepository,
+  effectiveAccountAccess,
   purchaseVerificationConfiguration,
   PurchaseError,
   acknowledgeGooglePurchase,
@@ -884,4 +885,55 @@ test('checkout configuration stays false while store verification secrets are ab
   assert.deepEqual(purchaseVerificationConfiguration({ DB: {} }), { apple: false, google: false });
   assert.equal(purchaseVerificationConfiguration({ DB: {}, ...APPLE_CONFIG }).apple, true);
   assert.equal(purchaseVerificationConfiguration({ DB: {}, ...APPLE_CONFIG, APPLE_PRIVATE_KEY: '' }).apple, false);
+});
+
+
+test('VIP policy matches only the exact normalized owner email and never requires a store purchase', () => {
+  for (const email of ['austintaylorodell@gmail.com', ' AUSTINTAYLORODELL@GMAIL.COM ']) {
+    assert.deepEqual(effectiveAccountAccess(email, { status: 'revoked' }),
+      { unlocked: true, status: 'active', vip: true, unlimited: true, source: 'vip' });
+  }
+  for (const email of [null, '', 'other@gmail.com', 'austintaylorodell+vip@gmail.com', 'austintaylorodell@gmail.com.evil.invalid']) {
+    assert.equal(effectiveAccountAccess(email, null).unlocked, false);
+    assert.equal(effectiveAccountAccess(email, null).vip, false);
+  }
+  assert.equal(effectiveAccountAccess('buyer@example.com', { status: 'active' }).unlocked, true);
+});
+
+test('verified owner OTP login and authenticated refresh grant VIP without purchase records', async () => {
+  const db = fakeD1(); let code;
+  const env = { DB: db, SESSION_SECRET, OTP_PEPPER, EMAIL: { send: async (message) => {
+    code = (message.raw.match(/login code is:\s+(\d{6})/i) || message.raw.match(/<div class="code">(\d{6})<\/div>/i))?.[1];
+  } } };
+  const post = (path, body) => worker.fetch(new Request('https://api.puphr.com'+path, {
+    method: 'POST', headers: {'content-type':'application/json'}, body: JSON.stringify(body),
+  }), env);
+  assert.equal((await post('/v1/auth/otp/request', {email:'AUSTINTAYLORODELL@gmail.com'})).status, 200);
+  assert.ok(code);
+  const response = await post('/v1/auth/otp/verify', {email:'austintaylorodell@gmail.com', code});
+  assert.equal(response.status, 200);
+  const login = await response.json();
+  assert.equal(login.vip, true); assert.equal(login.unlocked, true); assert.equal(login.unlimited, true);
+  for (const path of ['/v1/auth/session','/v1/entitlements','/v1/entitlements/'+login.accountId]) {
+    const refreshed = await worker.fetch(new Request('https://api.puphr.com'+path, {
+      headers: {authorization:'Bearer '+login.sessionToken},
+    }), env);
+    assert.equal(refreshed.status, 200);
+    const access = await refreshed.json(); assert.equal(access.vip, true); assert.equal(access.unlocked, true);
+  }
+  assert.equal(db.records.size, 0);
+  assert.equal(db.entitlements.size, 0);
+  await worker.fetch(new Request('https://api.puphr.com/v1/auth/logout', {method:'POST',headers:{authorization:'Bearer '+login.sessionToken}}),env);
+  assert.equal((await worker.fetch(new Request('https://api.puphr.com/v1/entitlements', {headers:{authorization:'Bearer '+login.sessionToken}}),env)).status,401);
+});
+
+test('request email spoofing cannot grant VIP or bypass authentication and account ownership', async () => {
+  const db = fakeD1(); const {token} = await createTestUserAndSession(db,'ordinary@example.com');
+  const env={DB:db,SESSION_SECRET};
+  const response=await worker.fetch(new Request('https://api.puphr.com/v1/entitlements?email=austintaylorodell@gmail.com&vip=true',{
+    headers:{authorization:'Bearer '+token,'x-user-email':'austintaylorodell@gmail.com'},
+  }),env);
+  const access=await response.json();assert.equal(access.vip,false);assert.equal(access.unlocked,false);
+  assert.equal((await worker.fetch(new Request('https://api.puphr.com/v1/entitlements?email=austintaylorodell@gmail.com'),env)).status,401);
+  assert.equal((await worker.fetch(new Request('https://api.puphr.com/v1/entitlements/1c2bcd2c-48cf-41f5-b3c8-66939cc33333',{headers:{authorization:'Bearer '+token}}),env)).status,403);
 });

@@ -23,3 +23,7 @@ Store notifications are not configured by this setup. Store revocation is checke
 ## Verification boundaries
 
 The local suite exercises diagnostic framing, target rebinding, cleanup/cancellation, UI flows, billing/auth mocks and real loopback relay traffic. Actual motorcycle/adapter combinations, signed iOS device builds, real store transactions, and email delivery need their respective hardware or configured provider accounts. A passing local suite is not proof of every hardware combination or an absence of all possible bugs.
+
+## Owner VIP entitlement
+
+The backend grants `premium_unlock` with `vip: true`, `unlimited: true`, and `source: vip` to the exact normalized email `austintaylorodell@gmail.com`. The email must come from successful OTP verification or a valid, non-revoked server session that matches the database user. Client headers, query parameters, request bodies, account UUIDs, plus-address aliases, and similar-looking domains cannot grant VIP. Session expiration/logout and account ownership checks still apply. The rule creates no purchase or subscription records and does not alter ordinary customers' purchase entitlements.
