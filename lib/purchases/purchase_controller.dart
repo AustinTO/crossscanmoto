@@ -56,11 +56,16 @@ class PurchaseController extends ChangeNotifier {
   bool _storeAvailable = false;
   bool get storeAvailable => _storeAvailable;
   bool _backendReachable = false;
+  bool _verificationConfigured = false;
 
   bool get isConfigured => config.isConfigured;
+  bool get canAuthenticate =>
+      config.platform != PurchasePlatform.unsupported && config.hasBackend;
   bool get canPurchase =>
       isConfigured &&
+      isAuthenticated &&
       _backendReachable &&
+      _verificationConfigured &&
       _storeAvailable &&
       product != null &&
       !_hasUnlock;
@@ -82,8 +87,10 @@ class PurchaseController extends ChangeNotifier {
 
   String? _sessionToken;
   String? get sessionToken => _sessionToken;
+  bool _sessionValidated = false;
 
-  bool get isAuthenticated => _userEmail != null && _sessionToken != null;
+  bool get isAuthenticated =>
+      _sessionValidated && _userEmail != null && _sessionToken != null;
 
   StreamSubscription<List<StorePurchaseUpdate>>? _purchaseSubscription;
   Future<void> _purchaseQueue = Future<void>.value();
@@ -94,6 +101,13 @@ class PurchaseController extends ChangeNotifier {
 
   Future<void> initialize() => _initialization ??= _initialize();
 
+  /// Requeries the store and server without replacing the secure identity or
+  /// resetting any purchase updates that are already being processed.
+  Future<void> retry() {
+    _initialization = null;
+    return initialize();
+  }
+
   Future<void> _initialize() async {
     _setPhase(PurchasePhase.checking, message: null);
     if (config.platform == PurchasePlatform.unsupported) {
@@ -103,20 +117,57 @@ class PurchaseController extends ChangeNotifier {
       );
       return;
     }
+    ({String email, String sessionToken})? savedSession;
     try {
       _accountId = await _identityStore.loadOrCreateAccountId();
       _cachedEntitlement = await _identityStore.readCachedEntitlement();
-      final savedSession = await _identityStore.readAuthSession();
-      if (savedSession != null) {
-        _userEmail = savedSession.email;
-        _sessionToken = savedSession.sessionToken;
-      }
+      savedSession = await _identityStore.readAuthSession();
     } on Object {
       _setPhase(
         PurchasePhase.error,
         message: 'Secure purchase identity storage is unavailable.',
       );
       return;
+    }
+
+    if (savedSession != null && config.hasBackend) {
+      try {
+        final session = await _backend.fetchSession(savedSession.sessionToken);
+        if (!session.ok || !_isUuid(session.accountId) || session.email.isEmpty) {
+          throw const PurchaseBackendException('invalid_session');
+        }
+        _userEmail = session.email;
+        _sessionToken = savedSession.sessionToken;
+        _sessionValidated = true;
+        if (_accountId != session.accountId) {
+          await _identityStore.adoptVerifiedAccountId(session.accountId);
+          _accountId = session.accountId;
+        }
+      } on PurchaseBackendException catch (error) {
+        if (error.statusCode == 401) {
+          await _identityStore.clearAuthSession();
+          _cachedEntitlement = null;
+          await _identityStore.clearCachedEntitlement();
+          _sessionToken = null;
+          _userEmail = null;
+        } else {
+          _sessionToken = savedSession.sessionToken;
+          _userEmail = savedSession.email;
+          _message = 'Sign in again to verify your account with the server.';
+        }
+      } on Object {
+        _sessionToken = savedSession.sessionToken;
+        _userEmail = savedSession.email;
+        _message = 'Connect to verify your saved account session.';
+      }
+    } else if (savedSession != null) {
+      _userEmail = savedSession.email;
+      _sessionToken = savedSession.sessionToken;
+      _message = 'Configure the payment server to verify this account session.';
+    }
+
+    if (config.hasBackend && isAuthenticated) {
+      await refreshEntitlement();
     }
 
     if (!config.isConfigured) {
@@ -127,16 +178,16 @@ class PurchaseController extends ChangeNotifier {
       return;
     }
 
-    _purchaseSubscription = _store.purchaseStream.listen(
-      _onPurchaseUpdates,
-      onError: (Object _) => _setPhase(
-        _hasUnlock ? PurchasePhase.unlocked : PurchasePhase.error,
-        message: 'The store purchase stream stopped unexpectedly.',
-      ),
-      onDone: () {
-        _purchaseSubscription = null;
-      },
-    );
+    _purchaseSubscription ??= _store.purchaseStream.listen(
+        _onPurchaseUpdates,
+        onError: (Object _) => _setPhase(
+          _hasUnlock ? PurchasePhase.unlocked : PurchasePhase.error,
+          message: 'The store purchase stream stopped unexpectedly.',
+        ),
+        onDone: () {
+          _purchaseSubscription = null;
+        },
+      );
 
     try {
       _storeAvailable = await _store.isAvailable();
@@ -157,7 +208,13 @@ class PurchaseController extends ChangeNotifier {
         );
         return;
       }
-      await refreshEntitlement();
+      if (!isAuthenticated) {
+        _hasUnlock = false;
+        _setPhase(
+          PurchasePhase.ready,
+          message: _message ?? 'Sign in with an email code to purchase or restore access.',
+        );
+      }
     } on PurchaseBackendException catch (error) {
       _hasUnlock = false;
       _setPhase(PurchasePhase.locked, message: _messageFor(error));
@@ -174,21 +231,38 @@ class PurchaseController extends ChangeNotifier {
   /// Entitlements are rechecked with the backend; the secure cache is only a
   /// recovery hint and is never sufficient by itself to unlock the app.
   Future<void> refreshEntitlement() async {
-    final account = _accountId;
-    if (!config.isConfigured || account == null) {
+    final sessionToken = _sessionToken;
+    if (!config.isConfigured || !isAuthenticated || sessionToken == null) {
       _hasUnlock = false;
       _setPhase(
-        PurchasePhase.unavailable,
-        message: 'Purchases are not configured for this build.',
+        config.isConfigured ? PurchasePhase.ready : PurchasePhase.unavailable,
+        message: config.isConfigured
+            ? 'Sign in with an email code to verify purchase access.'
+            : 'Purchases are not configured for this build.',
       );
       return;
     }
     _setPhase(PurchasePhase.checking, message: null);
     _hasUnlock = false;
     try {
-      final result = await _backend.fetchEntitlement(account);
+      final result = await _backend.fetchEntitlement(sessionToken);
       _backendReachable = true;
-      await _applyServerEntitlement(account, result);
+      await _applyServerEntitlement(_accountId!, result);
+    } on PurchaseBackendException catch (error) {
+      _backendReachable = false;
+      _hasUnlock = false;
+      if (error.statusCode == 401) {
+        await _identityStore.clearAuthSession();
+        _sessionToken = null;
+        _userEmail = null;
+        _sessionValidated = false;
+      }
+      _setPhase(
+        PurchasePhase.locked,
+        message: error.statusCode == 401
+            ? 'Your sign-in expired. Sign in again to verify purchase access.'
+            : 'Connect to the internet to verify your purchase. Offline unlocks are disabled.',
+      );
     } on Object {
       _backendReachable = false;
       _hasUnlock = false;
@@ -234,6 +308,11 @@ class PurchaseController extends ChangeNotifier {
         PurchasePhase.unavailable,
         message: 'Purchases cannot be restored in this build.',
       );
+      return;
+    }
+    if (!isAuthenticated) {
+      _setPhase(PurchasePhase.ready,
+          message: 'Sign in with your email before restoring purchases.');
       return;
     }
     _setPhase(
@@ -315,6 +394,9 @@ class PurchaseController extends ChangeNotifier {
 
   Future<void> _processPurchase(StorePurchaseUpdate update) async {
     if (update.productId != config.productId) return;
+    if (!isAuthenticated || _sessionToken == null) {
+      throw const PurchaseBackendException('authentication_required');
+    }
     switch (update.status) {
       case StorePurchaseStatus.pending:
         _setPhase(
@@ -345,8 +427,7 @@ class PurchaseController extends ChangeNotifier {
     final signedData = update.serverVerificationData;
     if (signedData.isEmpty)
       throw const PurchaseBackendException('missing_store_proof');
-    var account = _accountId;
-    if (account == null)
+    if (_accountId == null)
       throw const PurchaseBackendException('missing_account_id');
 
     EntitlementStatus result;
@@ -356,47 +437,41 @@ class PurchaseController extends ChangeNotifier {
         if (transactionId == null || transactionId.isEmpty) {
           throw const PurchaseBackendException('missing_transaction_id');
         }
-        // This untrusted JWS claim is only used to choose the account ID sent
-        // to the server. The backend verifies the JWS and App Store record
-        // before any UUID is persisted or entitlement is granted.
-        final signedAccountId = _appAccountTokenClaim(signedData);
-        if (signedAccountId == null) {
-          throw const PurchaseBackendException('missing_app_account_token');
-        }
-        if (update.status == StorePurchaseStatus.purchased &&
-            signedAccountId != account.toLowerCase()) {
-          throw const PurchaseBackendException('account_mismatch');
-        }
-        account = signedAccountId;
-        result = await _backend.verifyApple(
-          accountId: account,
-          transactionId: transactionId,
-          signedTransactionInfo: signedData,
-        );
+        result = update.status == StorePurchaseStatus.restored
+            ? await _backend.restoreApple(
+                sessionToken: _sessionToken!,
+                transactionId: transactionId,
+                signedTransactionInfo: signedData,
+              )
+            : await _backend.verifyApple(
+                sessionToken: _sessionToken!,
+                transactionId: transactionId,
+                signedTransactionInfo: signedData,
+              );
         break;
       case PurchasePlatform.google:
-        result = await _backend.verifyGoogle(
-          accountId: account,
-          purchaseToken: signedData,
-        );
+        result = update.status == StorePurchaseStatus.restored
+            ? await _backend.restoreGoogle(
+                sessionToken: _sessionToken!,
+                purchaseToken: signedData,
+              )
+            : await _backend.verifyGoogle(
+                sessionToken: _sessionToken!,
+                purchaseToken: signedData,
+              );
         break;
       case PurchasePlatform.unsupported:
         throw const PurchaseBackendException('unsupported_platform');
     }
 
     if (!result.unlocked) {
-      if (account == _accountId) {
-        _hasUnlock = false;
-        await _identityStore.clearCachedEntitlement();
-        _cachedEntitlement = null;
-      }
+      _hasUnlock = false;
+      await _identityStore.clearCachedEntitlement();
+      _cachedEntitlement = null;
       throw const PurchaseBackendException('purchase_not_entitled');
     }
     _backendReachable = true;
-    if (account != _accountId) {
-      await _identityStore.adoptVerifiedAccountId(account);
-      _accountId = account;
-    }
+    final account = _accountId!;
     await _identityStore.saveVerifiedEntitlement(
       CachedEntitlement(
         accountId: account,
@@ -431,6 +506,7 @@ class PurchaseController extends ChangeNotifier {
     EntitlementStatus result,
   ) async {
     _hasUnlock = result.unlocked;
+    _verificationConfigured = result.verificationConfigured;
     if (result.unlocked) {
       final cached = CachedEntitlement(
         accountId: accountId,
@@ -443,24 +519,29 @@ class PurchaseController extends ChangeNotifier {
     } else {
       await _identityStore.clearCachedEntitlement();
       _cachedEntitlement = null;
-      _setPhase(PurchasePhase.ready, message: null);
+      _setPhase(PurchasePhase.ready, message: result.verificationConfigured ? null : 'Purchases are not available yet. Store verification is awaiting configuration.');
     }
   }
 
   Future<OtpRequestResult> requestEmailOtp(String email) async {
-    final account = _accountId;
-    return await _backend.requestOtp(email.trim().toLowerCase(), accountId: account);
+    if (!canAuthenticate) {
+      throw const PurchaseBackendException('backend_not_configured');
+    }
+    return _backend.requestOtp(email.trim().toLowerCase());
   }
 
   Future<bool> verifyEmailOtp(String email, String code) async {
-    final account = _accountId;
     final session = await _backend.verifyOtp(
       email.trim().toLowerCase(),
       code.trim(),
-      accountId: account,
     );
+    if (!session.ok || session.sessionToken.isEmpty || !_isUuid(session.accountId)) {
+      throw const PurchaseBackendException('invalid_session');
+    }
     _userEmail = session.email;
     _sessionToken = session.sessionToken;
+    _sessionValidated = true;
+    _backendReachable = true;
     await _identityStore.saveAuthSession(
       email: session.email,
       sessionToken: session.sessionToken,
@@ -469,70 +550,50 @@ class PurchaseController extends ChangeNotifier {
       _accountId = session.accountId;
       await _identityStore.adoptVerifiedAccountId(session.accountId);
     }
-    if (session.unlocked) {
-      _hasUnlock = true;
-      final cached = CachedEntitlement(
-        accountId: _accountId!,
-        productId: config.productId ?? 'premium_unlock',
-        verifiedAt: DateTime.now(),
-      );
-      _cachedEntitlement = cached;
-      await _identityStore.saveVerifiedEntitlement(cached);
-      _setPhase(
-        PurchasePhase.unlocked,
-        message: 'Account linked and premium features activated.',
-      );
-    } else {
-      notifyListeners();
-    }
+    await refreshEntitlement();
     return true;
   }
 
   Future<void> signOut() async {
+    final token = _sessionToken;
+    String? warning;
+    if (token != null) {
+      try {
+        await _backend.revokeSession(token);
+      } on Object {
+        warning = 'Signed out on this device; the server session could not be revoked offline.';
+      }
+    }
+    await _identityStore.clearAuthSession();
     _userEmail = null;
     _sessionToken = null;
-    await _identityStore.clearAuthSession();
-    notifyListeners();
+    _sessionValidated = false;
+    _hasUnlock = false;
+    _backendReachable = false;
+    _setPhase(PurchasePhase.ready, message: warning);
   }
 
   Future<bool> deleteAccountAndData() async {
-    final account = _accountId;
-    var remoteDeleted = false;
-    if (account != null && isConfigured) {
-      try {
-        remoteDeleted = await _backend.deleteAccount(account);
-      } catch (_) {
-        // Fall back to local wipe if network or backend fails
-      }
+    final token = _sessionToken;
+    if (!isAuthenticated || token == null) {
+      throw const PurchaseBackendException('authentication_required');
     }
+    final remoteDeleted = await _backend.deleteAccount(token);
+    if (!remoteDeleted) throw const PurchaseBackendException('delete_failed');
     await _identityStore.clearCachedEntitlement();
     await _identityStore.clearAuthSession();
     _cachedEntitlement = null;
     _userEmail = null;
     _sessionToken = null;
+    _sessionValidated = false;
     _hasUnlock = false;
-    _accountId = await _identityStore.loadOrCreateAccountId();
+    _backendReachable = false;
+    _accountId = await _identityStore.resetAccountId();
     _setPhase(
       PurchasePhase.ready,
       message: 'Account records and local entitlements have been purged.',
     );
     return remoteDeleted;
-  }
-
-  static String? _appAccountTokenClaim(String jws) {
-    final pieces = jws.split('.');
-    if (pieces.length != 3) return null;
-    try {
-      final normalized = pieces[1].replaceAll('-', '+').replaceAll('_', '/');
-      final padded = normalized.padRight((normalized.length + 3) ~/ 4 * 4, '=');
-      final payload = jsonDecode(utf8.decode(base64.decode(padded)));
-      if (payload is! Map<String, dynamic>) return null;
-      final token = payload['appAccountToken'];
-      if (token is! String || !_isUuid(token)) return null;
-      return token.toLowerCase();
-    } on Object {
-      return null;
-    }
   }
 
   static bool _isUuid(String value) => RegExp(
@@ -541,15 +602,13 @@ class PurchaseController extends ChangeNotifier {
   ).hasMatch(value);
 
   String _messageFor(PurchaseBackendException error) => switch (error.code) {
-    'account_mismatch' when config.platform == PurchasePlatform.google =>
-      'This Play purchase belongs to a different app identity. Restoring it on a new install needs account recovery support.',
-    'account_mismatch' => 'This purchase belongs to a different app identity.',
+    'authentication_required' => 'Sign in with your email before purchasing or restoring.',
+    'account_mismatch' => 'This purchase is linked to a different app account.',
+    'recovery_unavailable' => 'This store purchase has no existing verified server record to recover.',
     'purchase_pending' => 'The store is still processing your payment.',
     'purchase_replayed' =>
       'This purchase is already linked to another app identity.',
     'store_not_configured' => 'Purchases are not configured for this build.',
-    'missing_app_account_token' =>
-      'This Apple transaction does not contain the required account binding.',
     _ => 'The store could not verify this purchase. Please try again.',
   };
 

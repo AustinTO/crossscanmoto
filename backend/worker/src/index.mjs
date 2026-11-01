@@ -5,6 +5,9 @@ const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const GOOGLE_API = 'https://androidpublisher.googleapis.com/androidpublisher/v3';
 const MAX_BODY_BYTES = 64 * 1024;
 const ENTITLEMENT_ID = 'premium_unlock';
+const SESSION_ISSUER = 'https://api.puphr.com';
+const SESSION_AUDIENCE = 'com.puphr.crossscanmoto';
+const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
 const googleTokenCache = new Map();
 
 export class PurchaseError extends Error {
@@ -13,6 +16,16 @@ export class PurchaseError extends Error {
     this.status = status;
     this.code = code;
   }
+}
+
+export function purchaseVerificationConfiguration(env) {
+  const has = (keys) => Boolean(env.DB) && keys.every((key) => typeof env[key] === 'string' && env[key].trim());
+  return {
+    apple: has(['APPLE_BUNDLE_ID', 'APPLE_UNLOCK_PRODUCT_ID', 'APPLE_ENVIRONMENT', 'APPLE_ISSUER_ID', 'APPLE_KEY_ID', 'APPLE_PRIVATE_KEY', 'APPLE_ROOT_CERTIFICATES']) &&
+      ['Production', 'Sandbox'].includes(env.APPLE_ENVIRONMENT) &&
+      (env.APPLE_ENVIRONMENT !== 'Production' || /^\d+$/.test(env.APPLE_APP_ID ?? '')),
+    google: has(['GOOGLE_PACKAGE_NAME', 'GOOGLE_UNLOCK_PRODUCT_ID', 'GOOGLE_SERVICE_ACCOUNT_EMAIL', 'GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY']),
+  };
 }
 
 function requireConfig(config, keys) {
@@ -70,7 +83,7 @@ function assertAppleTransaction(transaction, config, expected = {}) {
 }
 
 /** Verify the device JWS, retrieve Apple's authoritative transaction, then verify its JWS too. */
-export async function verifyApplePurchase(body, config, deps) {
+export async function verifyApplePurchase(body, config, deps, identity = {}) {
   const appleConfig = [
     'APPLE_BUNDLE_ID', 'APPLE_UNLOCK_PRODUCT_ID', 'APPLE_ENVIRONMENT',
     'APPLE_ISSUER_ID', 'APPLE_KEY_ID', 'APPLE_PRIVATE_KEY', 'APPLE_ROOT_CERTIFICATES',
@@ -83,14 +96,19 @@ export async function verifyApplePurchase(body, config, deps) {
   if (config.APPLE_ENVIRONMENT === APPLE_PRODUCTION && !/^\d+$/.test(config.APPLE_APP_ID)) {
     throw new PurchaseError(503, 'store_not_configured');
   }
-  const { accountId, transactionId, signedTransactionInfo } = body ?? {};
+  const { transactionId, signedTransactionInfo } = body ?? {};
+  const accountId = identity.accountId ?? body?.accountId;
   validateRequestIdentity(accountId, config.APPLE_UNLOCK_PRODUCT_ID);
   if (!requiredString(transactionId, 128) || !requiredString(signedTransactionInfo, 60_000)) {
     throw new PurchaseError(400, 'invalid_apple_receipt');
   }
 
   const deviceTransaction = await deps.verifySignedTransaction(signedTransactionInfo, config);
-  assertAppleTransaction(deviceTransaction, config, { accountId, transactionId });
+  const storeAccountId = identity.allowStoreAccountRecovery
+    ? deviceTransaction.appAccountToken
+    : identity.storeAccountId ?? accountId;
+  if (!validAccountId(storeAccountId)) throw new PurchaseError(422, 'missing_app_account_token');
+  assertAppleTransaction(deviceTransaction, config, { accountId: storeAccountId, transactionId });
 
   let response;
   try {
@@ -103,7 +121,7 @@ export async function verifyApplePurchase(body, config, deps) {
     throw new PurchaseError(502, 'invalid_apple_response');
   }
   const serverTransaction = await deps.verifySignedTransaction(response.signedTransactionInfo, config);
-  assertAppleTransaction(serverTransaction, config, { accountId, transactionId });
+  assertAppleTransaction(serverTransaction, config, { accountId: storeAccountId, transactionId });
   if (serverTransaction.originalTransactionId !== deviceTransaction.originalTransactionId ||
       serverTransaction.productId !== deviceTransaction.productId ||
       serverTransaction.appAccountToken?.toLowerCase() !== deviceTransaction.appAccountToken?.toLowerCase()) {
@@ -116,6 +134,7 @@ export async function verifyApplePurchase(body, config, deps) {
     transactionId: serverTransaction.transactionId,
     originalTransactionId: serverTransaction.originalTransactionId ?? null,
     accountId: accountId.toLowerCase(),
+    storeAccountId: storeAccountId.toLowerCase(),
     productId: serverTransaction.productId,
     entitlementId: ENTITLEMENT_ID,
     purchasedAt: serverTransaction.purchaseDate,
@@ -124,13 +143,16 @@ export async function verifyApplePurchase(body, config, deps) {
   };
 }
 
-export async function verifyGooglePurchase(body, config, deps) {
+export async function verifyGooglePurchase(body, config, deps, identity = {}) {
   requireConfig(config, [
     'GOOGLE_PACKAGE_NAME', 'GOOGLE_UNLOCK_PRODUCT_ID',
     'GOOGLE_SERVICE_ACCOUNT_EMAIL', 'GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY',
   ]);
-  const { accountId, purchaseToken } = body ?? {};
+  const { purchaseToken } = body ?? {};
+  const accountId = identity.accountId ?? body?.accountId;
+  const storeAccountId = identity.storeAccountId ?? accountId;
   validateRequestIdentity(accountId, config.GOOGLE_UNLOCK_PRODUCT_ID);
+  if (!validAccountId(storeAccountId)) throw new PurchaseError(400, 'invalid_account_id');
   if (!requiredString(purchaseToken, 4_000)) throw new PurchaseError(400, 'invalid_google_purchase_token');
 
   let purchase;
@@ -144,7 +166,7 @@ export async function verifyGooglePurchase(body, config, deps) {
   if (!lineItems.some((line) => line?.productId === config.GOOGLE_UNLOCK_PRODUCT_ID)) {
     throw new PurchaseError(422, 'wrong_product');
   }
-  const expectedAccountId = await deps.hashAccountId(accountId.toLowerCase());
+  const expectedAccountId = await deps.hashAccountId(storeAccountId.toLowerCase());
   if (purchase.obfuscatedExternalAccountId !== expectedAccountId) {
     throw new PurchaseError(422, 'account_mismatch');
   }
@@ -185,6 +207,7 @@ export async function verifyGooglePurchase(body, config, deps) {
     transactionId: purchase.orderId || storeKey,
     originalTransactionId: null,
     accountId: accountId.toLowerCase(),
+    storeAccountId: storeAccountId.toLowerCase(),
     productId: config.GOOGLE_UNLOCK_PRODUCT_ID,
     entitlementId: ENTITLEMENT_ID,
     purchasedAt: state === 'PURCHASED' ? Date.parse(purchase.purchaseCompletionTime) : Date.now(),
@@ -204,7 +227,12 @@ function base64Url(bytes) {
 }
 
 function decodeBase64(value) {
-  const binary = atob(value.replace(/-/g, '+').replace(/_/g, '/'));
+  if (typeof value !== 'string' || !/^[A-Za-z0-9_+/-]*={0,2}$/.test(value)) {
+    throw new Error('Invalid base64url value');
+  }
+  const normalized = value.replace(/-/g, '+').replace(/_/g, '/').replace(/=+$/, '');
+  if (normalized.length % 4 === 1) throw new Error('Invalid base64url length');
+  const binary = atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '='));
   return Uint8Array.from(binary, (character) => character.charCodeAt(0));
 }
 
@@ -344,6 +372,26 @@ export async function hashHex(value) {
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
 }
 
+export async function hashOtpCode(code, salt, pepper) {
+  requireSecret(pepper, 'otp');
+  const key = await crypto.subtle.importKey(
+    'raw', utf8(pepper), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
+  );
+  const signature = await crypto.subtle.sign(
+    'HMAC', key, utf8(`crossscanmoto-otp-v1:${salt}:${code}`),
+  );
+  return [...new Uint8Array(signature)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+function constantTimeEqual(left, right) {
+  if (typeof left !== 'string' || typeof right !== 'string' || left.length !== right.length) return false;
+  let difference = 0;
+  for (let index = 0; index < left.length; index++) {
+    difference |= left.charCodeAt(index) ^ right.charCodeAt(index);
+  }
+  return difference === 0;
+}
+
 export function validEmail(email) {
   return typeof email === 'string' &&
     email.length <= 254 &&
@@ -432,6 +480,9 @@ export async function sendOtpEmail(email, code, env, sendEmailImpl) {
   if (sendEmailImpl) {
     return sendEmailImpl(email, code);
   }
+  if (!env?.EMAIL || typeof env.EMAIL.send !== 'function') {
+    throw new PurchaseError(503, 'email_delivery_not_configured');
+  }
   const fromAddress = env?.EMAIL_FROM_ADDRESS || 'noreply@auth.trusthentic.com';
   const fromName = env?.EMAIL_FROM_NAME || 'CrossScan Moto';
   const raw = formatOtpEmail(fromAddress, fromName, email, code);
@@ -453,16 +504,31 @@ export async function sendOtpEmail(email, code, env, sendEmailImpl) {
   }
 }
 
-export async function createSessionToken(user, secret = 'crossscanmoto-secure-jwt-key') {
+function requireSecret(secret, purpose) {
+  if (typeof secret !== 'string' || utf8(secret).byteLength < 32) {
+    throw new PurchaseError(503, `${purpose}_not_configured`);
+  }
+}
+
+export async function createSessionToken(user, secret, options = {}) {
+  requireSecret(secret, 'auth');
+  const userId = user.userId || user.user_id;
+  const accountId = user.accountId || user.account_id;
+  if (!validAccountId(userId) || !validAccountId(accountId) || !validEmail(user.email)) {
+    throw new PurchaseError(500, 'invalid_session_identity');
+  }
   const header = { alg: 'HS256', typ: 'JWT' };
-  const now = Math.floor(Date.now() / 1000);
+  const now = options.nowSeconds ?? Math.floor(Date.now() / 1000);
   const claims = {
-    sub: user.userId || user.user_id,
+    sub: userId,
     email: user.email,
-    accountId: user.accountId || user.account_id,
+    accountId,
     iat: now,
-    exp: now + 30 * 86400,
-    iss: 'auth.trusthentic.com',
+    nbf: now,
+    exp: now + SESSION_TTL_SECONDS,
+    iss: SESSION_ISSUER,
+    aud: SESSION_AUDIENCE,
+    jti: options.sessionId ?? crypto.randomUUID(),
   };
   const key = await crypto.subtle.importKey(
     'raw',
@@ -474,12 +540,19 @@ export async function createSessionToken(user, secret = 'crossscanmoto-secure-jw
   return signJwt(header, claims, key, { name: 'HMAC' });
 }
 
-export async function verifySessionToken(token, secret = 'crossscanmoto-secure-jwt-key') {
+export async function verifySessionToken(token, secret, nowSeconds = Math.floor(Date.now() / 1000)) {
   if (typeof token !== 'string') return null;
+  try {
+    requireSecret(secret, 'auth');
+  } catch (_) {
+    return null;
+  }
   const parts = token.split('.');
   if (parts.length !== 3) return null;
   const [encodedHeader, encodedClaims, encodedSignature] = parts;
   try {
+    const header = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(decodeBase64(encodedHeader)));
+    if (header?.alg !== 'HS256' || header?.typ !== 'JWT') return null;
     const key = await crypto.subtle.importKey(
       'raw',
       utf8(secret),
@@ -496,9 +569,16 @@ export async function verifySessionToken(token, secret = 'crossscanmoto-secure-j
       utf8(signingInput),
     );
     if (!valid) return null;
-    const claims = JSON.parse(new TextDecoder().decode(decodeBase64(encodedClaims)));
-    const now = Math.floor(Date.now() / 1000);
-    if (claims.exp && claims.exp < now) return null;
+    const claims = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(decodeBase64(encodedClaims)));
+    if (claims.iss !== SESSION_ISSUER || claims.aud !== SESSION_AUDIENCE ||
+        !validAccountId(claims.sub) || !validAccountId(claims.accountId) ||
+        !validAccountId(claims.jti) || !validEmail(claims.email) ||
+        !Number.isSafeInteger(claims.iat) || !Number.isSafeInteger(claims.nbf) ||
+        !Number.isSafeInteger(claims.exp) || claims.iat > nowSeconds + 60 ||
+        claims.nbf > nowSeconds + 60 || claims.exp <= nowSeconds ||
+        claims.exp <= claims.iat || claims.exp - claims.iat > SESSION_TTL_SECONDS) {
+      return null;
+    }
     return claims;
   } catch (_) {
     return null;
@@ -510,39 +590,74 @@ export class D1PurchaseRepository {
     this.db = db;
   }
 
-  async applyPurchase(purchase) {
+  async applyPurchase(purchase, { userId, allowStoreAccountRebind = false } = {}) {
+    const storeAccountId = purchase.storeAccountId ?? purchase.accountId;
     const existing = await this.db.prepare(
-      'SELECT account_id, product_id FROM purchase_records WHERE store = ? AND store_key = ?',
+      'SELECT account_id, store_account_id, product_id FROM purchase_records WHERE store = ? AND store_key = ?',
     ).bind(purchase.store, purchase.storeKey).first();
-    if (existing && (existing.account_id !== purchase.accountId || existing.product_id !== purchase.productId)) {
+    if (existing && (existing.account_id !== purchase.accountId ||
+        existing.store_account_id !== storeAccountId || existing.product_id !== purchase.productId) &&
+        !(allowStoreAccountRebind && existing.store_account_id === storeAccountId &&
+          existing.product_id === purchase.productId)) {
       throw new PurchaseError(409, 'purchase_replayed');
     }
     const existingTransaction = await this.db.prepare(
-      'SELECT account_id, product_id FROM purchase_records WHERE store = ? AND transaction_id = ?',
+      'SELECT account_id, store_key, store_account_id, product_id FROM purchase_records WHERE store = ? AND transaction_id = ?',
     ).bind(purchase.store, purchase.transactionId).first();
     if (existingTransaction && (existingTransaction.account_id !== purchase.accountId ||
-        existingTransaction.product_id !== purchase.productId)) {
+        existingTransaction.store_account_id !== storeAccountId || existingTransaction.product_id !== purchase.productId) &&
+        !(allowStoreAccountRebind && existingTransaction.store_account_id === storeAccountId &&
+          existingTransaction.product_id === purchase.productId && existingTransaction.store_key === purchase.storeKey)) {
       throw new PurchaseError(409, 'purchase_replayed');
     }
+    if (userId) {
+      const existingLink = await this.findStoreAccountLink(purchase.store, storeAccountId);
+      if (existingLink && existingLink.user_id !== userId) {
+        throw new PurchaseError(409, 'store_account_already_linked');
+      }
+      const existingUser = await this.findUserByAccountId(storeAccountId);
+      if (existingUser && existingUser.user_id !== userId) {
+        throw new PurchaseError(409, 'store_account_already_linked');
+      }
+    }
     const now = Date.now();
+    const previousAccountId = existing?.account_id ?? existingTransaction?.account_id ?? null;
     try {
-      await this.db.batch([
-      this.db.prepare(`
+      const statements = [];
+      if (userId) {
+        statements.push(this.db.prepare(`
+          INSERT INTO store_account_links (store, store_account_id, user_id, account_id, created_at)
+          VALUES (?, ?, ?, ?, ?)
+          ON CONFLICT(store, store_account_id) DO UPDATE SET account_id = excluded.account_id
+          WHERE store_account_links.user_id = excluded.user_id
+        `).bind(purchase.store, storeAccountId, userId, purchase.accountId, now));
+      }
+      const purchaseStatement = this.db.prepare(`
         INSERT INTO purchase_records
           (store, store_key, transaction_id, original_transaction_id, account_id,
-           product_id, entitlement_id, state, purchased_at, revoked_at, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+           store_account_id, product_id, entitlement_id, state, purchased_at,
+           revoked_at, created_at, updated_at)
+        SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        WHERE ? IS NULL OR EXISTS (
+          SELECT 1 FROM store_account_links
+          WHERE store = ? AND store_account_id = ? AND user_id = ?
+        )
         ON CONFLICT(store, store_key) DO UPDATE SET
+          account_id = excluded.account_id,
           state = excluded.state,
           purchased_at = excluded.purchased_at,
           revoked_at = excluded.revoked_at,
           updated_at = excluded.updated_at
-        WHERE purchase_records.account_id = excluded.account_id
+        WHERE purchase_records.store_account_id = excluded.store_account_id
           AND purchase_records.product_id = excluded.product_id
+          AND (purchase_records.account_id = excluded.account_id OR ? = 1)
       `).bind(purchase.store, purchase.storeKey, purchase.transactionId,
-        purchase.originalTransactionId, purchase.accountId, purchase.productId,
-        purchase.entitlementId, purchase.state, purchase.purchasedAt, purchase.revokedAt, now, now),
-      this.db.prepare(`
+        purchase.originalTransactionId, purchase.accountId, storeAccountId, purchase.productId,
+        purchase.entitlementId, purchase.state, purchase.purchasedAt, purchase.revokedAt, now, now,
+        userId ?? null, purchase.store, storeAccountId, userId ?? '', Number(allowStoreAccountRebind));
+      const purchaseStatementIndex = statements.length;
+      statements.push(purchaseStatement);
+      statements.push(this.db.prepare(`
         INSERT INTO entitlements (account_id, entitlement_id, status, updated_at)
         VALUES (?, ?, CASE WHEN EXISTS (
           SELECT 1 FROM purchase_records
@@ -552,17 +667,34 @@ export class D1PurchaseRepository {
           status = excluded.status,
           updated_at = excluded.updated_at
       `).bind(purchase.accountId, purchase.entitlementId, purchase.accountId,
-        purchase.entitlementId, now),
-      ]);
+        purchase.entitlementId, now));
+      if (previousAccountId && previousAccountId !== purchase.accountId) {
+        statements.push(this.db.prepare(`
+          INSERT INTO entitlements (account_id, entitlement_id, status, updated_at)
+          VALUES (?, ?, CASE WHEN EXISTS (
+            SELECT 1 FROM purchase_records
+            WHERE account_id = ? AND entitlement_id = ? AND state = 'active'
+          ) THEN 'active' ELSE 'revoked' END, ?)
+          ON CONFLICT(account_id, entitlement_id) DO UPDATE SET
+            status = excluded.status, updated_at = excluded.updated_at
+        `).bind(previousAccountId, purchase.entitlementId, previousAccountId,
+          purchase.entitlementId, now));
+      }
+      const results = await this.db.batch(statements);
+      if (userId && Number(results[purchaseStatementIndex]?.meta?.changes ?? 0) === 0) {
+        throw new PurchaseError(409, 'store_account_already_linked');
+      }
     } catch (error) {
+      if (error instanceof PurchaseError) throw error;
       // D1's unique constraints decide a simultaneous first claim. Only treat
       // the losing request as an idempotent replay when the committed owner
       // and product match this verified purchase.
       const committed = await this.db.prepare(
-        'SELECT account_id, product_id FROM purchase_records WHERE store = ? AND transaction_id = ?',
+        'SELECT account_id, store_account_id, product_id FROM purchase_records WHERE store = ? AND transaction_id = ?',
       ).bind(purchase.store, purchase.transactionId).first();
       if (!committed) throw error;
-      if (committed.account_id !== purchase.accountId || committed.product_id !== purchase.productId) {
+      if (committed.store_account_id !== storeAccountId || committed.product_id !== purchase.productId ||
+          committed.account_id !== purchase.accountId) {
         throw new PurchaseError(409, 'purchase_replayed');
       }
       const entitlement = await this.getEntitlement(purchase.accountId, purchase.entitlementId);
@@ -580,18 +712,52 @@ export class D1PurchaseRepository {
 
   async findGooglePurchaseOwner(purchaseTokenHash) {
     return this.db.prepare(`
-      SELECT account_id, product_id, entitlement_id, state
+      SELECT account_id, store_account_id, product_id, entitlement_id, state
       FROM purchase_records
       WHERE store = 'google' AND store_key = ?
     `).bind(purchaseTokenHash).first();
   }
 
+  async findStoreAccountLink(store, storeAccountId) {
+    return this.db.prepare(`
+      SELECT store, store_account_id, user_id, account_id
+      FROM store_account_links WHERE store = ? AND store_account_id = ?
+    `).bind(store, storeAccountId).first();
+  }
+
+  async saveSession({ sessionId, userId, email, accountId, expiresAt }) {
+    await this.db.prepare(`
+      INSERT INTO auth_sessions
+        (session_id, user_id, email, account_id, created_at, expires_at, revoked_at)
+      VALUES (?, ?, ?, ?, ?, ?, NULL)
+    `).bind(sessionId, userId, email.toLowerCase(), accountId, Date.now(), expiresAt).run();
+  }
+
+  async findSession(sessionId) {
+    return this.db.prepare(`
+      SELECT session_id, user_id, email, account_id, created_at, expires_at, revoked_at
+      FROM auth_sessions WHERE session_id = ?
+    `).bind(sessionId).first();
+  }
+
+  async revokeSession(sessionId, now = Date.now()) {
+    await this.db.prepare(`
+      UPDATE auth_sessions SET revoked_at = ?
+      WHERE session_id = ? AND revoked_at IS NULL
+    `).bind(now, sessionId).run();
+  }
+
   async deleteAccount(accountId) {
     const id = accountId.toLowerCase();
+    const user = await this.findUserByAccountId(id);
     await this.db.batch([
       this.db.prepare('DELETE FROM entitlements WHERE account_id = ?').bind(id),
       this.db.prepare('DELETE FROM purchase_records WHERE account_id = ?').bind(id),
       this.db.prepare('DELETE FROM users WHERE account_id = ?').bind(id),
+      this.db.prepare('UPDATE auth_sessions SET revoked_at = ? WHERE account_id = ? AND revoked_at IS NULL')
+        .bind(Date.now(), id),
+      ...(user ? [this.db.prepare('DELETE FROM auth_otps WHERE email = ?').bind(user.email)] : []),
+      ...(user ? [this.db.prepare('DELETE FROM store_account_links WHERE user_id = ?').bind(user.user_id)] : []),
     ]);
     return { deleted: true, accountId: id };
   }
@@ -618,8 +784,36 @@ export class D1PurchaseRepository {
 
   async incrementOtpAttempts(email) {
     await this.db.prepare(
-      'UPDATE auth_otps SET attempts = attempts + 1 WHERE email = ?',
-    ).bind(email.toLowerCase()).run();
+      'UPDATE auth_otps SET attempts = attempts + 1 WHERE email = ? AND attempts < 5 AND expires_at > ?',
+    ).bind(email.toLowerCase(), Date.now()).run();
+  }
+
+  async consumeOtp(email, codeHash, now = Date.now()) {
+    return this.db.prepare(`
+      DELETE FROM auth_otps
+      WHERE email = ? AND code_hash = ? AND attempts < 5 AND expires_at > ?
+      RETURNING email
+    `).bind(email.toLowerCase(), codeHash, now).first();
+  }
+
+  async consumeRateLimit(rateKey, maxRequests, windowMs, now = Date.now()) {
+    const windowStart = Math.floor(now / windowMs) * windowMs;
+    const result = await this.db.prepare(`
+      INSERT INTO auth_rate_limits (rate_key, window_start, request_count, expires_at)
+      VALUES (?, ?, 1, ?)
+      ON CONFLICT(rate_key) DO UPDATE SET
+        request_count = CASE
+          WHEN auth_rate_limits.window_start = excluded.window_start
+          THEN auth_rate_limits.request_count + 1 ELSE 1 END,
+        window_start = excluded.window_start,
+        expires_at = excluded.expires_at
+      RETURNING request_count
+    `).bind(rateKey, windowStart, windowStart + windowMs).first();
+    return Number(result?.request_count ?? maxRequests + 1) <= maxRequests;
+  }
+
+  async cleanupExpiredRateLimits(now = Date.now()) {
+    await this.db.prepare('DELETE FROM auth_rate_limits WHERE expires_at < ?').bind(now).run();
   }
 
   async deleteOtp(email) {
@@ -632,18 +826,31 @@ export class D1PurchaseRepository {
     ).bind(email.toLowerCase()).first();
   }
 
-  async upsertUser(email, accountId) {
+  async findUserByAccountId(accountId) {
+    return this.db.prepare(
+      'SELECT user_id, email, account_id, created_at, updated_at FROM users WHERE account_id = ?',
+    ).bind(accountId.toLowerCase()).first();
+  }
+
+  async findUserById(userId) {
+    return this.db.prepare(
+      'SELECT user_id, email, account_id, created_at, updated_at FROM users WHERE user_id = ?',
+    ).bind(userId).first();
+  }
+
+  async createUserIfAbsent(email) {
+    const normalizedEmail = email.toLowerCase();
     const now = Date.now();
-    const existing = await this.findUserByEmail(email);
-    const userId = existing?.user_id ?? crypto.randomUUID();
     await this.db.prepare(`
       INSERT INTO users (user_id, email, account_id, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?)
-      ON CONFLICT(email) DO UPDATE SET
-        account_id = excluded.account_id,
-        updated_at = excluded.updated_at
-    `).bind(userId, email.toLowerCase(), accountId, now, now).run();
-    return { userId, email: email.toLowerCase(), accountId, createdAt: existing?.created_at ?? now, updatedAt: now };
+      ON CONFLICT(email) DO NOTHING
+    `).bind(crypto.randomUUID(), normalizedEmail, crypto.randomUUID(), now, now).run();
+    return this.findUserByEmail(normalizedEmail);
+  }
+
+  async upsertUser(email, accountId) {
+    return (await this.findUserByEmail(email)) ?? this.createUserIfAbsent(email);
   }
 }
 
@@ -655,6 +862,26 @@ function configFromEnv(env) {
     'GOOGLE_SERVICE_ACCOUNT_EMAIL', 'GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY',
     'GOOGLE_ALLOW_TEST_PURCHASES',
   ].map((key) => [key, env[key]]));
+}
+
+export async function requireSession(request, env, repository, now = Date.now()) {
+  requireSecret(env?.SESSION_SECRET, 'auth');
+  const match = (request.headers.get('authorization') ?? '').match(/^Bearer\s+([^\s]+)$/i);
+  if (!match || match[1].length > 4096) throw new PurchaseError(401, 'unauthorized');
+  const claims = await verifySessionToken(match[1], env.SESSION_SECRET, Math.floor(now / 1000));
+  if (!claims) throw new PurchaseError(401, 'invalid_session');
+  const [session, user] = await Promise.all([
+    repository.findSession(claims.jti),
+    repository.findUserById(claims.sub),
+  ]);
+  if (!session || session.revoked_at != null || session.expires_at <= now ||
+      Math.abs(session.expires_at - claims.exp * 1000) > 1000 ||
+      session.user_id !== claims.sub || session.email !== claims.email ||
+      session.account_id !== claims.accountId || !user ||
+      user.email !== claims.email || user.account_id !== claims.accountId) {
+    throw new PurchaseError(401, 'invalid_session');
+  }
+  return claims;
 }
 
 const SECURITY_HEADERS = {
@@ -730,12 +957,12 @@ function renderPrivacyPolicyHtml() {
       <li>We do not share, monetize, or sell diagnostic histories to third parties or data brokers.</li>
     </ul>
 
-    <h2>2. In-App Purchases & Anonymous Account Identifiers</h2>
-    <p>To verify and restore one-time premium feature entitlements across your devices without requiring personal logins, passwords, or emails, CrossScan Moto generates an anonymous random UUID stored securely in your device's Keychain (iOS) or EncryptedSharedPreferences (Android).</p>
-    <p>When you complete a purchase, Apple App Store Server API (JWS) or Google Play Billing API receipts are verified cryptographically by our Cloudflare Worker backend. We store:</p>
+    <h2>2. Store Purchases & Account Data</h2>
+    <p>CrossScan Moto generates a random account UUID and stores it securely on your device. If you link an email using a one-time verification code, the server associates that verified email with its canonical account UUID so you can recover purchases on another device.</p>
+    <p>When you complete a purchase, Apple App Store Server API (JWS) or Google Play Billing API receipts are verified by our Cloudflare Worker backend. We store:</p>
     <ul>
-      <li>Your anonymous, randomly generated account UUID.</li>
-      <li>Cryptographic SHA-256 hashes of the store transaction identifier for replay prevention.</li>
+      <li>Your account UUID and, if linked, your verified email address and an expiring session record.</li>
+      <li>Store transaction identifiers, purchase state, and store-account binding identifiers for entitlement and replay checks. Google purchase tokens are stored as hashes.</li>
       <li>Active entitlement status (e.g. <code>premium_unlock</code>).</li>
     </ul>
 
@@ -746,8 +973,8 @@ function renderPrivacyPolicyHtml() {
     <p>You have the absolute right to delete all server-stored identifiers, purchase records, and entitlements at any time:</p>
     <ul>
       <li><strong>In-App:</strong> Open CrossScan Moto &gt; tap <em>Preferences</em> &gt; select <em>Delete Account &amp; Data</em>.</li>
-      <li><strong>Web Portal:</strong> Visit our public deletion portal at <a href="/delete-account">/delete-account</a> and enter your account UUID.</li>
-      <li><strong>Direct Request:</strong> Email <a href="mailto:privacy@puphr.com">privacy@puphr.com</a> with your store purchase receipt.</li>
+      <li><strong>Authenticated deletion:</strong> Sign in in CrossScan Moto and choose <em>Preferences &gt; Delete Account &amp; Data</em>. The server deletes account, purchase, entitlement, and session records for that account.</li>
+      <li><strong>Help:</strong> If you cannot sign in, contact <a href="mailto:privacy@puphr.com">privacy@puphr.com</a> for account recovery and deletion assistance.</li>
     </ul>
     <p>Upon request, your records are immediately and permanently erased from our Cloudflare D1 database.</p>
 
@@ -847,35 +1074,98 @@ function renderDeleteAccountPortalHtml() {
     .container { max-width: 680px; margin: 0 auto; }
     h1 { color: #fff; margin: 4px 0 12px 0; font-size: 26px; }
     .card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 24px 0; }
-    input[type=text] { width: 100%; box-sizing: border-box; padding: 12px; border-radius: 6px; border: 1px solid var(--border); background: #0d1117; color: #fff; font-family: monospace; font-size: 14px; margin: 8px 0 16px 0; }
-    button { background: var(--danger); color: #fff; border: none; padding: 12px 22px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; }
-    button:hover { opacity: 0.9; }
     a { color: var(--lime); text-decoration: none; }
+    label { display:block; margin:12px 0 6px; }
+    input { width:100%; box-sizing:border-box; padding:12px; border:1px solid var(--border); border-radius:6px; background:#0d1117; color:#fff; }
+    button { margin-top:14px; padding:12px 18px; border:0; border-radius:6px; background:var(--danger); color:#fff; font-weight:600; cursor:pointer; }
+    button:disabled { opacity:.55; cursor:wait; }
+    #status { min-height:1.5em; color:var(--muted); }
     .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Delete Account &amp; Stored Records</h1>
-    <p>Under Puphr LLC's privacy-first architecture, CrossScan Moto does not collect or store your vehicle telemetry or diagnostic data. The only data associated with your installation is an anonymous random UUID and verified store entitlement tokens.</p>
-    
+    <p>Verify the email linked to your CrossScan Moto account. Deletion uses an expiring authenticated session; an account UUID alone cannot erase records.</p>
     <div class="card">
-      <form method="POST" action="/delete-account">
-        <label for="accountId"><strong>Account UUID</strong></label>
-        <p style="font-size: 13px; color: var(--muted); margin: 4px 0 8px 0;">Found in CrossScan Moto under Preferences &gt; Account Identifier.</p>
-        <input type="text" id="accountId" name="accountId" placeholder="e.g. 59341044-17c8-47a3-8db9-5a9549956d9f" required pattern="[0-9a-fA-F-]{36}">
-        <button type="submit" onclick="return confirm('Are you sure you want to permanently delete your account and all associated purchase entitlements?');">Delete My Account Data</button>
-      </form>
+      <label for="email">Account email</label>
+      <input id="email" type="email" autocomplete="email" maxlength="254" required>
+      <div id="codeRow" hidden>
+        <label for="code">Six-digit verification code</label>
+        <input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+      </div>
+      <button id="action" type="button">Send verification code</button>
+      <p id="status" role="status" aria-live="polite"></p>
     </div>
-
-    <p style="font-size: 14px; color: var(--muted);">
-      You can also delete your data directly inside the CrossScan Moto app at <strong>Preferences &gt; Delete Account &amp; Data</strong>, or contact us at <a href="mailto:privacy@puphr.com">privacy@puphr.com</a>.
-    </p>
-
+    <p>If you cannot access the linked email, contact <a href="mailto:privacy@puphr.com">privacy@puphr.com</a> for help.</p>
     <div class="footer">
       &copy; 2026 Puphr LLC. All rights reserved.
     </div>
   </div>
+  <script>
+    (() => {
+      let sessionToken = null;
+      let verifiedEmail = null;
+      let codeSent = false;
+      const emailInput = document.getElementById('email');
+      const codeInput = document.getElementById('code');
+      const codeRow = document.getElementById('codeRow');
+      const action = document.getElementById('action');
+      const status = document.getElementById('status');
+
+      async function request(path, options = {}) {
+        const headers = { 'content-type': 'application/json', ...(options.headers || {}) };
+        return fetch(path, { ...options, headers, cache: 'no-store' });
+      }
+
+      action.addEventListener('click', async () => {
+        action.disabled = true;
+        try {
+          if (!codeSent) {
+            const email = emailInput.value.trim().toLowerCase();
+            const response = await request('/v1/auth/otp/request', {
+              method: 'POST', body: JSON.stringify({ email }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'otp_request_failed');
+            verifiedEmail = email;
+            codeSent = true;
+            codeRow.hidden = false;
+            action.textContent = 'Verify and delete account';
+            status.textContent = 'Enter the code sent to your email.';
+            return;
+          }
+
+          const verify = await request('/v1/auth/otp/verify', {
+            method: 'POST', body: JSON.stringify({ email: verifiedEmail, code: codeInput.value.trim() }),
+          });
+          const session = await verify.json();
+          if (!verify.ok || typeof session.sessionToken !== 'string' || !session.sessionToken) {
+            throw new Error(session.error || 'verification_failed');
+          }
+          sessionToken = session.sessionToken;
+          const deletion = await request('/v1/account', {
+            method: 'DELETE',
+            headers: { authorization: 'Bearer ' + sessionToken },
+          });
+          const deleted = await deletion.json();
+          sessionToken = null;
+          if (!deletion.ok || deleted.deleted !== true) {
+            throw new Error(deleted.error || 'delete_failed');
+          }
+          status.textContent = 'Account, purchase records, sessions, and entitlements were deleted.';
+          action.hidden = true;
+          emailInput.disabled = true;
+          codeInput.disabled = true;
+        } catch (error) {
+          sessionToken = null;
+          status.textContent = 'Unable to complete the request. Check the details and try again.';
+        } finally {
+          action.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>`;
 }
@@ -1000,68 +1290,61 @@ export default {
       const repository = env.DB ? new D1PurchaseRepository(env.DB) : null;
       const dependencies = defaultDependencies();
 
-      // Account deletion via Web portal form (POST /delete-account)
-      if (request.method === 'POST' && url.pathname === '/delete-account') {
+      if (request.method === 'DELETE' && url.pathname === '/v1/account') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
-        const form = await request.formData();
-        const accountId = form.get('accountId')?.toString().trim();
-        if (!validAccountId(accountId)) throw new PurchaseError(400, 'invalid_account_id');
-        const result = await repository.deleteAccount(accountId);
-        return htmlResponse(renderDeleteConfirmationHtml(result.accountId));
+        const session = await requireSession(request, env, repository);
+        const result = await repository.deleteAccount(session.accountId);
+        return jsonResponse({ deleted: true, accountId: result.accountId });
       }
 
-      // Account deletion via REST API (DELETE /v1/account/:accountId or POST /v1/account/delete)
-      const accountDeleteMatch = request.method === 'DELETE' && url.pathname.match(/^\/v1\/account\/([^/]+)$/);
-      if (accountDeleteMatch) {
+      if (request.method === 'POST' && url.pathname === '/v1/auth/logout') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
-        const accountId = decodeURIComponent(accountDeleteMatch[1]).toLowerCase();
-        if (!validAccountId(accountId)) throw new PurchaseError(400, 'invalid_account_id');
-        const result = await repository.deleteAccount(accountId);
-        return jsonResponse({ deleted: true, accountId: result.accountId });
-      }
-      if (request.method === 'POST' && url.pathname === '/v1/account/delete') {
-        if (!repository) throw new PurchaseError(503, 'database_not_configured');
-        const body = await readJson(request);
-        const accountId = body?.accountId?.toString().trim();
-        if (!validAccountId(accountId)) throw new PurchaseError(400, 'invalid_account_id');
-        const result = await repository.deleteAccount(accountId);
-        return jsonResponse({ deleted: true, accountId: result.accountId });
+        const session = await requireSession(request, env, repository);
+        await repository.revokeSession(session.jti);
+        return jsonResponse({ ok: true });
       }
 
       // Email OTP Request (POST /v1/auth/otp/request)
       if (request.method === 'POST' && url.pathname === '/v1/auth/otp/request') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
+        requireSecret(env.SESSION_SECRET, 'auth');
+        const otpPepper = env.OTP_PEPPER ?? env.SESSION_SECRET;
+        requireSecret(otpPepper, 'otp');
+        if (!env.EMAIL || typeof env.EMAIL.send !== 'function') {
+          throw new PurchaseError(503, 'email_delivery_not_configured');
+        }
         const body = await readJson(request);
         const email = body?.email?.toString().trim().toLowerCase();
         if (!validEmail(email)) throw new PurchaseError(400, 'invalid_email');
-        const clientAccountId = body?.accountId?.toString().trim();
-        if (clientAccountId && !validAccountId(clientAccountId)) {
-          throw new PurchaseError(400, 'invalid_account_id');
-        }
-
-        const existingOtp = await repository.getOtp(email);
         const now = Date.now();
-        if (existingOtp && (now - existingOtp.created_at < 60_000)) {
-          const waitSeconds = Math.ceil((60_000 - (now - existingOtp.created_at)) / 1000);
-          return jsonResponse({
-            error: 'rate_limited',
-            message: `Please wait ${waitSeconds} seconds before requesting a new code.`,
-            retryAfter: waitSeconds,
-          }, 429);
+        await repository.cleanupExpiredRateLimits(now);
+        const emailRateKey = `email:${await hashOtpCode(email, 'rate-limit', otpPepper)}`;
+        const sourceIp = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+        const ipRateKey = `ip:${await hashOtpCode(sourceIp, 'rate-limit', otpPepper)}`;
+        const emailAllowed = await repository.consumeRateLimit(emailRateKey, 1, 60_000, now);
+        const ipAllowed = await repository.consumeRateLimit(ipRateKey, 20, 60 * 60_000, now);
+        if (!emailAllowed || !ipAllowed) {
+          return jsonResponse({ error: 'rate_limited', retryAfter: emailAllowed ? 3600 : 60 }, 429);
         }
 
         const randomBytes = new Uint32Array(1);
-        crypto.getRandomValues(randomBytes);
-        const code = (100000 + (randomBytes[0] % 900000)).toString();
+        const range = Math.floor(0x1_0000_0000 / 900_000) * 900_000;
+        do { crypto.getRandomValues(randomBytes); } while (randomBytes[0] >= range);
+        const code = (100000 + (randomBytes[0] % 900_000)).toString();
 
         const saltBytes = new Uint8Array(16);
         crypto.getRandomValues(saltBytes);
         const salt = [...saltBytes].map((b) => b.toString(16).padStart(2, '0')).join('');
-        const codeHash = await hashHex(`${code}:${salt}`);
+        const codeHash = await hashOtpCode(code, salt, otpPepper);
         const expiresAt = now + 10 * 60 * 1000;
 
         await repository.saveOtp(email, codeHash, salt, expiresAt);
-        await sendOtpEmail(email, code, env, dependencies.sendEmail);
+        try {
+          await sendOtpEmail(email, code, env, dependencies.sendEmail);
+        } catch (error) {
+          await repository.deleteOtp(email);
+          throw error;
+        }
 
         return jsonResponse({
           ok: true,
@@ -1073,15 +1356,14 @@ export default {
       // Email OTP Verification (POST /v1/auth/otp/verify)
       if (request.method === 'POST' && url.pathname === '/v1/auth/otp/verify') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
+        requireSecret(env.SESSION_SECRET, 'auth');
+        const otpPepper = env.OTP_PEPPER ?? env.SESSION_SECRET;
+        requireSecret(otpPepper, 'otp');
         const body = await readJson(request);
         const email = body?.email?.toString().trim().toLowerCase();
         const code = body?.code?.toString().trim();
-        const clientAccountId = body?.accountId?.toString().trim();
         if (!validEmail(email)) throw new PurchaseError(400, 'invalid_email');
         if (!code || !/^\d{6}$/.test(code)) throw new PurchaseError(400, 'invalid_code');
-        if (clientAccountId && !validAccountId(clientAccountId)) {
-          throw new PurchaseError(400, 'invalid_account_id');
-        }
 
         const otpRecord = await repository.getOtp(email);
         const now = Date.now();
@@ -1092,48 +1374,39 @@ export default {
           throw new PurchaseError(429, 'too_many_attempts');
         }
 
-        const expectedHash = await hashHex(`${code}:${otpRecord.salt}`);
-        if (expectedHash !== otpRecord.code_hash) {
+        const expectedHash = await hashOtpCode(code, otpRecord.salt, otpPepper);
+        if (!constantTimeEqual(expectedHash, otpRecord.code_hash)) {
           await repository.incrementOtpAttempts(email);
           throw new PurchaseError(400, 'code_expired_or_invalid');
         }
+        const consumed = await repository.consumeOtp(email, expectedHash, now);
+        if (!consumed) throw new PurchaseError(400, 'code_expired_or_invalid');
 
-        await repository.deleteOtp(email);
-
-        const existingUser = await repository.findUserByEmail(email);
-        let targetAccountId;
-        if (existingUser) {
-          targetAccountId = existingUser.account_id;
-          if (clientAccountId && clientAccountId !== targetAccountId) {
-            const clientEntitlement = await repository.getEntitlement(clientAccountId, ENTITLEMENT_ID);
-            const userEntitlement = await repository.getEntitlement(targetAccountId, ENTITLEMENT_ID);
-            if (clientEntitlement?.status === 'active' && userEntitlement?.status !== 'active') {
-              targetAccountId = clientAccountId;
-              await repository.upsertUser(email, targetAccountId);
-            }
-          }
-        } else {
-          targetAccountId = clientAccountId && validAccountId(clientAccountId)
-            ? clientAccountId
-            : crypto.randomUUID();
-          await repository.upsertUser(email, targetAccountId);
-        }
-
-        const sessionSecret = env.SESSION_SECRET || config.APPLE_PRIVATE_KEY || 'crossscanmoto-secure-jwt-key';
+        const user = await repository.findUserByEmail(email) ?? await repository.createUserIfAbsent(email);
+        if (!user) throw new PurchaseError(503, 'account_creation_failed');
+        const sessionId = crypto.randomUUID();
+        const expiresAt = now + SESSION_TTL_SECONDS * 1000;
         const sessionToken = await createSessionToken({
-          userId: existingUser?.user_id || crypto.randomUUID(),
+          userId: user.user_id,
           email,
-          accountId: targetAccountId,
-        }, sessionSecret);
+          accountId: user.account_id,
+        }, env.SESSION_SECRET, { sessionId, nowSeconds: Math.floor(now / 1000) });
+        await repository.saveSession({
+          sessionId,
+          userId: user.user_id,
+          email,
+          accountId: user.account_id,
+          expiresAt,
+        });
 
-        const entitlement = await repository.getEntitlement(targetAccountId, ENTITLEMENT_ID);
+        const entitlement = await repository.getEntitlement(user.account_id, ENTITLEMENT_ID);
         const unlocked = entitlement?.status === 'active';
 
         return jsonResponse({
           ok: true,
           sessionToken,
           email,
-          accountId: targetAccountId,
+          accountId: user.account_id,
           unlocked,
         });
       }
@@ -1141,13 +1414,7 @@ export default {
       // User Session Lookup (GET /v1/auth/session)
       if (request.method === 'GET' && url.pathname === '/v1/auth/session') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
-        const authHeader = request.headers.get('authorization') ?? '';
-        const match = authHeader.match(/^Bearer\s+(.+)$/i);
-        if (!match) throw new PurchaseError(401, 'unauthorized');
-        const sessionSecret = env.SESSION_SECRET || config.APPLE_PRIVATE_KEY || 'crossscanmoto-secure-jwt-key';
-        const claims = await verifySessionToken(match[1], sessionSecret);
-        if (!claims) throw new PurchaseError(401, 'invalid_session');
-
+        const claims = await requireSession(request, env, repository);
         const entitlement = await repository.getEntitlement(claims.accountId, ENTITLEMENT_ID);
         return jsonResponse({
           ok: true,
@@ -1159,8 +1426,13 @@ export default {
 
       if (request.method === 'POST' && url.pathname === '/v1/purchases/apple') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
-        const purchase = await verifyApplePurchase(await readJson(request), config, dependencies);
-        const result = await repository.applyPurchase(purchase);
+        const session = await requireSession(request, env, repository);
+        const body = await readJson(request);
+        const purchase = await verifyApplePurchase(body, config, dependencies, {
+          accountId: session.accountId,
+          storeAccountId: session.accountId,
+        });
+        const result = await repository.applyPurchase(purchase, { userId: session.sub });
         if (purchase.state === 'active' && result.entitlement?.status !== 'active') {
           throw new PurchaseError(409, 'purchase_replayed');
         }
@@ -1174,8 +1446,13 @@ export default {
       }
       if (request.method === 'POST' && url.pathname === '/v1/purchases/google') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
-        const purchase = await verifyGooglePurchase(await readJson(request), config, dependencies);
-        const result = await repository.applyPurchase(purchase);
+        const session = await requireSession(request, env, repository);
+        const body = await readJson(request);
+        const purchase = await verifyGooglePurchase(body, config, dependencies, {
+          accountId: session.accountId,
+          storeAccountId: session.accountId,
+        });
+        const result = await repository.applyPurchase(purchase, { userId: session.sub });
         if (purchase.state === 'active' && result.entitlement?.status !== 'active') {
           throw new PurchaseError(409, 'purchase_replayed');
         }
@@ -1189,6 +1466,7 @@ export default {
       }
       if (request.method === 'POST' && url.pathname === '/v1/purchases/google/restore') {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
+        const session = await requireSession(request, env, repository);
         requireConfig(config, [
           'GOOGLE_PACKAGE_NAME', 'GOOGLE_UNLOCK_PRODUCT_ID',
           'GOOGLE_SERVICE_ACCOUNT_EMAIL', 'GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY',
@@ -1200,18 +1478,23 @@ export default {
         const tokenHash = await hashHex(body.purchaseToken);
         const owner = await repository.findGooglePurchaseOwner(tokenHash);
         if (!owner || owner.product_id !== config.GOOGLE_UNLOCK_PRODUCT_ID ||
-            !validAccountId(owner.account_id)) {
+            !validAccountId(owner.store_account_id)) {
           // No account identifier is returned for unknown or never-verified tokens.
           throw new PurchaseError(409, 'recovery_unavailable');
         }
         const purchase = await verifyGooglePurchase({
-          accountId: owner.account_id,
           purchaseToken: body.purchaseToken,
-        }, config, dependencies);
+        }, config, dependencies, {
+          accountId: session.accountId,
+          storeAccountId: owner.store_account_id,
+        });
         if (purchase.storeKey !== tokenHash) {
           throw new PurchaseError(422, 'purchase_token_mismatch');
         }
-        const result = await repository.applyPurchase(purchase);
+        const result = await repository.applyPurchase(purchase, {
+          userId: session.sub,
+          allowStoreAccountRebind: true,
+        });
         const unlocked = result.entitlement?.status === 'active';
         if (!unlocked) {
           return jsonResponse({ valid: false, entitlement: false }, 409);
@@ -1223,16 +1506,44 @@ export default {
           entitlement: true,
           idempotent: result.idempotent,
           productId: purchase.productId,
-          accountId: owner.account_id,
+          accountId: session.accountId,
         });
+      }
+      if (request.method === 'POST' && url.pathname === '/v1/purchases/apple/restore') {
+        if (!repository) throw new PurchaseError(503, 'database_not_configured');
+        const session = await requireSession(request, env, repository);
+        const body = await readJson(request);
+        const purchase = await verifyApplePurchase(body, config, dependencies, {
+          accountId: session.accountId,
+          allowStoreAccountRecovery: true,
+        });
+        const result = await repository.applyPurchase(purchase, {
+          userId: session.sub,
+          allowStoreAccountRebind: true,
+        });
+        const unlocked = result.entitlement?.status === 'active';
+        if (!unlocked) return jsonResponse({ valid: false, entitlement: false }, 409);
+        return jsonResponse({
+          valid: purchase.state === 'active', entitlement: true,
+          idempotent: result.idempotent, productId: purchase.productId,
+          accountId: session.accountId,
+        });
+      }
+      if (request.method === 'GET' && url.pathname === '/v1/entitlements') {
+        if (!repository) throw new PurchaseError(503, 'database_not_configured');
+        const session = await requireSession(request, env, repository);
+        const entitlement = await repository.getEntitlement(session.accountId, ENTITLEMENT_ID);
+        return jsonResponse({ unlocked: entitlement?.status === 'active', status: entitlement?.status ?? 'none', verificationConfigured: purchaseVerificationConfiguration(env) });
       }
       const entitlementMatch = request.method === 'GET' && url.pathname.match(/^\/v1\/entitlements\/([^/]+)$/);
       if (entitlementMatch) {
         if (!repository) throw new PurchaseError(503, 'database_not_configured');
+        const session = await requireSession(request, env, repository);
         const accountId = decodeURIComponent(entitlementMatch[1]).toLowerCase();
         if (!validAccountId(accountId)) throw new PurchaseError(400, 'invalid_account_id');
-        const entitlement = await repository.getEntitlement(accountId, ENTITLEMENT_ID);
-        return jsonResponse({ unlocked: entitlement?.status === 'active', status: entitlement?.status ?? 'none' });
+        if (accountId !== session.accountId) throw new PurchaseError(403, 'account_mismatch');
+        const entitlement = await repository.getEntitlement(session.accountId, ENTITLEMENT_ID);
+        return jsonResponse({ unlocked: entitlement?.status === 'active', status: entitlement?.status ?? 'none', verificationConfigured: purchaseVerificationConfiguration(env) });
       }
       return jsonResponse({ error: 'not_found' }, 404);
     } catch (error) {

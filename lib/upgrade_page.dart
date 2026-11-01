@@ -16,10 +16,23 @@ class UpgradePage extends StatefulWidget {
 }
 
 class _UpgradePageState extends State<UpgradePage> {
+  final _emailController = TextEditingController();
+  final _codeController = TextEditingController();
+  bool _codeSent = false;
+  bool _authBusy = false;
+  String? _authMessage;
+
   @override
   void initState() {
     super.initState();
     unawaited(widget.controller.initialize());
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _codeController.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,6 +66,8 @@ class _UpgradePageState extends State<UpgradePage> {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 24),
+                _accountPanel(context),
+                const SizedBox(height: 12),
                 if (widget.controller.product case final product?)
                   Card(
                     child: ListTile(
@@ -86,7 +101,7 @@ class _UpgradePageState extends State<UpgradePage> {
                 ],
                 const SizedBox(height: 24),
                 FilledButton.icon(
-                  onPressed: widget.controller.canPurchase
+                      onPressed: widget.controller.canPurchase
                       ? () => unawaited(widget.controller.buy())
                       : null,
                   icon: _progressIcon(widget.controller.phase),
@@ -100,7 +115,8 @@ class _UpgradePageState extends State<UpgradePage> {
                 const SizedBox(height: 10),
                 OutlinedButton.icon(
                   onPressed:
-                      widget.controller.isConfigured &&
+                          widget.controller.isAuthenticated &&
+                              widget.controller.isConfigured &&
                           widget.controller.storeAvailable &&
                           widget.controller.phase != PurchasePhase.verifying
                       ? () => unawaited(widget.controller.restorePurchases())
@@ -110,9 +126,8 @@ class _UpgradePageState extends State<UpgradePage> {
                 ),
                 const SizedBox(height: 8),
                 TextButton(
-                  onPressed: () =>
-                      unawaited(widget.controller.refreshEntitlement()),
-                  child: const Text('Check purchase status'),
+                  onPressed: () => unawaited(widget.controller.retry()),
+                  child: const Text('Retry store and server check'),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -127,6 +142,144 @@ class _UpgradePageState extends State<UpgradePage> {
       ),
     ),
   );
+
+  Widget _accountPanel(BuildContext context) {
+    if (widget.controller.isAuthenticated) {
+      return Card(
+        child: ListTile(
+          leading: const Icon(Icons.verified_user_outlined),
+          title: const Text('Signed in'),
+          subtitle: Text(widget.controller.userEmail ?? ''),
+          trailing: TextButton(
+            onPressed: _authBusy
+                ? null
+                : () async {
+                    setState(() => _authBusy = true);
+                    try {
+                      await widget.controller.signOut();
+                      _codeSent = false;
+                      _authMessage = 'Signed out.';
+                    } catch (_) {
+                      _authMessage = 'Could not sign out from the server. Try again online.';
+                    } finally {
+                      if (mounted) setState(() => _authBusy = false);
+                    }
+                  },
+            child: const Text('Sign out'),
+          ),
+        ),
+      );
+    }
+    if (!widget.controller.canAuthenticate) {
+      return const Card(
+        child: ListTile(
+          leading: Icon(Icons.info_outline),
+          title: Text('Account sign-in unavailable'),
+          subtitle: Text('This build has no configured secure account service.'),
+        ),
+      );
+    }
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('Sign in to purchase or restore',
+                style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 8),
+            Text(
+              'A verified email links your purchase to a recoverable account. Your store purchase is still verified separately.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 12),
+            if (!_codeSent)
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
+                decoration: const InputDecoration(
+                  labelText: 'Email address',
+                  border: OutlineInputBorder(),
+                ),
+              )
+            else ...[
+              Text('Enter the code sent to ${_emailController.text.trim()}.'),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _codeController,
+                keyboardType: TextInputType.number,
+                autofillHints: const [AutofillHints.oneTimeCode],
+                maxLength: 6,
+                decoration: const InputDecoration(
+                  labelText: 'Six-digit code',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+            if (_authMessage != null) ...[
+              const SizedBox(height: 8),
+              Text(_authMessage!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            ],
+            const SizedBox(height: 10),
+            FilledButton(
+              onPressed: _authBusy
+                  ? null
+                  : () => unawaited(_sendOrVerifyCode()),
+              child: Text(_authBusy
+                  ? 'Please wait…'
+                  : _codeSent
+                      ? 'Verify email'
+                      : 'Send sign-in code'),
+            ),
+            if (_codeSent)
+              TextButton(
+                onPressed: _authBusy
+                    ? null
+                    : () => setState(() {
+                          _codeSent = false;
+                          _codeController.clear();
+                          _authMessage = null;
+                        }),
+                child: const Text('Use a different email'),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _sendOrVerifyCode() async {
+    setState(() {
+      _authBusy = true;
+      _authMessage = null;
+    });
+    try {
+      if (!_codeSent) {
+        final email = _emailController.text.trim();
+        if (!email.contains('@')) {
+          setState(() => _authMessage = 'Enter a valid email address.');
+          return;
+        }
+        await widget.controller.requestEmailOtp(email);
+        setState(() => _codeSent = true);
+      } else {
+        await widget.controller.verifyEmailOtp(
+          _emailController.text.trim(),
+          _codeController.text.trim(),
+        );
+        setState(() {
+          _codeSent = false;
+          _codeController.clear();
+          _authMessage = 'Account verified.';
+        });
+      }
+    } catch (_) {
+      setState(() => _authMessage = 'Account verification failed. Check the email or code and try again.');
+    } finally {
+      if (mounted) setState(() => _authBusy = false);
+    }
+  }
 
   Widget _progressIcon(PurchasePhase phase) => switch (phase) {
     PurchasePhase.purchasing ||

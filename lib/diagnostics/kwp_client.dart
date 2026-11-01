@@ -4,10 +4,7 @@ import 'kwp_response.dart';
 /// Sends one BMW motorcycle KWP application request and returns its payload.
 /// Payloads exclude the ELM count/checksum bytes.
 abstract interface class KwpRequestLink {
-  Future<List<int>> request(
-    List<int> payload, {
-    Duration? timeout,
-  });
+  Future<List<int>> request(List<int> payload, {Duration? timeout});
 
   Future<bool> startCommunication();
 }
@@ -97,23 +94,20 @@ class BmwBikeKwpLink implements KwpRequestLink {
   @override
   Future<bool> startCommunication() async {
     _requireConfigured();
-    final reply = await request(
-      const [0x81],
-      timeout: const Duration(seconds: 3),
-    );
+    final reply = await request(const [
+      0x81,
+    ], timeout: const Duration(seconds: 3));
     if (reply.isNotEmpty && (reply.first == 0xc1 || reply.first == 0x5a)) {
       return true;
     }
-    if (reply.length < 3 ||
-        reply.first != 0x7f ||
-        (reply[2] != 0x11 && reply[2] != 0x12)) {
+    if (!_hasNrc(reply, 0x81, 0x11) && !_hasNrc(reply, 0x81, 0x12)) {
       return false;
     }
 
-    final probe = await request(
-      const [0x1a, 0x80],
-      timeout: const Duration(seconds: 3),
-    );
+    final probe = await request(const [
+      0x1a,
+      0x80,
+    ], timeout: const Duration(seconds: 3));
     return probe.isNotEmpty && probe.first == 0x5a;
   }
 
@@ -121,39 +115,31 @@ class BmwBikeKwpLink implements KwpRequestLink {
   /// raw `1A 80` identification response, if the ECU accepts the probe.
   Future<List<int>?> probeAndIdentify() async {
     _requireConfigured();
-    final start = await request(
-      const [0x81],
-      timeout: const Duration(seconds: 4),
-    );
-    final supportedByProbe = start.length >= 3 &&
-        start.first == 0x7f &&
-        (start[2] == 0x11 || start[2] == 0x12);
+    final start = await request(const [
+      0x81,
+    ], timeout: const Duration(seconds: 4));
+    final supportedByProbe =
+        _hasNrc(start, 0x81, 0x11) || _hasNrc(start, 0x81, 0x12);
     if (start.isEmpty || (start.first != 0xc1 && !supportedByProbe)) {
       return null;
     }
 
     if (supportedByProbe) {
-      final probe = await request(
-        const [0x1a, 0x80],
-        timeout: const Duration(seconds: 2),
-      );
+      final probe = await request(const [
+        0x1a,
+        0x80,
+      ], timeout: const Duration(seconds: 2));
       if (probe.isEmpty || probe.first != 0x5a) return null;
     }
 
-    return request(
-      const [0x1a, 0x80],
-      timeout: const Duration(seconds: 2),
-    );
+    return request(const [0x1a, 0x80], timeout: const Duration(seconds: 2));
   }
 
   /// Sends raw KWP bytes as contiguous hex. Each returned ELM line follows the
   /// 1.83 framing parser: byte 0 is payload length, then payload, then checksum.
   /// The old adapter did not reassemble multi-frame application responses.
   @override
-  Future<List<int>> request(
-    List<int> payload, {
-    Duration? timeout,
-  }) async {
+  Future<List<int>> request(List<int> payload, {Duration? timeout}) async {
     _requireConfigured();
     if (payload.isEmpty || payload.any((byte) => byte < 0 || byte > 0xff)) {
       throw ArgumentError('Expected nonempty bytes in range 0..255');
@@ -165,7 +151,7 @@ class BmwBikeKwpLink implements KwpRequestLink {
         .toUpperCase();
     final actualTimeout = timeout ?? const Duration(seconds: 3);
 
-    for (var retry = 0;; retry++) {
+    for (var retry = 0; ; retry++) {
       final response = await session.command(command, timeout: actualTimeout);
       final frames = decodeElmResponseLines(response.lines);
       if (frames.isEmpty) {
@@ -173,14 +159,16 @@ class BmwBikeKwpLink implements KwpRequestLink {
       }
 
       final first = frames.first;
-      if (_hasNrc(first, 0x21)) {
+      if (_hasNrc(first, payload.first, 0x21)) {
         if (retry >= maxBusyRetries) {
           throw KwpBusyException(payload.first, retry);
         }
         continue;
       }
-      if (_hasNrc(first, 0x78)) {
-        final finalFrame = frames.skipWhile((frame) => _hasNrc(frame, 0x78));
+      if (_hasNrc(first, payload.first, 0x78)) {
+        final finalFrame = frames.skipWhile(
+          (frame) => _hasNrc(frame, payload.first, 0x78),
+        );
         if (finalFrame.isEmpty) {
           throw KwpResponsePendingException(payload.first);
         }
@@ -234,15 +222,19 @@ class BmwBikeKwpLink implements KwpRequestLink {
       // 127 bytes in the recovered legacy KWP parser.
       if (payloadLength > 0x7f || frame.length != payloadLength + 2) {
         throw FormatException(
-            'KWP ELM length byte does not match frame: $line');
+          'KWP ELM length byte does not match frame: $line',
+        );
       }
       frames.add(List.unmodifiable(frame.skip(1).take(payloadLength)));
     }
     return List.unmodifiable(frames);
   }
 
-  static bool _hasNrc(List<int> frame, int code) =>
-      frame.length >= 3 && frame[0] == 0x7f && frame[2] == code;
+  static bool _hasNrc(List<int> frame, int requestService, int code) =>
+      frame.length == 3 &&
+      frame[0] == 0x7f &&
+      frame[1] == requestService &&
+      frame[2] == code;
 
   void _requireConfigured() {
     if (!isConfigured) {
@@ -272,10 +264,12 @@ class KwpClient {
 
     final dtcs = <KwpDtc>[];
     for (var offset = 1; offset < requiredLength; offset += 3) {
-      dtcs.add(KwpDtc(
-        code: (response.data[offset] << 8) | response.data[offset + 1],
-        opaqueRecordByte: response.data[offset + 2],
-      ));
+      dtcs.add(
+        KwpDtc(
+          code: (response.data[offset] << 8) | response.data[offset + 1],
+          opaqueRecordByte: response.data[offset + 2],
+        ),
+      );
     }
     return KwpDtcReport(dtcs: List.unmodifiable(dtcs));
   }
@@ -283,8 +277,10 @@ class KwpClient {
   /// Clears diagnostic trouble codes using standard KWP Service 0x14 with [0xFF, 0xFF].
   Future<void> clearDtc() async {
     await _startCommunication();
-    await _positive(0x14, const [0xff, 0xff],
-        timeout: const Duration(seconds: 5));
+    await _positive(0x14, const [
+      0xff,
+      0xff,
+    ], timeout: const Duration(seconds: 5));
   }
 
   /// Requests a live parameter by identifier via KWP Service 0x17.
@@ -303,10 +299,10 @@ class KwpClient {
     List<int> parameters, {
     Duration? timeout,
   }) async {
-    final payload = await link.request(
-      [service, ...parameters],
-      timeout: timeout,
-    );
+    final payload = await link.request([
+      service,
+      ...parameters,
+    ], timeout: timeout);
     final response = KwpResponse.decode(payload, requestService: service);
     if (response is KwpNegativeResponse) {
       throw KwpNegativeResponseException(response);

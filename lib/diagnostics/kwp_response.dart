@@ -2,25 +2,25 @@
 sealed class KwpResponse {
   const KwpResponse();
 
-  factory KwpResponse.decode(
-    List<int> payload, {
-    required int requestService,
-  }) {
+  factory KwpResponse.decode(List<int> payload, {required int requestService}) {
     _checkService(requestService);
     if (payload.isEmpty || payload.any((byte) => byte < 0 || byte > 0xff)) {
       throw const FormatException('Invalid KWP payload or service');
     }
 
     if (payload.first == 0x7f) {
-      if (payload.length != 3) {
-        throw const FormatException('Malformed KWP negative response');
+      if (payload.length != 3 || payload[1] != requestService) {
+        throw const FormatException(
+          'Malformed or mismatched KWP negative response',
+        );
       }
       return KwpNegativeResponse(payload[1], payload[2]);
     }
 
     if (payload.first != requestService + 0x40) {
       throw const FormatException(
-          'KWP response does not match request service');
+        'KWP response does not match request service',
+      );
     }
     return KwpPositiveResponse(
       payload.first,
@@ -42,8 +42,7 @@ final class KwpPositiveResponse extends KwpResponse {
   final List<int> data;
 }
 
-/// KWP's 0x7F response. `echoedService` is retained as sent by the ECU;
-/// the 1.83 application checked the NRC in byte 2 but did not validate byte 1.
+/// KWP's 0x7F response, with the echoed request service validated by the decoder.
 final class KwpNegativeResponse extends KwpResponse {
   const KwpNegativeResponse(this.echoedService, this.code);
 

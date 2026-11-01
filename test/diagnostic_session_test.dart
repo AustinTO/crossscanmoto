@@ -48,6 +48,43 @@ void main() {
     expect(diagnosticSession.voltage, isNull);
     await elm.close();
   });
+  test('changing ECU metadata invalidates the previous protocol client', () async {
+    final elm = ElmSession(_FakeTransport());
+    diagnosticSession.attach(elm);
+    diagnosticSession.attachUdsClient(UdsClient(_FakeUdsLink()), ecuKey: 'cuX_BMSX');
+    diagnosticSession.ecuDefinitionKey = 'cuX_ABS';
+    expect(diagnosticSession.protocolReady, isFalse);
+    expect(diagnosticSession.udsClient, isNull);
+    final hold = Completer<void>();
+    final active = diagnosticSession.runExclusive(() => hold.future);
+    expect(() => diagnosticSession.ecuDefinitionKey = 'cuX_BMSX', throwsStateError);
+    hold.complete();
+    await active;
+    expect(diagnosticSession.operationBusy, isFalse);
+    await elm.close();
+  });
+
+  test('target setup readdresses the adapter and failed setup leaves no stale link', () async {
+    final transport = _ReplyingTransport();
+    final elm = ElmSession(transport);
+    diagnosticSession.attach(elm);
+    await diagnosticSession.configureUdsTarget(ecuKey: 'cuX_BMSX', address: 0x12,
+        settleDelay: (_) async {});
+    final previousClient = diagnosticSession.udsClient;
+    await diagnosticSession.configureUdsTarget(ecuKey: 'cuX_ABS', address: 0x28,
+        settleDelay: (_) async {});
+    expect(transport.commands, contains('ATCEA28'));
+    expect(diagnosticSession.ecuDefinitionKey, 'cuX_ABS');
+    expect(identical(previousClient, diagnosticSession.udsClient), isFalse);
+    transport.rejectTargetSetup = true;
+    await expectLater(diagnosticSession.configureUdsTarget(
+        ecuKey: 'cuX_BMSX', address: 0x12, settleDelay: (_) async {}), throwsStateError);
+    expect(diagnosticSession.protocolReady, isFalse);
+    expect(diagnosticSession.activeLink, isNull);
+    expect(diagnosticSession.operationBusy, isFalse);
+    await elm.close();
+  });
+
 }
 
 class _FakeTransport implements AdapterTransport {
@@ -73,4 +110,23 @@ class _FakeUdsLink implements UdsRequestLink {
   @override
   Future<List<int>> request(List<int> payload, {Duration? timeout}) async =>
       [0x59, 0x02, 0xff];
+}
+
+class _ReplyingTransport extends _FakeTransport {
+  final commands = <String>[];
+  bool rejectTargetSetup = false;
+  @override
+  Future<void> write(List<int> bytes) async {
+    final command = ascii.decode(bytes).trim();
+    commands.add(command);
+    if (command == 'ATWS' || command == 'ATI') {
+      respond('ELM327');
+    } else if (command == 'ATRV') {
+      respond('12.6V');
+    } else if (rejectTargetSetup && command == 'ATSH6F1') {
+      respond('ERROR');
+    } else {
+      respond('OK');
+    }
+  }
 }
