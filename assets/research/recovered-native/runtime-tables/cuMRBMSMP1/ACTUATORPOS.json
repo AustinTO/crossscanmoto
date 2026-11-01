@@ -1,0 +1,20 @@
+{
+  "ecu_key": "cuMRBMSMP1",
+  "table": "ACTUATORPOS",
+  "rows": [
+    "380;365;106051;106052;0;106052;0",
+    "397;365;106054;106052;0;106052;0",
+    "382;367;111421;106052;0;106052;0",
+    "383;368;106059;106052;0;106052;0",
+    "384;369;106061;106052;0;106052;0",
+    "385;370;106062;106064;0;106064;0",
+    "398;370;106063;106064;0;106064;0",
+    "386;371;106069;106052;106052;106052;0",
+    "387;372;106066;106052;0;106052;0",
+    "388;373;111419;111420;0;111420;0",
+    "392;377;106067;106052;0;106052;0"
+  ],
+  "sha256": "c57019600bc4b973b46f5054a998fb66f9e92dad0d20cdb17cff39a27ca7260f",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "Candidate key generation is inferred; nonempty native query return is observed. No motorcycle or app network execution."
+}

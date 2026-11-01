@@ -1,0 +1,16 @@
+{
+  "ecu_key": "cuX_SLZ",
+  "table": "FUNCTIONS",
+  "rows": [
+    "1;1;0;0;0;0;49597",
+    "2;1;0;0;0;0;49499",
+    "3;1;0;0;0;0;48867",
+    "5;1;0;0;0;0;49472",
+    "6;0;0;0;0;0;49459",
+    "14;0;0;0;0;0;49721",
+    "15;0;0;0;0;0;49653"
+  ],
+  "sha256": "3304befc7b461dc6fd996fd61d4f5bb3ce39eb13461d9d4957b9151468cd8240",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

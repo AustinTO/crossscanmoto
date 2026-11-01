@@ -1,0 +1,15 @@
+{
+  "ecu_key": "cuX_KOMB03",
+  "table": "PARAMS",
+  "rows": [
+    "1160;22,D1,22;GWSZ_ANZEIGE_WERT;3;0;106075;1;0",
+    "1161;22,E0,64;TANKGEBER;3;0;110178;1;0",
+    "1170;22,E1,27;GANG_ANZEIGE_MR;3;0;106109;1;0",
+    "1178;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+    "1182;22,E1,C8;EINGANG_FERNLICHT;3;0;110200;1;0",
+    "1183;22,E1,C9;STATUS_EINGANG_BLINKER_SCHALTER_MR;3;0;110201;1;0"
+  ],
+  "sha256": "09d4f8bbc10f64d52d0f67e5ff9c7017aea35a969cf7733d44afaff68a71d0bb",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

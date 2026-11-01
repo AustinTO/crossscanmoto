@@ -1,0 +1,22 @@
+[
+  {
+    "file": "9a82e8.json",
+    "array_address": "0x9a82e8",
+    "header": [
+      "id",
+      "value",
+      "description"
+    ],
+    "rows": 140
+  },
+  {
+    "file": "9a8750.json",
+    "array_address": "0x9a8750",
+    "header": [
+      "id",
+      "description",
+      "languageid"
+    ],
+    "rows": 58
+  }
+]

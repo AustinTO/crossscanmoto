@@ -1,0 +1,18 @@
+{
+  "ecu_key": "cuMRBMSMP1",
+  "table": "ACTUATOR",
+  "rows": [
+    "365;106070",
+    "367;111421",
+    "368;106059",
+    "369;106061",
+    "370;106068",
+    "371;106069",
+    "372;106066",
+    "373;111419",
+    "377;106067"
+  ],
+  "sha256": "2331b4845729f52fff766a7722e570eb6474fb8706b3171e9d407ee4ce08b458",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "Candidate key generation is inferred; nonempty native query return is observed. No motorcycle or app network execution."
+}

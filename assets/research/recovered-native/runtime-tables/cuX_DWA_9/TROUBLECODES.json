@@ -1,0 +1,30 @@
+{
+  "ecu_key": "cuX_DWA_9",
+  "table": "TROUBLECODES",
+  "rows": [
+    "147712;151463",
+    "147720;151464",
+    "147721;151465",
+    "147842;152612",
+    "147843;152613",
+    "147845;151466",
+    "8388608;151467",
+    "8388609;151468",
+    "8388610;151469",
+    "8388611;151470",
+    "8388612;151471",
+    "8388613;151472",
+    "8388614;152744",
+    "14238815;151473",
+    "14242844;151474",
+    "14242852;151475",
+    "14242854;151476",
+    "14242858;151477",
+    "14242866;151478",
+    "14242870;151479",
+    "14242951;151480"
+  ],
+  "sha256": "f468e4b91575f0a0850f079ed0a864d553abdda58127dca9154a5abb86b45a83",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

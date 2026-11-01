@@ -1,0 +1,303 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "array_address": "0x9a8750",
+  "header_address": "0x1a66f0",
+  "header": [
+    "id",
+    "description",
+    "languageid"
+  ],
+  "rows": [
+    {
+      "pointer_slot": "0x9a8758",
+      "text_address": "0x300b3d",
+      "raw": "1;0/1;105476"
+    },
+    {
+      "pointer_slot": "0x9a8760",
+      "text_address": "0x39eb7b",
+      "raw": "2;V;105477"
+    },
+    {
+      "pointer_slot": "0x9a8768",
+      "text_address": "0x3d23a9",
+      "raw": "3;TEXT;105478"
+    },
+    {
+      "pointer_slot": "0x9a8770",
+      "text_address": "0x2ccf74",
+      "raw": "4;min;105479"
+    },
+    {
+      "pointer_slot": "0x9a8778",
+      "text_address": "0x4a6045",
+      "raw": "5;s;105480"
+    },
+    {
+      "pointer_slot": "0x9a8780",
+      "text_address": "0x31bf0e",
+      "raw": "6;DATA;105481"
+    },
+    {
+      "pointer_slot": "0x9a8788",
+      "text_address": "0x407613",
+      "raw": "7;°C;105482"
+    },
+    {
+      "pointer_slot": "0x9a8790",
+      "text_address": "0x350113",
+      "raw": "8;km/h;105483"
+    },
+    {
+      "pointer_slot": "0x9a8798",
+      "text_address": "0x211a11",
+      "raw": "9;hPa;105484"
+    },
+    {
+      "pointer_slot": "0x9a87a0",
+      "text_address": "0x211a1e",
+      "raw": "10;1/min;105485"
+    },
+    {
+      "pointer_slot": "0x9a87a8",
+      "text_address": "0x1c1ada",
+      "raw": "11;-;105486"
+    },
+    {
+      "pointer_slot": "0x9a87b0",
+      "text_address": "0x3848a1",
+      "raw": "12;°;105487"
+    },
+    {
+      "pointer_slot": "0x9a87b8",
+      "text_address": "0x350121",
+      "raw": "13;ms;105488"
+    },
+    {
+      "pointer_slot": "0x9a87c0",
+      "text_address": "0x2b0f1c",
+      "raw": "14;%;105489"
+    },
+    {
+      "pointer_slot": "0x9a87c8",
+      "text_address": "0x421372",
+      "raw": "15;0-n;105490"
+    },
+    {
+      "pointer_slot": "0x9a87d0",
+      "text_address": "0x369549",
+      "raw": "16;mm;105491"
+    },
+    {
+      "pointer_slot": "0x9a87d8",
+      "text_address": "0x35012e",
+      "raw": "17;°/s;105492"
+    },
+    {
+      "pointer_slot": "0x9a87e0",
+      "text_address": "0x3d23b7",
+      "raw": "18;m/s²;105493"
+    },
+    {
+      "pointer_slot": "0x9a87e8",
+      "text_address": "0x300b4a",
+      "raw": "19;km;105494"
+    },
+    {
+      "pointer_slot": "0x9a87f0",
+      "text_address": "0x1dc917",
+      "raw": "20;Schritte;106095"
+    },
+    {
+      "pointer_slot": "0x9a87f8",
+      "text_address": "0x470e61",
+      "raw": "21;Liter;106120"
+    },
+    {
+      "pointer_slot": "0x9a8800",
+      "text_address": "0x2b0f28",
+      "raw": "22;Counts;106561"
+    },
+    {
+      "pointer_slot": "0x9a8808",
+      "text_address": "0x2b0f39",
+      "raw": "23;bar;106770"
+    },
+    {
+      "pointer_slot": "0x9a8810",
+      "text_address": "0x470e71",
+      "raw": "24;Inkremente;106935"
+    },
+    {
+      "pointer_slot": "0x9a8818",
+      "text_address": "0x3848ae",
+      "raw": "25;kHz;106957"
+    },
+    {
+      "pointer_slot": "0x9a8820",
+      "text_address": "0x1dc92a",
+      "raw": "26;dBµV;107004"
+    },
+    {
+      "pointer_slot": "0x9a8828",
+      "text_address": "0x18ad99",
+      "raw": "27;Fehler;107023"
+    },
+    {
+      "pointer_slot": "0x9a8830",
+      "text_address": "0x43b723",
+      "raw": "28;Hz;107025"
+    },
+    {
+      "pointer_slot": "0x9a8838",
+      "text_address": "0x2ccf81",
+      "raw": "29;Stufen;107488"
+    },
+    {
+      "pointer_slot": "0x9a8840",
+      "text_address": "0x48ba82",
+      "raw": "30;Volt;107640"
+    },
+    {
+      "pointer_slot": "0x9a8848",
+      "text_address": "0x300b57",
+      "raw": "31;Grad;107648"
+    },
+    {
+      "pointer_slot": "0x9a8850",
+      "text_address": "0x2ccf92",
+      "raw": "32;mA;107673"
+    },
+    {
+      "pointer_slot": "0x9a8858",
+      "text_address": "0x27af2e",
+      "raw": "33;d;107756"
+    },
+    {
+      "pointer_slot": "0x9a8860",
+      "text_address": "0x211a2e",
+      "raw": "34;m;107855"
+    },
+    {
+      "pointer_slot": "0x9a8868",
+      "text_address": "0x1dc93a",
+      "raw": "35;mV;107934"
+    },
+    {
+      "pointer_slot": "0x9a8870",
+      "text_address": "0x22c364",
+      "raw": "36;l;108080"
+    },
+    {
+      "pointer_slot": "0x9a8878",
+      "text_address": "0x211a3a",
+      "raw": "37;A;108262"
+    },
+    {
+      "pointer_slot": "0x9a8880",
+      "text_address": "0x470e86",
+      "raw": "38;1/s;108346"
+    },
+    {
+      "pointer_slot": "0x9a8888",
+      "text_address": "0x246dd2",
+      "raw": "39;Stufe;108379"
+    },
+    {
+      "pointer_slot": "0x9a8890",
+      "text_address": "0x48ba91",
+      "raw": "40;HEX;108389"
+    },
+    {
+      "pointer_slot": "0x9a8898",
+      "text_address": "0x1c1ae6",
+      "raw": "41;l/s;108632"
+    },
+    {
+      "pointer_slot": "0x9a88a0",
+      "text_address": "0x3848bc",
+      "raw": "42;+;108892"
+    },
+    {
+      "pointer_slot": "0x9a88a8",
+      "text_address": "0x35013d",
+      "raw": "43;Nm;109051"
+    },
+    {
+      "pointer_slot": "0x9a88b0",
+      "text_address": "0x3363bc",
+      "raw": "44;Schritt;109313"
+    },
+    {
+      "pointer_slot": "0x9a88b8",
+      "text_address": "0x22c370",
+      "raw": "45;count;109322"
+    },
+    {
+      "pointer_slot": "0x9a88c0",
+      "text_address": "0x2e701e",
+      "raw": "46;m/s;109491"
+    },
+    {
+      "pointer_slot": "0x9a88c8",
+      "text_address": "0x369556",
+      "raw": "47;Ohm;110180"
+    },
+    {
+      "pointer_slot": "0x9a88d0",
+      "text_address": "0x43b730",
+      "raw": "48;lx;110570"
+    },
+    {
+      "pointer_slot": "0x9a88d8",
+      "text_address": "0x27af3a",
+      "raw": "49;dBm;110587"
+    },
+    {
+      "pointer_slot": "0x9a88e0",
+      "text_address": "0x1a670a",
+      "raw": "50;Bit;110661"
+    },
+    {
+      "pointer_slot": "0x9a88e8",
+      "text_address": "0x421380",
+      "raw": "51;mbar;110740"
+    },
+    {
+      "pointer_slot": "0x9a88f0",
+      "text_address": "0x42138f",
+      "raw": "52;° KW;110896"
+    },
+    {
+      "pointer_slot": "0x9a88f8",
+      "text_address": "0x300b66",
+      "raw": "53;cm;111359"
+    },
+    {
+      "pointer_slot": "0x9a8900",
+      "text_address": "0x4a6050",
+      "raw": "54;µs;111365"
+    },
+    {
+      "pointer_slot": "0x9a8908",
+      "text_address": "0x35014a",
+      "raw": "55;mg;111500"
+    },
+    {
+      "pointer_slot": "0x9a8910",
+      "text_address": "0x22c380",
+      "raw": "56;[-];112877"
+    },
+    {
+      "pointer_slot": "0x9a8918",
+      "text_address": "0x27af48",
+      "raw": "57;J;112913"
+    },
+    {
+      "pointer_slot": "0x9a8920",
+      "text_address": "0x369564",
+      "raw": "58;W;113173"
+    }
+  ],
+  "ecu_owner": null
+}

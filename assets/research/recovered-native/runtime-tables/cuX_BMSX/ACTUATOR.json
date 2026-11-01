@@ -1,0 +1,17 @@
+{
+  "ecu_key": "cuX_BMSX",
+  "table": "ACTUATOR",
+  "rows": [
+    "1;106070",
+    "2;106060",
+    "4;106059",
+    "5;106061",
+    "6;106068",
+    "7;106069",
+    "8;106066",
+    "13;106067"
+  ],
+  "sha256": "fa749691302e6a9c86e73a95969fcc045364b9b0407fe6cfed9ae8e6ea95213c",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

@@ -1,0 +1,15 @@
+{
+  "ecu_key": "cuX_KOMB50",
+  "table": "PARAMS",
+  "rows": [
+    "1352;22,E1,1B;PHOTOSENSOR_MR;3;0;106082;1;0",
+    "1353;22,E1,1C;WECKLEITUNG_DIGITAL_MR;3;0;106083;1;0",
+    "1354;22,E1,1D;TEMPERATUR_DISPLAY_MR;3;0;106084;1;0",
+    "1355;22,E1,20;LIN_SCHALTERBLOCK_LINKS_MR;3;0;106088;1;0",
+    "1356;22,E1,21;LIN_MMC_BEDIENUNG_MR;3;0;106089;1;0",
+    "1375;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0"
+  ],
+  "sha256": "93db7eea8bab8f35ab8ceb52f960b2c0c39b2b0fd5c4e8789d7807c712c67f78",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

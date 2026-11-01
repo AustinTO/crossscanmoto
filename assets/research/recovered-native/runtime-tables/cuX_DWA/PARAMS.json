@@ -1,0 +1,16 @@
+{
+  "ecu_key": "cuX_DWA",
+  "table": "PARAMS",
+  "rows": [
+    "627;22,E0,C1;DWA_INT_BATTERIE_MR;3;0;107634;1;0",
+    "628;22,E0,C2;DWA_NEIGUNG_MR;3;0;107642;1;0",
+    "630;22,E0,C5;DWA_FERNBEDIENUNG_MR;3;0;107656;1;0",
+    "631;22,E0,C8;DWA_ALARM_MR;3;0;107661;1;0",
+    "632;22,E0,C9;ZV_STATUS_MR;3;0;107670;1;0",
+    "635;22,E1,10;VORFELD_BEL_MR;3;0;107676;1;0",
+    "639;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0"
+  ],
+  "sha256": "99731fe433bb4a9dbceb991d13abff6b8d1328a0fcabb746dfad24300a0b551d",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

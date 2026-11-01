@@ -1,0 +1,713 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "array_address": "0x9a82e8",
+  "header_address": "0x2e6fca",
+  "header": [
+    "id",
+    "value",
+    "description"
+  ],
+  "rows": [
+    {
+      "pointer_slot": "0x9a82f0",
+      "text_address": "0x18ad32",
+      "raw": "1;1;Reinshagen / Delphi"
+    },
+    {
+      "pointer_slot": "0x9a82f8",
+      "text_address": "0x18ad4a",
+      "raw": "2;2;Leopold Kostal GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a8300",
+      "text_address": "0x16fe51",
+      "raw": "3;3;Hella Fahrzeugkomponenten GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8308",
+      "text_address": "0x4a5f71",
+      "raw": "4;4;Siemens"
+    },
+    {
+      "pointer_slot": "0x9a8310",
+      "text_address": "0x3ec328",
+      "raw": "5;5;Eaton"
+    },
+    {
+      "pointer_slot": "0x9a8318",
+      "text_address": "0x16fe74",
+      "raw": "6;6;UTA"
+    },
+    {
+      "pointer_slot": "0x9a8320",
+      "text_address": "0x2e6fdf",
+      "raw": "7;7;Helbako GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8328",
+      "text_address": "0x3ec332",
+      "raw": "8;8;Robert Bosch GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8330",
+      "text_address": "0x2b0e91",
+      "raw": "9;9;Lear Corporation"
+    },
+    {
+      "pointer_slot": "0x9a8338",
+      "text_address": "0x3ec348",
+      "raw": "10;16;VDO"
+    },
+    {
+      "pointer_slot": "0x9a8340",
+      "text_address": "0x2610b0",
+      "raw": "11;17;Valeo GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8348",
+      "text_address": "0x350094",
+      "raw": "12;18;MBB"
+    },
+    {
+      "pointer_slot": "0x9a8350",
+      "text_address": "0x4a5f7d",
+      "raw": "13;19;Kammerer"
+    },
+    {
+      "pointer_slot": "0x9a8358",
+      "text_address": "0x2e6ff0",
+      "raw": "14;20;SWF"
+    },
+    {
+      "pointer_slot": "0x9a8360",
+      "text_address": "0x4a5f8c",
+      "raw": "15;21;Blaupunkt"
+    },
+    {
+      "pointer_slot": "0x9a8368",
+      "text_address": "0x470e0e",
+      "raw": "16;22;Philips"
+    },
+    {
+      "pointer_slot": "0x9a8370",
+      "text_address": "0x421309",
+      "raw": "17;23;Alpine Electronics GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8378",
+      "text_address": "0x1dc8b4",
+      "raw": "18;24;Continental Teves AG & Co. OHG"
+    },
+    {
+      "pointer_slot": "0x9a8380",
+      "text_address": "0x421327",
+      "raw": "19;25;Elektromatik Sudafrika"
+    },
+    {
+      "pointer_slot": "0x9a8388",
+      "text_address": "0x4a5f9c",
+      "raw": "20;32;Harman Becker Automotive Systems"
+    },
+    {
+      "pointer_slot": "0x9a8390",
+      "text_address": "0x43b692",
+      "raw": "21;33;Preh GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8398",
+      "text_address": "0x3ec352",
+      "raw": "22;34;Alps Electric Co. Ltd."
+    },
+    {
+      "pointer_slot": "0x9a83a0",
+      "text_address": "0x2ccee3",
+      "raw": "23;35;Motorola"
+    },
+    {
+      "pointer_slot": "0x9a83a8",
+      "text_address": "0x1f6f73",
+      "raw": "24;36;Temic"
+    },
+    {
+      "pointer_slot": "0x9a83b0",
+      "text_address": "0x421344",
+      "raw": "25;37;Webasto SE"
+    },
+    {
+      "pointer_slot": "0x9a83b8",
+      "text_address": "0x16fe7c",
+      "raw": "26;38;MotoMeter"
+    },
+    {
+      "pointer_slot": "0x9a83c0",
+      "text_address": "0x2610c1",
+      "raw": "27;39;Delphi Automotive PLC"
+    },
+    {
+      "pointer_slot": "0x9a83c8",
+      "text_address": "0x21198f",
+      "raw": "28;40;DODUCO (Beru)"
+    },
+    {
+      "pointer_slot": "0x9a83d0",
+      "text_address": "0x1f6f7f",
+      "raw": "29;41;DENSO"
+    },
+    {
+      "pointer_slot": "0x9a83d8",
+      "text_address": "0x1f6f8b",
+      "raw": "30;48;NEC"
+    },
+    {
+      "pointer_slot": "0x9a83e0",
+      "text_address": "0x48ba1f",
+      "raw": "31;49;DASA"
+    },
+    {
+      "pointer_slot": "0x9a83e8",
+      "text_address": "0x16fe8c",
+      "raw": "32;50;Pioneer Corporation"
+    },
+    {
+      "pointer_slot": "0x9a83f0",
+      "text_address": "0x39eb32",
+      "raw": "33;51;Jatco"
+    },
+    {
+      "pointer_slot": "0x9a83f8",
+      "text_address": "0x2ccef2",
+      "raw": "34;52;FUBA Automotive GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a8400",
+      "text_address": "0x16fea6",
+      "raw": "35;53;UK-NSI"
+    },
+    {
+      "pointer_slot": "0x9a8408",
+      "text_address": "0x470e1c",
+      "raw": "36;54;AABG"
+    },
+    {
+      "pointer_slot": "0x9a8410",
+      "text_address": "0x31beb0",
+      "raw": "37;55;Dunlop"
+    },
+    {
+      "pointer_slot": "0x9a8418",
+      "text_address": "0x3b8db2",
+      "raw": "38;56;Sachs"
+    },
+    {
+      "pointer_slot": "0x9a8420",
+      "text_address": "0x300aa1",
+      "raw": "39;57;ITT"
+    },
+    {
+      "pointer_slot": "0x9a8428",
+      "text_address": "0x16feb3",
+      "raw": "40;64;FTE (Fahrzeugtechnik Ebern)"
+    },
+    {
+      "pointer_slot": "0x9a8430",
+      "text_address": "0x31bebd",
+      "raw": "41;65;Megamos"
+    },
+    {
+      "pointer_slot": "0x9a8438",
+      "text_address": "0x16fed5",
+      "raw": "42;66;TRW Automotive GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8440",
+      "text_address": "0x2610dd",
+      "raw": "43;67;WABCO Fahrzeugsysteme GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8448",
+      "text_address": "0x2b0ea6",
+      "raw": "44;68;ISAD Electronic Systems"
+    },
+    {
+      "pointer_slot": "0x9a8450",
+      "text_address": "0x2119a3",
+      "raw": "45;69;HEC Hella Electronics Corporation"
+    },
+    {
+      "pointer_slot": "0x9a8458",
+      "text_address": "0x2ccf16",
+      "raw": "46;70;Gemel"
+    },
+    {
+      "pointer_slot": "0x9a8460",
+      "text_address": "0x3694dd",
+      "raw": "47;71;ZF Friedrichshafen AG"
+    },
+    {
+      "pointer_slot": "0x9a8468",
+      "text_address": "0x31becb",
+      "raw": "48;72;GMPT"
+    },
+    {
+      "pointer_slot": "0x9a8470",
+      "text_address": "0x1f6f95",
+      "raw": "49;73;Harman Becker Automotive Systems GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8478",
+      "text_address": "0x35009e",
+      "raw": "50;80;Remes GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8480",
+      "text_address": "0x3500af",
+      "raw": "51;81;ZF Lenksysteme GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8488",
+      "text_address": "0x421355",
+      "raw": "52;82;Magneti Marelli S.p.A."
+    },
+    {
+      "pointer_slot": "0x9a8490",
+      "text_address": "0x1a6699",
+      "raw": "53;83;Johnson Controls Inc."
+    },
+    {
+      "pointer_slot": "0x9a8498",
+      "text_address": "0x2119cb",
+      "raw": "54;84;GETRAG Getriebe- und Zahnradf. Hermann Hagenmeyer GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a84a0",
+      "text_address": "0x3d231f",
+      "raw": "55;85;Behr-Hella Thermocontrol GmbH"
+    },
+    {
+      "pointer_slot": "0x9a84a8",
+      "text_address": "0x4a5fc3",
+      "raw": "56;86;Siemens VDO Automotive"
+    },
+    {
+      "pointer_slot": "0x9a84b0",
+      "text_address": "0x22c2c7",
+      "raw": "57;87;Visteon Innovation & Technology GmbH"
+    },
+    {
+      "pointer_slot": "0x9a84b8",
+      "text_address": "0x43b6a2",
+      "raw": "58;88;Autoliv AB"
+    },
+    {
+      "pointer_slot": "0x9a84c0",
+      "text_address": "0x1f6fc1",
+      "raw": "59;89;Haberl Electronic GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a84c8",
+      "text_address": "0x2ccf22",
+      "raw": "60;96;Magna International Inc."
+    },
+    {
+      "pointer_slot": "0x9a84d0",
+      "text_address": "0x1c1ac5",
+      "raw": "61;97;Marquardt GmbH"
+    },
+    {
+      "pointer_slot": "0x9a84d8",
+      "text_address": "0x2610fe",
+      "raw": "62;98;AB Elektronik GmbH"
+    },
+    {
+      "pointer_slot": "0x9a84e0",
+      "text_address": "0x3b8dbe",
+      "raw": "63;99;SDVO/BORG"
+    },
+    {
+      "pointer_slot": "0x9a84e8",
+      "text_address": "0x48ba2a",
+      "raw": "64;100;Hirschmann Car Communication GmbH"
+    },
+    {
+      "pointer_slot": "0x9a84f0",
+      "text_address": "0x2b0ec4",
+      "raw": "65;101;hoerbiger-electronics"
+    },
+    {
+      "pointer_slot": "0x9a84f8",
+      "text_address": "0x22c2f2",
+      "raw": "66;102;Thyssen Krupp Automotive"
+    },
+    {
+      "pointer_slot": "0x9a8500",
+      "text_address": "0x39eb3e",
+      "raw": "67;103;Gentex Corporation"
+    },
+    {
+      "pointer_slot": "0x9a8508",
+      "text_address": "0x2b0ee1",
+      "raw": "68;104;Atena GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8510",
+      "text_address": "0x295c37",
+      "raw": "69;105;Magna-Donelly"
+    },
+    {
+      "pointer_slot": "0x9a8518",
+      "text_address": "0x261117",
+      "raw": "70;112;Koyo Steeting Europe"
+    },
+    {
+      "pointer_slot": "0x9a8520",
+      "text_address": "0x1a66b5",
+      "raw": "71;113;NSI Beheer B.V."
+    },
+    {
+      "pointer_slot": "0x9a8528",
+      "text_address": "0x4075c0",
+      "raw": "72;114;Aisin AW Co. Ltd."
+    },
+    {
+      "pointer_slot": "0x9a8530",
+      "text_address": "0x300aab",
+      "raw": "73;115;Schorlock"
+    },
+    {
+      "pointer_slot": "0x9a8538",
+      "text_address": "0x300abc",
+      "raw": "74;116;Schrader Electronics Ltd."
+    },
+    {
+      "pointer_slot": "0x9a8540",
+      "text_address": "0x1a66cc",
+      "raw": "75;117;Huf-Electronics Bretten GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8548",
+      "text_address": "0x3d2343",
+      "raw": "76;118;CEL"
+    },
+    {
+      "pointer_slot": "0x9a8550",
+      "text_address": "0x39eb58",
+      "raw": "77;119;AUDIO MOBIL Elektronik GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8558",
+      "text_address": "0x1dc8d9",
+      "raw": "78;120;rd electronic"
+    },
+    {
+      "pointer_slot": "0x9a8560",
+      "text_address": "0x455db2",
+      "raw": "79;121;iSYS RTS GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8568",
+      "text_address": "0x22c312",
+      "raw": "80;128;Westfalia-Automotive GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8570",
+      "text_address": "0x3d234e",
+      "raw": "81;129;Tyco Electronics"
+    },
+    {
+      "pointer_slot": "0x9a8578",
+      "text_address": "0x1f6fe7",
+      "raw": "82;130;Paragon AG"
+    },
+    {
+      "pointer_slot": "0x9a8580",
+      "text_address": "0x4075d9",
+      "raw": "83;131;IEE S.A."
+    },
+    {
+      "pointer_slot": "0x9a8588",
+      "text_address": "0x295c4c",
+      "raw": "84;132;TEMIC AUTOMOTIVE of NA"
+    },
+    {
+      "pointer_slot": "0x9a8590",
+      "text_address": "0x48ba53",
+      "raw": "85;133;Sonceboz S.A."
+    },
+    {
+      "pointer_slot": "0x9a8598",
+      "text_address": "0x33634c",
+      "raw": "86;134;Meta System S.p.A."
+    },
+    {
+      "pointer_slot": "0x9a85a0",
+      "text_address": "0x470e27",
+      "raw": "87;135;Huf Hulsbeck & Furst GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a85a8",
+      "text_address": "0x246d7e",
+      "raw": "88;136;MANN+HUMMEL GmbH"
+    },
+    {
+      "pointer_slot": "0x9a85b0",
+      "text_address": "0x31bed6",
+      "raw": "89;137;Brose Fahrzeugteile GmbH & Co."
+    },
+    {
+      "pointer_slot": "0x9a85b8",
+      "text_address": "0x2e6ffa",
+      "raw": "90;144;Keihin"
+    },
+    {
+      "pointer_slot": "0x9a85c0",
+      "text_address": "0x4075e9",
+      "raw": "91;145;Vimercati S.p.a"
+    },
+    {
+      "pointer_slot": "0x9a85c8",
+      "text_address": "0x2b0ef3",
+      "raw": "92;146;CRH"
+    },
+    {
+      "pointer_slot": "0x9a85d0",
+      "text_address": "0x246d96",
+      "raw": "93;147;TPO Display Corp"
+    },
+    {
+      "pointer_slot": "0x9a85d8",
+      "text_address": "0x2ccf41",
+      "raw": "94;148;Kuster Automotive GmbH"
+    },
+    {
+      "pointer_slot": "0x9a85e0",
+      "text_address": "0x43b6b3",
+      "raw": "95;149;Hitachi Automotive"
+    },
+    {
+      "pointer_slot": "0x9a85e8",
+      "text_address": "0x2e7008",
+      "raw": "96;150;Continental AG"
+    },
+    {
+      "pointer_slot": "0x9a85f0",
+      "text_address": "0x2ccf5f",
+      "raw": "97;151;TI-Automotive"
+    },
+    {
+      "pointer_slot": "0x9a85f8",
+      "text_address": "0x4a5fe0",
+      "raw": "98;152;Hydro"
+    },
+    {
+      "pointer_slot": "0x9a8600",
+      "text_address": "0x295c6a",
+      "raw": "99;153;Johnson Controls Inc."
+    },
+    {
+      "pointer_slot": "0x9a8608",
+      "text_address": "0x261133",
+      "raw": "100;154;Takata-Petri"
+    },
+    {
+      "pointer_slot": "0x9a8610",
+      "text_address": "0x1dc8ee",
+      "raw": "101;155;Mitsubishi Electric B.V. (Melco)"
+    },
+    {
+      "pointer_slot": "0x9a8618",
+      "text_address": "0x4a5fed",
+      "raw": "102;156;Autokabel"
+    },
+    {
+      "pointer_slot": "0x9a8620",
+      "text_address": "0x470e51",
+      "raw": "103;157;GKN Plc"
+    },
+    {
+      "pointer_slot": "0x9a8628",
+      "text_address": "0x3500c9",
+      "raw": "104;158;Zollner Elektronik AG"
+    },
+    {
+      "pointer_slot": "0x9a8630",
+      "text_address": "0x300add",
+      "raw": "105;159;peiker acustic GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a8638",
+      "text_address": "0x455dc7",
+      "raw": "106;160;Bosal-Oris"
+    },
+    {
+      "pointer_slot": "0x9a8640",
+      "text_address": "0x16feef",
+      "raw": "107;161;Cobasys"
+    },
+    {
+      "pointer_slot": "0x9a8648",
+      "text_address": "0x3500e7",
+      "raw": "108;162;Automotive Lighting Reutlingen GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8650",
+      "text_address": "0x3694f9",
+      "raw": "109;163;CONTI VDO"
+    },
+    {
+      "pointer_slot": "0x9a8658",
+      "text_address": "0x295c87",
+      "raw": "110;164;A.D.C. Automotive Distance Control Systems GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8660",
+      "text_address": "0x2b0efe",
+      "raw": "111;165;Novero Dabendorf GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8668",
+      "text_address": "0x22c333",
+      "raw": "112;166;LAMES S.p.a."
+    },
+    {
+      "pointer_slot": "0x9a8670",
+      "text_address": "0x300b02",
+      "raw": "113;167;Magna/Closures"
+    },
+    {
+      "pointer_slot": "0x9a8678",
+      "text_address": "0x246dae",
+      "raw": "114;168;Harbin Wan Yu Technology Co"
+    },
+    {
+      "pointer_slot": "0x9a8680",
+      "text_address": "0x16feff",
+      "raw": "115;169;ThyssenKrupp Presta AG"
+    },
+    {
+      "pointer_slot": "0x9a8688",
+      "text_address": "0x4a5fff",
+      "raw": "116;170;ArvinMeritor"
+    },
+    {
+      "pointer_slot": "0x9a8690",
+      "text_address": "0x4a6014",
+      "raw": "117;171;Kongsberg Automotive GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8698",
+      "text_address": "0x18ad6b",
+      "raw": "118;172;SMR Automotive Mirrors Stuttgart GmbH"
+    },
+    {
+      "pointer_slot": "0x9a86a0",
+      "text_address": "0x31befc",
+      "raw": "119;173;So.Ge.Mi."
+    },
+    {
+      "pointer_slot": "0x9a86a8",
+      "text_address": "0x407600",
+      "raw": "120;174;MTA S.p.A."
+    },
+    {
+      "pointer_slot": "0x9a86b0",
+      "text_address": "0x3ec36f",
+      "raw": "121;175;Alfmeier Prazision AG"
+    },
+    {
+      "pointer_slot": "0x9a86b8",
+      "text_address": "0x261148",
+      "raw": "122;176;Eltek Deutechland GmbH"
+    },
+    {
+      "pointer_slot": "0x9a86c0",
+      "text_address": "0x336366",
+      "raw": "123;177;OMRON Automotive Electronics Europe GmbH"
+    },
+    {
+      "pointer_slot": "0x9a86c8",
+      "text_address": "0x22c348",
+      "raw": "124;178;ASK Industries GmbH"
+    },
+    {
+      "pointer_slot": "0x9a86d0",
+      "text_address": "0x36950b",
+      "raw": "125;179;CML Innovative Technologies GmbH & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a86d8",
+      "text_address": "0x3ec38d",
+      "raw": "126;180;APAG Elektronik AG"
+    },
+    {
+      "pointer_slot": "0x9a86e0",
+      "text_address": "0x3b8dce",
+      "raw": "127;181;Nexteer Automotive"
+    },
+    {
+      "pointer_slot": "0x9a86e8",
+      "text_address": "0x3b8de9",
+      "raw": "128;182;Hans Widmaier Fernmelde- und Feinwerktechnik"
+    },
+    {
+      "pointer_slot": "0x9a86f0",
+      "text_address": "0x43b6cd",
+      "raw": "129;183;Robert Bosch Battery Systems GmbH"
+    },
+    {
+      "pointer_slot": "0x9a86f8",
+      "text_address": "0x300b19",
+      "raw": "130;184;Kyocera Display Europe GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8700",
+      "text_address": "0x3d2366",
+      "raw": "131;185;Magna Powertrain AG & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a8708",
+      "text_address": "0x336397",
+      "raw": "132;186;BorgWarner Beru Systems GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8710",
+      "text_address": "0x4a6036",
+      "raw": "133;187;BMW AG"
+    },
+    {
+      "pointer_slot": "0x9a8718",
+      "text_address": "0x3d238b",
+      "raw": "134;188;Benteler Duncan Plant"
+    },
+    {
+      "pointer_slot": "0x9a8720",
+      "text_address": "0x27aedb",
+      "raw": "135;189;U-Shin Deutschland Zugangssysteme GmbH"
+    },
+    {
+      "pointer_slot": "0x9a8728",
+      "text_address": "0x43b6f7",
+      "raw": "136;190;Schaeffler Technologies AG & Co. KG"
+    },
+    {
+      "pointer_slot": "0x9a8730",
+      "text_address": "0x48ba68",
+      "raw": "137;191;JTEKT Corporation"
+    },
+    {
+      "pointer_slot": "0x9a8738",
+      "text_address": "0x36953d",
+      "raw": "138;192;VLF"
+    },
+    {
+      "pointer_slot": "0x9a8740",
+      "text_address": "0x261167",
+      "raw": "139;193;Flextronics"
+    },
+    {
+      "pointer_slot": "0x9a8748",
+      "text_address": "0x27af0a",
+      "raw": "140;16777215;unbekannter Hersteller"
+    }
+  ],
+  "ecu_owner": null
+}

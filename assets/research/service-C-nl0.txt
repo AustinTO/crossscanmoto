@@ -1,0 +1,46 @@
+
+      type          : '(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;'
+      access        : 0x0011 (PUBLIC FINAL)
+      code          -
+      registers     : 5
+      ins           : 5
+      outs          : 3
+      insns size    : 20 16-bit code units
+219d40:                                        |[219d40] nl0.C:(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;
+219d50: 6e10 6944 0100                         |0000: invoke-virtual {v1}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+219d56: 6e10 6944 0300                         |0003: invoke-virtual {v3}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+219d5c: 6e10 6944 0400                         |0006: invoke-virtual {v4}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+219d62: 2200 2818                              |0009: new-instance v0, Lqx2; // type@1828
+219d66: 1201                                   |000b: const/4 v1, #int 0 // #0
+219d68: 2311 2e20                              |000c: new-array v1, v1, [B // type@202e
+219d6c: 6202 bc3b                              |000e: sget-object v2, Lpx2;.x:Lpx2; // field@3bbc
+219d70: 7030 2679 2001                         |0010: invoke-direct {v0, v2, v1}, Lqx2;.<init>:(Lpx2;[B)V // method@7926
+219d76: 1100                                   |0013: return-object v0
+      catches       : (none)
+      positions     :
+        0x0000 line=1
+        0x0001 line=2
+        0x0002 line=3
+        0x0003 line=4
+        0x0004 line=5
+        0x0005 line=6
+        0x0006 line=7
+        0x0007 line=8
+        0x0008 line=9
+        0x0009 line=10
+        0x000a line=11
+        0x000b line=12
+        0x000c line=13
+        0x000d line=14
+        0x000e line=15
+        0x000f line=16
+        0x0010 line=17
+        0x0011 line=18
+        0x0012 line=19
+        0x0013 line=20
+      locals        :
+        0x0000 - 0x0014 reg=0 this Lnl0;
+        0x0000 - 0x0014 reg=1 (null) Ldl0;
+        0x0000 - 0x0014 reg=2 (null) I
+        0x0000 - 0x0014 reg=3 (null) Ljava/util/Date;
+        0x0000 - 0x0014 reg=4 (null) Ljava/util/Date;

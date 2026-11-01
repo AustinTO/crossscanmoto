@@ -1,0 +1,201 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "ecu_key": "cuMRABS",
+  "table": "TROUBLECODES",
+  "factory_address": "0x88e3d0",
+  "query_method": "0x892224",
+  "dispatch_check": "0x8923e4",
+  "array_address": "0x985d00",
+  "rows": [
+    {
+      "raw": "25378;4858",
+      "code_decimal": 25378,
+      "description_id": 4858,
+      "pointer_address": "0x985d00",
+      "text_address": "0x41fabb"
+    },
+    {
+      "raw": "25380;4858",
+      "code_decimal": 25380,
+      "description_id": 4858,
+      "pointer_address": "0x985d08",
+      "text_address": "0x3ead36"
+    },
+    {
+      "raw": "25381;30771",
+      "code_decimal": 25381,
+      "description_id": 30771,
+      "pointer_address": "0x985d10",
+      "text_address": "0x27984e"
+    },
+    {
+      "raw": "25406;6443",
+      "code_decimal": 25406,
+      "description_id": 6443,
+      "pointer_address": "0x985d18",
+      "text_address": "0x22ac3c"
+    },
+    {
+      "raw": "25408;6443",
+      "code_decimal": 25408,
+      "description_id": 6443,
+      "pointer_address": "0x985d20",
+      "text_address": "0x2af152"
+    },
+    {
+      "raw": "25409;14785",
+      "code_decimal": 25409,
+      "description_id": 14785,
+      "pointer_address": "0x985d28",
+      "text_address": "0x22ac47"
+    },
+    {
+      "raw": "25424;39306",
+      "code_decimal": 25424,
+      "description_id": 39306,
+      "pointer_address": "0x985d30",
+      "text_address": "0x405d75"
+    },
+    {
+      "raw": "25436;14053",
+      "code_decimal": 25436,
+      "description_id": 14053,
+      "pointer_address": "0x985d38",
+      "text_address": "0x46f761"
+    },
+    {
+      "raw": "25438;14053",
+      "code_decimal": 25438,
+      "description_id": 14053,
+      "pointer_address": "0x985d40",
+      "text_address": "0x367bea"
+    },
+    {
+      "raw": "25484;25375",
+      "code_decimal": 25484,
+      "description_id": 25375,
+      "pointer_address": "0x985d48",
+      "text_address": "0x2af15d"
+    },
+    {
+      "raw": "25488;11795",
+      "code_decimal": 25488,
+      "description_id": 11795,
+      "pointer_address": "0x985d50",
+      "text_address": "0x27985a"
+    },
+    {
+      "raw": "25496;14248",
+      "code_decimal": 25496,
+      "description_id": 14248,
+      "pointer_address": "0x985d58",
+      "text_address": "0x3b74ad"
+    },
+    {
+      "raw": "25501;13449",
+      "code_decimal": 25501,
+      "description_id": 13449,
+      "pointer_address": "0x985d60",
+      "text_address": "0x31a524"
+    },
+    {
+      "raw": "25523;11272",
+      "code_decimal": 25523,
+      "description_id": 11272,
+      "pointer_address": "0x985d68",
+      "text_address": "0x189421"
+    },
+    {
+      "raw": "25528;21661",
+      "code_decimal": 25528,
+      "description_id": 21661,
+      "pointer_address": "0x985d70",
+      "text_address": "0x3d0955"
+    },
+    {
+      "raw": "25532;4857",
+      "code_decimal": 25532,
+      "description_id": 4857,
+      "pointer_address": "0x985d78",
+      "text_address": "0x41fac6"
+    },
+    {
+      "raw": "25533;9185",
+      "code_decimal": 25533,
+      "description_id": 9185,
+      "pointer_address": "0x985d80",
+      "text_address": "0x2cb383"
+    },
+    {
+      "raw": "25536;6184",
+      "code_decimal": 25536,
+      "description_id": 6184,
+      "pointer_address": "0x985d88",
+      "text_address": "0x1f5539"
+    },
+    {
+      "raw": "25537;3955",
+      "code_decimal": 25537,
+      "description_id": 3955,
+      "pointer_address": "0x985d90",
+      "text_address": "0x439b52"
+    },
+    {
+      "raw": "25538;23614",
+      "code_decimal": 25538,
+      "description_id": 23614,
+      "pointer_address": "0x985d98",
+      "text_address": "0x210131"
+    },
+    {
+      "raw": "59665;4859",
+      "code_decimal": 59665,
+      "description_id": 4859,
+      "pointer_address": "0x985da0",
+      "text_address": "0x1c02d7"
+    },
+    {
+      "raw": "59681;4859",
+      "code_decimal": 59681,
+      "description_id": 4859,
+      "pointer_address": "0x985da8",
+      "text_address": "0x2af169"
+    },
+    {
+      "raw": "59697;5401",
+      "code_decimal": 59697,
+      "description_id": 5401,
+      "pointer_address": "0x985db0",
+      "text_address": "0x439b5d"
+    },
+    {
+      "raw": "59698;18433",
+      "code_decimal": 59698,
+      "description_id": 18433,
+      "pointer_address": "0x985db8",
+      "text_address": "0x279866"
+    },
+    {
+      "raw": "59699;10388",
+      "code_decimal": 59699,
+      "description_id": 10388,
+      "pointer_address": "0x985dc0",
+      "text_address": "0x439b68"
+    },
+    {
+      "raw": "59700;3954",
+      "code_decimal": 59700,
+      "description_id": 3954,
+      "pointer_address": "0x985dc8",
+      "text_address": "0x46f76d"
+    },
+    {
+      "raw": "59701;3954",
+      "code_decimal": 59701,
+      "description_id": 3954,
+      "pointer_address": "0x985dd0",
+      "text_address": "0x46f778"
+    }
+  ],
+  "limits": "Description IDs require separate localization lookup. Applicability to a particular bike requires the original ECU selection path."
+}

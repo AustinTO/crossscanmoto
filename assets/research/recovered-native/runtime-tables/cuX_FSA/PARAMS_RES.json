@@ -1,0 +1,18 @@
+{
+  "ecu_key": "cuX_FSA",
+  "table": "PARAMS_RES",
+  "rows": [
+    "4165;965;STAT_HUPE_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106229;1;0",
+    "4172;970;STAT_ZSW_ANSTEUERUNG_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108900;1;0",
+    "4181;976;STAT_TASTER_NAVIFACH_EIN;2;15;;unsigned char;0;1;;1;;;;108913;1;0",
+    "4206;982;STAT_SITZHEIZUNG_FAHRER_EINGANG_MR;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;108937;1;0",
+    "4207;982;STAT_SITZHEIZUNG_SOZIA__EINGANG_MR;2;15;;unsigned char;1;1;;1;1.0;1.0;0.0;108939;1;0",
+    "4209;984;STAT_FERNLICHT_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108358;1;0",
+    "4215;987;STAT_BREMSSCHALTER_FUSS_EINGANG_EIN;3;1;;unsigned char;1;1;;1;1.0;1.0;0.0;105764;1;0",
+    "4214;987;STAT_BREMSSCHALTER_HAND_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;105763;1;0",
+    "4220;990;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+  ],
+  "sha256": "b340983f1fd1528ed05dcc3d9be1c8e5deee8477a421c8ae15a761dc1ff7a0fe",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

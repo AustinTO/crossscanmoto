@@ -1,0 +1,14 @@
+{
+  "ecu_key": "cuX_ESA",
+  "table": "PARAMS",
+  "rows": [
+    "950;22,E1,3F;ESA_DC_MOTOR_PWM_MR;3;0;108839;1;0",
+    "951;22,E1,40;ESA_HALLSENSOR_MR;3;0;108844;1;0",
+    "952;22,E1,41;ESA_TEMPERATURMODELL_MR;3;0;108851;1;0",
+    "953;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+    "954;22,E1,43;ESA_IST_POSITION_MR;3;0;108856;1;0"
+  ],
+  "sha256": "b3b29d89e1a523d6be67186b7e10df31a1a9ecc2186046dfbd40bbd9024d68c6",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

@@ -1,0 +1,71 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "array_address": "0x914368",
+  "headers": [
+    "id",
+    "description",
+    "car_manufacturerid",
+    "languageid",
+    "general_imagesid",
+    "isactive"
+  ],
+  "rows": [
+    [
+      "18",
+      "C Series",
+      "3",
+      "49518",
+      "0",
+      "1"
+    ],
+    [
+      "19",
+      "F Series",
+      "3",
+      "49450",
+      "0",
+      "1"
+    ],
+    [
+      "20",
+      "G Series",
+      "3",
+      "49541",
+      "0",
+      "1"
+    ],
+    [
+      "21",
+      "K Series",
+      "3",
+      "49495",
+      "0",
+      "1"
+    ],
+    [
+      "22",
+      "R Series",
+      "3",
+      "49623",
+      "0",
+      "1"
+    ],
+    [
+      "23",
+      "S Series",
+      "3",
+      "49583",
+      "0",
+      "1"
+    ],
+    [
+      "29",
+      "Husqvarna",
+      "3",
+      "49663",
+      "0",
+      "1"
+    ]
+  ],
+  "ecu_owner": null
+}

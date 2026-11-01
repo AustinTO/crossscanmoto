@@ -1,0 +1,22 @@
+name: crossscanmoto
+description: CrossScan Moto by Puphr LLC - Professional BMW Motorrad Diagnostics.
+publish_to: none
+version: 2.0.0+1
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+dependencies:
+  crypto: ^3.0.8
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^11.2.0
+  http: ^1.6.0
+  in_app_purchase: ^3.3.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/recovered_uds_parameters.json
+    - assets/data/recovered_ecu_definitions.json
+    - assets/data/recovered_actuators.json

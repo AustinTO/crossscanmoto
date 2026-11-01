@@ -1,0 +1,17 @@
+{
+  "ecu_key": "cuX_ABS9M",
+  "table": "PARAMS",
+  "rows": [
+    "537;22,40,01;STATUS_ECU;3;0;106627;1;0",
+    "496;22,E0,2B;VARIANTENCODIERUNG;3;0;107102;1;0",
+    "498;22,E0,2C;BATTERIESPANNUNG;3;0;105496;1;0",
+    "499;22,E0,2D;DIGITAL_IN_BOSCH;3;0;107144;1;0",
+    "500;22,E0,2E;RADGESCHWINDIGKEIT_VORNE;3;0;106758;1;0",
+    "501;22,E0,2F;RADGESCHWINDIGKEIT_HINTEN;3;0;106759;1;0",
+    "502;22,E0,30;DRUCKSENSOR_BOSCH;3;0;107155;1;0",
+    "506;22,E0,34;BREMSLICHTSCHALTER_BOSCH;3;0;107166;1;0"
+  ],
+  "sha256": "eca19e7371944687c0ed9c24a6c8a0f19a0276b0d6e9d6e2cc3761b4663c76a5",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

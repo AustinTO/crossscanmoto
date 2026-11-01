@@ -1,0 +1,16 @@
+{
+  "ecu_key": "cuX_FSA",
+  "table": "PARAMS",
+  "rows": [
+    "965;22,E0,A3;HUPE_EINGANG_MR;3;0;108369;1;0",
+    "970;22,E1,01;ZUSATZSCHEINWERFER_EINGANG_MR;3;0;108899;1;0",
+    "976;22,E1,05;WINDSCHILD_MR;3;0;108912;1;0",
+    "982;22,E1,08;SITZHEIZUNG_EINGANG_MR;3;0;108936;1;0",
+    "984;22,E1,0A;ABBLEND_FERNLICHT_EINGANG_MR;3;0;108941;1;0",
+    "987;22,E1,0C;BREMSLICHT_TOPCASE_EINGANG_MR;3;0;108945;1;0",
+    "990;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0"
+  ],
+  "sha256": "96cebe003556f3d8eeb5418249923f719a92c0ec48ce14d46a6d964b8b271375",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

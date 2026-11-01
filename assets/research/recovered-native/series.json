@@ -1,0 +1,70 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "table_address": "0x914368",
+  "headers": [
+    "id",
+    "description",
+    "car_manufacturerid",
+    "languageid",
+    "general_imagesid",
+    "isactive"
+  ],
+  "records": [
+    {
+      "id": "18",
+      "description": "C Series",
+      "car_manufacturerid": "3",
+      "languageid": "49518",
+      "general_imagesid": "0",
+      "isactive": "1"
+    },
+    {
+      "id": "19",
+      "description": "F Series",
+      "car_manufacturerid": "3",
+      "languageid": "49450",
+      "general_imagesid": "0",
+      "isactive": "1"
+    },
+    {
+      "id": "20",
+      "description": "G Series",
+      "car_manufacturerid": "3",
+      "languageid": "49541",
+      "general_imagesid": "0",
+      "isactive": "1"
+    },
+    {
+      "id": "21",
+      "description": "K Series",
+      "car_manufacturerid": "3",
+      "languageid": "49495",
+      "general_imagesid": "0",
+      "isactive": "1"
+    },
+    {
+      "id": "22",
+      "description": "R Series",
+      "car_manufacturerid": "3",
+      "languageid": "49623",
+      "general_imagesid": "0",
+      "isactive": "1"
+    },
+    {
+      "id": "23",
+      "description": "S Series",
+      "car_manufacturerid": "3",
+      "languageid": "49583",
+      "general_imagesid": "0",
+      "isactive": "1"
+    },
+    {
+      "id": "29",
+      "description": "Husqvarna",
+      "car_manufacturerid": "3",
+      "languageid": "49663",
+      "general_imagesid": "0",
+      "isactive": "1"
+    }
+  ]
+}

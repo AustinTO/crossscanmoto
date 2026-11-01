@@ -1,0 +1,306 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "table_address": "0x916a90",
+  "headers": [
+    "id",
+    "modulegroup",
+    "controlmoduletype",
+    "car_manufacturerid",
+    "defaultprotocolid",
+    "defaultaddress",
+    "languageid",
+    "description"
+  ],
+  "records": [
+    {
+      "id": "134",
+      "modulegroup": "D_MRAABSN",
+      "controlmoduletype": "ABS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "40",
+      "languageid": "49550",
+      "description": ""
+    },
+    {
+      "id": "135",
+      "modulegroup": "D_MRABS",
+      "controlmoduletype": "ABS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "41",
+      "languageid": "49550",
+      "description": ""
+    },
+    {
+      "id": "137",
+      "modulegroup": "D_MRABS3",
+      "controlmoduletype": "ABS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "40",
+      "languageid": "49550",
+      "description": ""
+    },
+    {
+      "id": "138",
+      "modulegroup": "D_MRAUD",
+      "controlmoduletype": "AUD",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "99",
+      "languageid": "49683",
+      "description": ""
+    },
+    {
+      "id": "140",
+      "modulegroup": "D_MRDWA",
+      "controlmoduletype": "DWA",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "65",
+      "languageid": "49625",
+      "description": ""
+    },
+    {
+      "id": "143",
+      "modulegroup": "D_MRKOMB",
+      "controlmoduletype": "KOMBI",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "96",
+      "languageid": "49591",
+      "description": ""
+    },
+    {
+      "id": "144",
+      "modulegroup": "D_MRMA24",
+      "controlmoduletype": "DME",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "18",
+      "languageid": "49675",
+      "description": ""
+    },
+    {
+      "id": "145",
+      "modulegroup": "D_MRMOT",
+      "controlmoduletype": "DME",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "18",
+      "languageid": "49675",
+      "description": ""
+    },
+    {
+      "id": "148",
+      "modulegroup": "D_MRRBT",
+      "controlmoduletype": "RBT",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "115",
+      "languageid": "49635",
+      "description": ""
+    },
+    {
+      "id": "150",
+      "modulegroup": "D_MRZFE",
+      "controlmoduletype": "ZFE",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "3",
+      "defaultaddress": "114",
+      "languageid": "49620",
+      "description": ""
+    },
+    {
+      "id": "268",
+      "modulegroup": "G_MRABS",
+      "controlmoduletype": "ABS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "41",
+      "languageid": "49550",
+      "description": ""
+    },
+    {
+      "id": "322",
+      "modulegroup": "G_MRACC",
+      "controlmoduletype": "ACC",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "33",
+      "languageid": "113367",
+      "description": ""
+    },
+    {
+      "id": "269",
+      "modulegroup": "G_MRASW",
+      "controlmoduletype": "SWE",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "34",
+      "languageid": "49484",
+      "description": ""
+    },
+    {
+      "id": "270",
+      "modulegroup": "G_MRAUD",
+      "controlmoduletype": "AUDIO",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "99",
+      "languageid": "49683",
+      "description": ""
+    },
+    {
+      "id": "271",
+      "modulegroup": "G_MRBCA",
+      "controlmoduletype": "BEHO",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "92",
+      "languageid": "49656",
+      "description": ""
+    },
+    {
+      "id": "272",
+      "modulegroup": "G_MRBCO",
+      "controlmoduletype": "GM",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "114",
+      "languageid": "49571",
+      "description": ""
+    },
+    {
+      "id": "273",
+      "modulegroup": "G_MRDWA",
+      "controlmoduletype": "DWA",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "65",
+      "languageid": "49637",
+      "description": ""
+    },
+    {
+      "id": "274",
+      "modulegroup": "G_MRESA",
+      "controlmoduletype": "ESA",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "56",
+      "languageid": "49665",
+      "description": ""
+    },
+    {
+      "id": "275",
+      "modulegroup": "G_MRFSA",
+      "controlmoduletype": "GMS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "14",
+      "languageid": "49695",
+      "description": ""
+    },
+    {
+      "id": "276",
+      "modulegroup": "G_MRKOMB",
+      "controlmoduletype": "KOMBI",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "96",
+      "languageid": "49591",
+      "description": ""
+    },
+    {
+      "id": "324",
+      "modulegroup": "G_MRMESS",
+      "controlmoduletype": "MESS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "31",
+      "languageid": "113368",
+      "description": ""
+    },
+    {
+      "id": "277",
+      "modulegroup": "G_MRMOT",
+      "controlmoduletype": "DME",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "18",
+      "languageid": "49675",
+      "description": ""
+    },
+    {
+      "id": "278",
+      "modulegroup": "G_MROBC",
+      "controlmoduletype": "OBC",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "21",
+      "languageid": "111422",
+      "description": ""
+    },
+    {
+      "id": "279",
+      "modulegroup": "G_MRRDC",
+      "controlmoduletype": "RDC",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "32",
+      "languageid": "49497",
+      "description": ""
+    },
+    {
+      "id": "280",
+      "modulegroup": "G_MRSAF",
+      "controlmoduletype": "DDC",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "57",
+      "languageid": "49697",
+      "description": ""
+    },
+    {
+      "id": "281",
+      "modulegroup": "G_MRSLZ",
+      "controlmoduletype": "EWS",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "64",
+      "languageid": "49573",
+      "description": ""
+    },
+    {
+      "id": "286",
+      "modulegroup": "G_MRSVA",
+      "controlmoduletype": "SVA",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "44",
+      "languageid": "49478",
+      "description": ""
+    },
+    {
+      "id": "321",
+      "modulegroup": "G_MRTPM",
+      "controlmoduletype": "TM",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "97",
+      "languageid": "49709",
+      "description": ""
+    },
+    {
+      "id": "323",
+      "modulegroup": "G_MRZGW",
+      "controlmoduletype": "ZGW",
+      "car_manufacturerid": "3",
+      "defaultprotocolid": "8",
+      "defaultaddress": "16",
+      "languageid": "111427",
+      "description": ""
+    }
+  ]
+}

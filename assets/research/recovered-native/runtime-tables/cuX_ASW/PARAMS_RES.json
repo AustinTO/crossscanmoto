@@ -1,0 +1,10 @@
+{
+  "ecu_key": "cuX_ASW",
+  "table": "PARAMS_RES",
+  "rows": [
+    "1638;490;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+  ],
+  "sha256": "4199115cf65d8d7443caaffb65f14c7785fd76d8c84349e015c04b2fa9c236a2",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

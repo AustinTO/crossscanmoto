@@ -1,0 +1,46 @@
+name: Apple build verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      xcode_version:
+        description: Xcode version available on the runner
+        default: latest-stable
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: apple-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  ios:
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ inputs.xcode_version || 'latest-stable' }}
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Record Apple SDK and Flutter toolchain
+        run: |
+          xcodebuild -version
+          xcodebuild -showsdks
+          flutter --version
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos
+      - run: flutter test --exclude-tags screenshots
+      - name: Build iOS simulator
+        run: flutter build ios --simulator --debug
+      - name: Build unsigned iOS release
+        run: flutter build ios --release --no-codesign
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-unsigned-builds
+          path: build/ios
+          if-no-files-found: error

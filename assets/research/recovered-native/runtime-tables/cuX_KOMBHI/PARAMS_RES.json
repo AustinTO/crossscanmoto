@@ -1,0 +1,30 @@
+{
+  "ecu_key": "cuX_KOMBHI",
+  "table": "PARAMS_RES",
+  "rows": [
+    "6497;1444;STAT_PHOTOSENS_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;106082;1;0",
+    "6502;1445;STAT_TASTE_BLINKER_LI;3;1;;unsigned int;0;2;0x0010;1;1.0;1.0;0.0;106226;1;0",
+    "6503;1445;STAT_TASTE_BLINKER_RE;3;1;;unsigned int;0;2;0x0020;1;1.0;1.0;0.0;106227;1;0",
+    "6504;1445;STAT_TASTE_BLINKER_RUECKSTELL;3;1;;unsigned int;0;2;0x0040;1;1.0;1.0;0.0;106228;1;0",
+    "6511;1445;STAT_TASTE_FERNLICHT;3;1;;unsigned int;0;2;0x0200;1;1.0;1.0;0.0;106235;1;0",
+    "6505;1445;STAT_TASTE_HORN;3;1;;unsigned int;0;2;0x0080;1;1.0;1.0;0.0;106229;1;0",
+    "6510;1445;STAT_TASTE_LI;3;1;;unsigned int;0;2;0x4000;1;1.0;1.0;0.0;106234;1;0",
+    "6500;1445;STAT_TASTE_RE;3;1;;unsigned int;0;2;0x0004;1;1.0;1.0;0.0;106224;1;0",
+    "6507;1445;STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN;3;1;;unsigned int;0;2;0x0800;1;1.0;1.0;0.0;106231;1;0",
+    "6501;1445;STAT_TASTE_TEMPOMAT_EIN;3;1;;unsigned int;0;2;0x0008;1;1.0;1.0;0.0;106225;1;0",
+    "6506;1445;STAT_TASTE_TEMPOMAT_VERZOEGERN;3;1;;unsigned int;0;2;0x0400;1;1.0;1.0;0.0;106230;1;0",
+    "6508;1445;STAT_WIPPE_LI_AB;3;1;;unsigned int;0;2;0x1000;1;1.0;1.0;0.0;106232;1;0",
+    "6509;1445;STAT_WIPPE_LI_AUF;3;1;;unsigned int;0;2;0x2000;1;1.0;1.0;0.0;106233;1;0",
+    "6498;1445;STAT_WIPPE_RE_AB;3;1;;unsigned int;0;2;0x0001;1;1.0;1.0;0.0;106220;1;0",
+    "6499;1445;STAT_WIPPE_RE_AUF;3;1;;unsigned int;0;2;0x0002;1;1.0;1.0;0.0;106223;1;0",
+    "6512;1446;STAT_MMC_BEDIENUNG;2;15;;unsigned char;0;1;0x02;1;1.0;1.0;0.0;106090;1;0",
+    "6513;1446;STAT_MMC_POSITION_WERT;1;20;;unsigned char;1;1;;1;1.0;1.0;0.0;106096;1;0",
+    "6540;1459;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0",
+    "6554;1465;STAT_HELLIGKEIT_IN_PROZENT_WERT;1;14;high;unsigned char;2;1;;1;1.0;2.0;0.0;110569;1;0",
+    "6584;1471;STAT_VOLUMEAUDIO_WERT;1;14;High;unsigned char;0;1;;1;1.0;1.0;0.0;110590;1;0",
+    "6608;1476;STAT_TANKINHALT_KOMBIINTERN_WERT;1;36;;unsigned int;2;2;;1;1.0;10.0;0.0;106122;1;0"
+  ],
+  "sha256": "6ba2fc82731a1cb4775849f014f0731f89dac1271a2d23801ab34ff8e5f41234",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

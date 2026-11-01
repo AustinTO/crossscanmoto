@@ -1,0 +1,16 @@
+{
+  "ecu_key": "cuX_KOMBHI",
+  "table": "PARAMS",
+  "rows": [
+    "1444;22,E1,1B;PHOTOSENSOR_MR;3;0;106082;1;0",
+    "1445;22,E1,20;LIN_SCHALTERBLOCK_LINKS_MR;3;0;106088;1;0",
+    "1446;22,E1,21;LIN_MMC_BEDIENUNG_MR;3;0;106089;1;0",
+    "1459;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+    "1465;22,E1,DA;HELLIGKEITSSENSOR_ADC;3;0;110567;1;0",
+    "1471;22,E1,E1;VOLUMEAUDIO_MR;3;0;110590;1;0",
+    "1476;22,E2,25;TANKANZEIGE_MR_ISO;3;0;106119;1;0"
+  ],
+  "sha256": "7371117cfec4d0c5cae709ab9229410a3b1a5e51663ebb3493bbc3d87094b31e",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

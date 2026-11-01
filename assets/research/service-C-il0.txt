@@ -1,0 +1,41 @@
+
+      type          : '(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;'
+      access        : 0x0011 (PUBLIC FINAL)
+      code          -
+      registers     : 5
+      ins           : 5
+      outs          : 2
+      insns size    : 17 16-bit code units
+2192e0:                                        |[2192e0] il0.C:(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;
+2192f0: 6e10 6944 0100                         |0000: invoke-virtual {v1}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+2192f6: 6e10 6944 0300                         |0003: invoke-virtual {v3}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+2192fc: 6e10 6944 0400                         |0006: invoke-virtual {v4}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+219302: 2200 f616                              |0009: new-instance v0, Lpk0; // type@16f6
+219306: 1a01 f10f                              |000b: const-string v1, "An operation is not implemented: Not yet implemented" // string@0ff1
+21930a: 7020 f043 1000                         |000d: invoke-direct {v0, v1}, Ljava/lang/Error;.<init>:(Ljava/lang/String;)V // method@43f0
+219310: 2700                                   |0010: throw v0
+      catches       : (none)
+      positions     :
+        0x0000 line=1
+        0x0001 line=2
+        0x0002 line=3
+        0x0003 line=4
+        0x0004 line=5
+        0x0005 line=6
+        0x0006 line=7
+        0x0007 line=8
+        0x0008 line=9
+        0x0009 line=10
+        0x000a line=11
+        0x000b line=12
+        0x000c line=13
+        0x000d line=14
+        0x000e line=15
+        0x000f line=16
+        0x0010 line=17
+      locals        :
+        0x0000 - 0x0011 reg=0 this Lil0;
+        0x0000 - 0x0011 reg=1 (null) Ldl0;
+        0x0000 - 0x0011 reg=2 (null) I
+        0x0000 - 0x0011 reg=3 (null) Ljava/util/Date;
+        0x0000 - 0x0011 reg=4 (null) Ljava/util/Date;

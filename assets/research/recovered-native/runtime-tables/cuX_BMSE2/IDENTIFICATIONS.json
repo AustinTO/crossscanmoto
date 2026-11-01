@@ -1,0 +1,13 @@
+{
+  "ecu_key": "cuX_BMSE2",
+  "table": "IDENTIFICATIONS",
+  "rows": [
+    "2554;22,F1,50;ECU_ID;3;0;0;1;0",
+    "2555;22,F1,8A;ECU_ID_MANUFACTURER;3;0;0;1;0",
+    "2556;22,F1,8B;ECU_ID_MANUFACTURER_DATE;3;0;0;1;0",
+    "2557;22,F1,8C;ECU_ID_SN;3;0;0;1;0"
+  ],
+  "sha256": "0bc0844e57dbc613fb6c7370fabea566562a5115244ddd894ffeaf63a6c5310e",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

@@ -1,0 +1,20 @@
+{
+  "target_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "probe_source_sha256": "40844866da6a750ba104353090468f1ed95d58fb103e3afca13f6b3cddc8b84e",
+  "probe_binary_sha256": "69703e7bc29330b88a0ba4729273e10417952ce6ec7c19c7e20edfbf5956f89f",
+  "emulator_version": "qemu-aarch64 version 10.0.13 (Debian 1:10.0.13+ds-0+deb13u1)",
+  "validated_nonempty_tables": 234,
+  "validated_rows": 8017,
+  "failed_probes": 130,
+  "checks": [
+    "row counts",
+    "stdout SHA256 reproduction",
+    "each retained row byte string exists in original library"
+  ],
+  "limits": [
+    "No ECU execution",
+    "No original Android app runtime",
+    "Custom ELF loader omits initializers and uses glibc shims; output validity established only for successfully returned tables",
+    "Failed probes do not establish absent data"
+  ]
+}

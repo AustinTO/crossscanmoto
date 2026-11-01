@@ -1,0 +1,206 @@
+{
+  "source_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "table_address": "0x916770",
+  "headers": [
+    "car_platformid",
+    "ecu_groupsid"
+  ],
+  "records": [
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "135"
+    },
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "138"
+    },
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "140"
+    },
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "143"
+    },
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "145"
+    },
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "148"
+    },
+    {
+      "car_platformid": "1",
+      "ecu_groupsid": "150"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "270"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "281"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "280"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "279"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "278"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "277"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "276"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "275"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "274"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "273"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "272"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "271"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "269"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "268"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "286"
+    },
+    {
+      "car_platformid": "2",
+      "ecu_groupsid": "321"
+    },
+    {
+      "car_platformid": "3",
+      "ecu_groupsid": "135"
+    },
+    {
+      "car_platformid": "3",
+      "ecu_groupsid": "134"
+    },
+    {
+      "car_platformid": "3",
+      "ecu_groupsid": "145"
+    },
+    {
+      "car_platformid": "4",
+      "ecu_groupsid": "135"
+    },
+    {
+      "car_platformid": "4",
+      "ecu_groupsid": "140"
+    },
+    {
+      "car_platformid": "4",
+      "ecu_groupsid": "143"
+    },
+    {
+      "car_platformid": "4",
+      "ecu_groupsid": "145"
+    },
+    {
+      "car_platformid": "6",
+      "ecu_groupsid": "276"
+    },
+    {
+      "car_platformid": "6",
+      "ecu_groupsid": "277"
+    },
+    {
+      "car_platformid": "6",
+      "ecu_groupsid": "268"
+    },
+    {
+      "car_platformid": "7",
+      "ecu_groupsid": "144"
+    },
+    {
+      "car_platformid": "7",
+      "ecu_groupsid": "137"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "324"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "323"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "322"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "321"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "286"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "281"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "280"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "278"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "277"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "276"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "275"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "273"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "270"
+    },
+    {
+      "car_platformid": "8",
+      "ecu_groupsid": "268"
+    }
+  ]
+}

@@ -1,0 +1,3962 @@
+{
+  "cuMRBMSMP1": [
+    {
+      "id": 365,
+      "nameTextId": 106070,
+      "name": "Fuel injector",
+      "positions": [
+        {
+          "id": 380,
+          "actuatorId": 365,
+          "titleTextId": 106051,
+          "title": "Fuel injector 1",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 767,
+              "positionId": 380,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                80,
+                3,
+                0,
+                100,
+                0,
+                1,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "767;380;On;2F,64,50,03,00,64,00,01,C0;6F,64,50,03;10"
+            },
+            {
+              "rowId": 768,
+              "positionId": 380,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "768;380;Off;2F,64,50,00,FF;6F,64,50,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 397,
+          "actuatorId": 365,
+          "titleTextId": 106054,
+          "title": "Fuel injector 2",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 801,
+              "positionId": 397,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                80,
+                3,
+                0,
+                100,
+                0,
+                2,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "801;397;On;2F,64,50,03,00,64,00,02,C0;6F,64,50,03;10"
+            },
+            {
+              "rowId": 802,
+              "positionId": 397,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "802;397;Off;2F,64,50,00,FF;6F,64,50,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 367,
+      "nameTextId": 111421,
+      "name": "Tank vent valve",
+      "positions": [
+        {
+          "id": 382,
+          "actuatorId": 367,
+          "titleTextId": 111421,
+          "title": "Tank vent valve",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 771,
+              "positionId": 382,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                82,
+                3,
+                0,
+                100,
+                70,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                82,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "771;382;On;2F,64,52,03,00,64,46,C0;6F,64,52,03;10"
+            },
+            {
+              "rowId": 772,
+              "positionId": 382,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                82,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                82,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "772;382;Off;2F,64,52,00,FF;6F,64,52,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 368,
+      "nameTextId": 106059,
+      "name": "Electric fuel pump",
+      "positions": [
+        {
+          "id": 383,
+          "actuatorId": 368,
+          "titleTextId": 106059,
+          "title": "Electric fuel pump",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 773,
+              "positionId": 383,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                83,
+                0,
+                100,
+                50,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                83,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "773;383;On;2F,64,53,00,64,32,C0;6F,64,53,03;10"
+            },
+            {
+              "rowId": 774,
+              "positionId": 383,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                83,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                83,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "774;383;Off;2F,64,53,00,FF;6F,64,53,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 369,
+      "nameTextId": 106061,
+      "name": "Fan",
+      "positions": [
+        {
+          "id": 384,
+          "actuatorId": 369,
+          "titleTextId": 106061,
+          "title": "Fan",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 775,
+              "positionId": 384,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                84,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                84,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "775;384;On;2F,64,54,03,00,64;6F,64,54,03;10"
+            },
+            {
+              "rowId": 776,
+              "positionId": 384,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                84,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                84,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "776;384;Off;2F,64,54,00;6F,64,54,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 370,
+      "nameTextId": 106068,
+      "name": "Oxygen sensor heating",
+      "positions": [
+        {
+          "id": 385,
+          "actuatorId": 370,
+          "titleTextId": 106062,
+          "title": "Oxygen sensor heating of cylinder bank 1",
+          "instructionTextId": 106064,
+          "instruction": "Activation for 60 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106064,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 777,
+              "positionId": 385,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                85,
+                3,
+                0,
+                2,
+                88,
+                0,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                3
+              ],
+              "durationSeconds": 60,
+              "raw": "777;385;On;2F,64,55,03,00,02,58,00,E0;6F,64,55,03;60"
+            },
+            {
+              "rowId": 778,
+              "positionId": 385,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                85,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "778;385;Off;2F,64,55,00,FF;6F,64,55,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 398,
+          "actuatorId": 370,
+          "titleTextId": 106063,
+          "title": "Oxygen sensor heating of cylinder bank 2",
+          "instructionTextId": 106064,
+          "instruction": "Activation for 60 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106064,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 803,
+              "positionId": 398,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                85,
+                3,
+                1,
+                2,
+                88,
+                0,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                3
+              ],
+              "durationSeconds": 60,
+              "raw": "803;398;On;2F,64,55,03,01,02,58,00,E0;6F,64,55,03;60"
+            },
+            {
+              "rowId": 804,
+              "positionId": 398,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                85,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "804;398;Off;2F,64,55,00,FF;6F,64,55,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 371,
+      "nameTextId": 106069,
+      "name": "Coolant temperature warning light",
+      "positions": [
+        {
+          "id": 386,
+          "actuatorId": 371,
+          "titleTextId": 106069,
+          "title": "Coolant temperature warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 106052,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 779,
+              "positionId": 386,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                86,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                86,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "779;386;On;2F,64,56,03,00,64;6F,64,56,03;10"
+            },
+            {
+              "rowId": 780,
+              "positionId": 386,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                86,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                86,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "780;386;Off;2F,64,56,00;6F,64,56,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 372,
+      "nameTextId": 106066,
+      "name": "Engine warning light",
+      "positions": [
+        {
+          "id": 387,
+          "actuatorId": 372,
+          "titleTextId": 106066,
+          "title": "Engine warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 781,
+              "positionId": 387,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                87,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "781;387;On;2F,64,57,03,00,64;6F,64,57,03;10"
+            },
+            {
+              "rowId": 782,
+              "positionId": 387,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                87,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "782;387;Off;2F,64,57,00;6F,64,57,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 373,
+      "nameTextId": 111419,
+      "name": "Exhaust flap servomotor",
+      "positions": [
+        {
+          "id": 388,
+          "actuatorId": 373,
+          "titleTextId": 111419,
+          "title": "Exhaust flap servomotor",
+          "instructionTextId": 111420,
+          "instruction": "Activation for 3 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 111420,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 783,
+              "positionId": 388,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                88,
+                3,
+                0,
+                30,
+                70,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                88,
+                3
+              ],
+              "durationSeconds": 3,
+              "raw": "783;388;On;2F,64,58,03,00,1E,46,C0;6F,64,58,03;3"
+            },
+            {
+              "rowId": 784,
+              "positionId": 388,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                88,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                88,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "784;388;Off;2F,64,58,00,FF;6F,64,58,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 377,
+      "nameTextId": 106067,
+      "name": "Throttle valve servomotor",
+      "positions": [
+        {
+          "id": 392,
+          "actuatorId": 377,
+          "titleTextId": 106067,
+          "title": "Throttle valve servomotor",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 0,
+          "completion": "Unknown native text #0",
+          "commands": [
+            {
+              "rowId": 791,
+              "positionId": 392,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                92,
+                3,
+                0,
+                100,
+                0,
+                0,
+                16,
+                0,
+                0,
+                141,
+                185,
+                240
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "791;392;On;2F,64,5C,03,00,64,00,00,10,00,00,8D,B9,F0;6F,64,5C,03;10"
+            },
+            {
+              "rowId": 792,
+              "positionId": 392,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                92,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "792;392;Off;2F,64,5C,00,FF;6F,64,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    }
+  ],
+  "cuX_ABS": [
+    {
+      "id": 52,
+      "nameTextId": 106922,
+      "name": "Pump motor",
+      "positions": [
+        {
+          "id": 58,
+          "actuatorId": 52,
+          "titleTextId": 106922,
+          "title": "Pump motor",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 115,
+              "positionId": 58,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                218,
+                3,
+                1
+              ],
+              "responsePrefix": [
+                111,
+                224,
+                218,
+                3,
+                1
+              ],
+              "durationSeconds": 5,
+              "raw": "115;58;On;2F,E0,DA,03,01;6F,E0,DA,03,01;5"
+            },
+            {
+              "rowId": 116,
+              "positionId": 58,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                218,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "116;58;Off;2F,E0,DA,00;;0"
+            },
+            {
+              "rowId": 119,
+              "positionId": 58,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "119;58;Start;10,03;50,03;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "nameTextId": 106923,
+      "name": "ABS valves",
+      "positions": [
+        {
+          "id": 59,
+          "actuatorId": 53,
+          "titleTextId": 106925,
+          "title": "All valves",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 117,
+              "positionId": 59,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "117;59;On;2F,E0,DB,03,01,01,01,01,01,01,FC;;5"
+            },
+            {
+              "rowId": 118,
+              "positionId": 59,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "118;59;Off;2F,E0,DB,00;;0"
+            },
+            {
+              "rowId": 120,
+              "positionId": 59,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "120;59;Start;10,03;50,03;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 60,
+          "actuatorId": 53,
+          "titleTextId": 106924,
+          "title": "Intake valve front",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 121,
+              "positionId": 60,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "121;60;Start;10,03;50,03;0"
+            },
+            {
+              "rowId": 127,
+              "positionId": 60,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "127;60;On;2F,E0,DB,03,01,00,00,00,00,00,FC;;5"
+            },
+            {
+              "rowId": 133,
+              "positionId": 60,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "133;60;Off;2F,E0,DB,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 61,
+          "actuatorId": 53,
+          "titleTextId": 106926,
+          "title": "Intake valve rear",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 122,
+              "positionId": 61,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "122;61;Start;10,03;50,03;0"
+            },
+            {
+              "rowId": 128,
+              "positionId": 61,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "128;61;On;2F,E0,DB,03,00,01,00,00,00,00,FC;;5"
+            },
+            {
+              "rowId": 134,
+              "positionId": 61,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "134;61;Off;2F,E0,DB,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 62,
+          "actuatorId": 53,
+          "titleTextId": 106927,
+          "title": "Exhaust valve front",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 123,
+              "positionId": 62,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "123;62;Start;10,03;50,03;0"
+            },
+            {
+              "rowId": 129,
+              "positionId": 62,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "129;62;On;2F,E0,DB,03,00,00,01,00,00,00,FC;;5"
+            },
+            {
+              "rowId": 135,
+              "positionId": 62,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "135;62;Off;2F,E0,DB,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 63,
+          "actuatorId": 53,
+          "titleTextId": 106928,
+          "title": "Exhaust valve rear",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 124,
+              "positionId": 63,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "124;63;Start;10,03;50,03;0"
+            },
+            {
+              "rowId": 130,
+              "positionId": 63,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "130;63;On;2F,E0,DB,03,00,00,00,01,00,00,FC;;5"
+            },
+            {
+              "rowId": 136,
+              "positionId": 63,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "136;63;Off;2F,E0,DB,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 64,
+          "actuatorId": 53,
+          "titleTextId": 106929,
+          "title": "Pre-charge valve rear",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 125,
+              "positionId": 64,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "125;64;Start;10,03;50,03;0"
+            },
+            {
+              "rowId": 131,
+              "positionId": 64,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "131;64;On;2F,E0,DB,03,00,00,00,00,01,00,FC;;5"
+            },
+            {
+              "rowId": 137,
+              "positionId": 64,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "137;64;Off;2F,E0,DB,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 65,
+          "actuatorId": 53,
+          "titleTextId": 106930,
+          "title": "Separator valve rear",
+          "instructionTextId": 106917,
+          "instruction": "Activation for approx. 5 s",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106917,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 126,
+              "positionId": 65,
+              "action": "start",
+              "actionLabel": "Start",
+              "request": [
+                16,
+                3
+              ],
+              "responsePrefix": [
+                80,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "126;65;Start;10,03;50,03;0"
+            },
+            {
+              "rowId": 132,
+              "positionId": 65,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                224,
+                219,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                252
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 5,
+              "raw": "132;65;On;2F,E0,DB,03,00,00,00,00,00,01,FC;;5"
+            },
+            {
+              "rowId": 138,
+              "positionId": 65,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                224,
+                219,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "138;65;Off;2F,E0,DB,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    }
+  ],
+  "cuX_BMSE2B": [
+    {
+      "id": 337,
+      "nameTextId": 106059,
+      "name": "Electric fuel pump",
+      "positions": [
+        {
+          "id": 351,
+          "actuatorId": 337,
+          "titleTextId": 106059,
+          "title": "Electric fuel pump",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 709,
+              "positionId": 351,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                240,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "709;351;On;2F,66,F0,03,00,64;;10"
+            },
+            {
+              "rowId": 710,
+              "positionId": 351,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                240,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "710;351;Off;2F,66,F0,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 339,
+      "nameTextId": 106061,
+      "name": "Fan",
+      "positions": [
+        {
+          "id": 353,
+          "actuatorId": 339,
+          "titleTextId": 106061,
+          "title": "Fan",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 713,
+              "positionId": 353,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                242,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "713;353;On;2F,66,F2,03,00,64;;10"
+            },
+            {
+              "rowId": 714,
+              "positionId": 353,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                242,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "714;353;Off;2F,66,F2,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 340,
+      "nameTextId": 106070,
+      "name": "Fuel injector",
+      "positions": [
+        {
+          "id": 354,
+          "actuatorId": 340,
+          "titleTextId": 106070,
+          "title": "Fuel injector",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 715,
+              "positionId": 354,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                243,
+                3,
+                0,
+                100,
+                0,
+                1,
+                192
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "715;354;On;2F,66,F3,03,00,64,00,01,C0;;10"
+            },
+            {
+              "rowId": 716,
+              "positionId": 354,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                243,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "716;354;Off;2F,66,F3,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 342,
+      "nameTextId": 106060,
+      "name": "Secondary-air valve",
+      "positions": [
+        {
+          "id": 356,
+          "actuatorId": 342,
+          "titleTextId": 106060,
+          "title": "Secondary-air valve",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 719,
+              "positionId": 356,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                245,
+                3,
+                0,
+                100,
+                50,
+                192
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "719;356;On;2F,66,F5,03,00,64,32,C0;;10"
+            },
+            {
+              "rowId": 720,
+              "positionId": 356,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                245,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "720;356;Off;2F,66,F5,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 344,
+      "nameTextId": 111477,
+      "name": "Idle actuator",
+      "positions": [
+        {
+          "id": 358,
+          "actuatorId": 344,
+          "titleTextId": 111477,
+          "title": "Idle actuator",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 723,
+              "positionId": 358,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                247,
+                3,
+                0,
+                100,
+                0,
+                0,
+                3,
+                232,
+                0,
+                1,
+                134,
+                160,
+                240
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "723;358;On;2F,66,F7,03,00,64,00,00,03,E8,00,01,86,A0,F0;;10"
+            },
+            {
+              "rowId": 724,
+              "positionId": 358,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                247,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "724;358;Off;2F,66,F7,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 345,
+      "nameTextId": 106066,
+      "name": "Engine warning light",
+      "positions": [
+        {
+          "id": 359,
+          "actuatorId": 345,
+          "titleTextId": 106066,
+          "title": "Engine warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 725,
+              "positionId": 359,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                248,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "725;359;On;2F,66,F8,03,00,64;;10"
+            },
+            {
+              "rowId": 726,
+              "positionId": 359,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                248,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "726;359;Off;2F,66,F8,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 346,
+      "nameTextId": 106069,
+      "name": "Coolant temperature warning light",
+      "positions": [
+        {
+          "id": 360,
+          "actuatorId": 346,
+          "titleTextId": 106069,
+          "title": "Coolant temperature warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 106052,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 727,
+              "positionId": 360,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                102,
+                249,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 10,
+              "raw": "727;360;On;2F,66,F9,03,00,64;;10"
+            },
+            {
+              "rowId": 728,
+              "positionId": 360,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                102,
+                249,
+                0
+              ],
+              "responsePrefix": [],
+              "durationSeconds": 0,
+              "raw": "728;360;Off;2F,66,F9,00;;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    }
+  ],
+  "cuX_BMSMP1": [
+    {
+      "id": 313,
+      "nameTextId": 106070,
+      "name": "Fuel injector",
+      "positions": [
+        {
+          "id": 325,
+          "actuatorId": 313,
+          "titleTextId": 106051,
+          "title": "Fuel injector 1",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 657,
+              "positionId": 325,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                80,
+                3,
+                0,
+                100,
+                0,
+                1,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "657;325;On;2F,64,50,03,00,64,00,01,C0;6F,64,50,03;10"
+            },
+            {
+              "rowId": 658,
+              "positionId": 325,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "658;325;Off;2F,64,50,00,FF;6F,64,50,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 349,
+          "actuatorId": 313,
+          "titleTextId": 106054,
+          "title": "Fuel injector 2",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 705,
+              "positionId": 349,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                80,
+                3,
+                0,
+                100,
+                0,
+                2,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "705;349;On;2F,64,50,03,00,64,00,02,C0;6F,64,50,03;10"
+            },
+            {
+              "rowId": 706,
+              "positionId": 349,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "706;349;Off;2F,64,50,00,FF;6F,64,50,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 315,
+      "nameTextId": 111421,
+      "name": "Tank vent valve",
+      "positions": [
+        {
+          "id": 327,
+          "actuatorId": 315,
+          "titleTextId": 111421,
+          "title": "Tank vent valve",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 661,
+              "positionId": 327,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                82,
+                3,
+                0,
+                100,
+                70,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                82,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "661;327;On;2F,64,52,03,00,64,46,C0;6F,64,52,03;10"
+            },
+            {
+              "rowId": 662,
+              "positionId": 327,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                82,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                82,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "662;327;Off;2F,64,52,00,FF;6F,64,52,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 316,
+      "nameTextId": 106059,
+      "name": "Electric fuel pump",
+      "positions": [
+        {
+          "id": 328,
+          "actuatorId": 316,
+          "titleTextId": 106059,
+          "title": "Electric fuel pump",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 663,
+              "positionId": 328,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                83,
+                0,
+                100,
+                50,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                83,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "663;328;On;2F,64,53,00,64,32,C0;6F,64,53,03;10"
+            },
+            {
+              "rowId": 664,
+              "positionId": 328,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                83,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                83,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "664;328;Off;2F,64,53,00,FF;6F,64,53,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 317,
+      "nameTextId": 106061,
+      "name": "Fan",
+      "positions": [
+        {
+          "id": 329,
+          "actuatorId": 317,
+          "titleTextId": 106061,
+          "title": "Fan",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 665,
+              "positionId": 329,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                84,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                84,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "665;329;On;2F,64,54,03,00,64;6F,64,54,03;10"
+            },
+            {
+              "rowId": 666,
+              "positionId": 329,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                84,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                84,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "666;329;Off;2F,64,54,00;6F,64,54,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 318,
+      "nameTextId": 106068,
+      "name": "Oxygen sensor heating",
+      "positions": [
+        {
+          "id": 330,
+          "actuatorId": 318,
+          "titleTextId": 106062,
+          "title": "Oxygen sensor heating of cylinder bank 1",
+          "instructionTextId": 106064,
+          "instruction": "Activation for 60 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106064,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 667,
+              "positionId": 330,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                85,
+                3,
+                0,
+                2,
+                88,
+                0,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                3
+              ],
+              "durationSeconds": 60,
+              "raw": "667;330;On;2F,64,55,03,00,02,58,00,E0;6F,64,55,03;60"
+            },
+            {
+              "rowId": 668,
+              "positionId": 330,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                85,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "668;330;Off;2F,64,55,00,FF;6F,64,55,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 350,
+          "actuatorId": 318,
+          "titleTextId": 106063,
+          "title": "Oxygen sensor heating of cylinder bank 2",
+          "instructionTextId": 106064,
+          "instruction": "Activation for 60 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106064,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 707,
+              "positionId": 350,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                85,
+                3,
+                1,
+                2,
+                88,
+                0,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                3
+              ],
+              "durationSeconds": 60,
+              "raw": "707;350;On;2F,64,55,03,01,02,58,00,E0;6F,64,55,03;60"
+            },
+            {
+              "rowId": 708,
+              "positionId": 350,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                85,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                85,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "708;350;Off;2F,64,55,00,FF;6F,64,55,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 319,
+      "nameTextId": 106069,
+      "name": "Coolant temperature warning light",
+      "positions": [
+        {
+          "id": 331,
+          "actuatorId": 319,
+          "titleTextId": 106069,
+          "title": "Coolant temperature warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 669,
+              "positionId": 331,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                86,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                86,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "669;331;On;2F,64,56,03,00,64;6F,64,56,03;10"
+            },
+            {
+              "rowId": 670,
+              "positionId": 331,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                86,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                86,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "670;331;Off;2F,64,56,00;6F,64,56,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 320,
+      "nameTextId": 106066,
+      "name": "Engine warning light",
+      "positions": [
+        {
+          "id": 332,
+          "actuatorId": 320,
+          "titleTextId": 106066,
+          "title": "Engine warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 671,
+              "positionId": 332,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                87,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "671;332;On;2F,64,57,03,00,64;6F,64,57,03;10"
+            },
+            {
+              "rowId": 672,
+              "positionId": 332,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                87,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "672;332;Off;2F,64,57,00;6F,64,57,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 321,
+      "nameTextId": 111419,
+      "name": "Exhaust flap servomotor",
+      "positions": [
+        {
+          "id": 333,
+          "actuatorId": 321,
+          "titleTextId": 111419,
+          "title": "Exhaust flap servomotor",
+          "instructionTextId": 111420,
+          "instruction": "Activation for 3 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 111420,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 673,
+              "positionId": 333,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                88,
+                3,
+                0,
+                30,
+                70,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                88,
+                3
+              ],
+              "durationSeconds": 0,
+              "raw": "673;333;On;2F,64,58,03,00,1E,46,C0;6F,64,58,03;0"
+            },
+            {
+              "rowId": 674,
+              "positionId": 333,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                88,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                88,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "674;333;Off;2F,64,58,00,FF;6F,64,58,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 325,
+      "nameTextId": 106067,
+      "name": "Throttle valve servomotor",
+      "positions": [
+        {
+          "id": 337,
+          "actuatorId": 325,
+          "titleTextId": 106067,
+          "title": "Throttle valve servomotor",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 681,
+              "positionId": 337,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                92,
+                3,
+                0,
+                100,
+                0,
+                0,
+                16,
+                0,
+                0,
+                141,
+                185,
+                240
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "681;337;On;2F,64,5C,03,00,64,00,00,10,00,00,8D,B9,F0;6F,64,5C,03;10"
+            },
+            {
+              "rowId": 682,
+              "positionId": 337,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                92,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "682;337;Off;2F,64,5C,00,FF;6F,64,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    }
+  ],
+  "cuX_BMSO1": [
+    {
+      "id": 347,
+      "nameTextId": 106070,
+      "name": "Fuel injector",
+      "positions": [
+        {
+          "id": 361,
+          "actuatorId": 347,
+          "titleTextId": 106051,
+          "title": "Fuel injector 1",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 729,
+              "positionId": 361,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                80,
+                3,
+                0,
+                100,
+                0,
+                1,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "729;361;On;2F,64,50,03,00,64,00,01,C0;6F,64,50,03;10"
+            },
+            {
+              "rowId": 730,
+              "positionId": 361,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                80,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "730;361;Off;2F,64,50,00;6F,64,50,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 379,
+          "actuatorId": 347,
+          "titleTextId": 106054,
+          "title": "Fuel injector 2",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 765,
+              "positionId": 379,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                80,
+                3,
+                0,
+                100,
+                0,
+                2,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "765;379;On;2F,64,50,03,00,64,00,02,C0;6F,64,50,03;10"
+            },
+            {
+              "rowId": 766,
+              "positionId": 379,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                80,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                80,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "766;379;Off;2F,64,50,00;6F,64,50,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 349,
+      "nameTextId": 111421,
+      "name": "Tank vent valve",
+      "positions": [
+        {
+          "id": 363,
+          "actuatorId": 349,
+          "titleTextId": 111421,
+          "title": "Tank vent valve",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 733,
+              "positionId": 363,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                82,
+                3,
+                0,
+                100,
+                30,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                82,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "733;363;On;2F,64,52,03,00,64,1E,C0;6F,64,52,03;10"
+            },
+            {
+              "rowId": 734,
+              "positionId": 363,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                82,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                82,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "734;363;Off;2F,64,52,00;6F,64,52,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 350,
+      "nameTextId": 106059,
+      "name": "Electric fuel pump",
+      "positions": [
+        {
+          "id": 364,
+          "actuatorId": 350,
+          "titleTextId": 106059,
+          "title": "Electric fuel pump",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 735,
+              "positionId": 364,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                83,
+                3,
+                0,
+                100,
+                50,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                83,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "735;364;On;2F,64,53,03,00,64,32,C0;6F,64,53,03;10"
+            },
+            {
+              "rowId": 736,
+              "positionId": 364,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                83,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                83,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "736;364;Off;2F,64,53,00;6F,64,53,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 351,
+      "nameTextId": 106061,
+      "name": "Fan",
+      "positions": [
+        {
+          "id": 365,
+          "actuatorId": 351,
+          "titleTextId": 106061,
+          "title": "Fan",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 737,
+              "positionId": 365,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                84,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                84,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "737;365;On;2F,64,54,03,00,64;6F,64,54,03;10"
+            },
+            {
+              "rowId": 738,
+              "positionId": 365,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                84,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                84,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "738;365;Off;2F,64,54,00;6F,64,54,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 353,
+      "nameTextId": 106069,
+      "name": "Coolant temperature warning light",
+      "positions": [
+        {
+          "id": 367,
+          "actuatorId": 353,
+          "titleTextId": 106065,
+          "title": "Coolant temperature warning light (engine start)",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 741,
+              "positionId": 367,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                86,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                86,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "741;367;On;2F,64,56,03,00,64;6F,64,56,03;10"
+            },
+            {
+              "rowId": 742,
+              "positionId": 367,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                86,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                86,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "742;367;Off;2F,64,56,00;6F,64,56,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 354,
+      "nameTextId": 106066,
+      "name": "Engine warning light",
+      "positions": [
+        {
+          "id": 368,
+          "actuatorId": 354,
+          "titleTextId": 106066,
+          "title": "Engine warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 743,
+              "positionId": 368,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                87,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "743;368;On;2F,64,57,03,00,64;6F,64,57,03;10"
+            },
+            {
+              "rowId": 744,
+              "positionId": 368,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                87,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "744;368;Off;2F,64,57,00;6F,64,57,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 355,
+      "nameTextId": 111419,
+      "name": "Exhaust flap servomotor",
+      "positions": [
+        {
+          "id": 369,
+          "actuatorId": 355,
+          "titleTextId": 111419,
+          "title": "Exhaust flap servomotor",
+          "instructionTextId": 111420,
+          "instruction": "Activation for 3 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 111420,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 745,
+              "positionId": 369,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                88,
+                3,
+                1,
+                0,
+                30,
+                70,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                88,
+                3
+              ],
+              "durationSeconds": 3,
+              "raw": "745;369;On;2F,64,58,03,01,00,1E,46,E0;6F,64,58,03;3"
+            },
+            {
+              "rowId": 746,
+              "positionId": 369,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                88,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                88,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "746;369;Off;2F,64,58,00;6F,64,58,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 358,
+      "nameTextId": 106067,
+      "name": "Throttle valve servomotor",
+      "positions": [
+        {
+          "id": 372,
+          "actuatorId": 358,
+          "titleTextId": 106067,
+          "title": "Throttle valve servomotor",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 751,
+              "positionId": 372,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                92,
+                3,
+                0,
+                100,
+                0,
+                0,
+                16,
+                0,
+                0,
+                6,
+                141,
+                185,
+                240
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "751;372;On;2F,64,5C,03,00,64,00,00,10,00,00,06,8D,B9,F0;6F,64,5C,03;10"
+            },
+            {
+              "rowId": 752,
+              "positionId": 372,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                92,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "752;372;Off;2F,64,5C,00;6F,64,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 363,
+      "nameTextId": 112550,
+      "name": "Switching cam adjuster",
+      "positions": [
+        {
+          "id": 377,
+          "actuatorId": 363,
+          "titleTextId": 112551,
+          "title": "Switching cam adjuster 1 and 2 (start engine)",
+          "instructionTextId": 112552,
+          "instruction": "Activation for 20 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 112552,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 761,
+              "positionId": 377,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                100,
+                87,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                3
+              ],
+              "durationSeconds": 20,
+              "raw": "761;377;On;2F,64,57,03,00,64;6F,64,57,03;20"
+            },
+            {
+              "rowId": 762,
+              "positionId": 377,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                100,
+                87,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                100,
+                87,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "762;377;Off;2F,64,57,00;6F,64,57,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    }
+  ],
+  "cuX_BMSX": [
+    {
+      "id": 1,
+      "nameTextId": 106070,
+      "name": "Fuel injector",
+      "positions": [
+        {
+          "id": 1,
+          "actuatorId": 1,
+          "titleTextId": 106051,
+          "title": "Fuel injector 1",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 1,
+              "positionId": 1,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                80,
+                3,
+                0,
+                100,
+                0,
+                1,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "1;1;On;2F,62,50,03,00,64,00,01,C0;6F,62,50,03;10"
+            },
+            {
+              "rowId": 2,
+              "positionId": 1,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "2;1;Off;2F,62,50,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 16,
+          "actuatorId": 1,
+          "titleTextId": 106054,
+          "title": "Fuel injector 2",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 31,
+              "positionId": 16,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                80,
+                3,
+                0,
+                100,
+                0,
+                2,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "31;16;On;2F,62,50,03,00,64,00,02,C0;6F,62,50,03;10"
+            },
+            {
+              "rowId": 32,
+              "positionId": 16,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "32;16;Off;2F,62,50,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 17,
+          "actuatorId": 1,
+          "titleTextId": 106055,
+          "title": "Fuel injector 3",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 33,
+              "positionId": 17,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                80,
+                3,
+                0,
+                100,
+                0,
+                4,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "33;17;On;2F,62,50,03,00,64,00,04,C0;6F,62,50,03;10"
+            },
+            {
+              "rowId": 34,
+              "positionId": 17,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "34;17;Off;2F,62,50,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 18,
+          "actuatorId": 1,
+          "titleTextId": 106056,
+          "title": "Fuel injector 4",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 35,
+              "positionId": 18,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                80,
+                3,
+                0,
+                100,
+                0,
+                8,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "35;18;On;2F,62,50,03,00,64,00,08,C0;6F,62,50,03;10"
+            },
+            {
+              "rowId": 36,
+              "positionId": 18,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "36;18;Off;2F,62,50,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 19,
+          "actuatorId": 1,
+          "titleTextId": 106057,
+          "title": "Fuel injector 5",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 37,
+              "positionId": 19,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                80,
+                3,
+                0,
+                100,
+                0,
+                16,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "37;19;On;2F,62,50,03,00,64,00,10,C0;6F,62,50,03;10"
+            },
+            {
+              "rowId": 38,
+              "positionId": 19,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "38;19;Off;2F,62,50,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 20,
+          "actuatorId": 1,
+          "titleTextId": 106058,
+          "title": "Fuel injector 6",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 39,
+              "positionId": 20,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                80,
+                3,
+                0,
+                100,
+                0,
+                32,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                80,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "39;20;On;2F,62,50,03,00,64,00,20,C0;6F,62,50,03;10"
+            },
+            {
+              "rowId": 40,
+              "positionId": 20,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                80,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "40;20;Off;2F,62,50,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nameTextId": 106060,
+      "name": "Secondary-air valve",
+      "positions": [
+        {
+          "id": 2,
+          "actuatorId": 2,
+          "titleTextId": 106060,
+          "title": "Secondary-air valve",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 3,
+              "positionId": 2,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                81,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "3;2;On;2F,62,51,03,00,64;6F,62,5C,03;10"
+            },
+            {
+              "rowId": 4,
+              "positionId": 2,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                81,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "4;2;Off;2F,62,51,00;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nameTextId": 106059,
+      "name": "Electric fuel pump",
+      "positions": [
+        {
+          "id": 4,
+          "actuatorId": 4,
+          "titleTextId": 106059,
+          "title": "Electric fuel pump",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 7,
+              "positionId": 4,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                83,
+                3,
+                0,
+                100,
+                80,
+                192
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "7;4;On;2F,62,53,03,00,64,50,C0;6F,62,5C,03;10"
+            },
+            {
+              "rowId": 8,
+              "positionId": 4,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                83,
+                0,
+                255
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "8;4;Off;2F,62,53,00,FF;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nameTextId": 106061,
+      "name": "Fan",
+      "positions": [
+        {
+          "id": 5,
+          "actuatorId": 5,
+          "titleTextId": 106061,
+          "title": "Fan",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 9,
+              "positionId": 5,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                84,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "9;5;On;2F,62,54,03,00,64;6F,62,5C,03;10"
+            },
+            {
+              "rowId": 10,
+              "positionId": 5,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                84,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "10;5;Off;2F,62,54,00;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "nameTextId": 106068,
+      "name": "Oxygen sensor heating",
+      "positions": [
+        {
+          "id": 6,
+          "actuatorId": 6,
+          "titleTextId": 106062,
+          "title": "Oxygen sensor heating of cylinder bank 1",
+          "instructionTextId": 106064,
+          "instruction": "Activation for 60 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106064,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 11,
+              "positionId": 6,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                85,
+                3,
+                0,
+                2,
+                88,
+                0,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 60,
+              "raw": "11;6;On;2F,62,55,03,00,02,58,00,E0;6F,62,5C,03;60"
+            },
+            {
+              "rowId": 12,
+              "positionId": 6,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                85,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "12;6;Off;2F,62,55,00;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        },
+        {
+          "id": 21,
+          "actuatorId": 6,
+          "titleTextId": 106063,
+          "title": "Oxygen sensor heating of cylinder bank 2",
+          "instructionTextId": 106064,
+          "instruction": "Activation for 60 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106064,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 41,
+              "positionId": 21,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                85,
+                3,
+                1,
+                2,
+                88,
+                0,
+                224
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 60,
+              "raw": "41;21;On;2F,62,55,03,01,02,58,00,E0;6F,62,5C,03;60"
+            },
+            {
+              "rowId": 42,
+              "positionId": 21,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                85,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "42;21;Off;2F,62,55,00;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "nameTextId": 106069,
+      "name": "Coolant temperature warning light",
+      "positions": [
+        {
+          "id": 7,
+          "actuatorId": 7,
+          "titleTextId": 106065,
+          "title": "Coolant temperature warning light (engine start)",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 13,
+              "positionId": 7,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                86,
+                3,
+                0,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "13;7;On;2F,62,56,03,00,00,64;6F,62,5C,03;10"
+            },
+            {
+              "rowId": 14,
+              "positionId": 7,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                86,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "14;7;Off;2F,62,56,00;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "nameTextId": 106066,
+      "name": "Engine warning light",
+      "positions": [
+        {
+          "id": 8,
+          "actuatorId": 8,
+          "titleTextId": 106066,
+          "title": "Engine warning light",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 15,
+              "positionId": 8,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                87,
+                3,
+                0,
+                100
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                87,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "15;8;On;2F,62,57,03,00,64;6F,62,57,03;10"
+            },
+            {
+              "rowId": 16,
+              "positionId": 8,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                87,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                87,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "16;8;Off;2F,62,57,00;6F,62,57,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "nameTextId": 106067,
+      "name": "Throttle valve servomotor",
+      "positions": [
+        {
+          "id": 13,
+          "actuatorId": 13,
+          "titleTextId": 106067,
+          "title": "Throttle valve servomotor",
+          "instructionTextId": 106052,
+          "instruction": "Activation for 10 seconds",
+          "ignoredColumn4": 0,
+          "completionInstructionTextId": 106052,
+          "completionTextId": 106053,
+          "completion": "Activation finished",
+          "commands": [
+            {
+              "rowId": 25,
+              "positionId": 13,
+              "action": "on",
+              "actionLabel": "On",
+              "request": [
+                47,
+                98,
+                92,
+                3,
+                0,
+                100,
+                0,
+                0,
+                16,
+                0,
+                0,
+                6,
+                141,
+                185,
+                240
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                3
+              ],
+              "durationSeconds": 10,
+              "raw": "25;13;On;2F,62,5C,03,00,64,00,00,10,00,00,06,8D,B9,F0;6F,62,5C,03;10"
+            },
+            {
+              "rowId": 26,
+              "positionId": 13,
+              "action": "off",
+              "actionLabel": "Off",
+              "request": [
+                47,
+                98,
+                92,
+                0
+              ],
+              "responsePrefix": [
+                111,
+                98,
+                92,
+                0
+              ],
+              "durationSeconds": 0,
+              "raw": "26;13;Off;2F,62,5C,00;6F,62,5C,00;0"
+            }
+          ],
+          "unsupportedReason": null
+        }
+      ]
+    }
+  ]
+}

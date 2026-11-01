@@ -1,0 +1,23 @@
+{
+  "ecu_key": "cuX_BMSE2B",
+  "table": "ACTUATORCMD",
+  "rows": [
+    "709;351;On;2F,66,F0,03,00,64;;10",
+    "710;351;Off;2F,66,F0,00;;0",
+    "713;353;On;2F,66,F2,03,00,64;;10",
+    "714;353;Off;2F,66,F2,00;;0",
+    "715;354;On;2F,66,F3,03,00,64,00,01,C0;;10",
+    "716;354;Off;2F,66,F3,00;;0",
+    "719;356;On;2F,66,F5,03,00,64,32,C0;;10",
+    "720;356;Off;2F,66,F5,00;;0",
+    "723;358;On;2F,66,F7,03,00,64,00,00,03,E8,00,01,86,A0,F0;;10",
+    "724;358;Off;2F,66,F7,00;;0",
+    "725;359;On;2F,66,F8,03,00,64;;10",
+    "726;359;Off;2F,66,F8,00;;0",
+    "727;360;On;2F,66,F9,03,00,64;;10",
+    "728;360;Off;2F,66,F9,00;;0"
+  ],
+  "sha256": "471fb61045ef5059441105042958edbd6a6c39c0161c75c7cebe6cd41277ba7d",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

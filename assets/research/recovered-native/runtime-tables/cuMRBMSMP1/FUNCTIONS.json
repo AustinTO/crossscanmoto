@@ -1,0 +1,15 @@
+{
+  "ecu_key": "cuMRBMSMP1",
+  "table": "FUNCTIONS",
+  "rows": [
+    "2;1;0;0;0;0;49499",
+    "3;1;0;0;0;0;48867",
+    "4;1;1;0;100;0;0",
+    "5;1;0;0;0;0;49472",
+    "6;1;0;0;0;0;49459",
+    "8;1;0;0;0;0;49659"
+  ],
+  "sha256": "8019ea4736bd2fa7c4d16c48008ad6eb2f64b00727c50d34eb72be4af9384e8d",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "Candidate key generation is inferred; nonempty native query return is observed. No motorcycle or app network execution."
+}

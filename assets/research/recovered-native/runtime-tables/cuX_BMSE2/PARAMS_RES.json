@@ -1,0 +1,31 @@
+{
+  "ecu_key": "cuX_BMSE2",
+  "table": "PARAMS_RES",
+  "rows": [
+    "6735;1531;STAT_DIGITAL_KILL;3;1;high;unsigned char;0;1;;1;;;;105762;1;0",
+    "6736;1532;STAT_DIGITAL_START;3;1;high;unsigned char;0;1;;1;;;;105768;1;0",
+    "6737;1533;STAT_DIGITAL_SEITENSTUETZE;3;1;high;unsigned char;0;1;;1;;;;105757;1;0",
+    "6742;1536;STAT_START_RELAIS;3;1;high;unsigned char;0;1;;1;;;;110690;1;0",
+    "6743;1537;STAT_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS;3;1;high;unsigned char;0;1;;1;;;;105779;1;0",
+    "6744;1538;STAT_DIGITAL_LUEFTER_RELAIS;3;1;high;unsigned char;0;1;;1;;;;105784;1;0",
+    "6746;1540;STAT_DIGITAL_START_FREIGABE;3;1;high;unsigned char;0;1;;1;;;;105770;1;0",
+    "6755;1550;STAT_BATTERIESPANNUNG_WERT;1;2;high;unsigned int;0;2;;1;1.0;10.0;0.0;105496;1;0",
+    "6758;1553;STAT_KUPPLUNGSSCHALTER_ROHWERT_WERT;1;35;high;unsigned int;0;2;;1;488.0;100.0;0.0;105758;1;0",
+    "6760;1555;STAT_OELNIVEAU;2;15;high;unsigned int;0;2;;1;;;;105689;1;0",
+    "6764;1559;STAT_KUEHLWASSER_TEMP_WERT;1;7;high;unsigned int;0;2;;1;1.0;1.0;-40.0;105654;1;0",
+    "6766;1561;STAT_ANSAUGLUFT_TEMP_WERT;1;7;high;unsigned int;0;2;;1;1.0;1.0;-40.0;105652;1;0",
+    "6767;1562;STAT_LAMBDA_ROHWERT_WERT;1;35;high;unsigned int;0;2;;1;488.0;100.0;0.0;110733;1;0",
+    "6773;1568;STAT_DROSSELKLAPPE_WINKEL_WERT;1;12;high;unsigned int;0;2;;1;1.0;100.0;0.0;110743;1;0",
+    "6774;1569;STAT_DROSSELKLAPPE_POSITION_WERT;1;14;high;unsigned int;0;2;;1;100.0;256.0;0.0;110744;1;0",
+    "6775;1570;STAT_DIGITAL_LAMBDA_HEIZUNG;3;1;high;unsigned char;0;1;;1;;;;110745;1;0",
+    "6778;1573;STAT_DIGITAL_LAMBDA_REGELUNG;3;1;high;unsigned char;0;1;;1;;;;110748;1;0",
+    "6781;1576;STAT_ZYLINDER1_EINSPRITZDAUER_WERT;1;13;high;unsigned long;0;4;;1;1.0;500.0;0.0;110751;1;0",
+    "6785;1580;STAT_MOTORDREHZAHL_WERT;1;10;high;unsigned int;0;2;;1;1.0;1.0;0.0;105667;1;0",
+    "6786;1581;STAT_FAHRZEUG_GESCHWINDIGKEIT_WERT;1;8;high;unsigned int;0;2;;1;1.0;4.0;0.0;106760;1;0",
+    "6790;1585;STAT_STEPPERMOTOR_WERT;1;44;high;unsigned int;0;2;;1;1.0;1.0;0.0;110760;1;0",
+    "6793;1588;STAT_LEERLAUF_DREHZAHL_SOLL_WERT;1;10;high;unsigned int;0;2;;1;1.0;1.0;0.0;105668;1;0"
+  ],
+  "sha256": "f833ae455e228a10041759ae79ef67e7f00794a3885122e4a3d76d593b323d8e",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

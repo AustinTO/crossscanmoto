@@ -1,0 +1,13 @@
+{
+  "ecu_key": "cuX_KOMBB2",
+  "table": "FUNCTIONS",
+  "rows": [
+    "1;1;0;0;0;0;49597",
+    "2;1;0;0;0;0;49499",
+    "3;1;0;0;0;0;48867",
+    "12;1;0;0;0;0;49701"
+  ],
+  "sha256": "81468b0a5eeec26a7d958e1d9859a21102ed85f235cbc56f72da4fc7c728b57e",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

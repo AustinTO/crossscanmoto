@@ -1,0 +1,18 @@
+{
+  "ecu_key": "cuX_SLZ",
+  "table": "PARAMS_RES",
+  "rows": [
+    "7825;1860;STAT_POSITION;2;15;high;unsigned char;0;1;;1;;;;111301;1;0",
+    "7799;1841;STAT_ERSTZULASSUNGSDATUM_JAHR_WERT;1;11;;unsigned int;7;2;;1;1.0;1.0;0.0;110285;1;0",
+    "7798;1841;STAT_ERSTZULASSUNGSDATUM_MONAT_WERT;1;11;;unsigned char;6;1;;1;1.0;1.0;0.0;110284;1;0",
+    "7797;1841;STAT_ERSTZULASSUNGSDATUM_TAG_WERT;1;11;;unsigned char;5;1;;1;1.0;1.0;0.0;110283;1;0",
+    "7796;1841;STAT_HAENDLER_NUMMER_TEXT;4;3;;string[5];0;5;;1;1.0;1.0;0.0;110282;1;0",
+    "7804;1843;STAT_KL15_DIG;3;1;high;unsigned char;0;1;;1;;;;111246;1;0",
+    "7807;1845;STAT_KL15_WERT;1;2;high;unsigned char;1;1;;1;1.0;10.0;0.0;111250;1;0",
+    "7806;1845;STAT_KL30_WERT;1;2;high;unsigned char;0;1;;1;1.0;10.0;0.0;111249;1;0",
+    "7812;1847;STAT_FB_BATTERIE;2;15;high;unsigned char;2;1;;1;;;;111278;1;0"
+  ],
+  "sha256": "ffc18cb1aa600fa882facd676a7b1db8b477221a0bb5ea08db80f3fb21ed6329",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

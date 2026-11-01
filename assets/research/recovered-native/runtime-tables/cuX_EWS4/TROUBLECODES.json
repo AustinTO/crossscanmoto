@@ -1,0 +1,32 @@
+{
+  "ecu_key": "cuX_EWS4",
+  "table": "TROUBLECODES",
+  "rows": [
+    "147456;21596",
+    "8404992;9296",
+    "8404994;4662",
+    "8404995;3966",
+    "8404996;3966",
+    "8404997;9296",
+    "8404998;9296",
+    "8404999;9296",
+    "8405000;9296",
+    "8405001;9296",
+    "8405002;9296",
+    "8405003;9296",
+    "8405004;29969",
+    "8405005;40766",
+    "8405006;14534",
+    "8405007;27102",
+    "8405008;41523",
+    "8405011;38257",
+    "14222431;33920",
+    "14226466;23421",
+    "14226468;9051",
+    "14226470;13165",
+    "14226474;24134"
+  ],
+  "sha256": "e0672754d32a389c19bbfa99eae6d1fcdade832b61620c5fe8a64245421e0e89",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

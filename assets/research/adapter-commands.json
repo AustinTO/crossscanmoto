@@ -1,0 +1,262 @@
+[
+  {
+    "command": "ATE0",
+    "source": "46bf76: 1a05 c90d                              |0021: const-string v5, \"ATE0\" // string@0dc9"
+  },
+  {
+    "command": "ATS0",
+    "source": "46bf7a: 1a06 d50d                              |0023: const-string v6, \"ATS0\" // string@0dd5"
+  },
+  {
+    "command": "ATWS",
+    "source": "46bf7e: 1a01 ef0d                              |0025: const-string v1, \"ATWS\" // string@0def"
+  },
+  {
+    "command": "ATL0",
+    "source": "46bf82: 1a02 d00d                              |0027: const-string v2, \"ATL0\" // string@0dd0"
+  },
+  {
+    "command": "ATSP0",
+    "source": "46bf86: 1a03 da0d                              |0029: const-string v3, \"ATSP0\" // string@0dda"
+  },
+  {
+    "command": "ATH1",
+    "source": "46bf8a: 1a04 cd0d                              |002b: const-string v4, \"ATH1\" // string@0dcd"
+  },
+  {
+    "command": "ATI",
+    "source": "46b50c: 1a00 ce0d                              |0000: const-string v0, \"ATI\" // string@0dce"
+  },
+  {
+    "command": "ATBI",
+    "source": "46a8ea: 1a00 c40d                              |009b: const-string v0, \"ATBI\" // string@0dc4"
+  },
+  {
+    "command": "ATI",
+    "source": "46a57e: 1a02 ce0d                              |0021: const-string v2, \"ATI\" // string@0dce"
+  },
+  {
+    "command": "AT#1",
+    "source": "46a5a0: 1a02 c00d                              |0032: const-string v2, \"AT#1\" // string@0dc0"
+  },
+  {
+    "command": "AT@1",
+    "source": "46a5b8: 1a05 c20d                              |003e: const-string v5, \"AT@1\" // string@0dc2"
+  },
+  {
+    "command": "AT#RSN",
+    "source": "46a5e0: 1a02 c10d                              |0052: const-string v2, \"AT#RSN\" // string@0dc1"
+  },
+  {
+    "command": "STDI",
+    "source": "46a5f4: 1a02 aa48                              |005c: const-string v2, \"STDI\" // string@48aa"
+  },
+  {
+    "command": "STI",
+    "source": "46a60c: 1a07 b348                              |0068: const-string v7, \"STI\" // string@48b3"
+  },
+  {
+    "command": "STSN",
+    "source": "46a610: 1a08 c448                              |006a: const-string v8, \"STSN\" // string@48c4"
+  },
+  {
+    "command": "ATWS",
+    "source": "46aa5a: 1a00 ef0d                              |0065: const-string v0, \"ATWS\" // string@0def"
+  },
+  {
+    "command": "ATRV",
+    "source": "46aaf4: 1a00 d40d                              |00b2: const-string v0, \"ATRV\" // string@0dd4"
+  },
+  {
+    "command": "STOPPED",
+    "source": "46b9e4: 1a0f b648                              |0152: const-string v15, \"STOPPED\" // string@48b6"
+  },
+  {
+    "command": "AT",
+    "source": "46ab50: 1a00 bf0d                              |0000: const-string v0, \"AT\" // string@0dbf"
+  },
+  {
+    "command": "ST",
+    "source": "46ab62: 1a00 e447                              |0009: const-string v0, \"ST\" // string@47e4"
+  },
+  {
+    "command": "ATWS",
+    "source": "46ab8c: 1a00 ef0d                              |001e: const-string v0, \"ATWS\" // string@0def"
+  },
+  {
+    "command": "ATRV",
+    "source": "46ab9e: 1a00 d40d                              |0027: const-string v0, \"ATRV\" // string@0dd4"
+  },
+  {
+    "command": "ATZ",
+    "source": "46abf6: 1a00 f00d                              |0053: const-string v0, \"ATZ\" // string@0df0"
+  },
+  {
+    "command": "ATI",
+    "source": "46ac08: 1a00 ce0d                              |005c: const-string v0, \"ATI\" // string@0dce"
+  },
+  {
+    "command": "AT",
+    "source": "46b578: 1a00 bf0d                              |0000: const-string v0, \"AT\" // string@0dbf"
+  },
+  {
+    "command": "ST",
+    "source": "46b588: 1a00 e447                              |0008: const-string v0, \"ST\" // string@47e4"
+  },
+  {
+    "command": "ATWS",
+    "source": "46b5ba: 1a00 ef0d                              |0021: const-string v0, \"ATWS\" // string@0def"
+  },
+  {
+    "command": "ATRV",
+    "source": "46b5cc: 1a00 d40d                              |002a: const-string v0, \"ATRV\" // string@0dd4"
+  },
+  {
+    "command": "ATZ",
+    "source": "46b62e: 1a00 f00d                              |005b: const-string v0, \"ATZ\" // string@0df0"
+  },
+  {
+    "command": "ATI",
+    "source": "46b640: 1a00 ce0d                              |0064: const-string v0, \"ATI\" // string@0dce"
+  },
+  {
+    "command": "ATST50",
+    "source": "46acfa: 1a04 e50d                              |000d: const-string v4, \"ATST50\" // string@0de5"
+  },
+  {
+    "command": "ATWM81",
+    "source": "46ad02: 1a06 ee0d                              |0011: const-string v6, \"ATWM81\" // string@0dee"
+  },
+  {
+    "command": "ATST90",
+    "source": "46ad06: 1a07 e70d                              |0013: const-string v7, \"ATST90\" // string@0de7"
+  },
+  {
+    "command": "ATWM80",
+    "source": "46ad0a: 1a08 ed0d                              |0015: const-string v8, \"ATWM80\" // string@0ded"
+  },
+  {
+    "command": "ATSH80",
+    "source": "46ad0e: 1a09 d80d                              |0017: const-string v9, \"ATSH80\" // string@0dd8"
+  },
+  {
+    "command": "ATSP0",
+    "source": "46ad12: 1a0a da0d                              |0019: const-string v10, \"ATSP0\" // string@0dda"
+  },
+  {
+    "command": "ATSH81",
+    "source": "46ad1a: 1a0c d90d                              |001d: const-string v12, \"ATSH81\" // string@0dd9"
+  },
+  {
+    "command": "ATAL",
+    "source": "46ad22: 1a0e c30d                              |0021: const-string v14, \"ATAL\" // string@0dc3"
+  },
+  {
+    "command": "ATPC",
+    "source": "46ad26: 1a0f d30d                              |0023: const-string v15, \"ATPC\" // string@0dd3"
+  },
+  {
+    "command": "ATSP5",
+    "source": "46ad2e: 1a03 df0d                              |0027: const-string v3, \"ATSP5\" // string@0ddf"
+  },
+  {
+    "command": "ATSTA0",
+    "source": "46ae06: 1a04 e80d                              |0093: const-string v4, \"ATSTA0\" // string@0de8"
+  },
+  {
+    "command": "ATSPB",
+    "source": "46ae7e: 1a03 e40d                              |00cf: const-string v3, \"ATSPB\" // string@0de4"
+  },
+  {
+    "command": "ATPBC101",
+    "source": "46ae8e: 1a03 d20d                              |00d7: const-string v3, \"ATPBC101\" // string@0dd2"
+  },
+  {
+    "command": "ATSH6F1",
+    "source": "46ae9e: 1a03 d70d                              |00df: const-string v3, \"ATSH6F1\" // string@0dd7"
+  },
+  {
+    "command": "ATFCSH6F1",
+    "source": "46aeae: 1a03 cb0d                              |00e7: const-string v3, \"ATFCSH6F1\" // string@0dcb"
+  },
+  {
+    "command": "ATFCSD",
+    "source": "46aee2: 1a08 ca0d                              |0101: const-string v8, \"ATFCSD\" // string@0dca"
+  },
+  {
+    "command": "ATFCSM1",
+    "source": "46af10: 1a03 cc0d                              |0118: const-string v3, \"ATFCSM1\" // string@0dcc"
+  },
+  {
+    "command": "ATCEA",
+    "source": "46af40: 1a06 c50d                              |0130: const-string v6, \"ATCEA\" // string@0dc5"
+  },
+  {
+    "command": "ATCM7FF",
+    "source": "46af58: 1a03 c70d                              |013c: const-string v3, \"ATCM7FF\" // string@0dc7"
+  },
+  {
+    "command": "ATCF6",
+    "source": "46af88: 1a06 c60d                              |0154: const-string v6, \"ATCF6\" // string@0dc6"
+  },
+  {
+    "command": "ATBI",
+    "source": "46afac: 1a03 c40d                              |0166: const-string v3, \"ATBI\" // string@0dc4"
+  },
+  {
+    "command": "STCSEGT1",
+    "source": "46b04e: 1a06 a748                              |01b7: const-string v6, \"STCSEGT1\" // string@48a7"
+  },
+  {
+    "command": "STCFCPC",
+    "source": "46b058: 1a06 a648                              |01bc: const-string v6, \"STCFCPC\" // string@48a6"
+  },
+  {
+    "command": "STCFCPA 6F1",
+    "source": "46b0a6: 1a08 a548                              |01e3: const-string v8, \"STCFCPA 6F1\" // string@48a5"
+  },
+  {
+    "command": "ATST60",
+    "source": "46b18e: 1a04 e60d                              |0257: const-string v4, \"ATST60\" // string@0de6"
+  },
+  {
+    "command": "ATSH010000",
+    "source": "46b1aa: 1a03 d60d                              |0265: const-string v3, \"ATSH010000\" // string@0dd6"
+  },
+  {
+    "command": "ATWM013E",
+    "source": "46b21c: 1a04 ec0d                              |029e: const-string v4, \"ATWM013E\" // string@0dec"
+  },
+  {
+    "command": "ATSP9",
+    "source": "46b3e0: 1a03 e30d                              |0380: const-string v3, \"ATSP9\" // string@0de3"
+  },
+  {
+    "command": "ATSP7",
+    "source": "46b3ee: 1a03 e10d                              |0387: const-string v3, \"ATSP7\" // string@0de1"
+  },
+  {
+    "command": "ATSP8",
+    "source": "46b3fc: 1a03 e20d                              |038e: const-string v3, \"ATSP8\" // string@0de2"
+  },
+  {
+    "command": "ATSP6",
+    "source": "46b40a: 1a03 e00d                              |0395: const-string v3, \"ATSP6\" // string@0de0"
+  },
+  {
+    "command": "ATSP1",
+    "source": "46b418: 1a03 db0d                              |039c: const-string v3, \"ATSP1\" // string@0ddb"
+  },
+  {
+    "command": "ATSP2",
+    "source": "46b426: 1a03 dc0d                              |03a3: const-string v3, \"ATSP2\" // string@0ddc"
+  },
+  {
+    "command": "ATSP4",
+    "source": "46b43e: 1a03 de0d                              |03af: const-string v3, \"ATSP4\" // string@0dde"
+  },
+  {
+    "command": "ATSP3",
+    "source": "46b44c: 1a03 dd0d                              |03b6: const-string v3, \"ATSP3\" // string@0ddd"
+  }
+]

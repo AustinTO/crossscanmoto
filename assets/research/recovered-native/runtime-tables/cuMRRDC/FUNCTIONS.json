@@ -1,0 +1,10 @@
+{
+  "ecu_key": "cuMRRDC",
+  "table": "FUNCTIONS",
+  "rows": [
+    "4;1;0;0;0;0;0"
+  ],
+  "sha256": "82c278fcb1249b74dca036abd2cfa1e74afe68fc374cdb623c02bb1ca33b577a",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "Candidate key generation is inferred; nonempty native query return is observed. No motorcycle or app network execution."
+}

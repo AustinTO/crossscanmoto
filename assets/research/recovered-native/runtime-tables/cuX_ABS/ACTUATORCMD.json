@@ -1,0 +1,33 @@
+{
+  "ecu_key": "cuX_ABS",
+  "table": "ACTUATORCMD",
+  "rows": [
+    "115;58;On;2F,E0,DA,03,01;6F,E0,DA,03,01;5",
+    "116;58;Off;2F,E0,DA,00;;0",
+    "119;58;Start;10,03;50,03;0",
+    "117;59;On;2F,E0,DB,03,01,01,01,01,01,01,FC;;5",
+    "118;59;Off;2F,E0,DB,00;;0",
+    "120;59;Start;10,03;50,03;0",
+    "121;60;Start;10,03;50,03;0",
+    "127;60;On;2F,E0,DB,03,01,00,00,00,00,00,FC;;5",
+    "133;60;Off;2F,E0,DB,00;;0",
+    "122;61;Start;10,03;50,03;0",
+    "128;61;On;2F,E0,DB,03,00,01,00,00,00,00,FC;;5",
+    "134;61;Off;2F,E0,DB,00;;0",
+    "123;62;Start;10,03;50,03;0",
+    "129;62;On;2F,E0,DB,03,00,00,01,00,00,00,FC;;5",
+    "135;62;Off;2F,E0,DB,00;;0",
+    "124;63;Start;10,03;50,03;0",
+    "130;63;On;2F,E0,DB,03,00,00,00,01,00,00,FC;;5",
+    "136;63;Off;2F,E0,DB,00;;0",
+    "125;64;Start;10,03;50,03;0",
+    "131;64;On;2F,E0,DB,03,00,00,00,00,01,00,FC;;5",
+    "137;64;Off;2F,E0,DB,00;;0",
+    "126;65;Start;10,03;50,03;0",
+    "132;65;On;2F,E0,DB,03,00,00,00,00,00,01,FC;;5",
+    "138;65;Off;2F,E0,DB,00;;0"
+  ],
+  "sha256": "406583983afd11b502043ed5987700c9d3d8f7aad3fc134365b0f36f54f15306",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

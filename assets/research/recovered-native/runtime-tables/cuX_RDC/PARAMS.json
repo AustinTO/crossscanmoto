@@ -1,0 +1,11 @@
+{
+  "ecu_key": "cuX_RDC",
+  "table": "PARAMS",
+  "rows": [
+    "827;22,E0,70;RDC_SG_AUSGABE_MR;3;0;108268;1;0",
+    "832;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0"
+  ],
+  "sha256": "608184878fbf46f8ba7b737a6102d5a256d7048d9a2740be96d7000c15caa69d",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

@@ -1,0 +1,22 @@
+{
+  "ecu_key": "cuX_ABS",
+  "table": "PARAMS_RES",
+  "rows": [
+    "1477;399;STAT_ECU_STATUS;2;15;High;unsigned char;0;1;;1;1.0;1.0;0.0;106627;1;0",
+    "1499;409;STAT_VARIANTE;2;15;high;unsigned char;0;1;;1;;;;106673;1;0",
+    "1525;419;STAT_GESCHWINDIGKEIT_FZG_WERT;1;8;;unsigned int;4;2;;1;1.0;100.0;0.0;106760;1;0",
+    "1524;419;STAT_GESCHWINDIGKEIT_RAD_HINTEN_WERT;1;8;;unsigned int;2;2;;1;1.0;100.0;0.0;106759;1;0",
+    "1523;419;STAT_GESCHWINDIGKEIT_RAD_VORNE_WERT;1;8;;unsigned int;0;2;;1;1.0;100.0;0.0;106758;1;0",
+    "1534;420;STAT_DRUCK_RADKREIS_HINTEN_WERT;1;23;;signed int;6;2;;1;1.0;100.0;0.0;106774;1;0",
+    "1533;420;STAT_DRUCK_RADKREIS_VORNE_WERT;1;23;;signed int;4;2;;1;1.0;100.0;0.0;106773;1;0",
+    "1532;420;STAT_DRUCK_STEUERKREIS_HINTEN_WERT;1;23;;signed int;2;2;;1;1.0;100.0;0.0;106772;1;0",
+    "1531;420;STAT_DRUCK_STEUERKREIS_VORNE_WERT;1;23;;signed int;0;2;;1;1.0;100.0;0.0;106771;1;0",
+    "1536;422;STAT_BREMSEN;2;15;High;unsigned char;0;1;;1;1.0;1.0;0.0;106776;1;0",
+    "1548;424;STAT_SPANNUNG_WERT;1;2;High;unsigned int;0;2;;1;1.0;1000.0;0.0;105496;1;0",
+    "1549;425;STAT_TASTER_EIN;3;1;High;unsigned char;0;1;;1;;;;106931;1;0",
+    "1550;426;STAT_SCHRAEGLAGE_WERT;1;12;High;unsigned int;0;2;;1;90.0;2048.0;-90.0;106799;1;0"
+  ],
+  "sha256": "c1a8274d56a4c1db8fe5cdeb87ea60bb49b5148518e2bc19ab29e0d965f8ca8a",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

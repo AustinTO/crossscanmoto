@@ -1,0 +1,73 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code related
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication & Obfuscation related
+app.*.symbols
+app.*.map.json
+
+# Android Studio & Gradle
+/android/app/debug
+/android/app/profile
+/android/app/release
+.gradle/
+local.properties
+
+# Local toolchain and build caches
+.build-cache/
+.flutter-cache/
+
+# Binary Packages & Firmware Dumps
+*.apk
+*.aab
+*.dex
+*.bin
+*.zip
+*.tar.gz
+
+# Local logs & test dumps
+flutter_*.log
+*.log
+
+# Sensitive credentials & private keys
+.env
+.env.*
+service-account*.json
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+AuthKey_*.p8
+
+# Temporary artifacts and sidecars
+artifacts/
+.omx/

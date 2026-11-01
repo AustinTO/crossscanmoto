@@ -1,0 +1,18 @@
+{
+  "ecu_key": "cuX_ABS9M",
+  "table": "PARAMS_RES",
+  "rows": [
+    "2039;537;STAT_ECU_STATUS;2;15;high;unsigned char;0;1;;1;1.0;1.0;0.0;106627;1;0",
+    "1652;496;STAT_VARIANTE;2;15;high;unsigned char;0;1;;1;;;;106673;1;0",
+    "1654;498;STAT_BATTERIESPANNUNG_WERT;1;2;high;unsigned char;0;1;;1;0.08;1.0;0.0;105496;1;0",
+    "1656;499;STAT_ANZEIGE_WL;2;15;high;unsigned char;0;1;0x38;1;;;;107146;1;0",
+    "1658;500;STAT_V_RAD_VORNE_WERT;1;8;high;unsigned int;0;2;;1;0.0625;1.0;0.0;106758;1;0",
+    "1659;501;STAT_V_RAD_HINTEN_WERT;1;8;high;unsigned int;0;2;;1;0.0625;1.0;0.0;106759;1;0",
+    "1660;502;STAT_DRUCKSENSOR_WERT;1;23;high;int;0;2;;1;1.0;32.0;0.0;107155;1;0",
+    "1669;506;STAT_BLS_H;3;1;high;unsigned char;0;1;;1;;;;107167;1;0",
+    "1670;506;STAT_BLS_V;3;1;high;unsigned char;1;1;;1;;;;107168;1;0"
+  ],
+  "sha256": "94251dcd9b1dade2120b8a228fd7e5d99325c783253357db7c7b51e4fd56b593",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

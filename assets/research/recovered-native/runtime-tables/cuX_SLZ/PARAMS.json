@@ -1,0 +1,14 @@
+{
+  "ecu_key": "cuX_SLZ",
+  "table": "PARAMS",
+  "rows": [
+    "1860;22,40,08;_SLZ_BOLZEN_POSITION;3;0;111301;1;0",
+    "1841;22,DC,54;HO_INFO;3;0;110281;1;0",
+    "1843;22,E0,0E;EWS_KL15_MR;3;0;111245;1;0",
+    "1845;22,E1,83;SLZ_ANALOG_IN_MR;3;0;111274;1;0",
+    "1847;22,E1,85;SLZ_FERNBEDIENUNG_MR;3;0;111276;1;0"
+  ],
+  "sha256": "ad44a6dd1d256754ef9c89168124ffe1eaf5f5b02b8b6cfac7dbd0794c7817b0",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

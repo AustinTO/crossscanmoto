@@ -1,0 +1,22 @@
+{
+  "ecu_key": "cuX_SLZ",
+  "table": "PARAMS_TAB",
+  "rows": [
+    "11278;7804;0;105414",
+    "11279;7804;1;105426",
+    "11290;7812;0x00;111279",
+    "11291;7812;0x01;107464",
+    "11292;7812;0x02;111280",
+    "11293;7812;0xFF;110280",
+    "11302;7825;0x00;109149",
+    "11303;7825;0x01;111302",
+    "11304;7825;0x02;111303",
+    "11305;7825;0x03;111304",
+    "11306;7825;0x04;111305",
+    "11307;7825;0x05;111306",
+    "11308;7825;0xFF;106094"
+  ],
+  "sha256": "92cdbea18eb924906505a073192a01f67e16ba9e9a7940911bce6d5cad8ac06e",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

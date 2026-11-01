@@ -1,0 +1,13 @@
+{
+  "ecu_key": "cuX_DWA_9",
+  "table": "IDENTIFICATIONS",
+  "rows": [
+    "2606;22,F1,50;ECU_ID;3;0;0;1;0",
+    "2607;22,F1,8A;ECU_ID_MANUFACTURER;3;0;0;1;0",
+    "2608;22,F1,8B;ECU_ID_MANUFACTURER_DATE;3;0;0;1;0",
+    "2609;22,F1,8C;ECU_ID_SN;3;0;0;1;0"
+  ],
+  "sha256": "01d640a316ea62a0655b076298bcdba86dd8cf27fcc0bdf4c47dc80cda4ac365",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

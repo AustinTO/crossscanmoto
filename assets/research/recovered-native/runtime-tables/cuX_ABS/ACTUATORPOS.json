@@ -1,0 +1,17 @@
+{
+  "ecu_key": "cuX_ABS",
+  "table": "ACTUATORPOS",
+  "rows": [
+    "58;52;106922;106917;0;106917;106053",
+    "59;53;106925;106917;0;106917;106053",
+    "60;53;106924;106917;0;106917;106053",
+    "61;53;106926;106917;0;106917;106053",
+    "62;53;106927;106917;0;106917;106053",
+    "63;53;106928;106917;0;106917;106053",
+    "64;53;106929;106917;0;106917;106053",
+    "65;53;106930;106917;0;106917;106053"
+  ],
+  "sha256": "07bf5fab2e546fbdbd5f06f7ce5dc238f74399e01006c9af4a3f561abe3d940e",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

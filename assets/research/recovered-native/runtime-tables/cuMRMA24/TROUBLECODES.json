@@ -1,0 +1,23 @@
+{
+  "ecu_key": "cuMRMA24",
+  "table": "TROUBLECODES",
+  "rows": [
+    "272;3943",
+    "277;6688",
+    "288;6188",
+    "304;3982",
+    "368;8924",
+    "821;33517",
+    "901;23478",
+    "1285;25836",
+    "1540;3887",
+    "4400;8924",
+    "4401;37622",
+    "5381;17822",
+    "5382;17822",
+    "16777215;3953"
+  ],
+  "sha256": "81548affdd31a7c21957846686725f0b408ea392dbeeba7aba9df04f3162a3e6",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "Candidate key generation is inferred; nonempty native query return is observed. No motorcycle or app network execution."
+}

@@ -1,0 +1,13 @@
+{
+  "ecu_key": "cuX_KOMBHI",
+  "table": "IDENTIFICATIONS",
+  "rows": [
+    "2654;22,F1,50;ECU_ID;3;0;0;1;0",
+    "2655;22,F1,8A;ECU_ID_MANUFACTURER;3;0;0;1;0",
+    "2656;22,F1,8B;ECU_ID_MANUFACTURER_DATE;3;0;0;1;0",
+    "2657;22,F1,8C;ECU_ID_SN;3;0;0;1;0"
+  ],
+  "sha256": "461aee1232fcc4501349b7f90144ebb132e3c99155c7a54066abb79d89981954",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

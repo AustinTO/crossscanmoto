@@ -1,0 +1,25 @@
+{
+  "ecu_key": "cuX_DWA",
+  "table": "PARAMS_RES",
+  "rows": [
+    "2754;627;STAT_INT_BATTERIE_MR;2;15;;signed char;0;1;;1;1.0;1.0;0.0;107635;1;0",
+    "2755;627;STAT_INT_BATTERIE_SPANNUNG_MR_WERT;1;30;;unsigned char;1;1;;1;1.0;10.0;0.0;107641;1;0",
+    "2757;628;STAT_NEIGUNG_X_ASOLUT_MR_WERT;1;31;;signed int;1;2;;1;1.0;10.0;0.0;107649;1;0",
+    "2760;628;STAT_NEIGUNG_X_RELATIV_MR_WERT;1;31;;signed char;7;1;;1;1.0;10.0;0.0;107652;1;0",
+    "2758;628;STAT_NEIGUNG_Y_ASOLUT_MR_WERT;1;31;;signed int;3;2;;1;1.0;10.0;0.0;107650;1;0",
+    "2761;628;STAT_NEIGUNG_Y_RELATIV_MR_WERT;1;31;;signed char;8;1;;1;1.0;10.0;0.0;107653;1;0",
+    "2756;628;STAT_NEIGUNG_ZUSTAND_MR;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;107643;1;0",
+    "2759;628;STAT_NEIGUNG_Z_ASOLUT_MR_WERT;1;31;;signed int;5;2;;1;1.0;10.0;0.0;107651;1;0",
+    "2762;628;STAT_NEIGUNG_Z_RELATIV_MR_WERT;1;31;;signed char;9;1;;1;1.0;10.0;0.0;107654;1;0",
+    "2766;630;STAT_FERNB_ANZ_MR_WERT;1;11;;unsigned char;2;1;;1;1.0;1.0;0.0;107659;1;0",
+    "2768;631;STAT_DWA_ALARM_MR;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;107662;1;0",
+    "2769;631;STAT_DWA_ANZ_AALARMS_MR_WERT;1;11;;unsigned int;1;2;;1;1.0;1.0;0.0;107669;1;0",
+    "2770;632;STAT_ZV_MR;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;107671;1;0",
+    "2771;632;STAT_ZV_TASTER_MR;3;1;;unsigned char;1;1;;1;1.0;1.0;0.0;107672;1;0",
+    "2776;635;STAT_VORFELD_BEL_MR;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;107677;1;0",
+    "2781;639;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+  ],
+  "sha256": "e18b7edb419553f0ceff678fb89a384d221967e1774e43fbfdb7a1d82f3de7b6",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

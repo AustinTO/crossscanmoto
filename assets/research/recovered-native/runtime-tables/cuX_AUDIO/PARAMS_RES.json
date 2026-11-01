@@ -1,0 +1,13 @@
+{
+  "ecu_key": "cuX_AUDIO",
+  "table": "PARAMS_RES",
+  "rows": [
+    "1560;433;STAT_MUTE_MR_EIN;3;1;;unsigned char;0;1;;1;;;;106938;1;0",
+    "1585;454;STAT_INTERNE_TEMPERATUR_WERT;1;7;;int;0;2;;1;;10.0;;106981;1;0",
+    "1591;460;STAT_HECK_LAUTSPRECHER_EIN_AUS;3;1;;unsigned char;0;1;;1;;;;106988;1;0",
+    "1615;476;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;;10.0;;105496;1;0"
+  ],
+  "sha256": "7157e54b7c1a018d5805e02f99c5e39eeb9e120fbcdce466de3ed9f1db48acfa",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

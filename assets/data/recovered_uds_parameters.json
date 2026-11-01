@@ -1,0 +1,1654 @@
+{
+  "cuMRBMSMP1": [
+    {
+      "id": "3034",
+      "name": "TEMPERATUR_MR",
+      "did": 25600,
+      "raw": "3034;22,64,00;TEMPERATUR_MR;3;0;105969;1;0",
+      "label": "TEMPERATUR_MR"
+    },
+    {
+      "id": "3036",
+      "name": "DRUCK_MR",
+      "did": 25602,
+      "raw": "3036;22,64,02;DRUCK_MR;3;0;105971;1;0",
+      "label": "DRUCK_MR"
+    },
+    {
+      "id": "3037",
+      "name": "DREHZAHL_MR",
+      "did": 25603,
+      "raw": "3037;22,64,03;DREHZAHL_MR;3;0;105972;1;0",
+      "label": "DREHZAHL_MR"
+    },
+    {
+      "id": "3038",
+      "name": "SPANNUNG_MR",
+      "did": 25604,
+      "raw": "3038;22,64,04;SPANNUNG_MR;3;0;105973;1;0",
+      "label": "SPANNUNG_MR"
+    },
+    {
+      "id": "3040",
+      "name": "FAHRWERTGEBER_MR",
+      "did": 25617,
+      "raw": "3040;22,64,11;FAHRWERTGEBER_MR;3;0;105981;1;0",
+      "label": "FAHRWERTGEBER_MR"
+    },
+    {
+      "id": "3041",
+      "name": "SENSORBOX_MR",
+      "did": 25618,
+      "raw": "3041;22,64,12;SENSORBOX_MR;3;0;105982;1;0",
+      "label": "SENSORBOX_MR"
+    },
+    {
+      "id": "3042",
+      "name": "GETRIEBE_MR",
+      "did": 25619,
+      "raw": "3042;22,64,13;GETRIEBE_MR;3;0;105983;1;0",
+      "label": "GETRIEBE_MR"
+    },
+    {
+      "id": "3043",
+      "name": "SCHALTER_MR",
+      "did": 25620,
+      "raw": "3043;22,64,14;SCHALTER_MR;3;0;105984;1;0",
+      "label": "SCHALTER_MR"
+    },
+    {
+      "id": "3044",
+      "name": "ANLASSER_MR",
+      "did": 25621,
+      "raw": "3044;22,64,15;ANLASSER_MR;3;0;105985;1;0",
+      "label": "ANLASSER_MR"
+    },
+    {
+      "id": "3045",
+      "name": "LAMBDASONDENHEIZUNG_MR",
+      "did": 25622,
+      "raw": "3045;22,64,16;LAMBDASONDENHEIZUNG_MR;3;0;105986;1;0",
+      "label": "LAMBDASONDENHEIZUNG_MR"
+    },
+    {
+      "id": "3046",
+      "name": "KRAFTSTOFFPUMPE_MR",
+      "did": 25623,
+      "raw": "3046;22,64,17;KRAFTSTOFFPUMPE_MR;3;0;105987;1;0",
+      "label": "KRAFTSTOFFPUMPE_MR"
+    },
+    {
+      "id": "3047",
+      "name": "ELUEFTER_MR",
+      "did": 25624,
+      "raw": "3047;22,64,18;ELUEFTER_MR;3;0;105988;1;0",
+      "label": "ELUEFTER_MR"
+    },
+    {
+      "id": "3052",
+      "name": "ABGASKLAPPENSTELLER_MR",
+      "did": 25629,
+      "raw": "3052;22,64,1D;ABGASKLAPPENSTELLER_MR;3;0;105993;1;0",
+      "label": "ABGASKLAPPENSTELLER_MR"
+    },
+    {
+      "id": "3060",
+      "name": "ADAPTION_GETRIEBE_LESEN_MR",
+      "did": 25648,
+      "raw": "3060;22,64,30;ADAPTION_GETRIEBE_LESEN_MR;3;0;105995;0;1",
+      "label": "ADAPTION_GETRIEBE_LESEN_MR"
+    },
+    {
+      "id": "3061",
+      "name": "ADAPTION_DROSSELKLAPPE_LESEN_MR",
+      "did": 25649,
+      "raw": "3061;22,64,31;ADAPTION_DROSSELKLAPPE_LESEN_MR;3;0;105996;0;1",
+      "label": "ADAPTION_DROSSELKLAPPE_LESEN_MR"
+    },
+    {
+      "id": "3062",
+      "name": "ADAPTION_FAHRWERTGEBER_LESEN_MR",
+      "did": 25650,
+      "raw": "3062;22,64,32;ADAPTION_FAHRWERTGEBER_LESEN_MR;3;0;105997;0;1",
+      "label": "ADAPTION_FAHRWERTGEBER_LESEN_MR"
+    },
+    {
+      "id": "3063",
+      "name": "ADAPTION_SCHRAEGLAGE_LESEN_MR",
+      "did": 25652,
+      "raw": "3063;22,64,34;ADAPTION_SCHRAEGLAGE_LESEN_MR;3;0;105999;0;1",
+      "label": "ADAPTION_SCHRAEGLAGE_LESEN_MR"
+    },
+    {
+      "id": "3064",
+      "name": "ADAPTION_LEERLAUF_LESEN_MR",
+      "did": 25653,
+      "raw": "3064;22,64,35;ADAPTION_LEERLAUF_LESEN_MR;3;0;110872;0;1",
+      "label": "ADAPTION_LEERLAUF_LESEN_MR"
+    },
+    {
+      "id": "3065",
+      "name": "ADAPTION_SCHALTHEBEL_LESEN_MR",
+      "did": 25654,
+      "raw": "3065;22,64,36;ADAPTION_SCHALTHEBEL_LESEN_MR;3;0;105845;0;1",
+      "label": "ADAPTION_SCHALTHEBEL_LESEN_MR"
+    },
+    {
+      "id": "3112",
+      "name": "LAMBDAREGELUNG_MR",
+      "did": 25744,
+      "raw": "3112;22,64,90;LAMBDAREGELUNG_MR;3;0;105974;1;0",
+      "label": "LAMBDAREGELUNG_MR"
+    },
+    {
+      "id": "3113",
+      "name": "LAST_MR",
+      "did": 25745,
+      "raw": "3113;22,64,91;LAST_MR;3;0;105975;1;0",
+      "label": "LAST_MR"
+    },
+    {
+      "id": "3114",
+      "name": "ZUENDUNG_MR",
+      "did": 25746,
+      "raw": "3114;22,64,92;ZUENDUNG_MR;3;0;105976;1;0",
+      "label": "ZUENDUNG_MR"
+    },
+    {
+      "id": "3115",
+      "name": "EINSPRITZUNG_MR",
+      "did": 25747,
+      "raw": "3115;22,64,93;EINSPRITZUNG_MR;3;0;105977;1;0",
+      "label": "EINSPRITZUNG_MR"
+    },
+    {
+      "id": "3116",
+      "name": "ASC_MR",
+      "did": 25748,
+      "raw": "3116;22,64,94;ASC_MR;3;0;105978;1;0",
+      "label": "ASC_MR"
+    }
+  ],
+  "cuX_ABS": [
+    {
+      "id": "399",
+      "name": "STATUS_ECU_MR",
+      "did": 16385,
+      "raw": "399;22,40,01;STATUS_ECU_MR;3;0;106627;1;0",
+      "label": "Operating state"
+    },
+    {
+      "id": "409",
+      "name": "ABS_VARIANTENCODIERUNG_MR",
+      "did": 57525,
+      "raw": "409;22,E0,B5;ABS_VARIANTENCODIERUNG_MR;3;0;106672;1;0",
+      "label": "ABS_VARIANTENCODIERUNG_MR"
+    },
+    {
+      "id": "419",
+      "name": "ABS_RADGESCHWINDIGKEIT_MR",
+      "did": 57565,
+      "raw": "419;22,E0,DD;ABS_RADGESCHWINDIGKEIT_MR;3;0;106757;1;0",
+      "label": "ABS_RADGESCHWINDIGKEIT_MR"
+    },
+    {
+      "id": "420",
+      "name": "ABS_DRUCKSENSOREN_MR",
+      "did": 57566,
+      "raw": "420;22,E0,DE;ABS_DRUCKSENSOREN_MR;3;0;106769;1;0",
+      "label": "ABS_DRUCKSENSOREN_MR"
+    },
+    {
+      "id": "422",
+      "name": "ABS_BREMSEN_MR",
+      "did": 57568,
+      "raw": "422;22,E0,E0;ABS_BREMSEN_MR;3;0;106776;1;0",
+      "label": "Brake status"
+    },
+    {
+      "id": "424",
+      "name": "ABS_BATT_SPANNUNG_MR",
+      "did": 57570,
+      "raw": "424;22,E0,E2;ABS_BATT_SPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    },
+    {
+      "id": "425",
+      "name": "ABS_TASTER_MR",
+      "did": 57752,
+      "raw": "425;22,E1,98;ABS_TASTER_MR;3;0;106798;1;0",
+      "label": "ABS_TASTER_MR"
+    },
+    {
+      "id": "426",
+      "name": "SCHRAEGLAGE_MR",
+      "did": 57753,
+      "raw": "426;22,E1,99;SCHRAEGLAGE_MR;3;0;106799;1;0",
+      "label": "Tilted position"
+    }
+  ],
+  "cuX_ABS9M": [
+    {
+      "id": "537",
+      "name": "STATUS_ECU",
+      "did": 16385,
+      "raw": "537;22,40,01;STATUS_ECU;3;0;106627;1;0",
+      "label": "Operating state"
+    },
+    {
+      "id": "496",
+      "name": "VARIANTENCODIERUNG",
+      "did": 57387,
+      "raw": "496;22,E0,2B;VARIANTENCODIERUNG;3;0;107102;1;0",
+      "label": "VARIANTENCODIERUNG"
+    },
+    {
+      "id": "498",
+      "name": "BATTERIESPANNUNG",
+      "did": 57388,
+      "raw": "498;22,E0,2C;BATTERIESPANNUNG;3;0;105496;1;0",
+      "label": "Battery voltage"
+    },
+    {
+      "id": "499",
+      "name": "DIGITAL_IN_BOSCH",
+      "did": 57389,
+      "raw": "499;22,E0,2D;DIGITAL_IN_BOSCH;3;0;107144;1;0",
+      "label": "Read digital data (inputs)"
+    },
+    {
+      "id": "500",
+      "name": "RADGESCHWINDIGKEIT_VORNE",
+      "did": 57390,
+      "raw": "500;22,E0,2E;RADGESCHWINDIGKEIT_VORNE;3;0;106758;1;0",
+      "label": "Wheel speed front"
+    },
+    {
+      "id": "501",
+      "name": "RADGESCHWINDIGKEIT_HINTEN",
+      "did": 57391,
+      "raw": "501;22,E0,2F;RADGESCHWINDIGKEIT_HINTEN;3;0;106759;1;0",
+      "label": "Wheel speed rear"
+    },
+    {
+      "id": "502",
+      "name": "DRUCKSENSOR_BOSCH",
+      "did": 57392,
+      "raw": "502;22,E0,30;DRUCKSENSOR_BOSCH;3;0;107155;1;0",
+      "label": "Pressure sensor"
+    },
+    {
+      "id": "506",
+      "name": "BREMSLICHTSCHALTER_BOSCH",
+      "did": 57396,
+      "raw": "506;22,E0,34;BREMSLICHTSCHALTER_BOSCH;3;0;107166;1;0",
+      "label": "BREMSLICHTSCHALTER_BOSCH"
+    }
+  ],
+  "cuX_ASW": [
+    {
+      "id": "490",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "490;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_AUDIO": [
+    {
+      "id": "433",
+      "name": "MUTE_MR",
+      "did": 57410,
+      "raw": "433;22,E0,42;MUTE_MR;3;0;106937;1;0",
+      "label": "MUTE_MR"
+    },
+    {
+      "id": "454",
+      "name": "AUDIO_INTERNE_TEMPERATUR_MR",
+      "did": 57421,
+      "raw": "454;22,E0,4D;AUDIO_INTERNE_TEMPERATUR_MR;3;0;106981;1;0",
+      "label": "Control unit internal temperature"
+    },
+    {
+      "id": "460",
+      "name": "HECK_LAUTSPRECHER_EIN_AUS_MR",
+      "did": 57425,
+      "raw": "460;22,E0,51;HECK_LAUTSPRECHER_EIN_AUS_MR;3;0;106987;1;0",
+      "label": "HECK_LAUTSPRECHER_EIN_AUS_MR"
+    },
+    {
+      "id": "476",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "476;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_BCO": [
+    {
+      "id": "842",
+      "name": "HUPE_MR",
+      "did": 57360,
+      "raw": "842;22,E0,10;HUPE_MR;3;0;108056;1;0",
+      "label": "HUPE_MR"
+    },
+    {
+      "id": "844",
+      "name": "BREMSLICHT_MR",
+      "did": 57361,
+      "raw": "844;22,E0,11;BREMSLICHT_MR;3;0;108334;1;0",
+      "label": "BREMSLICHT_MR"
+    },
+    {
+      "id": "846",
+      "name": "KL_15_HW_DIGITAL_MR",
+      "did": 57363,
+      "raw": "846;22,E0,13;KL_15_HW_DIGITAL_MR;3;0;105495;1;0",
+      "label": "Terminal 15: Status"
+    },
+    {
+      "id": "858",
+      "name": "FERNLICHT_MR",
+      "did": 57490,
+      "raw": "858;22,E0,92;FERNLICHT_MR;3;0;108071;1;0",
+      "label": "FERNLICHT_MR"
+    },
+    {
+      "id": "860",
+      "name": "STANDLICHT_MR",
+      "did": 57491,
+      "raw": "860;22,E0,93;STANDLICHT_MR;3;0;108341;1;0",
+      "label": "STANDLICHT_MR"
+    },
+    {
+      "id": "864",
+      "name": "RUECKLICHT_MR",
+      "did": 57493,
+      "raw": "864;22,E0,95;RUECKLICHT_MR;3;0;107603;1;0",
+      "label": "RUECKLICHT_MR"
+    },
+    {
+      "id": "866",
+      "name": "KENNZEICHENBELEUCHTUNG_MR",
+      "did": 57494,
+      "raw": "866;22,E0,96;KENNZEICHENBELEUCHTUNG_MR;3;0;108074;1;0",
+      "label": "KENNZEICHENBELEUCHTUNG_MR"
+    },
+    {
+      "id": "868",
+      "name": "GRIFFHEIZUNG_MR",
+      "did": 57495,
+      "raw": "868;22,E0,97;GRIFFHEIZUNG_MR;3;0;108075;1;0",
+      "label": "GRIFFHEIZUNG_MR"
+    },
+    {
+      "id": "870",
+      "name": "TANKGEBER_MR",
+      "did": 57496,
+      "raw": "870;22,E0,98;TANKGEBER_MR;3;0;108078;1;0",
+      "label": "TANKGEBER_MR"
+    },
+    {
+      "id": "871",
+      "name": "STECKDOSE_MR",
+      "did": 57497,
+      "raw": "871;22,E0,99;STECKDOSE_MR;3;0;108082;1;0",
+      "label": "STECKDOSE_MR"
+    },
+    {
+      "id": "874",
+      "name": "SZ_STECKER_MR",
+      "did": 57500,
+      "raw": "874;22,E0,9C;SZ_STECKER_MR;3;0;108086;1;0",
+      "label": "Optional accessories connector: Status"
+    },
+    {
+      "id": "876",
+      "name": "BREMSSCHALTER_MR",
+      "did": 57501,
+      "raw": "876;22,E0,9D;BREMSSCHALTER_MR;3;0;108349;1;0",
+      "label": "BREMSSCHALTER_MR"
+    },
+    {
+      "id": "877",
+      "name": "LADEKONTROLLLEUCHTE_MR",
+      "did": 57502,
+      "raw": "877;22,E0,9E;LADEKONTROLLLEUCHTE_MR;3;0;108354;1;0",
+      "label": "LADEKONTROLLLEUCHTE_MR"
+    },
+    {
+      "id": "879",
+      "name": "AUSSENTEMPERATUR_MR",
+      "did": 57504,
+      "raw": "879;22,E0,A0;AUSSENTEMPERATUR_MR;3;0;108089;1;0",
+      "label": "AUSSENTEMPERATUR_MR"
+    },
+    {
+      "id": "880",
+      "name": "FERNLICHT_EINGANG_MR",
+      "did": 57505,
+      "raw": "880;22,E0,A1;FERNLICHT_EINGANG_MR;3;0;108357;1;0",
+      "label": "FERNLICHT_EINGANG_MR"
+    },
+    {
+      "id": "882",
+      "name": "BLINKER_EINGANG_MR",
+      "did": 57506,
+      "raw": "882;22,E0,A2;BLINKER_EINGANG_MR;3;0;108359;1;0",
+      "label": "BLINKER_EINGANG_MR"
+    },
+    {
+      "id": "884",
+      "name": "HUPE_EINGANG_MR",
+      "did": 57507,
+      "raw": "884;22,E0,A3;HUPE_EINGANG_MR;3;0;108369;1;0",
+      "label": "HUPE_EINGANG_MR"
+    },
+    {
+      "id": "918",
+      "name": "WECKLEITUNG_DIGITAL_MR",
+      "did": 57628,
+      "raw": "918;22,E1,1C;WECKLEITUNG_DIGITAL_MR;3;0;106083;1;0",
+      "label": "Wake-up line"
+    },
+    {
+      "id": "919",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "919;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_BMSE2": [
+    {
+      "id": "1531",
+      "name": "MM_DIGITAL_KILL_MR",
+      "did": 26113,
+      "raw": "1531;22,66,01;MM_DIGITAL_KILL_MR;3;0;110680;1;0",
+      "label": "MM_DIGITAL_KILL_MR"
+    },
+    {
+      "id": "1532",
+      "name": "MM_DIGITAL_START_MR",
+      "did": 26114,
+      "raw": "1532;22,66,02;MM_DIGITAL_START_MR;3;0;110681;1;0",
+      "label": "MM_DIGITAL_START_MR"
+    },
+    {
+      "id": "1533",
+      "name": "MM_DIGITAL_SEITENSTUETZE_MR",
+      "did": 26115,
+      "raw": "1533;22,66,03;MM_DIGITAL_SEITENSTUETZE_MR;3;0;110682;1;0",
+      "label": "MM_DIGITAL_SEITENSTUETZE_MR"
+    },
+    {
+      "id": "1536",
+      "name": "MM_DIGITAL_START_RELAIS_MR",
+      "did": 26118,
+      "raw": "1536;22,66,06;MM_DIGITAL_START_RELAIS_MR;3;0;110690;1;0",
+      "label": "Starter relay"
+    },
+    {
+      "id": "1537",
+      "name": "MM_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS_MR",
+      "did": 26119,
+      "raw": "1537;22,66,07;MM_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS_MR;3;0;110691;1;0",
+      "label": "MM_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS_MR"
+    },
+    {
+      "id": "1538",
+      "name": "MM_DIGITAL_LUEFTER_RELAIS_MR",
+      "did": 26120,
+      "raw": "1538;22,66,08;MM_DIGITAL_LUEFTER_RELAIS_MR;3;0;110692;1;0",
+      "label": "MM_DIGITAL_LUEFTER_RELAIS_MR"
+    },
+    {
+      "id": "1540",
+      "name": "MM_DIGITAL_START_FREIGABE_MR",
+      "did": 26122,
+      "raw": "1540;22,66,0A;MM_DIGITAL_START_FREIGABE_MR;3;0;110696;1;0",
+      "label": "MM_DIGITAL_START_FREIGABE_MR"
+    },
+    {
+      "id": "1550",
+      "name": "MM_BATTERIESPANNUNG_MR",
+      "did": 26145,
+      "raw": "1550;22,66,21;MM_BATTERIESPANNUNG_MR;3;0;110719;1;0",
+      "label": "MM_BATTERIESPANNUNG_MR"
+    },
+    {
+      "id": "1553",
+      "name": "MM_KUPPLUNGSSCHALTER_ROHWERT_MR",
+      "did": 26148,
+      "raw": "1553;22,66,24;MM_KUPPLUNGSSCHALTER_ROHWERT_MR;3;0;110722;1;0",
+      "label": "MM_KUPPLUNGSSCHALTER_ROHWERT_MR"
+    },
+    {
+      "id": "1555",
+      "name": "MM_OELNIVEAU_MR",
+      "did": 26151,
+      "raw": "1555;22,66,27;MM_OELNIVEAU_MR;3;0;110724;1;0",
+      "label": "MM_OELNIVEAU_MR"
+    },
+    {
+      "id": "1559",
+      "name": "MM_KUEHLWASSER_TEMP_MR",
+      "did": 26155,
+      "raw": "1559;22,66,2B;MM_KUEHLWASSER_TEMP_MR;3;0;110730;1;0",
+      "label": "MM_KUEHLWASSER_TEMP_MR"
+    },
+    {
+      "id": "1561",
+      "name": "MM_ANSAUGLUFT_TEMP_MR",
+      "did": 26157,
+      "raw": "1561;22,66,2D;MM_ANSAUGLUFT_TEMP_MR;3;0;110732;1;0",
+      "label": "MM_ANSAUGLUFT_TEMP_MR"
+    },
+    {
+      "id": "1562",
+      "name": "MM_LAMBDA_ROHWERT_MR",
+      "did": 26158,
+      "raw": "1562;22,66,2E;MM_LAMBDA_ROHWERT_MR;3;0;110733;1;0",
+      "label": "Oxygen sensor voltage"
+    },
+    {
+      "id": "1568",
+      "name": "MM_DROSSELKLAPPE_WINKEL_MR",
+      "did": 26178,
+      "raw": "1568;22,66,42;MM_DROSSELKLAPPE_WINKEL_MR;3;0;110743;1;0",
+      "label": "Throttle-valve angle"
+    },
+    {
+      "id": "1569",
+      "name": "MM_DROSSELKLAPPE_POSITION_MR",
+      "did": 26179,
+      "raw": "1569;22,66,43;MM_DROSSELKLAPPE_POSITION_MR;3;0;110744;1;0",
+      "label": "Throttle valve position"
+    },
+    {
+      "id": "1570",
+      "name": "MM_DIGITAL_LAMBDA_HEIZUNG_MR",
+      "did": 26184,
+      "raw": "1570;22,66,48;MM_DIGITAL_LAMBDA_HEIZUNG_MR;3;0;110745;1;0",
+      "label": "Oxygen sensor heating"
+    },
+    {
+      "id": "1573",
+      "name": "MM_DIGITAL_LAMBDA_REGELUNG_MR",
+      "did": 26187,
+      "raw": "1573;22,66,4B;MM_DIGITAL_LAMBDA_REGELUNG_MR;3;0;110748;1;0",
+      "label": "Oxygen sensor emissions control"
+    },
+    {
+      "id": "1576",
+      "name": "MM_ZYLINDER1_EINSPRITZDAUER_MR",
+      "did": 26194,
+      "raw": "1576;22,66,52;MM_ZYLINDER1_EINSPRITZDAUER_MR;3;0;110751;1;0",
+      "label": "Injection period, cyl. 1"
+    },
+    {
+      "id": "1580",
+      "name": "MM_MOTORDREHZAHL_MR",
+      "did": 26240,
+      "raw": "1580;22,66,80;MM_MOTORDREHZAHL_MR;3;0;110755;1;0",
+      "label": "MM_MOTORDREHZAHL_MR"
+    },
+    {
+      "id": "1581",
+      "name": "MM_FAHRZEUG_GESCHWINDIGKEIT_MR",
+      "did": 26241,
+      "raw": "1581;22,66,81;MM_FAHRZEUG_GESCHWINDIGKEIT_MR;3;0;110756;1;0",
+      "label": "MM_FAHRZEUG_GESCHWINDIGKEIT_MR"
+    },
+    {
+      "id": "1585",
+      "name": "MM_STEPPERMOTOR_MR",
+      "did": 26245,
+      "raw": "1585;22,66,85;MM_STEPPERMOTOR_MR;3;0;110760;1;0",
+      "label": "Position of idle actuator"
+    },
+    {
+      "id": "1588",
+      "name": "MM_LEERLAUF_DREHZAHL_SOLL_MR",
+      "did": 26248,
+      "raw": "1588;22,66,88;MM_LEERLAUF_DREHZAHL_SOLL_MR;3;0;110763;1;0",
+      "label": "MM_LEERLAUF_DREHZAHL_SOLL_MR"
+    }
+  ],
+  "cuX_BMSE2B": [
+    {
+      "id": "2731",
+      "name": "MM_DIGITAL_KILL_MR",
+      "did": 26113,
+      "raw": "2731;22,66,01;MM_DIGITAL_KILL_MR;3;0;110680;1;0",
+      "label": "MM_DIGITAL_KILL_MR"
+    },
+    {
+      "id": "2732",
+      "name": "MM_DIGITAL_START_MR",
+      "did": 26114,
+      "raw": "2732;22,66,02;MM_DIGITAL_START_MR;3;0;110681;1;0",
+      "label": "MM_DIGITAL_START_MR"
+    },
+    {
+      "id": "2733",
+      "name": "MM_DIGITAL_SEITENSTUETZE_MR",
+      "did": 26115,
+      "raw": "2733;22,66,03;MM_DIGITAL_SEITENSTUETZE_MR;3;0;110682;1;0",
+      "label": "MM_DIGITAL_SEITENSTUETZE_MR"
+    },
+    {
+      "id": "2735",
+      "name": "MM_DIGITAL_START_RELAIS_MR",
+      "did": 26118,
+      "raw": "2735;22,66,06;MM_DIGITAL_START_RELAIS_MR;3;0;110690;1;0",
+      "label": "Starter relay"
+    },
+    {
+      "id": "2736",
+      "name": "MM_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS_MR",
+      "did": 26119,
+      "raw": "2736;22,66,07;MM_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS_MR;3;0;110691;1;0",
+      "label": "MM_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS_MR"
+    },
+    {
+      "id": "2737",
+      "name": "MM_DIGITAL_LUEFTER_RELAIS_MR",
+      "did": 26120,
+      "raw": "2737;22,66,08;MM_DIGITAL_LUEFTER_RELAIS_MR;3;0;110692;1;0",
+      "label": "MM_DIGITAL_LUEFTER_RELAIS_MR"
+    },
+    {
+      "id": "2739",
+      "name": "MM_DIGITAL_START_FREIGABE_MR",
+      "did": 26122,
+      "raw": "2739;22,66,0A;MM_DIGITAL_START_FREIGABE_MR;3;0;110696;1;0",
+      "label": "MM_DIGITAL_START_FREIGABE_MR"
+    },
+    {
+      "id": "2748",
+      "name": "MM_BATTERIESPANNUNG_MR",
+      "did": 26145,
+      "raw": "2748;22,66,21;MM_BATTERIESPANNUNG_MR;3;0;110719;1;0",
+      "label": "MM_BATTERIESPANNUNG_MR"
+    },
+    {
+      "id": "2750",
+      "name": "MM_KUPPLUNGSSCHALTER_MR",
+      "did": 26149,
+      "raw": "2750;22,66,25;MM_KUPPLUNGSSCHALTER_MR;3;0;111442;1;0",
+      "label": "MM_KUPPLUNGSSCHALTER_MR"
+    },
+    {
+      "id": "2752",
+      "name": "MM_KUEHLWASSER_TEMP_MR",
+      "did": 26155,
+      "raw": "2752;22,66,2B;MM_KUEHLWASSER_TEMP_MR;3;0;110730;1;0",
+      "label": "MM_KUEHLWASSER_TEMP_MR"
+    },
+    {
+      "id": "2754",
+      "name": "MM_ANSAUGLUFT_TEMP_MR",
+      "did": 26157,
+      "raw": "2754;22,66,2D;MM_ANSAUGLUFT_TEMP_MR;3;0;110732;1;0",
+      "label": "MM_ANSAUGLUFT_TEMP_MR"
+    },
+    {
+      "id": "2755",
+      "name": "MM_LAMBDA_ROHWERT_MR",
+      "did": 26158,
+      "raw": "2755;22,66,2E;MM_LAMBDA_ROHWERT_MR;3;0;110733;1;0",
+      "label": "Oxygen sensor voltage"
+    },
+    {
+      "id": "2761",
+      "name": "MM_DROSSELKLAPPE_WINKEL_MR",
+      "did": 26178,
+      "raw": "2761;22,66,42;MM_DROSSELKLAPPE_WINKEL_MR;3;0;110743;1;0",
+      "label": "Throttle-valve angle"
+    },
+    {
+      "id": "2762",
+      "name": "MM_DROSSELKLAPPE_POSITION_MR",
+      "did": 26179,
+      "raw": "2762;22,66,43;MM_DROSSELKLAPPE_POSITION_MR;3;0;110744;1;0",
+      "label": "Throttle valve position"
+    },
+    {
+      "id": "2764",
+      "name": "MM_GANG_MR",
+      "did": 26182,
+      "raw": "2764;22,66,46;MM_GANG_MR;3;0;111444;1;0",
+      "label": "MM_GANG_MR"
+    },
+    {
+      "id": "2765",
+      "name": "MM_DIGITAL_LAMBDA_HEIZUNG_MR",
+      "did": 26184,
+      "raw": "2765;22,66,48;MM_DIGITAL_LAMBDA_HEIZUNG_MR;3;0;110745;1;0",
+      "label": "Oxygen sensor heating"
+    },
+    {
+      "id": "2768",
+      "name": "MM_DIGITAL_LAMBDA_REGELUNG_MR",
+      "did": 26187,
+      "raw": "2768;22,66,4B;MM_DIGITAL_LAMBDA_REGELUNG_MR;3;0;110748;1;0",
+      "label": "Oxygen sensor emissions control"
+    },
+    {
+      "id": "2771",
+      "name": "MM_ZYLINDER1_EINSPRITZDAUER_MR",
+      "did": 26194,
+      "raw": "2771;22,66,52;MM_ZYLINDER1_EINSPRITZDAUER_MR;3;0;110751;1;0",
+      "label": "Injection period, cyl. 1"
+    },
+    {
+      "id": "2778",
+      "name": "MM_MOTORDREHZAHL_MR",
+      "did": 26240,
+      "raw": "2778;22,66,80;MM_MOTORDREHZAHL_MR;3;0;110755;1;0",
+      "label": "MM_MOTORDREHZAHL_MR"
+    },
+    {
+      "id": "2779",
+      "name": "MM_FAHRZEUG_GESCHWINDIGKEIT_MR",
+      "did": 26241,
+      "raw": "2779;22,66,81;MM_FAHRZEUG_GESCHWINDIGKEIT_MR;3;0;110756;1;0",
+      "label": "MM_FAHRZEUG_GESCHWINDIGKEIT_MR"
+    },
+    {
+      "id": "2783",
+      "name": "MM_STEPPERMOTOR_MR",
+      "did": 26245,
+      "raw": "2783;22,66,85;MM_STEPPERMOTOR_MR;3;0;110760;1;0",
+      "label": "Position of idle actuator"
+    },
+    {
+      "id": "2786",
+      "name": "MM_LEERLAUF_DREHZAHL_SOLL_MR",
+      "did": 26248,
+      "raw": "2786;22,66,88;MM_LEERLAUF_DREHZAHL_SOLL_MR;3;0;110763;1;0",
+      "label": "MM_LEERLAUF_DREHZAHL_SOLL_MR"
+    }
+  ],
+  "cuX_BMSMP1": [
+    {
+      "id": "1663",
+      "name": "TEMPERATUR_MR",
+      "did": 25600,
+      "raw": "1663;22,64,00;TEMPERATUR_MR;3;0;105969;1;0",
+      "label": "TEMPERATUR_MR"
+    },
+    {
+      "id": "1665",
+      "name": "DRUCK_MR",
+      "did": 25602,
+      "raw": "1665;22,64,02;DRUCK_MR;3;0;105971;1;0",
+      "label": "DRUCK_MR"
+    },
+    {
+      "id": "1666",
+      "name": "DREHZAHL_MR",
+      "did": 25603,
+      "raw": "1666;22,64,03;DREHZAHL_MR;3;0;105972;1;0",
+      "label": "DREHZAHL_MR"
+    },
+    {
+      "id": "1667",
+      "name": "SPANNUNG_MR",
+      "did": 25604,
+      "raw": "1667;22,64,04;SPANNUNG_MR;3;0;105973;1;0",
+      "label": "SPANNUNG_MR"
+    },
+    {
+      "id": "1669",
+      "name": "FAHRWERTGEBER_MR",
+      "did": 25617,
+      "raw": "1669;22,64,11;FAHRWERTGEBER_MR;3;0;105981;1;0",
+      "label": "FAHRWERTGEBER_MR"
+    },
+    {
+      "id": "1670",
+      "name": "SENSORBOX_MR",
+      "did": 25618,
+      "raw": "1670;22,64,12;SENSORBOX_MR;3;0;105982;1;0",
+      "label": "SENSORBOX_MR"
+    },
+    {
+      "id": "1671",
+      "name": "GETRIEBE_MR",
+      "did": 25619,
+      "raw": "1671;22,64,13;GETRIEBE_MR;3;0;105983;1;0",
+      "label": "GETRIEBE_MR"
+    },
+    {
+      "id": "1672",
+      "name": "SCHALTER_MR",
+      "did": 25620,
+      "raw": "1672;22,64,14;SCHALTER_MR;3;0;105984;1;0",
+      "label": "SCHALTER_MR"
+    },
+    {
+      "id": "1673",
+      "name": "ANLASSER_MR",
+      "did": 25621,
+      "raw": "1673;22,64,15;ANLASSER_MR;3;0;105985;1;0",
+      "label": "ANLASSER_MR"
+    },
+    {
+      "id": "1674",
+      "name": "LAMBDASONDENHEIZUNG_MR",
+      "did": 25622,
+      "raw": "1674;22,64,16;LAMBDASONDENHEIZUNG_MR;3;0;105986;1;0",
+      "label": "LAMBDASONDENHEIZUNG_MR"
+    },
+    {
+      "id": "1675",
+      "name": "KRAFTSTOFFPUMPE_MR",
+      "did": 25623,
+      "raw": "1675;22,64,17;KRAFTSTOFFPUMPE_MR;3;0;105987;1;0",
+      "label": "KRAFTSTOFFPUMPE_MR"
+    },
+    {
+      "id": "1676",
+      "name": "ELUEFTER_MR",
+      "did": 25624,
+      "raw": "1676;22,64,18;ELUEFTER_MR;3;0;105988;1;0",
+      "label": "ELUEFTER_MR"
+    },
+    {
+      "id": "1681",
+      "name": "ABGASKLAPPENSTELLER_MR",
+      "did": 25629,
+      "raw": "1681;22,64,1D;ABGASKLAPPENSTELLER_MR;3;0;105993;1;0",
+      "label": "ABGASKLAPPENSTELLER_MR"
+    },
+    {
+      "id": "1689",
+      "name": "ADAPTION_GETRIEBE_LESEN_MR",
+      "did": 25648,
+      "raw": "1689;22,64,30;ADAPTION_GETRIEBE_LESEN_MR;3;0;105995;0;1",
+      "label": "ADAPTION_GETRIEBE_LESEN_MR"
+    },
+    {
+      "id": "1690",
+      "name": "ADAPTION_DROSSELKLAPPE_LESEN_MR",
+      "did": 25649,
+      "raw": "1690;22,64,31;ADAPTION_DROSSELKLAPPE_LESEN_MR;3;0;105996;0;1",
+      "label": "ADAPTION_DROSSELKLAPPE_LESEN_MR"
+    },
+    {
+      "id": "1691",
+      "name": "ADAPTION_FAHRWERTGEBER_LESEN_MR",
+      "did": 25650,
+      "raw": "1691;22,64,32;ADAPTION_FAHRWERTGEBER_LESEN_MR;3;0;105997;0;1",
+      "label": "ADAPTION_FAHRWERTGEBER_LESEN_MR"
+    },
+    {
+      "id": "1692",
+      "name": "ADAPTION_SCHRAEGLAGE_LESEN_MR",
+      "did": 25652,
+      "raw": "1692;22,64,34;ADAPTION_SCHRAEGLAGE_LESEN_MR;3;0;105999;0;1",
+      "label": "ADAPTION_SCHRAEGLAGE_LESEN_MR"
+    },
+    {
+      "id": "1693",
+      "name": "ADAPTION_LEERLAUF_LESEN_MR",
+      "did": 25653,
+      "raw": "1693;22,64,35;ADAPTION_LEERLAUF_LESEN_MR;3;0;110872;0;1",
+      "label": "ADAPTION_LEERLAUF_LESEN_MR"
+    },
+    {
+      "id": "1694",
+      "name": "ADAPTION_SCHALTHEBEL_LESEN_MR",
+      "did": 25654,
+      "raw": "1694;22,64,36;ADAPTION_SCHALTHEBEL_LESEN_MR;3;0;105845;0;1",
+      "label": "ADAPTION_SCHALTHEBEL_LESEN_MR"
+    },
+    {
+      "id": "1741",
+      "name": "LAMBDAREGELUNG_MR",
+      "did": 25744,
+      "raw": "1741;22,64,90;LAMBDAREGELUNG_MR;3;0;105974;1;0",
+      "label": "LAMBDAREGELUNG_MR"
+    },
+    {
+      "id": "1742",
+      "name": "LAST_MR",
+      "did": 25745,
+      "raw": "1742;22,64,91;LAST_MR;3;0;105975;1;0",
+      "label": "LAST_MR"
+    },
+    {
+      "id": "1743",
+      "name": "ZUENDUNG_MR",
+      "did": 25746,
+      "raw": "1743;22,64,92;ZUENDUNG_MR;3;0;105976;1;0",
+      "label": "ZUENDUNG_MR"
+    },
+    {
+      "id": "1744",
+      "name": "EINSPRITZUNG_MR",
+      "did": 25747,
+      "raw": "1744;22,64,93;EINSPRITZUNG_MR;3;0;105977;1;0",
+      "label": "EINSPRITZUNG_MR"
+    },
+    {
+      "id": "1745",
+      "name": "ASC_MR",
+      "did": 25748,
+      "raw": "1745;22,64,94;ASC_MR;3;0;105978;1;0",
+      "label": "ASC_MR"
+    }
+  ],
+  "cuX_BMSO1": [
+    {
+      "id": "2865",
+      "name": "TEMPERATUR_MR",
+      "did": 25600,
+      "raw": "2865;22,64,00;TEMPERATUR_MR;3;0;105969;1;0",
+      "label": "TEMPERATUR_MR"
+    },
+    {
+      "id": "2867",
+      "name": "DRUCK_MR",
+      "did": 25602,
+      "raw": "2867;22,64,02;DRUCK_MR;3;0;105971;1;0",
+      "label": "DRUCK_MR"
+    },
+    {
+      "id": "2868",
+      "name": "DREHZAHL_MR",
+      "did": 25603,
+      "raw": "2868;22,64,03;DREHZAHL_MR;3;0;111680;1;0",
+      "label": "DREHZAHL_MR"
+    },
+    {
+      "id": "2869",
+      "name": "SPANNUNG_MR",
+      "did": 25604,
+      "raw": "2869;22,64,04;SPANNUNG_MR;3;0;105973;1;0",
+      "label": "SPANNUNG_MR"
+    },
+    {
+      "id": "2870",
+      "name": "DROSSELKLAPPE_MR",
+      "did": 25616,
+      "raw": "2870;22,64,10;DROSSELKLAPPE_MR;3;0;105980;1;0",
+      "label": "DROSSELKLAPPE_MR"
+    },
+    {
+      "id": "2871",
+      "name": "FAHRWERTGEBER_MR",
+      "did": 25617,
+      "raw": "2871;22,64,11;FAHRWERTGEBER_MR;3;0;105981;1;0",
+      "label": "FAHRWERTGEBER_MR"
+    },
+    {
+      "id": "2872",
+      "name": "SENSORBOX_MR",
+      "did": 25618,
+      "raw": "2872;22,64,12;SENSORBOX_MR;3;0;105982;1;0",
+      "label": "SENSORBOX_MR"
+    },
+    {
+      "id": "2873",
+      "name": "GETRIEBE_MR",
+      "did": 25619,
+      "raw": "2873;22,64,13;GETRIEBE_MR;3;0;105983;1;0",
+      "label": "GETRIEBE_MR"
+    },
+    {
+      "id": "2874",
+      "name": "SCHALTER_MR",
+      "did": 25620,
+      "raw": "2874;22,64,14;SCHALTER_MR;3;0;105984;1;0",
+      "label": "SCHALTER_MR"
+    },
+    {
+      "id": "2875",
+      "name": "ANLASSER_MR",
+      "did": 25621,
+      "raw": "2875;22,64,15;ANLASSER_MR;3;0;105985;1;0",
+      "label": "ANLASSER_MR"
+    },
+    {
+      "id": "2877",
+      "name": "KRAFTSTOFFPUMPE_MR",
+      "did": 25623,
+      "raw": "2877;22,64,17;KRAFTSTOFFPUMPE_MR;3;0;105987;1;0",
+      "label": "KRAFTSTOFFPUMPE_MR"
+    },
+    {
+      "id": "2883",
+      "name": "ABGASKLAPPENSTELLER_MR",
+      "did": 25629,
+      "raw": "2883;22,64,1D;ABGASKLAPPENSTELLER_MR;3;0;105993;1;0",
+      "label": "ABGASKLAPPENSTELLER_MR"
+    },
+    {
+      "id": "2892",
+      "name": "BREITBANDLAMBDASONDE_MR",
+      "did": 25640,
+      "raw": "2892;22,64,28;BREITBANDLAMBDASONDE_MR;3;0;111771;1;0",
+      "label": "BREITBANDLAMBDASONDE_MR"
+    },
+    {
+      "id": "2895",
+      "name": "ADAPTION_GETRIEBE_LESEN_MR",
+      "did": 25648,
+      "raw": "2895;22,64,30;ADAPTION_GETRIEBE_LESEN_MR;3;0;105995;0;1",
+      "label": "ADAPTION_GETRIEBE_LESEN_MR"
+    },
+    {
+      "id": "2896",
+      "name": "ADAPTION_DROSSELKLAPPE_LESEN_MR",
+      "did": 25649,
+      "raw": "2896;22,64,31;ADAPTION_DROSSELKLAPPE_LESEN_MR;3;0;105996;0;1",
+      "label": "ADAPTION_DROSSELKLAPPE_LESEN_MR"
+    },
+    {
+      "id": "2931",
+      "name": "ZUENDUNG_MR",
+      "did": 25746,
+      "raw": "2931;22,64,92;ZUENDUNG_MR;3;0;105976;1;0",
+      "label": "ZUENDUNG_MR"
+    },
+    {
+      "id": "2932",
+      "name": "EINSPRITZUNG_MR",
+      "did": 25747,
+      "raw": "2932;22,64,93;EINSPRITZUNG_MR;3;0;105977;1;0",
+      "label": "EINSPRITZUNG_MR"
+    },
+    {
+      "id": "2933",
+      "name": "ASC_MR",
+      "did": 25748,
+      "raw": "2933;22,64,94;ASC_MR;3;0;105978;0;1",
+      "label": "ASC_MR"
+    },
+    {
+      "id": "2966",
+      "name": "IDR_ADAPTION_FAHRWERTGEBER_MR",
+      "did": 25809,
+      "raw": "2966;22,64,D1;IDR_ADAPTION_FAHRWERTGEBER_MR;3;0;112182;0;1",
+      "label": "IDR_ADAPTION_FAHRWERTGEBER_MR"
+    },
+    {
+      "id": "2968",
+      "name": "IDR_ADAPTION_SCHALTHEBEL_MR",
+      "did": 25810,
+      "raw": "2968;22,64,D2;IDR_ADAPTION_SCHALTHEBEL_MR;3;0;112183;0;1",
+      "label": "IDR_ADAPTION_SCHALTHEBEL_MR"
+    }
+  ],
+  "cuX_BMSX": [
+    {
+      "id": "21",
+      "name": "TEMPERATUR_MR",
+      "did": 25088,
+      "raw": "21;22,62,00;TEMPERATUR_MR;3;0;105969;1;0",
+      "label": "TEMPERATUR_MR"
+    },
+    {
+      "id": "23",
+      "name": "DRUCK_MR",
+      "did": 25090,
+      "raw": "23;22,62,02;DRUCK_MR;3;0;105971;1;0",
+      "label": "DRUCK_MR"
+    },
+    {
+      "id": "24",
+      "name": "DREHZAHL_MR",
+      "did": 25091,
+      "raw": "24;22,62,03;DREHZAHL_MR;3;0;105972;1;0",
+      "label": "DREHZAHL_MR"
+    },
+    {
+      "id": "25",
+      "name": "SPANNUNG_MR",
+      "did": 25092,
+      "raw": "25;22,62,04;SPANNUNG_MR;3;0;105973;1;0",
+      "label": "SPANNUNG_MR"
+    },
+    {
+      "id": "26",
+      "name": "LAMBDAREGELUNG_MR",
+      "did": 25098,
+      "raw": "26;22,62,0A;LAMBDAREGELUNG_MR;3;0;105974;1;0",
+      "label": "LAMBDAREGELUNG_MR"
+    },
+    {
+      "id": "28",
+      "name": "ZUENDUNG_MR",
+      "did": 25100,
+      "raw": "28;22,62,0C;ZUENDUNG_MR;3;0;105976;1;0",
+      "label": "ZUENDUNG_MR"
+    },
+    {
+      "id": "29",
+      "name": "EINSPRITZUNG_MR",
+      "did": 25101,
+      "raw": "29;22,62,0D;EINSPRITZUNG_MR;3;0;105977;1;0",
+      "label": "EINSPRITZUNG_MR"
+    },
+    {
+      "id": "30",
+      "name": "ASC_MR",
+      "did": 25102,
+      "raw": "30;22,62,0E;ASC_MR;3;0;105978;1;1",
+      "label": "ASC_MR"
+    },
+    {
+      "id": "32",
+      "name": "DROSSELKLAPPE_MR",
+      "did": 25104,
+      "raw": "32;22,62,10;DROSSELKLAPPE_MR;3;0;105980;1;0",
+      "label": "DROSSELKLAPPE_MR"
+    },
+    {
+      "id": "33",
+      "name": "FAHRWERTGEBER_MR",
+      "did": 25105,
+      "raw": "33;22,62,11;FAHRWERTGEBER_MR;3;0;105981;1;0",
+      "label": "FAHRWERTGEBER_MR"
+    },
+    {
+      "id": "34",
+      "name": "SENSORBOX_MR",
+      "did": 25106,
+      "raw": "34;22,62,12;SENSORBOX_MR;3;0;105982;1;0",
+      "label": "SENSORBOX_MR"
+    },
+    {
+      "id": "35",
+      "name": "GETRIEBE_MR",
+      "did": 25107,
+      "raw": "35;22,62,13;GETRIEBE_MR;3;0;105983;1;0",
+      "label": "GETRIEBE_MR"
+    },
+    {
+      "id": "36",
+      "name": "SCHALTER_MR",
+      "did": 25108,
+      "raw": "36;22,62,14;SCHALTER_MR;3;0;105984;1;0",
+      "label": "SCHALTER_MR"
+    },
+    {
+      "id": "37",
+      "name": "ANLASSER_MR",
+      "did": 25109,
+      "raw": "37;22,62,15;ANLASSER_MR;3;0;105985;1;0",
+      "label": "ANLASSER_MR"
+    },
+    {
+      "id": "38",
+      "name": "LAMBDASONDENHEIZUNG_MR",
+      "did": 25110,
+      "raw": "38;22,62,16;LAMBDASONDENHEIZUNG_MR;3;0;105986;1;0",
+      "label": "LAMBDASONDENHEIZUNG_MR"
+    },
+    {
+      "id": "39",
+      "name": "KRAFTSTOFFPUMPE_MR",
+      "did": 25111,
+      "raw": "39;22,62,17;KRAFTSTOFFPUMPE_MR;3;0;105987;1;0",
+      "label": "KRAFTSTOFFPUMPE_MR"
+    },
+    {
+      "id": "40",
+      "name": "ELUEFTER_MR",
+      "did": 25112,
+      "raw": "40;22,62,18;ELUEFTER_MR;3;0;105988;1;0",
+      "label": "ELUEFTER_MR"
+    },
+    {
+      "id": "48",
+      "name": "ADAPTION_GETRIEBE_LESEN_MR",
+      "did": 25120,
+      "raw": "48;22,62,20;ADAPTION_GETRIEBE_LESEN_MR;3;0;105995;0;1",
+      "label": "ADAPTION_GETRIEBE_LESEN_MR"
+    },
+    {
+      "id": "49",
+      "name": "ADAPTION_DROSSELKLAPPE_LESEN_MR",
+      "did": 25121,
+      "raw": "49;22,62,21;ADAPTION_DROSSELKLAPPE_LESEN_MR;3;0;105996;0;1",
+      "label": "ADAPTION_DROSSELKLAPPE_LESEN_MR"
+    },
+    {
+      "id": "50",
+      "name": "ADAPTION_FAHRWERTGEBER_LESEN_MR",
+      "did": 25122,
+      "raw": "50;22,62,22;ADAPTION_FAHRWERTGEBER_LESEN_MR;3;0;105997;0;1",
+      "label": "ADAPTION_FAHRWERTGEBER_LESEN_MR"
+    }
+  ],
+  "cuX_DWA": [
+    {
+      "id": "627",
+      "name": "DWA_INT_BATTERIE_MR",
+      "did": 57537,
+      "raw": "627;22,E0,C1;DWA_INT_BATTERIE_MR;3;0;107634;1;0",
+      "label": "DWA_INT_BATTERIE_MR"
+    },
+    {
+      "id": "628",
+      "name": "DWA_NEIGUNG_MR",
+      "did": 57538,
+      "raw": "628;22,E0,C2;DWA_NEIGUNG_MR;3;0;107642;1;0",
+      "label": "DWA_NEIGUNG_MR"
+    },
+    {
+      "id": "630",
+      "name": "DWA_FERNBEDIENUNG_MR",
+      "did": 57541,
+      "raw": "630;22,E0,C5;DWA_FERNBEDIENUNG_MR;3;0;107656;1;0",
+      "label": "DWA_FERNBEDIENUNG_MR"
+    },
+    {
+      "id": "631",
+      "name": "DWA_ALARM_MR",
+      "did": 57544,
+      "raw": "631;22,E0,C8;DWA_ALARM_MR;3;0;107661;1;0",
+      "label": "DWA_ALARM_MR"
+    },
+    {
+      "id": "632",
+      "name": "ZV_STATUS_MR",
+      "did": 57545,
+      "raw": "632;22,E0,C9;ZV_STATUS_MR;3;0;107670;1;0",
+      "label": "ZV_STATUS_MR"
+    },
+    {
+      "id": "635",
+      "name": "VORFELD_BEL_MR",
+      "did": 57616,
+      "raw": "635;22,E1,10;VORFELD_BEL_MR;3;0;107676;1;0",
+      "label": "VORFELD_BEL_MR"
+    },
+    {
+      "id": "639",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "639;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_ESA": [
+    {
+      "id": "950",
+      "name": "ESA_DC_MOTOR_PWM_MR",
+      "did": 57663,
+      "raw": "950;22,E1,3F;ESA_DC_MOTOR_PWM_MR;3;0;108839;1;0",
+      "label": "ESA_DC_MOTOR_PWM_MR"
+    },
+    {
+      "id": "951",
+      "name": "ESA_HALLSENSOR_MR",
+      "did": 57664,
+      "raw": "951;22,E1,40;ESA_HALLSENSOR_MR;3;0;108844;1;0",
+      "label": "ESA_HALLSENSOR_MR"
+    },
+    {
+      "id": "952",
+      "name": "ESA_TEMPERATURMODELL_MR",
+      "did": 57665,
+      "raw": "952;22,E1,41;ESA_TEMPERATURMODELL_MR;3;0;108851;1;0",
+      "label": "ESA_TEMPERATURMODELL_MR"
+    },
+    {
+      "id": "953",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "953;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    },
+    {
+      "id": "954",
+      "name": "ESA_IST_POSITION_MR",
+      "did": 57667,
+      "raw": "954;22,E1,43;ESA_IST_POSITION_MR;3;0;108856;1;0",
+      "label": "ESA_IST_POSITION_MR"
+    }
+  ],
+  "cuX_FSA": [
+    {
+      "id": "965",
+      "name": "HUPE_EINGANG_MR",
+      "did": 57507,
+      "raw": "965;22,E0,A3;HUPE_EINGANG_MR;3;0;108369;1;0",
+      "label": "HUPE_EINGANG_MR"
+    },
+    {
+      "id": "970",
+      "name": "ZUSATZSCHEINWERFER_EINGANG_MR",
+      "did": 57601,
+      "raw": "970;22,E1,01;ZUSATZSCHEINWERFER_EINGANG_MR;3;0;108899;1;0",
+      "label": "ZUSATZSCHEINWERFER_EINGANG_MR"
+    },
+    {
+      "id": "976",
+      "name": "WINDSCHILD_MR",
+      "did": 57605,
+      "raw": "976;22,E1,05;WINDSCHILD_MR;3;0;108912;1;0",
+      "label": "WINDSCHILD_MR"
+    },
+    {
+      "id": "982",
+      "name": "SITZHEIZUNG_EINGANG_MR",
+      "did": 57608,
+      "raw": "982;22,E1,08;SITZHEIZUNG_EINGANG_MR;3;0;108936;1;0",
+      "label": "SITZHEIZUNG_EINGANG_MR"
+    },
+    {
+      "id": "984",
+      "name": "ABBLEND_FERNLICHT_EINGANG_MR",
+      "did": 57610,
+      "raw": "984;22,E1,0A;ABBLEND_FERNLICHT_EINGANG_MR;3;0;108941;1;0",
+      "label": "ABBLEND_FERNLICHT_EINGANG_MR"
+    },
+    {
+      "id": "987",
+      "name": "BREMSLICHT_TOPCASE_EINGANG_MR",
+      "did": 57612,
+      "raw": "987;22,E1,0C;BREMSLICHT_TOPCASE_EINGANG_MR;3;0;108945;1;0",
+      "label": "BREMSLICHT_TOPCASE_EINGANG_MR"
+    },
+    {
+      "id": "990",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "990;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_KOMB03": [
+    {
+      "id": "1160",
+      "name": "GWSZ_ANZEIGE_WERT",
+      "did": 53538,
+      "raw": "1160;22,D1,22;GWSZ_ANZEIGE_WERT;3;0;106075;1;0",
+      "label": "GWSZ_ANZEIGE_WERT"
+    },
+    {
+      "id": "1161",
+      "name": "TANKGEBER",
+      "did": 57444,
+      "raw": "1161;22,E0,64;TANKGEBER;3;0;110178;1;0",
+      "label": "TANKGEBER"
+    },
+    {
+      "id": "1170",
+      "name": "GANG_ANZEIGE_MR",
+      "did": 57639,
+      "raw": "1170;22,E1,27;GANG_ANZEIGE_MR;3;0;106109;1;0",
+      "label": "GANG_ANZEIGE_MR"
+    },
+    {
+      "id": "1178",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "1178;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    },
+    {
+      "id": "1182",
+      "name": "EINGANG_FERNLICHT",
+      "did": 57800,
+      "raw": "1182;22,E1,C8;EINGANG_FERNLICHT;3;0;110200;1;0",
+      "label": "High-beam switch"
+    },
+    {
+      "id": "1183",
+      "name": "STATUS_EINGANG_BLINKER_SCHALTER_MR",
+      "did": 57801,
+      "raw": "1183;22,E1,C9;STATUS_EINGANG_BLINKER_SCHALTER_MR;3;0;110201;1;0",
+      "label": "STATUS_EINGANG_BLINKER_SCHALTER_MR"
+    }
+  ],
+  "cuX_KOMB50": [
+    {
+      "id": "1352",
+      "name": "PHOTOSENSOR_MR",
+      "did": 57627,
+      "raw": "1352;22,E1,1B;PHOTOSENSOR_MR;3;0;106082;1;0",
+      "label": "Ambient brightness"
+    },
+    {
+      "id": "1353",
+      "name": "WECKLEITUNG_DIGITAL_MR",
+      "did": 57628,
+      "raw": "1353;22,E1,1C;WECKLEITUNG_DIGITAL_MR;3;0;106083;1;0",
+      "label": "Wake-up line"
+    },
+    {
+      "id": "1354",
+      "name": "TEMPERATUR_DISPLAY_MR",
+      "did": 57629,
+      "raw": "1354;22,E1,1D;TEMPERATUR_DISPLAY_MR;3;0;106084;1;0",
+      "label": "Display temperature"
+    },
+    {
+      "id": "1355",
+      "name": "LIN_SCHALTERBLOCK_LINKS_MR",
+      "did": 57632,
+      "raw": "1355;22,E1,20;LIN_SCHALTERBLOCK_LINKS_MR;3;0;106088;1;0",
+      "label": "LIN_SCHALTERBLOCK_LINKS_MR"
+    },
+    {
+      "id": "1356",
+      "name": "LIN_MMC_BEDIENUNG_MR",
+      "did": 57633,
+      "raw": "1356;22,E1,21;LIN_MMC_BEDIENUNG_MR;3;0;106089;1;0",
+      "label": "LIN_MMC_BEDIENUNG_MR"
+    },
+    {
+      "id": "1375",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "1375;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_KOMB53": [
+    {
+      "id": "1388",
+      "name": "PHOTOSENSOR_MR",
+      "did": 57627,
+      "raw": "1388;22,E1,1B;PHOTOSENSOR_MR;3;0;106082;1;0",
+      "label": "Ambient brightness"
+    },
+    {
+      "id": "1389",
+      "name": "WECKLEITUNG_DIGITAL_MR",
+      "did": 57628,
+      "raw": "1389;22,E1,1C;WECKLEITUNG_DIGITAL_MR;3;0;106083;1;0",
+      "label": "Wake-up line"
+    },
+    {
+      "id": "1390",
+      "name": "TEMPERATUR_DISPLAY_MR",
+      "did": 57629,
+      "raw": "1390;22,E1,1D;TEMPERATUR_DISPLAY_MR;3;0;106084;1;0",
+      "label": "Display temperature"
+    },
+    {
+      "id": "1391",
+      "name": "LIN_SCHALTERBLOCK_LINKS_MR",
+      "did": 57632,
+      "raw": "1391;22,E1,20;LIN_SCHALTERBLOCK_LINKS_MR;3;0;106088;1;0",
+      "label": "LIN_SCHALTERBLOCK_LINKS_MR"
+    },
+    {
+      "id": "1392",
+      "name": "LIN_MMC_BEDIENUNG_MR",
+      "did": 57633,
+      "raw": "1392;22,E1,21;LIN_MMC_BEDIENUNG_MR;3;0;106089;1;0",
+      "label": "LIN_MMC_BEDIENUNG_MR"
+    },
+    {
+      "id": "1413",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "1413;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_KOMBHI": [
+    {
+      "id": "1444",
+      "name": "PHOTOSENSOR_MR",
+      "did": 57627,
+      "raw": "1444;22,E1,1B;PHOTOSENSOR_MR;3;0;106082;1;0",
+      "label": "Ambient brightness"
+    },
+    {
+      "id": "1445",
+      "name": "LIN_SCHALTERBLOCK_LINKS_MR",
+      "did": 57632,
+      "raw": "1445;22,E1,20;LIN_SCHALTERBLOCK_LINKS_MR;3;0;106088;1;0",
+      "label": "LIN_SCHALTERBLOCK_LINKS_MR"
+    },
+    {
+      "id": "1446",
+      "name": "LIN_MMC_BEDIENUNG_MR",
+      "did": 57633,
+      "raw": "1446;22,E1,21;LIN_MMC_BEDIENUNG_MR;3;0;106089;1;0",
+      "label": "LIN_MMC_BEDIENUNG_MR"
+    },
+    {
+      "id": "1459",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "1459;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    },
+    {
+      "id": "1465",
+      "name": "HELLIGKEITSSENSOR_ADC",
+      "did": 57818,
+      "raw": "1465;22,E1,DA;HELLIGKEITSSENSOR_ADC;3;0;110567;1;0",
+      "label": "HELLIGKEITSSENSOR_ADC"
+    },
+    {
+      "id": "1471",
+      "name": "VOLUMEAUDIO_MR",
+      "did": 57825,
+      "raw": "1471;22,E1,E1;VOLUMEAUDIO_MR;3;0;110590;1;0",
+      "label": "Adjusted volume"
+    },
+    {
+      "id": "1476",
+      "name": "TANKANZEIGE_MR_ISO",
+      "did": 57893,
+      "raw": "1476;22,E2,25;TANKANZEIGE_MR_ISO;3;0;106119;1;0",
+      "label": "TANKANZEIGE_MR_ISO"
+    }
+  ],
+  "cuX_KOMBI": [
+    {
+      "id": "339",
+      "name": "PHOTOSENSOR_MR",
+      "did": 57627,
+      "raw": "339;22,E1,1B;PHOTOSENSOR_MR;3;0;106082;1;0",
+      "label": "Ambient brightness"
+    },
+    {
+      "id": "340",
+      "name": "WECKLEITUNG_DIGITAL_MR",
+      "did": 57628,
+      "raw": "340;22,E1,1C;WECKLEITUNG_DIGITAL_MR;3;0;106083;1;0",
+      "label": "Wake-up line"
+    },
+    {
+      "id": "341",
+      "name": "TEMPERATUR_DISPLAY_MR",
+      "did": 57629,
+      "raw": "341;22,E1,1D;TEMPERATUR_DISPLAY_MR;3;0;106084;1;0",
+      "label": "Display temperature"
+    },
+    {
+      "id": "342",
+      "name": "KOMBI_TASTER_MR",
+      "did": 57630,
+      "raw": "342;22,E1,1E;KOMBI_TASTER_MR;3;0;106085;1;0",
+      "label": "Left digital multifunction switch"
+    },
+    {
+      "id": "344",
+      "name": "LIN_SCHALTERBLOCK_LINKS_MR",
+      "did": 57632,
+      "raw": "344;22,E1,20;LIN_SCHALTERBLOCK_LINKS_MR;3;0;106088;1;0",
+      "label": "LIN_SCHALTERBLOCK_LINKS_MR"
+    },
+    {
+      "id": "345",
+      "name": "LIN_MMC_BEDIENUNG_MR",
+      "did": 57633,
+      "raw": "345;22,E1,21;LIN_MMC_BEDIENUNG_MR;3;0;106089;1;0",
+      "label": "LIN_MMC_BEDIENUNG_MR"
+    },
+    {
+      "id": "369",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "369;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_RDC": [
+    {
+      "id": "827",
+      "name": "RDC_SG_AUSGABE_MR",
+      "did": 57456,
+      "raw": "827;22,E0,70;RDC_SG_AUSGABE_MR;3;0;108268;1;0",
+      "label": "RDC_SG_AUSGABE_MR"
+    },
+    {
+      "id": "832",
+      "name": "BATTERIESPANNUNG_MR",
+      "did": 57666,
+      "raw": "832;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "label": "Battery voltage"
+    }
+  ],
+  "cuX_SLZ": [
+    {
+      "id": "1860",
+      "name": "_SLZ_BOLZEN_POSITION",
+      "did": 16392,
+      "raw": "1860;22,40,08;_SLZ_BOLZEN_POSITION;3;0;111301;1;0",
+      "label": "Condition bolt position"
+    },
+    {
+      "id": "1841",
+      "name": "HO_INFO",
+      "did": 56404,
+      "raw": "1841;22,DC,54;HO_INFO;3;0;110281;1;0",
+      "label": "HO_INFO"
+    },
+    {
+      "id": "1843",
+      "name": "EWS_KL15_MR",
+      "did": 57358,
+      "raw": "1843;22,E0,0E;EWS_KL15_MR;3;0;111245;1;0",
+      "label": "EWS_KL15_MR"
+    },
+    {
+      "id": "1845",
+      "name": "SLZ_ANALOG_IN_MR",
+      "did": 57731,
+      "raw": "1845;22,E1,83;SLZ_ANALOG_IN_MR;3;0;111274;1;0",
+      "label": "SLZ_ANALOG_IN_MR"
+    },
+    {
+      "id": "1847",
+      "name": "SLZ_FERNBEDIENUNG_MR",
+      "did": 57733,
+      "raw": "1847;22,E1,85;SLZ_FERNBEDIENUNG_MR;3;0;111276;1;0",
+      "label": "SLZ_FERNBEDIENUNG_MR"
+    }
+  ]
+}

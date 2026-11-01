@@ -1,0 +1,13 @@
+{
+  "ecu_key": "cuX_AUDIO",
+  "table": "PARAMS_TAB",
+  "rows": [
+    "1443;1560;0;107052",
+    "1444;1560;1;107053",
+    "1533;1591;0;105414",
+    "1534;1591;1;105426"
+  ],
+  "sha256": "49916a7df205cb20acfc6923a20c8bc893c7f55cdc18ace344acacb1e5d2173c",
+  "evidence_type": "controlled offline native function execution; custom ELF loader under QEMU",
+  "limits": "ECU key observed in DEX literals; nonempty native query return is observed. No motorcycle or app network execution."
+}

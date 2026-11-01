@@ -1,0 +1,313 @@
+{
+  "artifact": "motoscan.so",
+  "sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+  "elf_bytes": 10097592,
+  "extraction": "printable strings with file offsets; no execution/decompilation",
+  "semicolon_record_count": 4057,
+  "record_counts_by_type": {
+    "00": 44,
+    "01": 14,
+    "04": 1,
+    "05": 2,
+    "06": 162,
+    "09": 212,
+    "10": 1311,
+    "11": 8,
+    "12": 1886,
+    "13": 11,
+    "14": 5,
+    "15": 6,
+    "16": 5,
+    "17": 3,
+    "18": 4,
+    "19": 4,
+    "20": 4,
+    "21": 5,
+    "22": 4,
+    "23": 5,
+    "24": 9,
+    "25": 5,
+    "26": 5,
+    "27": 4,
+    "28": 10,
+    "29": 5,
+    "30": 5,
+    "31": 5,
+    "32": 6,
+    "33": 6,
+    "34": 6,
+    "35": 5,
+    "36": 5,
+    "37": 5,
+    "38": 5,
+    "39": 6,
+    "40": 6,
+    "41": 5,
+    "42": 5,
+    "43": 4,
+    "44": 10,
+    "45": 4,
+    "46": 4,
+    "47": 3,
+    "48": 5,
+    "49": 6,
+    "50": 6,
+    "51": 4,
+    "52": 17,
+    "53": 5,
+    "54": 4,
+    "55": 5,
+    "56": 5,
+    "57": 4,
+    "58": 5,
+    "59": 3,
+    "60": 3,
+    "61": 4,
+    "62": 4,
+    "63": 3,
+    "64": 3,
+    "65": 4,
+    "66": 3,
+    "67": 2,
+    "68": 2,
+    "69": 3,
+    "70": 4,
+    "71": 3,
+    "72": 3,
+    "73": 1,
+    "74": 1,
+    "75": 1,
+    "76": 2,
+    "77": 3,
+    "78": 7,
+    "79": 3,
+    "80": 3,
+    "81": 3,
+    "82": 3,
+    "83": 3,
+    "84": 4,
+    "85": 3,
+    "86": 16,
+    "87": 3,
+    "88": 6,
+    "89": 6,
+    "90": 5,
+    "91": 12,
+    "92": 3,
+    "93": 4,
+    "94": 4,
+    "95": 3,
+    "96": 6,
+    "97": 6,
+    "98": 5,
+    "99": 2
+  },
+  "known_record_family_count": 3629,
+  "candidate_layouts_by_family": {
+    "06": {
+      "5": 162
+    },
+    "09": {
+      "6": 212
+    },
+    "10": {
+      "3": 1309,
+      "5": 1,
+      "6": 1
+    },
+    "12": {
+      "3": 1,
+      "5": 1,
+      "6": 1,
+      "7": 2,
+      "10": 1881
+    }
+  },
+  "sample_records": [
+    {
+      "offset": 1401283,
+      "record_type": "06",
+      "field_count": 5,
+      "prefix": "06;GAL;00003003;00000000;0042"
+    },
+    {
+      "offset": 1401313,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;OELNIV_LOW_HIGH;00003004;00000000;0001;0436;66;04;68;"
+    },
+    {
+      "offset": 1401370,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;OELNIV_SENSOR;00003004;00000000;0001;0249;68;02;68;"
+    },
+    {
+      "offset": 1401425,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;STURZINFO_SENSOR;00003320;00000012;0001;0757;;01;68;"
+    },
+    {
+      "offset": 1401481,
+      "record_type": "09",
+      "field_count": 6,
+      "prefix": "09;00003320;0000002F;0001;;FE"
+    },
+    {
+      "offset": 1401511,
+      "record_type": "09",
+      "field_count": 6,
+      "prefix": "09;00003320;0000003C;0001;;FC"
+    },
+    {
+      "offset": 1401541,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k4x;F0"
+    },
+    {
+      "offset": 1401551,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;P1_REAR_A;00003007;00000000;0001;0230;73;FF;68;"
+    },
+    {
+      "offset": 1401602,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;P2_REAR_B;00003009;00000001;0001;0235;73;FF;68;"
+    },
+    {
+      "offset": 1401653,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k28;63,28,48,48,2B,3C,FB,01,FA,0A,1A,46,09,2C,02,05"
+    },
+    {
+      "offset": 1401708,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;sonst;63,28,48,48,2B,3C,FB,01,FA,0A,1A,46,09,2C,02,05"
+    },
+    {
+      "offset": 1401765,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k44;01,07,FA,06,9A,01,4D,4C,70,19,2D,C0,48,86,19,A0"
+    },
+    {
+      "offset": 1401820,
+      "record_type": "06",
+      "field_count": 5,
+      "prefix": "06;ZEILE15;0000300F;00000000;0010"
+    },
+    {
+      "offset": 1401854,
+      "record_type": "06",
+      "field_count": 5,
+      "prefix": "06;ZEILE19;00003013;00000000;0010"
+    },
+    {
+      "offset": 1401888,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k43;42,43,81,82,83,00,00,00,00,00,00,00,00,00,B4,C8"
+    },
+    {
+      "offset": 1401943,
+      "record_type": "06",
+      "field_count": 5,
+      "prefix": "06;ZEILE36;00003024;00000000;0003"
+    },
+    {
+      "offset": 1401977,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k26;95,00,00,07,69,82,95"
+    },
+    {
+      "offset": 1402005,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;EEP-ZEILE_02;00003002;00000000;0007;0111;62;FF;68;"
+    },
+    {
+      "offset": 1402059,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;EEP-ZEILE_07;00003007;00000000;0010;0116;62;FF;68;"
+    },
+    {
+      "offset": 1402113,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k40;02,07,74,07,27,02,7A,5B,82,19,28,C0,8C,86,19,A0"
+    },
+    {
+      "offset": 1402168,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k26;42,43,00,00,00,00,00,00,00,00,00,00,00,00,3A,C8"
+    },
+    {
+      "offset": 1402223,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k40;82,83,00,00,00,00,00,00,00,00,00,00,00,00,7A,C8"
+    },
+    {
+      "offset": 1402278,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;sonst;82,83,00,00,00,00,00,00,00,00,00,00,00,00,7A,C8"
+    },
+    {
+      "offset": 1402335,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;EEP-ZEILE_36;00003024;00000000;0003;0133;;FF;68;"
+    },
+    {
+      "offset": 1402387,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k43;1C,37,C0,8C,86,19,8E,E3,00,AD,07,28,48,5A,23,3F"
+    },
+    {
+      "offset": 1402442,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;k40;F4,F5,04,12,26,4D,C6,09,01,08,FA,06,86,01,5F,53"
+    },
+    {
+      "offset": 1402497,
+      "record_type": "10",
+      "field_count": 3,
+      "prefix": "10;sonst;FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,FF,03,11,01"
+    },
+    {
+      "offset": 1402554,
+      "record_type": "01",
+      "field_count": 3,
+      "prefix": "01;06;"
+    },
+    {
+      "offset": 1402561,
+      "record_type": "01",
+      "field_count": 3,
+      "prefix": "01;07;"
+    },
+    {
+      "offset": 1402568,
+      "record_type": "12",
+      "field_count": 10,
+      "prefix": "12;MODEL_VAR_CODING_ABS_29;00003007;00000001;0001;0301;;FF;68;"
+    }
+  ],
+  "notes": [
+    "Record type numbers are preserved as opaque family identifiers.",
+    "Offsets refer to the supplied ELF; repeated records may be reused across ECU datasets.",
+    "Numeric identifiers and byte payloads are not semantically decoded here."
+  ]
+}
