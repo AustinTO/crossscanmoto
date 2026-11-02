@@ -87,6 +87,11 @@ parse row token 0 as the ID and token 1 as displayed unit text, and discard
 token 2. The 1.83 loader is `n2.b.m` (`0x262364-0x2623cc`); 1.110 loads the same
 table in `fl0.g` (`0x2179c2-0x217a0c`).
 
+The common tail does not check the result format before parsing a non-dash value
+as an integer. Therefore, attaching ordinary TAB rows to a literal marker or
+non-integer formatted result can throw during the common-tail parse in either
+version. The compared source branches preserve this edge behavior.
+
 There is one source-level localization-path change. 1.110 calls `Les0.s(id)`:
 its mode 2 returns `Dummy text`; other modes call `NativeLibMotoScan.I(id)`.
 1.83 calls `i4.c.g(id)` (`0x23fd8c`), which dispatches to the configured

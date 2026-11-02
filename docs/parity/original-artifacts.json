@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "purpose": "Local provenance pins for differential reverse engineering; the APKs are not distributed by this repository.",
+  "artifacts": {
+    "1.110": {
+      "package": "de.wgsoft.motoscan",
+      "version_name": "1.110",
+      "version_code": "1110",
+      "sha256": "bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58",
+      "path": "MotoScan+for+BMW+Motorcycles_1.110_APKPure.apk",
+      "source_note": "Supplied local APKPure archive copy; see assets/research/apk-findings.md.",
+      "signer_dn": "CN=Wladimir Gurskij, O=WGSoft.de, L=Buende, ST=NRW, C=DE",
+      "certificate_sha256": "1921f55ca7de32d58a57e18dfbd27d3908cd48da1f2c377209769a6419a9d3bc",
+      "certificate_sha1": "9ea0cc7e2ed44d91c744b37614985551d7ab91ba",
+      "abis": ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"],
+      "entries": {
+        "classes.dex": "869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832",
+        "lib/arm64-v8a/libmotoscan-helper.so": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+        "lib/armeabi-v7a/libmotoscan-helper.so": "c6885de3ce18e7d296e0967a8cd7a22dbb76e17a32321e07a021cef293690dee",
+        "lib/x86/libmotoscan-helper.so": "374a6f77cc09cfb34f51d78c4aaaba31ee8ac2c5994d6c06d9076d3c370659c9",
+        "lib/x86_64/libmotoscan-helper.so": "c3c2f6a70afc10d766e2cd4c227e39f81c5b4e536ae7da0fed6142a0d6040cef"
+      }
+    },
+    "1.83": {
+      "package": "de.wgsoft.motoscan",
+      "version_name": "1.83",
+      "version_code": "183",
+      "sha256": "f4b168234e2b3a042f35f3c0e8ee27a19e47bec0b32d01f1d6efa235ab39eacc",
+      "path": "/tmp/crossmoto-motoscan-1.83.apk",
+      "source_note": "Acquired local APKPure archive copy; see assets/research/historical-apk-acquisition.md.",
+      "signer_dn": "CN=Wladimir Gurskij, O=WGSoft.de, L=Buende, ST=NRW, C=DE",
+      "certificate_sha256": "1921f55ca7de32d58a57e18dfbd27d3908cd48da1f2c377209769a6419a9d3bc",
+      "certificate_sha1": "9ea0cc7e2ed44d91c744b37614985551d7ab91ba",
+      "abis": ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"],
+      "entries": {
+        "classes.dex": "fa527331a06735012c0b3f680940c12096d543e8ed1b22df054e4977c1394ffb",
+        "lib/arm64-v8a/libmotoscan-helper.so": "c07e4802fb6708382a596db429790a6362bea614e3799122408a6b4f9c17a9b8",
+        "lib/armeabi-v7a/libmotoscan-helper.so": "fb73f840775297dd6ba7b4566b5f6acddbdb8a73f6104ee9544d7ff6910663de",
+        "lib/x86/libmotoscan-helper.so": "d15c75bf9b73cb126bcc03402614189edb44e2cbecc7b3823cbe8b9e17807bc8",
+        "lib/x86_64/libmotoscan-helper.so": "196e291d6eefb8f457f676b3acc0c8a5f1c5c6eb138a0ae3505dc51e8cca4056",
+        "lib/arm64-v8a/libobd-helper.so": "12a67ebc4cc8ebeeaf83cf2d7c89b9ebd1d5051c80b5fdab8234a63462c45580",
+        "lib/armeabi-v7a/libobd-helper.so": "56c6e1df29748126601283072d5893bd9c9b94c87e41eb685f3c70292cba3ecb",
+        "lib/x86/libobd-helper.so": "62cc2f6af58b2a7bc62199a3676ae6b2f566acb57e64a5e9a52cd587b253f403",
+        "lib/x86_64/libobd-helper.so": "24050a8aca4c0c22e86480804e926fc943f291e6791d1dc0b90b343f7b0de207"
+      }
+    }
+  }
+}

@@ -22,8 +22,8 @@ REA artifact evidence: `ev_eb14bd4d28e71f8707f9dd6bc984811363e3774591384a3fbe400
 
 - REA Android package decompilation was unavailable in this session (JADX MCP provider missing); no decompiled call graph or source-level behavior is claimed.
 - The app was not executed and no motorcycle/adapter traffic was captured. Static artifact strings do not establish working runtime behavior.
-- No earlier APK copy exists in this workspace. No version comparison was performed.
-- Exact hardware compatibility cannot be guaranteed without adapter make/model/firmware and controlled test captures. The current Flutter project intentionally sends no ECU commands.
+- A separate, verified 1.83 APK is now available at `/tmp/crossmoto-motoscan-1.83.apk`; its version identity, signer, and hashes are recorded in `docs/parity/original-artifacts.json`. See `docs/parity/RE-01-artifact-baseline.md` for reproducible local verification and extraction commands. The versions are separate baselines and were not merged.
+- No adapter or motorcycle execution was performed during this artifact inspection. The Flutter implementation now has diagnostic request paths; their source/replay evidence is tracked separately under `docs/parity/`. This note does not establish physical compatibility.
 
 ## DEX disassembly follow-up
 

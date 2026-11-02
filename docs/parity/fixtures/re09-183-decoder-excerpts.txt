@@ -101,3 +101,48 @@ absolute position, even though `e` also made a slice for the other formatters.
 The 1.110 comparison excerpt already exists in
 [`re09-decoder-excerpts.txt`](re09-decoder-excerpts.txt), sections
 `j21.b numeric` and `ob2.D readers`.
+
+### 1.83 formatter branches (`v3.e.e`, switch at `0x484eca`)
+484f02: 1a07 fd0e                              |003d: const-string v7, "BITFIELD-VALUE" // string@0efd
+484f08: 7110 e5b4 0000                         |0040: invoke-static {v0}, Lv3/d;.g:([B)Ljava/lang/String; // method@b4e5
+484f12: 1a07 200b                              |0045: const-string v7, "ASCII-VALUE" // string@0b20
+484ed4: 6e10 aeaf 0900                         |0026: invoke-virtual {v9}, Lr3/c;.u:()Lr3/e; // method@afae
+484edc: 6e20 bcaf 0700                         |002a: invoke-virtual {v7, v0}, Lr3/e;.d:([B)Ljava/lang/String; // method@afbc
+484ee6: 7110 fcb4 0000                         |002f: invoke-static {v0}, Lv3/e;.c:([B)Ljava/lang/String; // method@b4fc
+484ef0: 6e10 a2af 0900                         |0034: invoke-virtual {v9}, Lr3/c;.i:()I // method@afa2
+484ef8: 7120 fdb4 7000                         |0038: invoke-static {v0, v7}, Lv3/e;.d:([BI)Ljava/lang/String; // method@b4fd
+484f18: 6e10 adaf 0900                         |0048: invoke-virtual {v9}, Lr3/c;.t:()Ljava/util/ArrayList; // method@afad
+484f3e: 7130 02b5 0701                         |005b: invoke-static {v7, v0, v1}, Lv3/e;.i:([BLjava/lang/String;I)I // method@b502
+484f46: 6e10 b1af 0900                         |005f: invoke-virtual {v9}, Lr3/c;.x:()Z // method@afb1
+484f52: 6e10 aaaf 0900                         |0065: invoke-virtual {v9}, Lr3/c;.q:()I // method@afaa
+484f5a: b587                                   |0069: and-int/2addr v7, v8
+
+The branch addresses above are within the shared `e.e` packed-switch case
+bodies; inline notes in the switch body from earlier excerpts state the decoded
+labels. `v3.e.d` formats DATETIME (`0x484e10`); `v3.e.c` selects the two
+BMWUDSECUSN modes (`0x484ddc`); `v3.d.e/f/g` provide printable-byte and HEX
+helpers. `r3.e.d` at `0x46c620` starts with uppercase HEX, reads header names
+from the first global row, constructs `BigInteger(slice).intValue()`, and
+returns HEX when rows/headers/key are absent. This mirrors the documented
+1.110 `TAB_GLOBAL` branch.
+
+### 1.83 common tail and localization route
+46cb40: 6e10 adaf 0300                         |0032: invoke-virtual {v3}, Lr3/c;.t:()Ljava/util/ArrayList; // method@afad
+46cb58: 3806 1700                              |003e: if-eqz v6, 0055 // translate only with tabs
+46cb68: 6207 2750                              |0046: sget-object v7, Li4/c;.a:Li4/c; // field@5027
+46cb76: 7110 4a4e 0400                         |004d: invoke-static {v4}, Ljava/lang/Integer;.parseInt:(Ljava/lang/String;)I // method@4e4a
+46cb7e: 6e20 464c 4700                         |0051: invoke-virtual {v7, v4}, Li4/c;.g:(I)Ljava/lang/String; // method@4c46
+46cb8c: 6e10 a8af 0300                         |0058: invoke-virtual {v3}, Lr3/c;.o:()Ljava/lang/String; // method@afa8
+46cbac: 1a04 0000                              |0068: const-string v4, "" // string@0000
+23fd8c:                                        |[23fd8c] i4.c.g:(I)Ljava/lang/String;
+23fd9c: 6200 2950                              |0000: sget-object v0, Li4/c;.c:Li4/b; // field@5029
+23fda0: 7220 374c 2000                         |0002: invoke-interface {v0, v2}, Li4/b;.i:(I)Ljava/lang/String; // method@4c37
+224dd4: 2200 250a                              |0022: new-instance v0, Lj2/k; // type@0a25
+224dde: 7130 484c 1200                         |0027: invoke-static {v2, v1, v0}, Li4/c;.i:(Landroid/content/Context;Ljava/lang/String;Li4/b;)V // method@4c48
+26237e: 1a01 321b                              |0005: const-string v1, "GENERAL_VALUES_UNITS" // string@1b32
+262382: 7110 cf45 0100                         |0007: invoke-static {v1}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.p:(Ljava/lang/String;)[Ljava/lang/String; // method@45cf
+
+`j2.k.i(int)` calls `NativeLibMotoScan.G(int)` and its `c(language)` calls
+`NativeLibMotoScan.J(language)`. 1.110's old common tail calls `Les0.s(int)`;
+its mode-2 branch returns `Dummy text`, and its other branch calls
+`NativeLibMotoScan.I(int)` (see `RE-09-result-format-excerpts.txt`).

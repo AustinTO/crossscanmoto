@@ -5,8 +5,8 @@ Requested candidate: free MotoScan package `de.wgsoft.motoscan` version 1.83 / v
 ## Integrity evidence and limits
 
 - The APKPure version page reports signing-certificate SHA-1 `9ea0cc7e2ed44d91c744b37614985551d7ab91ba` for 1.83.
-- Local `apksigner verify --print-certs` on the user-supplied 1.110 APK reports the same certificate SHA-1, with signer `CN=Wladimir Gurskij, O=WGSoft.de, L=Buende, ST=NRW, C=DE`; the local 1.110 APK SHA-256 is `bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58`.
-- This is consistent with the historical APK being signed by the same publisher, but cannot establish the actual archived file's integrity or contents without obtaining the APK. No actual historical APK was saved; SHA-256, APK signature validation, package/version verification, DEX comparison and analysis remain pending.
+- The actual local 1.110 APK has SHA-256 `bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58`; its certificate SHA-1 and signer are recorded in `docs/parity/original-artifacts.json`.
+- The historical APK was subsequently acquired and locally verified; see the retry outcome below and `docs/parity/RE-01-artifact-baseline.md`. The earlier cache/DNS failure did not establish artifact integrity and is superseded by the verified local copy.
 
 ## Acquisition blocker
 

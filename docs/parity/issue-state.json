@@ -3,12 +3,15 @@
   "tickets": {
     "RE-01": {
       "audit_status": "open_unverified",
-      "local_status": "IN_PROGRESS",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+      "local_status": "COMPLETE",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "docs/parity/RE-01-artifact-baseline.md"
     },
     "RE-02": {
       "audit_status": "open_unverified",
-      "local_status": "NOT_VERIFIED",
+      "local_status": "IN_PROGRESS",
       "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
     },
     "RE-03": {
@@ -48,8 +51,12 @@
       "evidence": "docs/parity/RE-09-checkpoint.md",
       "remaining_dependencies": [
         "RE-02",
-        "RE-05"
-      ]
+        "RE-05",
+        "RE-17"
+      ],
+      "implementation_state": "COMPLETE",
+      "implementation_scope": "all nine decoder branches and all486 retained 1.110 layouts",
+      "parity_result": "UNRESOLVED"
     },
     "RE-10": {
       "audit_status": "open_unverified",
