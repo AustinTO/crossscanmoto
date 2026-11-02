@@ -1,7 +1,34 @@
 # CrossScanMoto agent handoff
 
-Updated: 2026-11-02. Read this first when resuming. Keep it updated at each
+Updated: 2026-11-02, service source/progress files persisted. Read this first when resuming. Keep it updated at each
 verified checkpoint and before stopping or losing the session.
+
+<!-- REPOSITORY_SNAPSHOT:START -->
+## Repository snapshot
+
+Captured 2026-11-02T18:39:23+00:00.
+HEAD: `427fe2a049d3d9204721af896e4f2cd06fd65c85`.
+Branch: `release-hardening/production-audit`.
+
+```text
+M AGENT_HANDOFF.md
+ M lib/diagnostics/service_manager.dart
+ M lib/diagnostics/service_reset_protocol.dart
+ M lib/service_coding_page.dart
+?? CrossScanMoto_Parity_Lean_V5_Updated_HEAD_2026-11-02/
+?? docs/parity/P0-05-implementation-progress.md
+?? docs/parity/P0-05-legacy-service-evidence.md
+?? docs/parity/P0-05-oracle-progress.md
+?? docs/parity/P0-05-service-dispatch-evidence.md
+?? docs/parity/fixtures/P0-05-legacy-service-excerpts.txt
+?? test/fixtures/service_dispatch_goldens.json
+?? tool/native/build_service_goldens.py
+?? tool/update_agent_handoff.py
+```
+
+Refresh with `python tool/update_agent_handoff.py` after a checkpoint.
+This is a captured state; rerun git status before changing files.
+<!-- REPOSITORY_SNAPSHOT:END -->
 
 ## User objective and operating constraints
 
@@ -89,13 +116,17 @@ A material source discrepancy was discovered during RE-02:
 ### Uncommitted in-progress runtime edits — NOT YET a verified checkpoint
 
 `lib/diagnostics/service_reset_protocol.dart`,
-`lib/diagnostics/service_manager.dart`, `lib/service_coding_page.dart`,
-`lib/diagnostic_session.dart`:
+`lib/diagnostics/service_manager.dart`, `lib/service_coding_page.dart`:
 optional `shouldAbort` seam; pre/post-request/readback checks; preserved 1.5s
 write settle; typed cancellation with positively acknowledged partial DIDs;
-Stop/disposal/session identity invalidation in UI. **No service payload,
-profile catalog or gate change has yet been made.** Oracle tests are being
-added. Inspect current status; do not revert these edits or assume tests pass.
+Stop/disposal/session identity invalidation in UI. **Catalog correction is now authorized against the persisted 12-key UDS
+source bindings; inspect git diff to see whether it has landed. No legacy
+profile may reuse UDS E12x by guessing.** Existing service/session/parity regressions were rerun: 20 passed, analyzer
+clean. Cancellation-specific tests and the corrected service profiles are
+still pending. Inspect current status; do not revert these edits or treat the
+whole service workstream as verified. `lib/diagnostic_session.dart` was
+restored to HEAD after its changes proved to be formatter-only; no session
+semantics changed in this cancellation seam.
 
 ### Current native subagent scopes (session-local names)
 
@@ -107,7 +138,8 @@ added. Inspect current status; do not revert these edits or assume tests pass.
 - `historical_live`: concrete `qr.C`, `rr.C` legacy KWP 0x3B and `sl0.C` UDS
   bodies; owns `docs/parity/P0-05-legacy-service-evidence.md` + excerpts.
   Confirmed distinct frame families, date/mileage offsets, selector variants,
-  2/3s timeouts and sl0 1500ms sleeps. Exact persistent handoff is pending.
+  2/3s timeouts and sl0 1500ms sleeps. Confirmed bodies are now persisted in that document with raw source excerpts;
+  per-key dispatch/menu reachability is still being traced.
 - `params_formats`: owns runtime service protocol/manager/page/session and
   optional `test/service_dispatch_test.dart`. Cancellation seam landed;
   waiting for exact source-backed key/profile mapping before dispatch edits.
@@ -118,12 +150,34 @@ added. Inspect current status; do not revert these edits or assume tests pass.
 
 If these agent IDs are no longer available, their source findings must be
 written into the above files or recovered from the original pinned artifacts.
-Check file existence before assuming a pending handoff was completed.
+All four P0-05 progress/source documents have now been created. Their
+checkpoint timestamps/content take precedence over the initial summaries here.
+The runtime owner notes formatting churn in the scoped files; remove only
+whitespace-only changes to untouched sections, preserving semantic edits.
 
 Additional continuously updated partial handoffs:
 `docs/parity/P0-05-implementation-progress.md` and
 `docs/parity/P0-05-oracle-progress.md`. Source agents were explicitly instructed
 to persist partial source notes immediately, not wait for completion.
+
+### Newly persisted service source facts
+
+- `G_MRKOMB` -> `cr(23)` at address 96 -> eleven exact response-code-selected
+  `cuX_KOMB*` keys; `G_MRSLZ` -> `ak1(0)` at address 64 -> `cuX_CCP`.
+  These service controllers inherit `sl0`. See the dispatch note for all
+  response discriminators; do not guess based on key suffixes.
+- Legacy `D_MRKOMB` -> `cr(6)` at address 96 -> distinct qr/rr/jr selectors.
+  Its raw KWP 0x3B operation must not fall through to UDS E12x writes.
+- `P0-05-legacy-service-evidence.md` now records exact P/Q/R templates,
+  offsets, event gating/order, original timeouts and sleeps for qr/rr/sl0.
+  Original bodies ignore ACK results and have no method-local readback;
+  the user's requested stricter ACK/readback checks must be retained and
+  grounded in the original read-service handlers (do not invent read IDs).
+- Still pending: original category/menu-to-action reachability, exact legacy
+  key/profile gates, and source-backed pre/readback paths. The implementer is now correcting the UDS catalog against those twelve
+  proven handler bindings; oracle fixtures should be emitted at handler level
+  without waiting for unresolved legacy/menu details. Do not infer legacy
+  profile bindings or read IDs.
 
 ### Immediate next actions
 

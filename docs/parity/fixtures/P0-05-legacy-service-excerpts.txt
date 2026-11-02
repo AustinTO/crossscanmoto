@@ -1,0 +1,160 @@
+P0-05 service handler source excerpts
+
+1.110 APK SHA-256: bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58
+1.110 classes.dex SHA-256: 869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832
+Dump: /tmp/crossmoto-re09-dexdump.txt
+1.83 APK SHA-256: f4b168234e2b3a042f35f3c0e8ee27a19e47bec0b32d01f1d6efa235ab39eacc
+1.83 classes.dex SHA-256: fa527331a06735012c0b3f680940c12096d543e8ed1b22df054e4977c1394ffb
+Dump: /tmp/crossmoto-183-dexdump.txt
+
+Offsets are DEX addresses. The P/Q array-data payload values below were decoded
+from the 1.110 DEX `fill-array-data` payloads, not synthesized from labels.
+
+### Legacy KWP handler `qr.C` (`0x197624`)
+197624:                                        |[197624] qr.C:(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;
+197648: 7401 6944 1500                         |000a: invoke-virtual/range {v21}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // date argument null guard
+1976a4: 620c e411                              |0038: sget-object v12, Ldl0;.y:Ldl0; // SI_DATE_CAR
+1976a8: 620d e111                              |003a: sget-object v13, Ldl0;.c:Ldl0; // SI_ALL
+1976b0: 1310 0300                              |003e: const/16 v16, #int 3 // year-high-byte index
+1976c2: 620c af2c                              |0047: sget-object v12, Lmc0;.P:[B // event 3B 10
+1976cc: 4f03 0c08                              |004c: aput-byte v3, v12, v8 // hour
+1976d6: 4f03 0c10                              |0051: aput-byte v3, v12, v16 // minute
+1976e0: 4f03 0c15                              |0056: aput-byte v3, v12, v21 // second
+1976ea: 4f03 0c06                              |005b: aput-byte v3, v12, v6 // day
+1976f6: 4f03 0c04                              |0061: aput-byte v3, v12, v4 // month
+197706: 4f03 0c04                              |0069: aput-byte v3, v12, v4 // year high
+197714: 4f03 0c04                              |0070: aput-byte v3, v12, v4 // year low
+197720: 6e30 c48e c30f                         |0076: invoke-virtual {v3, v12, v15}, Lvq4;.s:([BI)Ljava/util/ArrayList; // timeout 3000
+197746: 6203 e211                              |0089: sget-object v3, Ldl0;.d:Ldl0; // SI_DATE
+197752: 0803 1400                              |008f: move-object/from16 v3, v20 // use date argument
+197776: 6205 b12c                              |00a1: sget-object v5, Lmc0;.Q:[B // event 3B 11
+1977ae: 6e30 c48e 520f                         |00bd: invoke-virtual {v2, v5, v15}, Lvq4;.s:([BI)Ljava/util/ArrayList; // timeout 3000
+1977d4: 6202 e311                              |00d0: sget-object v2, Ldl0;.x:Ldl0; // SI_MILEAGE
+1977e0: 6200 b32c                              |00d6: sget-object v0, Lmc0;.R:[B // event 3B 12
+197804: 6e30 c48e 010f                         |00e8: invoke-virtual {v1, v0, v15}, Lvq4;.s:([BI)Ljava/util/ArrayList; // timeout 3000
+19782a: 2200 2818                              |00fb: new-instance v0, Lqx2; // type@1828
+19782e: 6201 ba3b                              |00fd: sget-object v1, Lpx2;.c:Lpx2; // ERROR_OK
+197832: 23e2 2e20                              |00ff: new-array v2, v14, [B // return empty body
+
+### Legacy KWP handler `rr.C` (`0x1987f4`)
+1987f4:                                        |[1987f4] rr.C:(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;
+198818: 5235 fc41                              |000a: iget v5, v3, Lrr;.w:I // constructor selector
+198858: 2b05 e601 0000                         |002a: packed-switch v5, 00000210 // selector 0 vs default
+1988b4: 620b af2c                              |0058: sget-object v11, Lmc0;.P:[B // event 3B 10
+19890e: 6e30 c48e b304                         |0085: invoke-virtual {v3, v11, v4}, Lvq4;.s:([BI)Ljava/util/ArrayList; // timeout 3000
+19893e: 6e20 3147 2500                         |009d: invoke-virtual {v5, v2}, Ljava/util/Calendar;.setTime:(Ljava/util/Date;)V // date argument
+198968: 6208 b12c                              |00b2: sget-object v8, Lmc0;.Q:[B // event 3B 11
+1989a8: 6e30 c48e 8204                         |00d2: invoke-virtual {v2, v8, v4}, Lvq4;.s:([BI)Ljava/util/ArrayList; // timeout 3000
+1989d0: 3270 0700                              |00e6: if-eq v0, v7, 00ed // SI_MILEAGE or SI_ALL gates enter R path
+1989de: 6200 b32c                              |00ed: sget-object v0, Lmc0;.R:[B // event 3B 12
+198a0a: 6e30 c48e 0104                         |0103: invoke-virtual {v1, v0, v4}, Lvq4;.s:([BI)Ljava/util/ArrayList; // timeout 3000
+198a32: 2200 2818                              |0117: new-instance v0, Lqx2; // type@1828
+198a36: 2341 2e20                              |0119: new-array v1, v4, [B // empty result body; status px2.c was set earlier
+
+### `rr` selector, pre-read hook (`S`, `p0`, `q0`)
+19a11c:                                        |[19a11c] rr.<init>:(I)V
+19a12c: 5901 fc41                              |0000: iput v1, v0, Lrr;.w:I // constructor selector
+198e08:                                        |[198e08] rr.S:()Z
+198e18: 5210 fc41                              |0000: iget v0, v1, Lrr;.w:I // field@41fc
+198e1c: 2b00 0c00 0000                         |0002: packed-switch v0, 0000000e // +0000000c
+198e22: 6e10 4d7d 0100                         |0005: invoke-virtual {v1}, Lrr;.q0:()V // nonzero/default
+198e2c: 6e10 4c7d 0100                         |000a: invoke-virtual {v1}, Lrr;.p0:()V // selector zero
+198e34: 0001 0100 0000 0000 0800 0000          |000e: packed-switch-data (6 units; key 0 targets p0)
+19a148: 6e10 142d 0500                         |0000: invoke-virtual {v5}, Lel0;.h:()Lvq4; // p0 transport
+19a150: 6201 c42c                              |0004: sget-object v1, Lmc0;.Z0:[B // [22,30,0A]
+19a154: 1302 e803                              |0006: const/16 v2, #int 1000 // #3e8
+19a158: 6e30 c48e 1002                         |0008: invoke-virtual {v0, v1, v2}, Lvq4;.s:([BI)Ljava/util/ArrayList; // method@8ec4
+19a168: 3d01 9500                              |0010: if-lez v1, 00a5 // no response -> return
+19a328:                                        |[19a328] rr.q0:()V
+19a340: 6201 c42c                              |0004: sget-object v1, Lmc0;.Z0:[B // same [22,30,0A] probe
+19a344: 1302 b80b                              |0006: const/16 v2, #int 3000 // #bb8
+19a348: 6e30 c48e 1002                         |0008: invoke-virtual {v0, v1, v2}, Lvq4;.s:([BI)Ljava/util/ArrayList; // method@8ec4
+
+`p0` and `q0` decode a positive response's byte 3 only when the response is
+longer than three bytes and starts `0x62`; `S()` returns true regardless.
+
+Both `rr.C` selector paths (0 and default) have the same date/mileage gates,
+payload fields, order and result. `qr.C` and `rr.C` only read response-body
+length into unused locals; they do not check an ACK or read back values.
+
+### Shared UDS operation `sl0.C` (`0x21fe78`)
+21fe78:                                        |[21fe78] sl0.C:(Ldl0;ILjava/util/Date;Ljava/util/Date;)Lqx2;
+21feae: 6e20 3147 0300                         |0013: invoke-virtual {v3, v0}, Ljava/util/Calendar;.setTime:(Ljava/util/Date;)V // date2
+21fefc: 1310 0300                              |003a: const/16 v16, #int 3 // year-high-byte index
+21ff38: d500 ff00                              |0058: and-int/lit16 v0, v0, #int 255 // field bytes masked to u8
+21ff6e: 2388 2e20                              |0073: new-array v8, v8, [B // 10-byte WriteDataByIdentifier body
+21ff72: 4f12 080a                              |0075: aput-byte v18, v8, v10 // 2E service
+21ff76: 4f11 0817                              |0077: aput-byte v17, v8, v23 // E1 DID high
+21ff7e: 4f19 0818                              |007b: aput-byte v25, v8, v24 // 2B operation
+21ffa6: 7401 142d 1a00                         |008f: invoke-virtual/range {v26}, Lel0;.h:()Lvq4; // adapter transport
+21ffae: 6e40 c58e 80fd                         |0093: invoke-virtual {v0, v8, v13, v15}, Lvq4;.t:([BII)Ljava/util/ArrayList; // timeout 2000, mode -1
+21ffd4: 7702 0245 1300                         |00a6: invoke-static/range {v19, v20}, Ljava/lang/Thread;.sleep:(J)V // 1500 ms
+22001e: d500 ff00                              |00cb: and-int/lit16 v0, v0, #int 255 // date body bytes
+22003a: 0207 1600                              |00d9: move/from16 v7, v22 // 7-byte date request
+22004e: 1308 2c00                              |00e3: const/16 v8, #int 44 // 2C operation
+220072: 6e40 c58e 70fd                         |00f5: invoke-virtual {v0, v7, v13, v15}, Lvq4;.t:([BII)Ljava/util/ArrayList; // timeout 2000, mode -1
+220098: 7702 0245 1300                         |0108: invoke-static/range {v19, v20}, Ljava/lang/Thread;.sleep:(J)V // 1500 ms
+2200b4: e100 0208                              |0116: shr-int/lit8 v0, v2, #int 8 // mileage high byte
+2200c4: 2362 2e20                              |011e: new-array v2, v6, [B // 5-byte mileage request
+2200d4: 1303 2d00                              |0126: const/16 v3, #int 45 // 2D operation
+2200f0: 6e40 c58e 20fd                         |0134: invoke-virtual {v0, v2, v13, v15}, Lvq4;.t:([BII)Ljava/util/ArrayList; // timeout 2000, mode -1
+220116: 7702 0245 1300                         |0147: invoke-static/range {v19, v20}, Ljava/lang/Thread;.sleep:(J)V // 1500 ms
+220126: 2200 2818                              |014f: new-instance v0, Lqx2; // type@1828
+22012a: 6201 ba3b                              |0151: sget-object v1, Lpx2;.c:Lpx2; // ERROR_OK
+
+### KWP template byte arrays (`mc0.<clinit>`, raw DEX fill-array payloads)
+1f36e8: 2607 e004 0000                         |0216: fill-array-data v7, 000006f6 // +000004e0 (payload at 0x1f40a8)
+1f36fe: 2607 eb04 0000                         |0221: fill-array-data v7, 0000070c // +000004eb (payload at 0x1f40d4)
+1f3714: 130c 3b00                              |022c: const/16 v12, #int 59 // #3b
+1f3718: 2440 3220 7c22                         |022e: filled-new-array {v12, v7, v2, v2}, [I // values [59,18,0,0] -> R
+
+Binary payload decode (DEX offsets, little-endian int elements):
+- P at `0x1f40a8`: array-data width 4, size 9, values `[59,16,0,0,0,0,0,0,0]`.
+- Q at `0x1f40d4`: array-data width 4, size 6, values `[59,17,0,0,0,0]`.
+- R: filled-new-array values `[59,18,0,0]` at `0x1f3718`.
+- `b00.n([I)[B` at `0x1c1258` allocates one byte per int and `int-to-byte` casts each.
+
+### Adapter send and ACK behavior (`vq4.s/t/r`)
+46bd44:                                        |[46bd44] vq4.s:([BI)Ljava/util/ArrayList;
+46bd5a: 12f0                                   |0003: const/4 v0, #int -1 // #ff
+46bd5c: 6e40 c58e 2103                         |0004: invoke-virtual {v1, v2, v3, v0}, Lvq4;.t:([BII)Ljava/util/ArrayList; // method@8ec5
+46bd68:                                        |[46bd68] vq4.t:([BII)Ljava/util/ArrayList;
+46bd94: 7110 734e 0700                         |000e: invoke-static {v7}, Lkb2;.o:([B)Ljava/lang/String; // uppercase hex
+46bda2: 6e20 c38e 1600                         |0015: invoke-virtual {v6, v1}, Lvq4;.r:(Ljava/lang/String;)V // method@8ec3
+46bdaa: 6e20 c28e 8600                         |0019: invoke-virtual {v6, v8}, Lvq4;.q:(I)Ljava/util/ArrayList; // method@8ec2
+46bde2: d522 ff00                              |0035: and-int/lit16 v2, v2, #int 255 // first response byte
+46bdea: 3342 6500                              |0039: if-ne v2, v4, 009e // 7F
+46be00: 1305 2100                              |0044: const/16 v5, #int 33 // NRC 21
+46be08: 6e40 c58e 7698                         |0048: invoke-virtual {v6, v7, v8, v9}, Lvq4;.t:([BII)Ljava/util/ArrayList; // recursive resend on 21
+46be12: 1306 7800                              |004d: const/16 v6, #int 120 // NRC 78
+46be50: 6e20 da46 3100                         |006c: invoke-virtual {v1, v3}, Ljava/util/ArrayList;.remove:(I)Ljava/lang/Object; // discard leading 78 frames
+46be90: 6207 bb3b                              |008c: sget-object v7, Lpx2;.d:Lpx2; // ERROR_7F for other NRCs
+46beca: 6207 bd3b                              |00a9: sget-object v7, Lpx2;.y:Lpx2; // ERROR_UNKNOWN if no frames
+46bee4: 6207 ba3b                              |00b6: sget-object v7, Lpx2;.c:Lpx2; // ERROR_OK otherwise
+46c10c:                                        |[46c10c] vq4.r:(Ljava/lang/String;)V
+46c19e: 1a07 5400                              |0041: const-string v7, "\r" // append CR before writing command
+46c1a2: 6e20 d844 7100                         |0043: invoke-virtual {v1, v7}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+
+### 1.83 cross-check: UDS analogue `n2.e.Y`
+26798c:                                        |[26798c] n2.e.Y:(Lg3/a$k;ILjava/util/Date;Ljava/util/Date;)Lm3/l;
+2679ac: 1a04 f698                              |0008: const-string v4, "type" // non-null action enum
+2679c0: 1a04 fb62                              |0012: const-string v4, "currentDate" // both date args checked
+267a1c: 620d 3e38                              |0040: sget-object v13, Lg3/a$k;.d:Lg3/a$k; // SI_DATE_CAR
+267a3c: 620d 3b38                              |0050: sget-object v13, Lg3/a$k;.a:Lg3/a$k; // SI_ALL
+267a44: 130d 0a00                              |0054: const/16 v13, #int 10 // 10-byte 2E E1 2B body
+267a4c: 4f15 0d0e                              |0058: aput-byte v21, v13, v14 // 2E
+267a54: 1316 2b00                              |005c: const/16 v22, #int 43 // operation 2B
+267ab0: 7401 814a 1700                         |008a: invoke-virtual/range {v23}, Lg3/a;.h:()Li3/c; // UDS transport
+267ab8: 1305 d007                              |008e: const/16 v5, #int 2000 // timeout 2000
+267abc: 6e30 bd4b d005                         |0090: invoke-virtual {v0, v13, v5}, Li3/c;.n:([BI)Ljava/util/ArrayList; // method@4bbd
+267ae6: 7702 174f 1000                         |00a5: invoke-static/range {v16, v17}, Ljava/lang/Thread;.sleep:(J)V // 1500 ms
+267b36: 1306 2c00                              |00cd: const/16 v6, #int 44 // operation 2C
+267b72: 1303 d007                              |00eb: const/16 v3, #int 2000 // #7d0
+267b76: 6e30 bd4b 5003                         |00ed: invoke-virtual {v0, v5, v3}, Li3/c;.n:([BI)Ljava/util/ArrayList; // date request, 2000
+267ba0: 7702 174f 1000                         |0102: invoke-static/range {v16, v17}, Ljava/lang/Thread;.sleep:(J)V // 1500 ms
+267bc2: 2370 4e1c                              |0113: new-array v0, v7, [B // 5-byte mileage request follows
+
+Notes: Inline comments identify the decoded value of the raw instructions.
+The exact 1.83 body, including the final `2D` request and return marker, is in
+the dexdump at `0x26798c-0x267c00`; the DEX offsets, not JADX control-flow
+reconstruction, are authoritative.
