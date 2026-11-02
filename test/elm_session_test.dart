@@ -34,6 +34,15 @@ void main() {
     await expectLater(session.command('ATRV'), throwsStateError);
     expect(transport.writes, ['ATI\r']); await session.close();
   });
+  test('a stalled write obeys the command deadline and rejects queued work', () async {
+    final transport = _StalledTransport();
+    final session = ElmSession(transport);
+    await expectLater(session.command('ATI', timeout: const Duration(milliseconds: 10)),
+        throwsA(isA<TimeoutException>()));
+    await expectLater(session.command('ATRV'), throwsStateError);
+    transport.writeCompletion.complete();
+    await session.close();
+  });
   test('disconnect fails current request', () async {
     final transport = FakeTransport(); final session = ElmSession(transport);
     final pending = session.command('ATI');
@@ -41,4 +50,10 @@ void main() {
     await Future<void>.delayed(Duration.zero); await transport.close();
     await expectation; await session.close();
   });
+}
+
+class _StalledTransport extends FakeTransport {
+  final writeCompletion = Completer<void>();
+  @override
+  Future<void> write(List<int> bytes) => writeCompletion.future;
 }

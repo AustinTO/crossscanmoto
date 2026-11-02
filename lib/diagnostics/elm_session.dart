@@ -59,7 +59,7 @@ class ElmSession {
         final responseFuture = pending.future.timeout(timeout);
         // Install an error handler before asynchronous transport writes.
         unawaited(responseFuture.then<void>((_) {}, onError: (Object _) {}));
-        await transport.write(ascii.encode('$command\r'));
+        await transport.write(ascii.encode('$command\r')).timeout(timeout);
         final raw = await responseFuture;
         final lines = raw
             .split(RegExp(r'[\r\n]+'))

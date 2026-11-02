@@ -1,8 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'diagnostic_session.dart';
-import 'diagnostics/adapter_profile.dart';
 import 'diagnostics/ecu_friendly_names.dart';
-import 'diagnostics/protocol_setup.dart';
 import 'diagnostics/recovered_actuators.dart';
 import 'diagnostics/uds_client.dart';
 
@@ -22,8 +21,9 @@ class RecoveredActuatorPanel extends StatefulWidget {
 // Alias for clean naming across the app
 typedef ActuatorTestPanel = RecoveredActuatorPanel;
 
-class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> {
+class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> with WidgetsBindingObserver {
   bool _busy = false;
+  Completer<void>? _cancelExecution;
   String? _status;
   late String _selectedEcuKey;
 
@@ -38,6 +38,7 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     final currentKey = DiagnosticSession.instance.ecuDefinitionKey;
     if (currentKey != null &&
         (_supportedActuatorEcus.contains(currentKey) ||
@@ -48,39 +49,36 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> {
     }
   }
 
+  void _requestStop() {
+    final cancellation = _cancelExecution;
+    if (cancellation != null && !cancellation.isCompleted) cancellation.complete();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed) _requestStop();
+  }
+
+  @override
+  void dispose() {
+    _requestStop();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   Future<void> _run(RecoveredActuatorPosition position) async {
     final shared = DiagnosticSession.instance;
     var client = shared.udsClient;
     final generation = shared.generation;
 
-    // Auto-configure UDS link if connected to an adapter but link not yet attached
-    if (client == null && shared.connected) {
-      final session = shared.elmSession;
-      if (session != null) {
-        setState(() {
-          _busy = true;
-          _status = 'Connecting to ${BmwEcuHelper.friendlyName(_selectedEcuKey)}…';
-        });
-        try {
-          final addr = BmwEcuHelper.standardAddress(_selectedEcuKey);
-          await initializeAdapter(session);
-          final link = BmwBikeUdsLink(session);
-          if (await link.configure(id: addr)) {
-            final newClient = UdsClient(link);
-            shared.attachUdsClient(
-              newClient,
-              forGeneration: generation,
-              link: link,
-              ecuKey: _selectedEcuKey,
-            );
-            client = newClient;
-          }
-        } catch (e) {
-          if (mounted) setState(() => _status = 'Connection failed: $e');
-        } finally {
-          if (mounted) setState(() => _busy = false);
-        }
-      }
+    if ((client == null || shared.ecuDefinitionKey != _selectedEcuKey) && shared.connected) {
+      client = null;
+      setState(() { _busy = true; _status = 'Connecting to ${BmwEcuHelper.friendlyName(_selectedEcuKey)}…'; });
+      try {
+        client = await shared.configureUdsTarget(ecuKey: _selectedEcuKey,
+          address: BmwEcuHelper.standardAddress(_selectedEcuKey));
+      } catch (error) { if (mounted) setState(() => _status = 'Connection failed: $error'); }
+      finally { if (mounted) setState(() => _busy = false); }
     }
 
     if (client == null) {
@@ -134,19 +132,21 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> {
     setState(() {
       _busy = true;
       _status = 'Activating ${position.title}…';
+      _cancelExecution = Completer<void>();
     });
 
     try {
       await shared.runExclusive(() => RecoveredActuatorExecutor().run(
             link: _CurrentLink(client!.link, generation, _selectedEcuKey),
-            position: position,
+            position: position, cancellation: _cancelExecution!.future,
           ));
       if (mounted) {
-        setState(() => _status = 'Activation sequence acknowledged and completed safely.');
+        setState(() => _status = 'Activation and stop requests acknowledged by the ECU.');
       }
     } catch (error) {
       if (mounted) setState(() => _status = error.toString());
     } finally {
+      _cancelExecution = null;
       if (mounted) setState(() => _busy = false);
     }
   }
@@ -201,7 +201,7 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> {
                               ),
                             ),
                         ],
-                        onChanged: _busy
+                        onChanged: _busy || shared.operationBusy
                             ? null
                             : (value) {
                                 if (value != null) {
@@ -217,6 +217,10 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> {
                   ),
                 ),
                 const SizedBox(height: 16),
+                if (_cancelExecution != null)
+                  Padding(padding: const EdgeInsets.only(bottom: 16),
+                    child: FilledButton.icon(onPressed: _requestStop,
+                      icon: const Icon(Icons.stop_circle_outlined), label: const Text('Stop component test'))),
                 if (_status != null)
                   Container(
                     margin: const EdgeInsets.only(bottom: 16),
@@ -335,6 +339,7 @@ class _CurrentLink implements UdsRequestLink {
   Future<List<int>> request(List<int> payload, {Duration? timeout}) {
     final shared = DiagnosticSession.instance;
     if (shared.generation != generation ||
+        shared.ecuDefinitionKey != ecuKey ||
         !identical(shared.udsClient?.link, link)) {
       throw StateError('The ECU connection changed; actuator request cancelled.');
     }

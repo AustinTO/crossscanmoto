@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'uds_client.dart';
 import 'uds_response.dart';
 
@@ -1733,9 +1735,19 @@ class RecoveredActuatorExecutionException implements Exception {
   final List<Object> cleanupErrors;
 
   @override
-  String toString() =>
-      'Actuator operation failed: ${operationError ?? 'cleanup failed'}; '
-      'cleanup errors: ${cleanupErrors.join(', ')}';
+  String toString() {
+    final operation = operationError is RecoveredActuatorCancelledException
+        ? operationError.toString()
+        : 'Actuator operation failed: ${operationError ?? 'cleanup failed'}';
+    return '$operation; cleanup errors: ${cleanupErrors.join(', ')}';
+  }
+}
+
+class RecoveredActuatorCancelledException implements Exception {
+  const RecoveredActuatorCancelledException();
+
+  @override
+  String toString() => 'Actuator test cancelled.';
 }
 
 /// Executes verified bi-directional actuator test sequences.
@@ -1749,6 +1761,7 @@ class RecoveredActuatorExecutor {
   }) : _wait = wait ?? _defaultWait;
 
   static const int maximumObservedDurationSeconds = 60;
+  static final _runQueue = _SerialActuatorRunQueue();
   final Duration requestTimeout;
   final Duration maximumDuration;
   final Future<void> Function(Duration) _wait;
@@ -1759,6 +1772,24 @@ class RecoveredActuatorExecutor {
   Future<void> run({
     required UdsRequestLink link,
     required RecoveredActuatorPosition position,
+    Future<void>? cancellation,
+  }) {
+    final signal = cancellation == null
+        ? null
+        : _ActuatorCancellationSignal(cancellation);
+    return _runQueue.run(
+      () => _runUnlocked(
+        link: link,
+        position: position,
+        cancellation: signal,
+      ),
+    );
+  }
+
+  Future<void> _runUnlocked({
+    required UdsRequestLink link,
+    required RecoveredActuatorPosition position,
+    required _ActuatorCancellationSignal? cancellation,
   }) async {
     if (!position.isSupported) {
       throw StateError(position.unsupportedReason ?? 'Actuator is unsupported');
@@ -1780,39 +1811,73 @@ class RecoveredActuatorExecutor {
     }
 
     Object? operationError;
-    List<Object> cleanupErrors = [];
+    final cleanupErrors = <Object>[];
+    var cleanupRequired = false;
     try {
+      await cancellation?.throwIfCancelled();
       final start = position.start;
-      if (start != null) await _send(link, start);
-      // Set up cleanup before sending an actuator command: a timed-out write
-      // can still have reached the ECU.
+      if (start != null) {
+        // A timed-out start request may still have reached the ECU.
+        cleanupRequired = true;
+        await _send(link, start);
+        await cancellation?.throwIfCancelled();
+      }
+      await cancellation?.throwIfCancelled();
+      // A timed-out activation request may still have reached the ECU.
+      cleanupRequired = true;
       await _send(link, activation);
-      await _wait(Duration(seconds: activation.durationSeconds));
+      await cancellation?.throwIfCancelled();
+      await _waitOrCancel(
+        Duration(seconds: activation.durationSeconds),
+        cancellation,
+      );
+      // The wait and cancellation can resolve in the same microtask turn.
+      // Preserve cancellation even if the ordinary wait wins Future.any.
+      await cancellation?.throwIfCancelled();
     } catch (error) {
       operationError = error;
     }
 
-    try {
-      await _send(link, stop);
-    } catch (error) {
-      cleanupErrors.add(error);
-    }
-
-    final end = position.end;
-    if (end != null) {
+    if (cleanupRequired) {
       try {
-        await _send(link, end);
+        await _send(link, stop);
       } catch (error) {
         cleanupErrors.add(error);
+      }
+
+      final end = position.end;
+      if (end != null) {
+        try {
+          await _send(link, end);
+        } catch (error) {
+          cleanupErrors.add(error);
+        }
       }
     }
 
     if (operationError != null || cleanupErrors.isNotEmpty) {
+      if (operationError is RecoveredActuatorCancelledException &&
+          cleanupErrors.isEmpty) {
+        throw operationError;
+      }
       throw RecoveredActuatorExecutionException(
         operationError: operationError,
         cleanupErrors: List.unmodifiable(cleanupErrors),
       );
     }
+  }
+
+  Future<void> _waitOrCancel(
+    Duration duration,
+    _ActuatorCancellationSignal? cancellation,
+  ) {
+    if (cancellation == null) return _wait(duration);
+    return Future.any<void>([
+      _wait(duration),
+      cancellation.whenCancelled.then<void>(
+        (_) => throw const RecoveredActuatorCancelledException(),
+      ),
+    ]);
   }
 
   Future<void> _send(
@@ -1832,6 +1897,55 @@ class RecoveredActuatorExecutor {
     );
     if (decoded is UdsNegativeResponse) {
       throw UdsNegativeResponseException(decoded);
+    }
+  }
+}
+
+class _ActuatorCancellationSignal {
+  _ActuatorCancellationSignal(Future<void> source) {
+    source.then<void>(
+      (_) => _complete(),
+      onError: (Object _, StackTrace __) => _complete(),
+    );
+  }
+
+  final _completed = Completer<void>();
+
+  bool get isCancelled => _completed.isCompleted;
+  Future<void> get whenCancelled => _completed.future;
+
+  Future<void> throwIfCancelled() async {
+    if (!isCancelled) await Future<void>.value();
+    if (isCancelled) throw const RecoveredActuatorCancelledException();
+  }
+
+  void _complete() {
+    if (!_completed.isCompleted) _completed.complete();
+  }
+}
+
+/// Serializes actuator sequences so separate panel instances cannot interleave
+/// On/Off traffic on the one active motorcycle diagnostic bus.
+class _SerialActuatorRunQueue {
+  Future<void> _tail = Future<void>.value();
+
+  Future<T> run<T>(Future<T> Function() operation) {
+    final previous = _tail;
+    final release = Completer<void>();
+    _tail = release.future;
+    return _runAfter(previous, release, operation);
+  }
+
+  Future<T> _runAfter<T>(
+    Future<void> previous,
+    Completer<void> release,
+    Future<T> Function() operation,
+  ) async {
+    await previous;
+    try {
+      return await operation();
+    } finally {
+      release.complete();
     }
   }
 }

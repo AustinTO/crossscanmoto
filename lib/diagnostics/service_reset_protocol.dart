@@ -26,7 +26,8 @@ abstract final class BmwServiceResetCatalog {
   static const sl0UdsEcuKeys = supportedUdsEcuKeys;
 
   /// Returns true if the specified control unit supports UDS service resets.
-  static bool supportsEcuKey(String ecuKey) => supportedUdsEcuKeys.contains(ecuKey);
+  static bool supportsEcuKey(String ecuKey) =>
+      supportedUdsEcuKeys.contains(ecuKey);
 }
 
 /// Service reset action types for BMW Motorrad maintenance operations.
@@ -50,12 +51,7 @@ class BmwServiceResetWrite {
   final int did;
   final List<int> data;
 
-  List<int> get request => [
-        0x2e,
-        (did >> 8) & 0xff,
-        did & 0xff,
-        ...data,
-      ];
+  List<int> get request => [0x2e, (did >> 8) & 0xff, did & 0xff, ...data];
 }
 
 class BmwServiceResetResult {
@@ -113,31 +109,46 @@ class BmwServiceResetProtocol {
     required DateTime nextServiceDate,
     required int nextServiceMileage,
   }) {
+    if (nextServiceMileage < 0 || nextServiceMileage > 0xffff) {
+      throw RangeError.range(
+        nextServiceMileage,
+        0,
+        0xffff,
+        'nextServiceMileage',
+      );
+    }
+
     final writes = <BmwServiceResetWrite>[];
     if (action == BmwServiceResetAction.all ||
         action == BmwServiceResetAction.vehicleDateTime) {
-      writes.add(BmwServiceResetWrite(
-        did: vehicleDateTimeDid,
-        data: List.unmodifiable(_encodeVehicleClock(vehicleDateTime)),
-      ));
+      writes.add(
+        BmwServiceResetWrite(
+          did: vehicleDateTimeDid,
+          data: List.unmodifiable(_encodeVehicleClock(vehicleDateTime)),
+        ),
+      );
     }
     if (action == BmwServiceResetAction.all ||
         action == BmwServiceResetAction.nextServiceDate) {
-      writes.add(BmwServiceResetWrite(
-        did: nextServiceDateDid,
-        data: List.unmodifiable(_encodeDate(nextServiceDate)),
-      ));
+      writes.add(
+        BmwServiceResetWrite(
+          did: nextServiceDateDid,
+          data: List.unmodifiable(_encodeDate(nextServiceDate)),
+        ),
+      );
     }
     if (action == BmwServiceResetAction.all ||
         action == BmwServiceResetAction.nextServiceMileage) {
       // 16-bit big-endian service interval distance.
-      writes.add(BmwServiceResetWrite(
-        did: nextServiceMileageDid,
-        data: List.unmodifiable([
-          (nextServiceMileage >> 8) & 0xff,
-          nextServiceMileage & 0xff,
-        ]),
-      ));
+      writes.add(
+        BmwServiceResetWrite(
+          did: nextServiceMileageDid,
+          data: List.unmodifiable([
+            (nextServiceMileage >> 8) & 0xff,
+            nextServiceMileage & 0xff,
+          ]),
+        ),
+      );
     }
     return List.unmodifiable(writes);
   }
@@ -163,10 +174,7 @@ class BmwServiceResetProtocol {
 
     for (final write in writes) {
       final responseBytes = await _write(write.request);
-      final response = UdsResponse.decode(
-        responseBytes,
-        requestService: 0x2e,
-      );
+      final response = UdsResponse.decode(responseBytes, requestService: 0x2e);
       if (response is UdsNegativeResponse) {
         throw UdsNegativeResponseException(response);
       }
@@ -201,8 +209,8 @@ class BmwServiceResetProtocol {
           : write.data;
       final actualComparable =
           write.did == vehicleDateTimeDid && actual.length >= 7
-              ? actual.skip(3).toList(growable: false)
-              : actual;
+          ? actual.skip(3).toList(growable: false)
+          : actual;
       if (!_sameBytes(actualComparable, expectedComparable)) {
         throw FormatException(
           'Service reset readback did not match DID 0x${write.did.toRadixString(16)}',

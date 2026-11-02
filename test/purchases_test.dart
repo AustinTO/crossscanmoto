@@ -24,11 +24,13 @@ class FakeIdentityStore implements PurchaseIdentityStore {
 
   String accountId;
   CachedEntitlement? cached;
-  String? savedEmail;
-  String? savedToken;
+  String? savedEmail = 'test@example.com';
+  String? savedToken = 'fake-jwt-token';
 
   @override
   Future<String> loadOrCreateAccountId() async => accountId;
+  @override
+  Future<String> resetAccountId() async => accountId = restoredAccount;
 
   @override
   Future<void> adoptVerifiedAccountId(String accountId) async {
@@ -74,6 +76,7 @@ class FakeBackend implements PurchaseBackendApi {
   EntitlementStatus initialEntitlement = const EntitlementStatus(
     unlocked: false,
     status: 'none',
+    verificationConfigured: true,
   );
   Object? initialError;
   EntitlementStatus purchaseResult = const EntitlementStatus(
@@ -81,7 +84,7 @@ class FakeBackend implements PurchaseBackendApi {
     status: 'active',
   );
   Object? purchaseError;
-  String? verifiedAccountId;
+  String? verifiedSessionToken;
   String? verifiedPurchaseToken;
   String? verifiedJws;
   int verificationCalls = 0;
@@ -97,12 +100,12 @@ class FakeBackend implements PurchaseBackendApi {
 
   @override
   Future<EntitlementStatus> verifyApple({
-    required String accountId,
+    required String sessionToken,
     required String transactionId,
     required String signedTransactionInfo,
   }) async {
     verificationCalls++;
-    verifiedAccountId = accountId;
+    verifiedSessionToken = sessionToken;
     verifiedJws = signedTransactionInfo;
     if (purchaseError case final error?) throw error;
     return purchaseResult;
@@ -110,15 +113,22 @@ class FakeBackend implements PurchaseBackendApi {
 
   @override
   Future<EntitlementStatus> verifyGoogle({
-    required String accountId,
+    required String sessionToken,
     required String purchaseToken,
   }) async {
     verificationCalls++;
-    verifiedAccountId = accountId;
+    verifiedSessionToken = sessionToken;
     verifiedPurchaseToken = purchaseToken;
     if (purchaseError case final error?) throw error;
     return purchaseResult;
   }
+
+  @override
+  Future<EntitlementStatus> restoreApple({required String sessionToken, required String transactionId, required String signedTransactionInfo}) => verifyApple(sessionToken: sessionToken, transactionId: transactionId, signedTransactionInfo: signedTransactionInfo);
+  @override
+  Future<EntitlementStatus> restoreGoogle({required String sessionToken, required String purchaseToken}) => verifyGoogle(sessionToken: sessionToken, purchaseToken: purchaseToken);
+  @override
+  Future<void> revokeSession(String sessionToken) async {}
 
   int deleteCalls = 0;
   String? deletedAccountId;
@@ -160,7 +170,7 @@ class FakeBackend implements PurchaseBackendApi {
       email: 'test@example.com',
       sessionToken: sessionToken,
       accountId: firstAccount,
-      unlocked: true,
+      unlocked: initialEntitlement.unlocked,
     );
   }
 }
@@ -334,7 +344,7 @@ void main() {
       ]);
       await settle();
 
-      expect(backend.verifiedAccountId, firstAccount);
+      expect(backend.verifiedSessionToken, 'fake-jwt-token');
       expect(backend.verifiedPurchaseToken, 'google-purchase-token');
       expect(controller.hasUnlock, isTrue);
       expect(identity.cached?.accountId, firstAccount);
@@ -343,6 +353,18 @@ void main() {
       controller.dispose();
     },
   );
+
+  test('checkout stays disabled until server verification is configured', () async {
+    final store = FakeStore();
+    final backend = FakeBackend()..initialEntitlement = const EntitlementStatus(unlocked: false, status: 'none');
+    final controller = PurchaseController(config: config(PurchasePlatform.google), store: store, identityStore: FakeIdentityStore(firstAccount), backend: backend);
+    await controller.initialize();
+    expect(controller.canPurchase, isFalse);
+    await controller.buy();
+    expect(store.purchaseBinding, isNull);
+    await store.updates.close();
+    controller.dispose();
+  });
 
   test('pending Google payment is neither verified nor completed', () async {
     final store = FakeStore();
@@ -395,7 +417,7 @@ void main() {
 
       expect(controller.hasUnlock, isFalse);
       expect(controller.phase, PurchasePhase.locked);
-      expect(controller.message, contains('new install'));
+      expect(controller.message, contains('different app account'));
       expect(store.completions, 0);
       await store.updates.close();
       controller.dispose();
@@ -403,7 +425,7 @@ void main() {
   );
 
   test(
-    'Apple restore selects JWS appAccountToken then persists only after backend success',
+    'Apple restore submits proof under the authenticated canonical account',
     () async {
       final store = FakeStore();
       final backend = FakeBackend();
@@ -426,10 +448,10 @@ void main() {
       ]);
       await settle();
 
-      expect(backend.verifiedAccountId, restoredAccount);
+      expect(backend.verifiedSessionToken, 'fake-jwt-token');
       expect(backend.verifiedJws, jws);
-      expect(identity.accountId, restoredAccount);
-      expect(identity.cached?.accountId, restoredAccount);
+      expect(identity.accountId, firstAccount);
+      expect(identity.cached?.accountId, firstAccount);
       expect(controller.hasUnlock, isTrue);
       expect(store.completions, 1);
       await store.updates.close();
@@ -466,7 +488,7 @@ void main() {
       final deleted = await controller.deleteAccountAndData();
       expect(deleted, isTrue);
       expect(backend.deleteCalls, 1);
-      expect(backend.deletedAccountId, firstAccount);
+      expect(backend.deletedAccountId, 'fake-jwt-token');
       expect(identity.cached, isNull);
       expect(controller.hasUnlock, isFalse);
       expect(controller.phase, PurchasePhase.ready);
@@ -480,7 +502,7 @@ void main() {
     () async {
       final store = FakeStore();
       final backend = FakeBackend();
-      final identity = FakeIdentityStore(firstAccount);
+      final identity = FakeIdentityStore(firstAccount)..savedEmail = null..savedToken = null;
       final controller = PurchaseController(
         config: config(PurchasePlatform.apple),
         store: store,
@@ -503,7 +525,7 @@ void main() {
       expect(controller.userEmail, 'mechanic@example.com');
       expect(identity.savedEmail, 'mechanic@example.com');
       expect(identity.savedToken, 'fake-jwt-token');
-      expect(controller.hasUnlock, isTrue);
+      expect(controller.hasUnlock, isFalse, reason: 'Signing in does not grant an unpurchased entitlement');
 
       await controller.signOut();
       expect(controller.isAuthenticated, isFalse);

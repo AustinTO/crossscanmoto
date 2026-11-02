@@ -17,6 +17,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/branding/motorcycle-hero.webp
+    - assets/branding/app-icon.png
     - assets/data/recovered_uds_parameters.json
     - assets/data/recovered_ecu_definitions.json
     - assets/data/recovered_actuators.json

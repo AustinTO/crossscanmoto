@@ -2,17 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   D1PurchaseRepository,
+  effectiveAccountAccess,
+  purchaseVerificationConfiguration,
   PurchaseError,
   acknowledgeGooglePurchase,
+  createSessionToken,
   lookupAppleTransaction,
   lookupGooglePurchase,
   verifyAppleSignedTransaction,
   verifyApplePurchase,
   verifyGooglePurchase,
+  verifySessionToken,
 } from '../src/index.mjs';
 import worker from '../src/index.mjs';
 
 const ACCOUNT = '59341044-17c8-47a3-8db9-5a9549956d9f';
+const USER_ID = '40cb47bc-c218-4a43-a177-e17226589aa1';
+const SESSION_SECRET = 'test-session-secret-abcdefghijklmnopqrstuvwxyz-0123456789';
+const OTP_PEPPER = 'test-otp-pepper-secret-abcdefghijklmnopqrstuvwxyz-0123456789';
 const APPLE_CONFIG = {
   APPLE_BUNDLE_ID: 'app.bundle.configured',
   APPLE_UNLOCK_PRODUCT_ID: 'product.configured.ios',
@@ -128,6 +135,9 @@ function fakeD1() {
   const entitlements = new Map();
   const users = new Map();
   const otps = new Map();
+  const sessions = new Map();
+  const storeLinks = new Map();
+  const rateLimits = new Map();
   const key = (a, b) => `${a}:${b}`;
 
   return {
@@ -135,6 +145,8 @@ function fakeD1() {
     entitlements,
     users,
     otps,
+    sessions,
+    storeLinks,
     prepare(sql) {
       return {
         sql,
@@ -148,10 +160,24 @@ function fakeD1() {
             });
             return { success: true };
           }
+          if (sql.includes('INSERT INTO auth_sessions')) {
+            const [sessionId, userId, email, accountId, createdAt, expiresAt] = this.args;
+            sessions.set(sessionId, {
+              session_id: sessionId, user_id: userId, email, account_id: accountId,
+              created_at: createdAt, expires_at: expiresAt, revoked_at: null,
+            });
+            return { success: true };
+          }
+          if (sql.includes('UPDATE auth_sessions SET revoked_at')) {
+            const [revokedAt, sessionId] = this.args;
+            const session = sessions.get(sessionId);
+            if (session) session.revoked_at = revokedAt;
+            return { success: true };
+          }
           if (sql.includes('UPDATE auth_otps SET attempts = attempts + 1')) {
-            const [email] = this.args;
+            const [email, now] = this.args;
             const existing = otps.get(email);
-            if (existing) existing.attempts += 1;
+            if (existing && existing.attempts < 5 && existing.expires_at > now) existing.attempts += 1;
             return { success: true };
           }
           if (sql.includes('DELETE FROM auth_otps')) {
@@ -159,15 +185,19 @@ function fakeD1() {
             otps.delete(email);
             return { success: true };
           }
+          if (sql.includes('DELETE FROM auth_rate_limits')) {
+            const [expiredAt] = this.args;
+            for (const [rateKey, item] of rateLimits) {
+              if (item.expires_at < expiredAt) rateLimits.delete(rateKey);
+            }
+            return { success: true };
+          }
           if (sql.includes('INSERT INTO users')) {
             const [userId, email, accountId, createdAt, updatedAt] = this.args;
             const existing = users.get(email);
-            users.set(email, {
-              user_id: existing?.user_id ?? userId,
-              email,
-              account_id: accountId,
-              created_at: existing?.created_at ?? createdAt,
-              updated_at: updatedAt,
+            if (!existing) users.set(email, {
+              user_id: userId, email, account_id: accountId,
+              created_at: createdAt, updated_at: updatedAt,
             });
             return { success: true };
           }
@@ -183,35 +213,83 @@ function fakeD1() {
           if (sql.includes('FROM entitlements')) {
             return entitlements.get(key(this.args[0], this.args[1])) ?? null;
           }
+          if (sql.includes('FROM auth_sessions')) {
+            return sessions.get(this.args[0]) ?? null;
+          }
           if (sql.includes('FROM auth_otps')) {
+            if (sql.includes('RETURNING email')) {
+              const [email, codeHash, now] = this.args;
+              const existing = otps.get(email);
+              if (!existing || existing.code_hash !== codeHash || existing.attempts >= 5 || existing.expires_at <= now) return null;
+              otps.delete(email);
+              return { email };
+            }
             return otps.get(this.args[0]) ?? null;
           }
+          if (sql.includes('FROM auth_rate_limits') || sql.includes('RETURNING request_count')) {
+            const [rateKey, windowStart, expiresAt] = this.args;
+            const previous = rateLimits.get(rateKey);
+            const requestCount = previous?.window_start === windowStart ? previous.request_count + 1 : 1;
+            rateLimits.set(rateKey, { window_start: windowStart, request_count: requestCount, expires_at: expiresAt });
+            return { request_count: requestCount };
+          }
           if (sql.includes('FROM users')) {
+            if (sql.includes('user_id = ?')) {
+              return [...users.values()].find((user) => user.user_id === this.args[0]) ?? null;
+            }
+            if (sql.includes('account_id = ?')) {
+              return [...users.values()].find((user) => user.account_id === this.args[0]) ?? null;
+            }
             return users.get(this.args[0]) ?? null;
+          }
+          if (sql.includes('FROM store_account_links')) {
+            return storeLinks.get(key(this.args[0], this.args[1])) ?? null;
           }
           throw new Error(`Unexpected query in fake D1: ${sql}`);
         },
       };
     },
     async batch(statements) {
+      const results = [];
       for (const statement of statements) {
+        if (statement.sql.includes('INSERT INTO store_account_links')) {
+          const [store, storeAccountId, userId, accountId, createdAt] = statement.args;
+          const linkKey = key(store, storeAccountId);
+          const previous = storeLinks.get(linkKey);
+          if (!previous || previous.user_id === userId) {
+            storeLinks.set(linkKey, { store, store_account_id: storeAccountId,
+              user_id: userId, account_id: accountId, created_at: createdAt });
+            results.push({ meta: { changes: 1 } });
+          } else {
+            results.push({ meta: { changes: 0 } });
+          }
+          continue;
+        }
         if (statement.sql.includes('INSERT INTO purchase_records')) {
           const [store, storeKey, transactionId, originalTransactionId, accountId,
-            productId, entitlementId, state, purchasedAt, revokedAt, createdAt, updatedAt] = statement.args;
+            storeAccountId, productId, entitlementId, state, purchasedAt, revokedAt,
+            createdAt, updatedAt, userId, linkStore, linkStoreAccountId, linkUserId,
+            allowRebind] = statement.args;
           const recordKey = key(store, storeKey);
           const byTransaction = transactions.get(key(store, transactionId));
-          if (byTransaction && (byTransaction.account_id !== accountId || byTransaction.product_id !== productId)) {
+          if (byTransaction && (byTransaction.account_id !== accountId || byTransaction.product_id !== productId) && !allowRebind) {
             throw new Error('unique transaction constraint');
           }
+          const linked = userId == null || storeLinks.get(key(linkStore, linkStoreAccountId))?.user_id === linkUserId;
           const old = records.get(recordKey);
-          if (!old || (old.account_id === accountId && old.product_id === productId)) {
+          if (linked && (!old || ((old.account_id === accountId || allowRebind) &&
+              old.store_account_id === storeAccountId && old.product_id === productId))) {
             const record = { store, store_key: storeKey, transaction_id: transactionId,
               original_transaction_id: originalTransactionId, account_id: accountId,
+              store_account_id: storeAccountId,
               product_id: productId, entitlement_id: entitlementId, state,
               purchased_at: purchasedAt, revoked_at: revokedAt,
               created_at: old?.created_at ?? createdAt, updated_at: updatedAt };
             records.set(recordKey, record);
             transactions.set(key(store, transactionId), record);
+            results.push({ meta: { changes: 1 } });
+          } else {
+            results.push({ meta: { changes: 0 } });
           }
           continue;
         }
@@ -222,6 +300,7 @@ function fakeD1() {
           entitlements.set(key(accountId, entitlementId), {
             status: active ? 'active' : 'revoked', updated_at: updatedAt,
           });
+          results.push({ meta: { changes: 1 } });
           continue;
         }
         if (statement.sql.includes('DELETE FROM entitlements')) {
@@ -229,6 +308,7 @@ function fakeD1() {
           for (const k of entitlements.keys()) {
             if (k.startsWith(`${id}:`)) entitlements.delete(k);
           }
+          results.push({ meta: { changes: 1 } });
           continue;
         }
         if (statement.sql.includes('DELETE FROM purchase_records')) {
@@ -239,6 +319,7 @@ function fakeD1() {
               transactions.delete(key(v.store, v.transaction_id));
             }
           }
+          results.push({ meta: { changes: 1 } });
           continue;
         }
         if (statement.sql.includes('DELETE FROM users')) {
@@ -248,13 +329,136 @@ function fakeD1() {
               users.delete(email);
             }
           }
+          results.push({ meta: { changes: 1 } });
+          continue;
+        }
+        if (statement.sql.includes('UPDATE auth_sessions')) {
+          const [revokedAt, accountId] = statement.args;
+          for (const session of sessions.values()) {
+            if (session.account_id === accountId) session.revoked_at = revokedAt;
+          }
+          results.push({ meta: { changes: 1 } });
+          continue;
+        }
+        if (statement.sql.includes('DELETE FROM store_account_links')) {
+          const [userId] = statement.args;
+          for (const [linkKey, link] of storeLinks) {
+            if (link.user_id === userId) storeLinks.delete(linkKey);
+          }
+          results.push({ meta: { changes: 1 } });
+          continue;
+        }
+        if (statement.sql.includes('DELETE FROM auth_otps')) {
+          const [email] = statement.args;
+          otps.delete(email);
+          results.push({ meta: { changes: 1 } });
           continue;
         }
         throw new Error(`Unexpected statement in fake D1: ${statement.sql}`);
       }
-      return [];
+      return results;
     },
   };
+}
+
+async function createTestUserAndSession(db, email, accountId = ACCOUNT) {
+  const user = {
+    user_id: USER_ID,
+    email,
+    account_id: accountId,
+    created_at: Date.now(),
+    updated_at: Date.now(),
+  };
+  db.users.set(email, user);
+  const sessionId = crypto.randomUUID();
+  const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  const token = await createSessionToken(user, SESSION_SECRET, {
+    sessionId,
+    nowSeconds: Math.floor(Date.now() / 1000),
+  });
+  await new D1PurchaseRepository(db).saveSession({
+    sessionId,
+    userId: user.user_id,
+    email,
+    accountId,
+    expiresAt,
+  });
+  return { user, sessionId, token };
+}
+
+test('session JWT rejects missing configuration, malformed algorithm, missing claims, and expiry', async () => {
+  const user = { userId: USER_ID, email: 'jwt@example.com', accountId: ACCOUNT };
+  await assert.rejects(createSessionToken(user), (error) =>
+    error instanceof PurchaseError && error.code === 'auth_not_configured');
+
+  const now = Math.floor(Date.now() / 1000);
+  const validToken = await createSessionToken(user, SESSION_SECRET, { nowSeconds: now });
+  assert.equal((await verifySessionToken(validToken, SESSION_SECRET, now))?.accountId, ACCOUNT);
+  assert.equal(await verifySessionToken(validToken, 'wrong-session-secret-abcdefghijklmnopqrstuvwxyz', now), null);
+
+  const commonClaims = {
+    sub: USER_ID, email: user.email, accountId: ACCOUNT,
+    iat: now, nbf: now, exp: now + 3600,
+    iss: 'https://api.puphr.com', aud: 'com.puphr.crossscanmoto',
+    jti: 'e0b5cc67-1153-4e2c-a8f3-2d3db5775112',
+  };
+  assert.equal(await verifySessionToken(await signTestJwt({ ...commonClaims, exp: undefined }), SESSION_SECRET, now), null);
+  assert.equal(await verifySessionToken(await signTestJwt({ ...commonClaims, aud: 'other-app' }), SESSION_SECRET, now), null);
+  assert.equal(await verifySessionToken(await signTestJwt(commonClaims, { alg: 'none', typ: 'JWT' }), SESSION_SECRET, now), null);
+  const expired = await createSessionToken(user, SESSION_SECRET, { nowSeconds: now - 8 * 24 * 60 * 60 });
+  assert.equal(await verifySessionToken(expired, SESSION_SECRET, now), null);
+});
+
+test('auth guards entitlement, purchase, and delete routes against body UUID takeover', async () => {
+  const db = fakeD1();
+  const { token } = await createTestUserAndSession(db, 'owner@example.com');
+  const victimAccount = '1c2bcd2c-48cf-41f5-b3c8-66939cc33333';
+  db.users.set('victim@example.com', {
+    user_id: 'f05f0e9f-ab1e-47b5-bc10-98e4cfbaeb63',
+    email: 'victim@example.com', account_id: victimAccount,
+    created_at: Date.now(), updated_at: Date.now(),
+  });
+  const env = { DB: db, SESSION_SECRET };
+
+  const publicEntitlement = await worker.fetch(new Request(
+    `https://api.puphr.com/v1/entitlements/${victimAccount}`,
+  ), env);
+  assert.equal(publicEntitlement.status, 401);
+
+  const crossAccountEntitlement = await worker.fetch(new Request(
+    `https://api.puphr.com/v1/entitlements/${victimAccount}`,
+    { headers: { authorization: `Bearer ${token}` } },
+  ), env);
+  assert.equal(crossAccountEntitlement.status, 403);
+
+  const spoofedPurchase = await worker.fetch(new Request('https://api.puphr.com/v1/purchases/apple', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      accountId: victimAccount, transactionId: 'transaction-id', signedTransactionInfo: 'not-a-jws',
+    }),
+  }), env);
+  assert.equal(spoofedPurchase.status, 503);
+  assert.equal((await spoofedPurchase.json()).error, 'store_not_configured');
+
+  const uuidOnlyDelete = await worker.fetch(new Request('https://api.puphr.com/v1/account/delete', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ accountId: victimAccount }),
+  }), env);
+  assert.equal(uuidOnlyDelete.status, 404);
+  assert.ok(db.users.has('victim@example.com'));
+});
+
+async function signTestJwt(payload, header = { alg: 'HS256', typ: 'JWT' }, secret = SESSION_SECRET) {
+  const encode = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
+  const input = `${encode(header)}.${encode(payload)}`;
+  const key = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(input));
+  return `${input}.${Buffer.from(signature).toString('base64url')}`;
 }
 
 test('Apple requires a trusted device JWS and matching authoritative App Store transaction', async () => {
@@ -423,6 +627,9 @@ test('Worker endpoints serve Privacy Policy and Terms with security headers and 
   assert.equal(deletePortalRes.status, 200);
   const deleteHtml = await deletePortalRes.text();
   assert.ok(deleteHtml.includes('Delete Account'));
+  assert.ok(deleteHtml.includes('/v1/auth/otp/verify'));
+  assert.ok(deleteHtml.includes("authorization: 'Bearer ' + sessionToken"));
+  assert.ok(!deleteHtml.includes('name="accountId"'));
 
   const healthRes = await worker.fetch(new Request('https://api.puphr.com/health'), {});
   assert.equal(healthRes.status, 200);
@@ -431,27 +638,45 @@ test('Worker endpoints serve Privacy Policy and Terms with security headers and 
   assert.equal(healthJson.appId, 'com.puphr.crossscanmoto');
 });
 
-test('Worker account deletion API removes records with strict UUID validation', async () => {
+test('Worker account deletion requires the owning authenticated session and revokes it', async () => {
   const db = fakeD1();
   const repository = new D1PurchaseRepository(db);
+  const { token } = await createTestUserAndSession(db, 'owner@example.com');
   await repository.applyPurchase({
     store: 'apple', storeKey: 'tx-del-1', transactionId: 'tx-del-1',
     originalTransactionId: 'orig-del-1', accountId: ACCOUNT,
+    storeAccountId: ACCOUNT,
     productId: APPLE_CONFIG.APPLE_UNLOCK_PRODUCT_ID, entitlementId: 'premium_unlock',
     state: 'active', purchasedAt: Date.now(), revokedAt: null,
-  });
+  }, { userId: USER_ID });
   assert.equal((await repository.getEntitlement(ACCOUNT, 'premium_unlock'))?.status, 'active');
 
-  const deleteReq = new Request(`https://api.puphr.com/v1/account/${ACCOUNT}`, { method: 'DELETE' });
-  const deleteRes = await worker.fetch(deleteReq, { DB: db });
+  const unauthenticated = await worker.fetch(
+    new Request('https://api.puphr.com/v1/account', { method: 'DELETE' }),
+    { DB: db, SESSION_SECRET },
+  );
+  assert.equal(unauthenticated.status, 401);
+
+  const guessedId = await worker.fetch(
+    new Request(`https://api.puphr.com/v1/account/${ACCOUNT}`, { method: 'DELETE' }),
+    { DB: db, SESSION_SECRET },
+  );
+  assert.equal(guessedId.status, 404);
+  assert.equal((await repository.getEntitlement(ACCOUNT, 'premium_unlock'))?.status, 'active');
+
+  const deleteReq = new Request('https://api.puphr.com/v1/account', {
+    method: 'DELETE', headers: { authorization: `Bearer ${token}` },
+  });
+  const deleteRes = await worker.fetch(deleteReq, { DB: db, SESSION_SECRET });
   assert.equal(deleteRes.status, 200);
   const deleteJson = await deleteRes.json();
   assert.equal(deleteJson.deleted, true);
   assert.equal(await repository.getEntitlement(ACCOUNT, 'premium_unlock'), null);
 
-  const invalidReq = new Request('https://api.puphr.com/v1/account/invalid-uuid', { method: 'DELETE' });
-  const invalidRes = await worker.fetch(invalidReq, { DB: db });
-  assert.equal(invalidRes.status, 400);
+  const revokedSession = await worker.fetch(new Request('https://api.puphr.com/v1/auth/session', {
+    headers: { authorization: `Bearer ${token}` },
+  }), { DB: db, SESSION_SECRET });
+  assert.equal(revokedSession.status, 401);
 });
 
 test('Worker OTP request dispatches 6-digit verification code email with auth.trusthentic.com origin', async () => {
@@ -461,6 +686,8 @@ test('Worker OTP request dispatches 6-digit verification code email with auth.tr
 
   const mockEnv = {
     DB: db,
+    SESSION_SECRET,
+    OTP_PEPPER,
     EMAIL_FROM_ADDRESS: 'noreply@auth.trusthentic.com',
     EMAIL_FROM_NAME: 'CrossScan Moto',
     EMAIL: {
@@ -503,6 +730,13 @@ test('Worker OTP request dispatches 6-digit verification code email with auth.tr
 test('Worker OTP verification validates code, handles retries, and issues session token with entitlement', async () => {
   const db = fakeD1();
   const repository = new D1PurchaseRepository(db);
+  db.users.set('mechanic@bmw-workshop.com', {
+    user_id: USER_ID,
+    email: 'mechanic@bmw-workshop.com',
+    account_id: ACCOUNT,
+    created_at: Date.now(),
+    updated_at: Date.now(),
+  });
   // Pre-populate entitlement on the account
   await repository.applyPurchase({
     store: 'apple', storeKey: 'tx-otp-1', transactionId: 'tx-otp-1',
@@ -515,7 +749,8 @@ test('Worker OTP verification validates code, handles retries, and issues sessio
   const mockEnv = {
     DB: db,
     EMAIL_FROM_ADDRESS: 'noreply@auth.trusthentic.com',
-    SESSION_SECRET: 'test-secret-1234567890',
+    SESSION_SECRET,
+    OTP_PEPPER,
     EMAIL: {
       send: async (msg) => {
         const match = msg.raw.match(/login code is:\s+(\d{6})/i) || msg.raw.match(/<div class="code">(\d{6})<\/div>/i);
@@ -547,7 +782,11 @@ test('Worker OTP verification validates code, handles retries, and issues sessio
   const reqCorrect = new Request('https://api.puphr.com/v1/auth/otp/verify', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ email: 'mechanic@bmw-workshop.com', code: dispatchedCode, accountId: ACCOUNT }),
+    body: JSON.stringify({
+      email: 'mechanic@bmw-workshop.com',
+      code: dispatchedCode,
+      accountId: '1c2bcd2c-48cf-41f5-b3c8-66939cc33333',
+    }),
   });
   const resCorrect = await worker.fetch(reqCorrect, mockEnv);
   assert.equal(resCorrect.status, 200);
@@ -568,4 +807,133 @@ test('Worker OTP verification validates code, handles retries, and issues sessio
   const sessionData = await resSession.json();
   assert.equal(sessionData.email, 'mechanic@bmw-workshop.com');
   assert.equal(sessionData.unlocked, true);
+});
+
+test('new OTP account ignores a caller-supplied UUID and creates a server canonical identity', async () => {
+  const db = fakeD1();
+  let dispatchedCode = null;
+  const mockEnv = {
+    DB: db,
+    SESSION_SECRET,
+    OTP_PEPPER,
+    EMAIL: {
+      send: async (message) => {
+        const match = message.raw.match(/login code is:\s+(\d{6})/i) ||
+          message.raw.match(/<div class="code">(\d{6})<\/div>/i);
+        if (match) dispatchedCode = match[1];
+      },
+    },
+  };
+  const email = 'new-user@example.com';
+  const forgedAccount = '1c2bcd2c-48cf-41f5-b3c8-66939cc33333';
+  const requestOtp = await worker.fetch(new Request('https://api.puphr.com/v1/auth/otp/request', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email, accountId: forgedAccount }),
+  }), mockEnv);
+  assert.equal(requestOtp.status, 200);
+  const verifyOtp = await worker.fetch(new Request('https://api.puphr.com/v1/auth/otp/verify', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email, code: dispatchedCode, accountId: forgedAccount }),
+  }), mockEnv);
+  assert.equal(verifyOtp.status, 200);
+  const session = await verifyOtp.json();
+  assert.notEqual(session.accountId, forgedAccount);
+  assert.match(session.accountId, /^[0-9a-f-]{36}$/i);
+  assert.equal(db.users.get(email).account_id, session.accountId);
+});
+
+test('OTP and login fail closed when the server session secret or email binding is missing', async () => {
+  const db = fakeD1();
+  let sends = 0;
+  const otpRequest = await worker.fetch(new Request('https://api.puphr.com/v1/auth/otp/request', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email: 'secret-test@example.com' }),
+  }), { DB: db, OTP_PEPPER, EMAIL: { send: async () => { sends++; } } });
+  assert.equal(otpRequest.status, 503);
+  assert.equal(sends, 0);
+  assert.equal(db.otps.size, 0);
+
+  const loginRequest = await worker.fetch(new Request('https://api.puphr.com/v1/auth/otp/request', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email: 'secret-test@example.com' }),
+  }), { DB: db, SESSION_SECRET, OTP_PEPPER });
+  assert.equal(loginRequest.status, 503);
+  assert.equal((await loginRequest.json()).error, 'email_delivery_not_configured');
+  assert.equal(db.otps.size, 0);
+});
+
+test('session records revoke bearer access immediately on logout', async () => {
+  const db = fakeD1();
+  const { token } = await createTestUserAndSession(db, 'logout@example.com');
+  const env = { DB: db, SESSION_SECRET };
+  const before = await worker.fetch(new Request('https://api.puphr.com/v1/auth/session', {
+    headers: { authorization: `Bearer ${token}` },
+  }), env);
+  assert.equal(before.status, 200);
+
+  const logout = await worker.fetch(new Request('https://api.puphr.com/v1/auth/logout', {
+    method: 'POST', headers: { authorization: `Bearer ${token}` },
+  }), env);
+  assert.equal(logout.status, 200);
+  const after = await worker.fetch(new Request('https://api.puphr.com/v1/auth/session', {
+    headers: { authorization: `Bearer ${token}` },
+  }), env);
+  assert.equal(after.status, 401);
+});
+
+test('checkout configuration stays false while store verification secrets are absent', () => {
+  assert.deepEqual(purchaseVerificationConfiguration({ DB: {} }), { apple: false, google: false });
+  assert.equal(purchaseVerificationConfiguration({ DB: {}, ...APPLE_CONFIG }).apple, true);
+  assert.equal(purchaseVerificationConfiguration({ DB: {}, ...APPLE_CONFIG, APPLE_PRIVATE_KEY: '' }).apple, false);
+});
+
+
+test('VIP policy matches only the exact normalized owner email and never requires a store purchase', () => {
+  for (const email of ['austintaylorodell@gmail.com', ' AUSTINTAYLORODELL@GMAIL.COM ']) {
+    assert.deepEqual(effectiveAccountAccess(email, { status: 'revoked' }),
+      { unlocked: true, status: 'active', vip: true, unlimited: true, source: 'vip' });
+  }
+  for (const email of [null, '', 'other@gmail.com', 'austintaylorodell+vip@gmail.com', 'austintaylorodell@gmail.com.evil.invalid']) {
+    assert.equal(effectiveAccountAccess(email, null).unlocked, false);
+    assert.equal(effectiveAccountAccess(email, null).vip, false);
+  }
+  assert.equal(effectiveAccountAccess('buyer@example.com', { status: 'active' }).unlocked, true);
+});
+
+test('verified owner OTP login and authenticated refresh grant VIP without purchase records', async () => {
+  const db = fakeD1(); let code;
+  const env = { DB: db, SESSION_SECRET, OTP_PEPPER, EMAIL: { send: async (message) => {
+    code = (message.raw.match(/login code is:\s+(\d{6})/i) || message.raw.match(/<div class="code">(\d{6})<\/div>/i))?.[1];
+  } } };
+  const post = (path, body) => worker.fetch(new Request('https://api.puphr.com'+path, {
+    method: 'POST', headers: {'content-type':'application/json'}, body: JSON.stringify(body),
+  }), env);
+  assert.equal((await post('/v1/auth/otp/request', {email:'AUSTINTAYLORODELL@gmail.com'})).status, 200);
+  assert.ok(code);
+  const response = await post('/v1/auth/otp/verify', {email:'austintaylorodell@gmail.com', code});
+  assert.equal(response.status, 200);
+  const login = await response.json();
+  assert.equal(login.vip, true); assert.equal(login.unlocked, true); assert.equal(login.unlimited, true);
+  for (const path of ['/v1/auth/session','/v1/entitlements','/v1/entitlements/'+login.accountId]) {
+    const refreshed = await worker.fetch(new Request('https://api.puphr.com'+path, {
+      headers: {authorization:'Bearer '+login.sessionToken},
+    }), env);
+    assert.equal(refreshed.status, 200);
+    const access = await refreshed.json(); assert.equal(access.vip, true); assert.equal(access.unlocked, true);
+  }
+  assert.equal(db.records.size, 0);
+  assert.equal(db.entitlements.size, 0);
+  await worker.fetch(new Request('https://api.puphr.com/v1/auth/logout', {method:'POST',headers:{authorization:'Bearer '+login.sessionToken}}),env);
+  assert.equal((await worker.fetch(new Request('https://api.puphr.com/v1/entitlements', {headers:{authorization:'Bearer '+login.sessionToken}}),env)).status,401);
+});
+
+test('request email spoofing cannot grant VIP or bypass authentication and account ownership', async () => {
+  const db = fakeD1(); const {token} = await createTestUserAndSession(db,'ordinary@example.com');
+  const env={DB:db,SESSION_SECRET};
+  const response=await worker.fetch(new Request('https://api.puphr.com/v1/entitlements?email=austintaylorodell@gmail.com&vip=true',{
+    headers:{authorization:'Bearer '+token,'x-user-email':'austintaylorodell@gmail.com'},
+  }),env);
+  const access=await response.json();assert.equal(access.vip,false);assert.equal(access.unlocked,false);
+  assert.equal((await worker.fetch(new Request('https://api.puphr.com/v1/entitlements?email=austintaylorodell@gmail.com'),env)).status,401);
+  assert.equal((await worker.fetch(new Request('https://api.puphr.com/v1/entitlements/1c2bcd2c-48cf-41f5-b3c8-66939cc33333',{headers:{authorization:'Bearer '+token}}),env)).status,403);
 });

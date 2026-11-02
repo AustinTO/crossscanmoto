@@ -17,6 +17,7 @@ class CachedEntitlement {
 
 abstract interface class PurchaseIdentityStore {
   Future<String> loadOrCreateAccountId();
+  Future<String> resetAccountId();
   Future<void> adoptVerifiedAccountId(String accountId);
   Future<void> saveVerifiedEntitlement(CachedEntitlement entitlement);
   Future<CachedEntitlement?> readCachedEntitlement();
@@ -43,6 +44,12 @@ class SecurePurchaseIdentityStore implements PurchaseIdentityStore {
     final generated = _newUuidV4();
     await _storage.write(key: _accountIdKey, value: generated);
     return generated;
+  }
+
+  @override
+  Future<String> resetAccountId() async {
+    await _storage.delete(key: _accountIdKey);
+    return loadOrCreateAccountId();
   }
 
   @override

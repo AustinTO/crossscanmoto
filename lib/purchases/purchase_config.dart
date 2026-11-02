@@ -49,9 +49,9 @@ class PurchaseConfig {
   };
 
   bool get isConfigured =>
-      platform != PurchasePlatform.unsupported &&
-      productId != null &&
-      _validApiBase(apiBaseUrl);
+      platform != PurchasePlatform.unsupported && productId != null && hasBackend;
+
+  bool get hasBackend => _validApiBase(apiBaseUrl);
 
   static bool _validApiBase(String value) {
     final uri = Uri.tryParse(value);

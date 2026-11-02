@@ -36,6 +36,9 @@ class BmwBikeUdsLink implements UdsRequestLink {
     if (_configuredId == id) return true;
 
     final idHex = _javaHex(id);
+    // Once a new target's setup begins, the previous ECU selection is no
+    // longer safe to use if any adapter command fails or times out.
+    _configuredId = null;
     final requiredCommands = <String>[
       'ATSPB',
       'ATPBC101',
@@ -59,9 +62,7 @@ class BmwBikeUdsLink implements UdsRequestLink {
       // Configure STN CAN segment filters and flow control addressing.
       await session.command('STCSEGT1');
       await session.command('STCFCPC');
-      final response = await session.command(
-        'STCFCPA 6F1$idHex,6${idHex}F3',
-      );
+      final response = await session.command('STCFCPA 6F1$idHex,6${idHex}F3');
       if (!_hasOk(response)) return false;
     }
 
@@ -70,17 +71,16 @@ class BmwBikeUdsLink implements UdsRequestLink {
   }
 
   /// Sends an application payload as uppercase hexadecimal ASCII.
-  Future<List<int>> request(
-    List<int> payload, {
-    Duration? timeout,
-  }) async {
+  Future<List<int>> request(List<int> payload, {Duration? timeout}) async {
     if (!isConfigured) {
       return Future.error(
-          StateError('Configure BMW UDS before sending a request'));
+        StateError('Configure BMW UDS before sending a request'),
+      );
     }
     if (payload.isEmpty || payload.any((byte) => byte < 0 || byte > 255)) {
       return Future.error(
-          ArgumentError('Expected nonempty bytes in range 0..255'));
+        ArgumentError('Expected nonempty bytes in range 0..255'),
+      );
     }
     final command = payload
         .map((byte) => byte.toRadixString(16).padLeft(2, '0'))
@@ -129,15 +129,15 @@ class BmwBikeUdsLink implements UdsRequestLink {
   }
 
   static bool _usesStnUdsExtensions(BmwUdsAdapterType? adapter) => const {
-        BmwUdsAdapterType.obdLinkLx,
-        BmwUdsAdapterType.obdLinkMx,
-        BmwUdsAdapterType.obdLinkMxPlus,
-        BmwUdsAdapterType.vLinkerFs,
-        BmwUdsAdapterType.vLinkerMc,
-        BmwUdsAdapterType.vLinkerMs,
-        BmwUdsAdapterType.vLinkerFd,
-        BmwUdsAdapterType.caristaEvo,
-      }.contains(adapter);
+    BmwUdsAdapterType.obdLinkLx,
+    BmwUdsAdapterType.obdLinkMx,
+    BmwUdsAdapterType.obdLinkMxPlus,
+    BmwUdsAdapterType.vLinkerFs,
+    BmwUdsAdapterType.vLinkerMc,
+    BmwUdsAdapterType.vLinkerMs,
+    BmwUdsAdapterType.vLinkerFd,
+    BmwUdsAdapterType.caristaEvo,
+  }.contains(adapter);
 
   static String _javaHex(int value) {
     if (value < -0x80000000 || value > 0x7fffffff) {

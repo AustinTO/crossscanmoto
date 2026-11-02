@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'diagnostics/auto_scan_controller.dart';
+import 'diagnostics/adapter_profile.dart';
 import 'diagnostics/coding_manager.dart';
 import 'diagnostics/elm_session.dart';
 import 'diagnostics/protocol_setup.dart';
@@ -69,6 +70,9 @@ class DiagnosticSession extends ChangeNotifier {
   String? get ecuDefinitionKey => _ecuDefinitionKey;
   set ecuDefinitionKey(String? value) {
     if (_ecuDefinitionKey != value) {
+      if (_operationBusy) throw StateError('Wait for the active diagnostic operation before changing ECU.');
+      _udsClient = null;
+      _activeLink = null;
       _ecuDefinitionKey = value;
       notifyListeners();
     }
@@ -85,6 +89,16 @@ class DiagnosticSession extends ChangeNotifier {
   void toggleLiveStreaming() {
     _liveStreaming = !_liveStreaming;
     notifyListeners();
+  }
+
+  void clearVehicleProfile() {
+    _profile.modelName = null;
+    _profile.modelYear = null;
+    _profile.vin = null;
+    _profile.odometerKm = null;
+    _profile.notes = null;
+    _profile.isAutoIdentified = false;
+    record('Vehicle profile cleared');
   }
 
   void updateVehicleProfile({String? model, int? year, String? vin, int? odometer, bool? autoIdentified}) {
@@ -140,6 +154,25 @@ class DiagnosticSession extends ChangeNotifier {
     _activeLink = link;
     _ecuDefinitionKey = ecuKey;
     record('Vehicle protocol configured');
+  }
+
+  Future<UdsClient> configureUdsTarget({required String ecuKey, required int address,
+      BmwUdsAdapterType? adapterType, Future<void> Function(Duration)? settleDelay}) {
+    return runExclusive(() async {
+      final session = _elmSession;
+      final generation = _generation;
+      if (session == null) throw StateError('Connect an adapter first.');
+      invalidateVehicleProtocol();
+      await initializeAdapter(session, delay: settleDelay ?? Future<void>.delayed);
+      final link = BmwBikeUdsLink(session, adapterType: adapterType);
+      if (!await link.configure(id: address)) throw StateError('Adapter rejected ECU configuration.');
+      if (!identical(_elmSession, session) || generation != _generation) {
+        throw StateError('Adapter changed during ECU configuration.');
+      }
+      final client = UdsClient(link);
+      attachUdsClient(client, forGeneration: generation, link: link, ecuKey: ecuKey);
+      return client;
+    });
   }
 
   void detach() {

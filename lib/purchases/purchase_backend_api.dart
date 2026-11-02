@@ -15,10 +15,11 @@ class PurchaseBackendException implements Exception {
 }
 
 class EntitlementStatus {
-  const EntitlementStatus({required this.unlocked, required this.status});
+  const EntitlementStatus({required this.unlocked, required this.status, this.verificationConfigured = false});
 
   final bool unlocked;
   final String status;
+  final bool verificationConfigured;
 }
 
 class OtpRequestResult {
@@ -50,28 +51,36 @@ class AuthSession {
 }
 
 abstract interface class PurchaseBackendApi {
-  Future<EntitlementStatus> fetchEntitlement(String accountId);
+  Future<EntitlementStatus> fetchEntitlement(String sessionToken);
 
   Future<EntitlementStatus> verifyApple({
-    required String accountId,
+    required String sessionToken,
+    required String transactionId,
+    required String signedTransactionInfo,
+  });
+
+  Future<EntitlementStatus> restoreApple({
+    required String sessionToken,
     required String transactionId,
     required String signedTransactionInfo,
   });
 
   Future<EntitlementStatus> verifyGoogle({
-    required String accountId,
+    required String sessionToken,
     required String purchaseToken,
   });
 
-  Future<bool> deleteAccount(String accountId);
-
-  Future<OtpRequestResult> requestOtp(String email, {String? accountId});
-
-  Future<AuthSession> verifyOtp(
-    String email,
-    String code, {
-    String? accountId,
+  Future<EntitlementStatus> restoreGoogle({
+    required String sessionToken,
+    required String purchaseToken,
   });
+
+  Future<bool> deleteAccount(String sessionToken);
+  Future<void> revokeSession(String sessionToken);
+
+  Future<OtpRequestResult> requestOtp(String email);
+
+  Future<AuthSession> verifyOtp(String email, String code);
 
   Future<AuthSession> fetchSession(String sessionToken);
 }
@@ -89,19 +98,24 @@ class HttpPurchaseBackendApi implements PurchaseBackendApi {
   Uri _uri(String path) =>
       Uri.parse('${config.apiBaseUrl.replaceFirst(RegExp(r'/+$'), '')}$path');
 
+  Map<String, String> _authHeaders(String sessionToken) => {
+    'content-type': 'application/json',
+    'authorization': 'Bearer $sessionToken',
+  };
+
   @override
-  Future<EntitlementStatus> fetchEntitlement(String accountId) async {
+  Future<EntitlementStatus> fetchEntitlement(String sessionToken) async {
     final response = await _client
-        .get(_uri('/v1/entitlements/${Uri.encodeComponent(accountId)}'))
+        .get(_uri('/v1/entitlements'), headers: _authHeaders(sessionToken))
         .timeout(const Duration(seconds: 15));
     return _parse(response);
   }
 
   @override
-  Future<bool> deleteAccount(String accountId) async {
+  Future<bool> deleteAccount(String sessionToken) async {
     final response = await _client.delete(
-      _uri('/v1/account/${Uri.encodeComponent(accountId)}'),
-      headers: const {'content-type': 'application/json'},
+      _uri('/v1/account'),
+      headers: _authHeaders(sessionToken),
     ).timeout(const Duration(seconds: 15));
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return true;
@@ -110,36 +124,68 @@ class HttpPurchaseBackendApi implements PurchaseBackendApi {
   }
 
   @override
+  Future<void> revokeSession(String sessionToken) async {
+    final response = await _post(
+      '/v1/auth/logout',
+      const {},
+      sessionToken: sessionToken,
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw PurchaseBackendException('logout_failed', statusCode: response.statusCode);
+    }
+  }
+
+  @override
   Future<EntitlementStatus> verifyApple({
-    required String accountId,
+    required String sessionToken,
     required String transactionId,
     required String signedTransactionInfo,
   }) async {
     final response = await _post('/v1/purchases/apple', {
-      'accountId': accountId,
       'transactionId': transactionId,
       'signedTransactionInfo': signedTransactionInfo,
-    });
+    }, sessionToken: sessionToken);
+    return _parse(response);
+  }
+
+  @override
+  Future<EntitlementStatus> restoreApple({
+    required String sessionToken,
+    required String transactionId,
+    required String signedTransactionInfo,
+  }) async {
+    final response = await _post('/v1/purchases/apple/restore', {
+      'transactionId': transactionId,
+      'signedTransactionInfo': signedTransactionInfo,
+    }, sessionToken: sessionToken);
     return _parse(response);
   }
 
   @override
   Future<EntitlementStatus> verifyGoogle({
-    required String accountId,
+    required String sessionToken,
     required String purchaseToken,
   }) async {
     final response = await _post('/v1/purchases/google', {
-      'accountId': accountId,
       'purchaseToken': purchaseToken,
-    });
+    }, sessionToken: sessionToken);
     return _parse(response);
   }
 
   @override
-  Future<OtpRequestResult> requestOtp(String email, {String? accountId}) async {
-    final body = <String, Object?>{'email': email};
-    if (accountId != null) body['accountId'] = accountId;
-    final response = await _post('/v1/auth/otp/request', body);
+  Future<EntitlementStatus> restoreGoogle({
+    required String sessionToken,
+    required String purchaseToken,
+  }) async {
+    final response = await _post('/v1/purchases/google/restore', {
+      'purchaseToken': purchaseToken,
+    }, sessionToken: sessionToken);
+    return _parse(response);
+  }
+
+  @override
+  Future<OtpRequestResult> requestOtp(String email) async {
+    final response = await _post('/v1/auth/otp/request', {'email': email});
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final decoded = jsonDecode(response.body) as Map<String, dynamic>;
       return OtpRequestResult(
@@ -154,14 +200,8 @@ class HttpPurchaseBackendApi implements PurchaseBackendApi {
   }
 
   @override
-  Future<AuthSession> verifyOtp(
-    String email,
-    String code, {
-    String? accountId,
-  }) async {
-    final body = <String, Object?>{'email': email, 'code': code};
-    if (accountId != null) body['accountId'] = accountId;
-    final response = await _post('/v1/auth/otp/verify', body);
+  Future<AuthSession> verifyOtp(String email, String code) async {
+    final response = await _post('/v1/auth/otp/verify', {'email': email, 'code': code});
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final decoded = jsonDecode(response.body) as Map<String, dynamic>;
       return AuthSession(
@@ -181,10 +221,7 @@ class HttpPurchaseBackendApi implements PurchaseBackendApi {
   Future<AuthSession> fetchSession(String sessionToken) async {
     final response = await _client.get(
       _uri('/v1/auth/session'),
-      headers: {
-        'content-type': 'application/json',
-        'authorization': 'Bearer $sessionToken',
-      },
+      headers: _authHeaders(sessionToken),
     ).timeout(const Duration(seconds: 15));
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final decoded = jsonDecode(response.body) as Map<String, dynamic>;
@@ -199,10 +236,14 @@ class HttpPurchaseBackendApi implements PurchaseBackendApi {
     throw PurchaseBackendException('invalid_session', statusCode: response.statusCode);
   }
 
-  Future<http.Response> _post(String path, Map<String, Object?> body) => _client
+  Future<http.Response> _post(
+    String path,
+    Map<String, Object?> body, {
+    String? sessionToken,
+  }) => _client
       .post(
         _uri(path),
-        headers: const {'content-type': 'application/json'},
+        headers: sessionToken == null ? const {'content-type': 'application/json'} : _authHeaders(sessionToken),
         body: jsonEncode(body),
       )
       .timeout(const Duration(seconds: 20));
@@ -232,6 +273,7 @@ class HttpPurchaseBackendApi implements PurchaseBackendApi {
       return EntitlementStatus(
         unlocked: false,
         status: body['status'] is String ? body['status']! as String : 'none',
+        verificationConfigured: body['verificationConfigured'] is Map && (body['verificationConfigured'] as Map)[config.platform == PurchasePlatform.apple ? 'apple' : 'google'] == true,
       );
     }
     if (response.statusCode == 409 &&

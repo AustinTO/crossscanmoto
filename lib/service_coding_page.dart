@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'diagnostic_session.dart';
 import 'recovered_actuator_panel.dart';
-import 'diagnostics/adapter_profile.dart';
 import 'diagnostics/coding_manager.dart';
 import 'diagnostics/ecu_friendly_names.dart';
-import 'diagnostics/protocol_setup.dart';
 import 'diagnostics/service_manager.dart';
-import 'diagnostics/uds_client.dart';
 
 const _lime = Color(0xFFBCEB58);
 const _panel = Color(0xFF14191B);
@@ -390,36 +387,25 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
   Future<void> _confirmAndPerformService() async {
     final item = _pendingServiceItem;
     final key = _serviceEcuKey ?? BmwServiceManager.supportedEcuKeys.first;
-    final mileage = int.tryParse(_serviceMileageController.text.trim()) ?? 10000;
+    final mileage = int.tryParse(_serviceMileageController.text.trim());
+    if (mileage == null || mileage < 0 || mileage > 65535) {
+      setState(() => _notice = 'Enter a service mileage value from 0 to 65535.');
+      return;
+    }
     setState(() => _pendingServiceItem = null);
 
     if (item == null) return;
 
-    var link = DiagnosticSession.instance.activeLink;
-    if (link == null && DiagnosticSession.instance.connected) {
-      final session = DiagnosticSession.instance.elmSession;
-      if (session != null) {
-        setState(() {
-          _busy = true;
-          _notice =
-              'Establishing diagnostic link to ${BmwEcuHelper.friendlyName(key)}…';
-        });
-        try {
-          final addr = BmwEcuHelper.standardAddress(key);
-          await initializeAdapter(session);
-          final newLink = BmwBikeUdsLink(session);
-          if (await newLink.configure(id: addr)) {
-            DiagnosticSession.instance.attachUdsClient(
-              UdsClient(newLink),
-              forGeneration: DiagnosticSession.instance.generation,
-              link: newLink,
-              ecuKey: key,
-            );
-            link = newLink;
-          }
-        } catch (_) {}
-        if (mounted) setState(() => _busy = false);
-      }
+    final shared = DiagnosticSession.instance;
+    var link = shared.activeLink;
+    if ((link == null || shared.ecuDefinitionKey != key) && shared.connected) {
+      link = null;
+      setState(() { _busy = true; _notice = 'Establishing diagnostic link to ${BmwEcuHelper.friendlyName(key)}…'; });
+      try {
+        await shared.configureUdsTarget(ecuKey: key, address: BmwEcuHelper.standardAddress(key));
+        link = shared.activeLink;
+      } catch (error) { if (mounted) setState(() => _notice = 'Connection failed: $error'); }
+      finally { if (mounted) setState(() => _busy = false); }
     }
 
     if (link == null) {
@@ -580,7 +566,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
               SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'Automated pre-coding backups are enabled. Current coding options apply to KOMBI TFT and ZFE body modules.',
+                  'These presets and snapshots are local coding drafts. ECU coding requires a verified definition for the selected control unit.',
                   style: TextStyle(fontSize: 12, color: Colors.white70),
                 ),
               ),
