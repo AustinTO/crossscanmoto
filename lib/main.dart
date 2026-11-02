@@ -1164,8 +1164,10 @@ class _SystemsTabState extends State<SystemsTab> {
   @override
   Widget build(BuildContext context) {
     final controller = DiagnosticSession.instance.autoScan;
-    final allEcus = BmwEcuCatalog.all;
     final activeVehicle = DiagnosticSession.instance.profile.model;
+    final allEcus = activeVehicle != null
+        ? BmwEcuCatalog.forSeries(activeVehicle.seriesCode)
+        : BmwEcuCatalog.all;
     final equippedAddresses = activeVehicle?.primaryEcuAddresses.toSet();
 
     final baseList = (_onlyEquipped && equippedAddresses != null)
@@ -1300,6 +1302,7 @@ class _SystemsTabState extends State<SystemsTab> {
                               await controller.runAutoScan(
                                 session: shared.elmSession,
                                 adapterType: BmwUdsAdapterType.unknown,
+                                seriesCode: shared.profile.model?.seriesCode,
                               );
                             });
                           } catch (error) {

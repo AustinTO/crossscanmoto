@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'recovered_catalog.dart';
+
 /// Categories of BMW Motorrad electronic control units.
 enum EcuCategory {
   powertrain,
@@ -21,6 +23,8 @@ class BmwEcuDefinition {
     required this.description,
     required this.icon,
     this.candidateEcuKeys = const [],
+    this.isLegacyKwp = false,
+    this.protocolId = 8,
     this.supportedDids = const [
       0xF190, // VIN
       0xF187, // BMW Part Number
@@ -41,6 +45,8 @@ class BmwEcuDefinition {
   final String description;
   final IconData icon;
   final List<String> candidateEcuKeys;
+  final bool isLegacyKwp;
+  final int protocolId;
   final List<int> supportedDids;
 
   String get hexAddress =>
@@ -248,5 +254,205 @@ class BmwEcuCatalog {
       if (ecu.id == id) return ecu;
     }
     return null;
+  }
+
+  /// Resolves the authentic control units for a given motorcycle model or series code
+  /// based on the recovered platform routing tables from MotoScan native data.
+  static List<BmwEcuDefinition> forSeries(String seriesCode) {
+    final groups = BmwRawVehicleDatabase.groupsForSeries(seriesCode);
+    if (groups.isEmpty) {
+      return all;
+    }
+    return forGroups(groups);
+  }
+
+  /// Maps recovered native ECU groups to rich BmwEcuDefinition objects.
+  static List<BmwEcuDefinition> forGroups(List<Map<String, String>> groups) {
+    final definitions = <BmwEcuDefinition>[];
+    for (final group in groups) {
+      final type = group['controlmoduletype']?.toUpperCase() ?? 'ECU';
+      final addr = int.tryParse(group['defaultaddress'] ?? '') ?? 0x12;
+      final protoId = int.tryParse(group['defaultprotocolid'] ?? '') ?? 8;
+      final isKwp = protoId == 3;
+      final modGroup = group['modulegroup'] ?? '';
+
+      final (category, icon, friendlyName, description) = _metadataForType(type);
+      final candidateKeys = _candidateKeysForType(type, isKwp: isKwp);
+
+      definitions.add(BmwEcuDefinition(
+        id: '${type.toLowerCase()}_0x${addr.toRadixString(16)}',
+        name: friendlyName,
+        germanAbbrev: type,
+        category: category,
+        standardUdsAddress: addr,
+        legacyKwpAddress: addr,
+        description: description.isNotEmpty
+            ? description
+            : 'BMW Motorrad $type control unit ($modGroup) at address 0x${addr.toRadixString(16).padLeft(2, '0').toUpperCase()} via ${isKwp ? "KWP2000" : "UDS"}.',
+        icon: icon,
+        isLegacyKwp: isKwp,
+        protocolId: protoId,
+        candidateEcuKeys: candidateKeys,
+      ));
+    }
+
+    // Sort powertrain/engine ECUs first, followed by lower addresses for deterministic scanning order
+    definitions.sort((a, b) {
+      final aPowertrain = a.category == EcuCategory.powertrain ? 0 : 1;
+      final bPowertrain = b.category == EcuCategory.powertrain ? 0 : 1;
+      if (aPowertrain != bPowertrain) return aPowertrain.compareTo(bPowertrain);
+      return a.standardUdsAddress.compareTo(b.standardUdsAddress);
+    });
+
+    return List.unmodifiable(definitions);
+  }
+
+  static (EcuCategory, IconData, String, String) _metadataForType(String type) {
+    switch (type.toUpperCase()) {
+      case 'DME':
+      case 'BMS':
+      case 'BMS-K':
+      case 'BMS-O':
+      case 'BMS-X':
+      case 'BMS-MP':
+        return (
+          EcuCategory.powertrain,
+          Icons.settings_input_component,
+          'Engine Electronics',
+          'Engine control unit (DME/BMS). Controls fuel injection, ignition, ShiftCam, ride-by-wire and emissions.',
+        );
+      case 'ABS':
+      case 'DTC':
+        return (
+          EcuCategory.chassis,
+          Icons.shield_outlined,
+          'ABS / Traction Control',
+          'Anti-lock braking and stability control unit (I-ABS, ABS 9M, ABS Pro).',
+        );
+      case 'KOMBI':
+      case 'TFT':
+        return (
+          EcuCategory.cockpit,
+          Icons.speed,
+          'Instrument Cluster',
+          'Instrument cluster and display unit (KOMBI / TFT). Displays speed, telemetry, warnings and service intervals.',
+        );
+      case 'ZFE':
+      case 'GM':
+      case 'BCO':
+        return (
+          EcuCategory.body,
+          Icons.electrical_services,
+          'Central Vehicle Electronics',
+          'Central body electronics control unit (ZFE / GM / BCO). Controls lighting, switches, horn and bus routing.',
+        );
+      case 'RDC':
+      case 'TPM':
+      case 'TM':
+        return (
+          EcuCategory.security,
+          Icons.tire_repair,
+          'Tire Pressure Monitor (RDC)',
+          'Tire pressure monitoring system. Reads wheel sensor pressures and battery states.',
+        );
+      case 'DWA':
+        return (
+          EcuCategory.security,
+          Icons.lock_outline,
+          'Anti-Theft Alarm (DWA)',
+          'Anti-theft alarm and immobilizer system (DWA). Monitors tilt sensors and remote keys.',
+        );
+      case 'ESA':
+      case 'DDC':
+      case 'SAF':
+        return (
+          EcuCategory.chassis,
+          Icons.tune,
+          'Electronic Suspension (ESA / DDC)',
+          'Dynamic suspension and damping control unit (ESA / DDC). Controls preload and rebound.',
+        );
+      case 'AUDIO':
+      case 'AUD':
+        return (
+          EcuCategory.cockpit,
+          Icons.volume_up,
+          'Audio System',
+          'On-board audio and entertainment system. Controls speakers, radio, and external inputs.',
+        );
+      case 'ACC':
+        return (
+          EcuCategory.chassis,
+          Icons.radar,
+          'Active Cruise Control (ACC)',
+          'Front radar-based active cruise control unit (ACC).',
+        );
+      case 'ZGW':
+        return (
+          EcuCategory.body,
+          Icons.router,
+          'Central Gateway (ZGW)',
+          'Central vehicle gateway connecting CAN, LIN, and Ethernet diagnostic buses.',
+        );
+      case 'EWS':
+      case 'SLZ':
+        return (
+          EcuCategory.security,
+          Icons.vpn_key,
+          'Electronic Immobilizer (EWS / Keyless)',
+          'Keyless ride and electronic immobilizer steering lock system (SLZ / EWS).',
+        );
+      case 'SVA':
+        return (
+          EcuCategory.cockpit,
+          Icons.visibility,
+          'Side View Assist (SVA)',
+          'Side blind-spot detection and warning sensors.',
+        );
+      default:
+        return (
+          EcuCategory.body,
+          Icons.memory,
+          'Control Unit ($type)',
+          'BMW Motorrad $type electronic control module.',
+        );
+    }
+  }
+
+  static List<String> _candidateKeysForType(String type, {required bool isKwp}) {
+    switch (type.toUpperCase()) {
+      case 'DME':
+      case 'BMS':
+        return isKwp
+            ? ['cuMRBMSMP1', 'cuMRMA24']
+            : ['cuX_BMSX', 'cuX_BMSO1', 'cuX_BMSMP1', 'cuX_BMSE2B', 'cuX_BMSE2', 'cuX_BMSAE1'];
+      case 'ABS':
+        return isKwp
+            ? ['cuMRABS']
+            : ['cuX_ABS', 'cuX_ABS9M', 'cuX_ABSVI'];
+      case 'KOMBI':
+        return isKwp
+            ? ['cuMRKOMB18', 'cuMRKOMB46']
+            : ['cuX_KOMBI', 'cuX_KOMB50', 'cuX_KOMB18', 'cuX_KOMB17', 'cuX_KOMB46', 'cuX_KOMB53', 'cuX_KOMBB2', 'cuX_KOMBHI'];
+      case 'ZFE':
+      case 'GM':
+        return isKwp ? ['cuMRZFE'] : ['cuX_BCO', 'cuX_ZFE'];
+      case 'RDC':
+      case 'TPM':
+      case 'TM':
+        return isKwp ? ['cuMRRDC'] : ['cuX_RDC', 'cuX_TPM'];
+      case 'DWA':
+        return isKwp ? ['cuMRDWA'] : ['cuX_DWA'];
+      case 'AUDIO':
+      case 'AUD':
+        return isKwp ? ['cuMRAUD'] : ['cuX_AUDIO'];
+      case 'EWS':
+      case 'SLZ':
+        return isKwp ? ['cuMREWS'] : ['cuX_SLZ', 'cuX_EWS'];
+      case 'ESA':
+      case 'DDC':
+        return isKwp ? ['cuMRESA'] : ['cuX_SAF', 'cuX_DDC', 'cuX_ESA'];
+      default:
+        return const [];
+    }
   }
 }

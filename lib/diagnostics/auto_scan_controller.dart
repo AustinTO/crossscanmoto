@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'dtc_database.dart';
 import 'ecu_catalog.dart';
 import 'elm_session.dart';
+import 'kwp_client.dart';
 import 'protocol_setup.dart';
 import 'uds_client.dart';
 import 'vehicle_catalog.dart';
@@ -70,9 +71,10 @@ class AutoScanController extends ChangeNotifier {
   int get totalFaults =>
       _reports.values.fold(0, (sum, report) => sum + report.dtcs.length);
 
-  void reset() {
+  void reset([List<BmwEcuDefinition>? ecus]) {
     _reports.clear();
-    for (final ecu in BmwEcuCatalog.all) {
+    final targets = ecus ?? BmwEcuCatalog.all;
+    for (final ecu in targets) {
       _reports[ecu.standardUdsAddress] = EcuScanReport(
         definition: ecu,
         state: EcuScanState.pending,
@@ -88,10 +90,15 @@ class AutoScanController extends ChangeNotifier {
   }
 
   /// Runs full automatic vehicle scan.
+  ///
+  /// Dynamically targets the vehicle's authentic ECU groups and protocol
+  /// (UDS on CAN or legacy KWP2000) based on recovered MotoScan platform data.
   Future<void> runAutoScan({
     required ElmSession? session,
     required BmwUdsAdapterType adapterType,
     String? expectedVin,
+    String? seriesCode,
+    List<BmwEcuDefinition>? targetEcus,
   }) async {
     if (_isScanning) return;
     if (session == null) {
@@ -102,9 +109,21 @@ class AutoScanController extends ChangeNotifier {
     }
     _isScanning = true;
     _cancelled = false;
-    reset();
 
-    final ecus = BmwEcuCatalog.all;
+    // 1. Resolve vehicle platform and ECU targets
+    final effectiveSeries = seriesCode ??
+        DiagnosticSession.instance.profile.model?.seriesCode;
+
+    List<BmwEcuDefinition> ecus;
+    if (targetEcus != null && targetEcus.isNotEmpty) {
+      ecus = targetEcus;
+    } else if (effectiveSeries != null) {
+      ecus = BmwEcuCatalog.forSeries(effectiveSeries);
+    } else {
+      ecus = BmwEcuCatalog.all;
+    }
+
+    reset(ecus);
     final total = ecus.length;
 
     for (var i = 0; i < total; i++) {
@@ -112,18 +131,85 @@ class AutoScanController extends ChangeNotifier {
       final ecu = ecus[i];
       final report = _reports[ecu.standardUdsAddress]!;
       report.state = EcuScanState.scanning;
-      _currentStep = 'Querying ${ecu.germanAbbrev} (${ecu.name})…';
+      _currentStep = 'Querying ${ecu.germanAbbrev} (${ecu.name}) via ${ecu.isLegacyKwp ? "KWP" : "UDS"}…';
       _progress = i / total;
       notifyListeners();
 
-      {
-        // Physical connection path using BmwBikeUdsLink
+      if (ecu.isLegacyKwp) {
+        // Legacy KWP2000 diagnostic scan
         try {
-          final link = BmwBikeUdsLink(session, adapterType: adapterType);
-          final configured = await link.configure(id: ecu.standardUdsAddress);
+          final kwpLink = BmwBikeKwpLink(session);
+          final configured = await kwpLink.configure(ecuAddress: ecu.legacyKwpAddress);
           if (configured) {
-            final client = UdsClient(link, timeout: const Duration(milliseconds: 900));
-            // Read DTCs
+            // Check responsiveness before issuing full queries
+            final isAlive = await () async {
+              try {
+                return await kwpLink.startCommunication();
+              } catch (_) {
+                return false;
+              }
+            }();
+
+            if (!isAlive) {
+              report.state = EcuScanState.noResponse;
+              continue;
+            }
+
+            final client = KwpClient(kwpLink);
+
+            // Read KWP Identification (Service 0x1A 0x90 = VIN)
+            try {
+              final vinBytes = await client.readIdentification(0x90);
+              final vinStr = String.fromCharCodes(vinBytes.where((c) => c >= 32 && c <= 126)).trim();
+              if (vinStr.isNotEmpty) report.vin = vinStr;
+            } catch (_) {
+              report.vin = null;
+            }
+
+            // Read KWP ECU Identification (Service 0x1A 0x80 = Standard ECU ID)
+            try {
+              final idBytes = await client.readIdentification(0x80);
+              if (idBytes.isNotEmpty) {
+                final partBytes = idBytes.first == 0x80 ? idBytes.skip(1) : idBytes;
+                report.partNumber = partBytes
+                    .map((b) => b.toRadixString(16).padLeft(2, '0').toUpperCase())
+                    .join();
+              }
+            } catch (_) {
+              // Standard ID not returned
+            }
+
+            // Read DTCs via Service 0x18
+            try {
+              final dtcReport = await client.readDtc();
+              report.dtcs = dtcReport.dtcs
+                  .map((d) => BmwDtcDatabase.lookup(
+                        d.code,
+                        defaultEcu: ecu.germanAbbrev,
+                        candidateKeys: ecu.candidateEcuKeys,
+                        statusByte: d.opaqueRecordByte,
+                      ))
+                  .toList();
+              report.state = EcuScanState.responding;
+            } catch (error) {
+              report.state = EcuScanState.error;
+              report.statusMessage = 'KWP fault-code read failed: $error';
+            }
+          } else {
+            report.state = EcuScanState.noResponse;
+          }
+        } catch (_) {
+          report.state = EcuScanState.noResponse;
+        }
+      } else {
+        // Modern UDS on CAN diagnostic scan
+        try {
+          final udsLink = BmwBikeUdsLink(session, adapterType: adapterType);
+          final configured = await udsLink.configure(id: ecu.standardUdsAddress);
+          if (configured) {
+            final client = UdsClient(udsLink, timeout: const Duration(milliseconds: 900));
+
+            // Read DTCs via UDS Service 0x19 0x02
             try {
               final dtcReport = await client.readDtcByStatusMask(0xFF);
               report.dtcs = dtcReport.dtcs
@@ -135,20 +221,20 @@ class AutoScanController extends ChangeNotifier {
                       ))
                   .toList();
               report.state = EcuScanState.responding;
-            } catch (error) {
-              report.state = EcuScanState.error;
-              report.statusMessage = 'Fault-code read failed: $error';
+            } catch (_) {
+              report.state = EcuScanState.noResponse;
+              continue;
             }
 
-            // Read VIN DID 0xF190
+            // Read Identification DIDs
             try {
               final vinBytes = await client.readDataByIdentifier(0xF190);
-              report.vin = String.fromCharCodes(vinBytes.where((c) => c >= 32 && c <= 126));
+              final vinStr = String.fromCharCodes(vinBytes.where((c) => c >= 32 && c <= 126)).trim();
+              if (vinStr.isNotEmpty) report.vin = vinStr;
             } catch (_) {
               report.vin = null;
             }
 
-            // Read Part Number DID 0xF187
             try {
               final partBytes = await client.readDataByIdentifier(0xF187);
               report.partNumber = partBytes
@@ -158,7 +244,6 @@ class AutoScanController extends ChangeNotifier {
               report.partNumber = null;
             }
 
-            // Read Hardware Version DID 0xF192
             try {
               final hwBytes = await client.readDataByIdentifier(0xF192);
               final printable = String.fromCharCodes(hwBytes.where((c) => c >= 32 && c <= 126)).trim();
@@ -169,7 +254,6 @@ class AutoScanController extends ChangeNotifier {
               report.hardwareVersion = null;
             }
 
-            // Read Software Version DID 0xF189
             try {
               final swBytes = await client.readDataByIdentifier(0xF189);
               final printable = String.fromCharCodes(swBytes.where((c) => c >= 32 && c <= 126)).trim();
@@ -180,7 +264,6 @@ class AutoScanController extends ChangeNotifier {
               report.softwareVersion = null;
             }
 
-            // Read Supplier Name DID 0xF18A
             try {
               final suppBytes = await client.readDataByIdentifier(0xF18A);
               final printable = String.fromCharCodes(suppBytes.where((c) => c >= 32 && c <= 126)).trim();
@@ -194,7 +277,6 @@ class AutoScanController extends ChangeNotifier {
             report.state = EcuScanState.noResponse;
           }
         } catch (_) {
-          // If query fails or timed out on this bus address
           report.state = EcuScanState.noResponse;
         }
       }

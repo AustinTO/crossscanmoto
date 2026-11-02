@@ -289,5 +289,32 @@ void main() {
       expect(report.hasNoReportedFaults, isTrue);
       expect(report.isHealthy, isTrue);
     });
+
+    test('dynamically routes ECU targets for recovered vehicle platforms', () {
+      // Modern boxer platform (K50: R 1200 GS LC / R 1250 GS) -> 16 UDS ECU definitions
+      final k50Ecus = BmwEcuCatalog.forSeries('K50');
+      expect(k50Ecus.length, 16);
+      expect(k50Ecus.every((e) => !e.isLegacyKwp), isTrue);
+      expect(k50Ecus.map((e) => e.germanAbbrev), containsAll(['DME', 'ABS', 'KOMBI', 'RDC', 'ESA', 'DDC', 'AUDIO']));
+
+      // Legacy KWP platform (K18: C 600 Sport) -> 7 KWP ECU definitions
+      final k18Ecus = BmwEcuCatalog.forSeries('K18');
+      expect(k18Ecus.length, 7);
+      expect(k18Ecus.every((e) => e.isLegacyKwp), isTrue);
+      expect(k18Ecus.map((e) => e.germanAbbrev), containsAll(['DME', 'ABS', 'KOMBI', 'ZFE', 'DWA']));
+
+      // Classic C1 platform (C01) -> 3 KWP ECU definitions (DME, ABS 0x28, ABS 0x29)
+      final c01Ecus = BmwEcuCatalog.forSeries('C01');
+      expect(c01Ecus.length, 3);
+      expect(c01Ecus.every((e) => e.isLegacyKwp), isTrue);
+
+      // AutoScanController adapts reset targets to selected vehicle
+      final controller = AutoScanController();
+      controller.reset(c01Ecus);
+      expect(controller.reports.length, 3);
+      expect(controller.reports[0x12], isNotNull);
+      expect(controller.reports[0x28], isNotNull);
+      expect(controller.reports[0x29], isNotNull);
+    });
   });
 }

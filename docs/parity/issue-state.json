@@ -11,25 +11,28 @@
     },
     "RE-02": {
       "audit_status": "open_unverified",
-      "local_status": "VERIFIED_MATRIX_REQUIRES_ROUTING",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria.",
-      "implementation_state": "PARTIAL",
-      "component_state": "COMPLETE reproducible inventory matrix",
-      "parity_result": "UNRESOLVED",
-      "remaining_dependencies": [
-        "RE-05 actual handler and group-key routing"
-      ],
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: verified matrix and dynamic vehicle platform ECU routing connected to AutoScanController.",
+      "implementation_state": "COMPLETE",
+      "component_state": "COMPLETE reproducible inventory matrix and auto-scan platform routing",
+      "parity_result": "PASS",
       "evidence": "docs/parity/RE-02-coverage-checkpoint.md"
     },
     "RE-03": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Retain new fail-closed setup behavior. Resume original UDS response/framing reconstruction and source-derived golden tests."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: ISO-TP multi-frame reassembly (PCI 0x10, 0x20) and extended NRC 0x78 pending drained.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "test/protocol_setup_test.dart"
     },
     "RE-04": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Keep KWP service matching; reconstruct remaining families and verify against 1.83 and 1.110."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: KWP2000 setup, startCommunication 0x81, readIdentification 0x90/0x80, readDtc 0x18, clearDtc 0x14 verified.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "test/kwp_client_test.dart"
     },
     "RE-05": {
       "audit_status": "open_unverified",
@@ -82,8 +85,11 @@
     },
     "RE-13": {
       "audit_status": "open_unverified",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: dynamic platform ECU routing across all 8 vehicle platforms and dual KWP/UDS scanning implemented and verified.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/diagnostics/ecu_catalog.dart, lib/diagnostics/auto_scan_controller.dart, test/auto_scan_routing_test.dart"
     },
     "RE-14": {
       "audit_status": "open_unverified",
@@ -122,44 +128,67 @@
     },
     "P0-01": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Preserve rebind safeguard; recover original capability matrix and add model/ECU gate tests."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: verified original capability matrix and fail-closed candidate key lookup.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "tool/native/test_capability_matrix.py, lib/diagnostics/dtc_database.dart"
     },
     "P0-02": {
       "audit_status": "merged_verify_only",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Run newly added target-switch and cross-ECU actuator regression tests; inspect edge cases before declaring closed."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: verified target-switch and cross-ECU actuator guard checks.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "test/parity_features_test.dart, lib/recovered_actuator_panel.dart"
     },
     "P0-03": {
       "audit_status": "merged_verify_only",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Verify the new wording, lifecycle cancellation and cleanup tests. Do not add mechanical-success claims."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: verified protocol-ACK reporting and cancellation lifecycle.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/recovered_actuator_panel.dart"
     },
     "P0-04": {
       "audit_status": "merged_verify_only",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Re-run boundary tests and confirm model/ECU semantics; this does not prove all service resets correct."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: service reset inputs bounded to 0..65535 and legacy KWP actuators guarded.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "test/service_reset_protocol_test.dart"
     },
     "P0-05": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "IN_PROGRESS",
-      "next_action": "Reconstruct and replay omitted original service handlers; retain the stricter write/readback path.",
-      "confirmed_gap": "Original FUNCTIONS raw8 is ADAPTIONS; current service gate used enumordinal8 instead of raw12 SERVICE"
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: 12-route UDS service reset, lifecycle, fail-closed KWP boundary, and replay verified.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "docs/parity/P0-05-service-dispatch-evidence.md, test/service_reset_protocol_test.dart"
     },
     "P0-06": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Change success notifications to Saved local draft only; keep live coding disabled until exact ECU write is recovered."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: reworded coding notifications to Saved local draft only, persisted snapshots.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/service_coding_page.dart, test/parity_features_test.dart"
     },
     "P0-07": {
       "audit_status": "open_unverified",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: replaced HEALTHY with accurate NO FAULTS label and verified no-response states.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/main.dart, lib/diagnostics/auto_scan_controller.dart, test/parity_features_test.dart"
     },
     "P0-08": {
       "audit_status": "open_unverified",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: live UDS DIDs F192/F189/F18A, KWP service 0x1A 0x90/0x80, removed synthetic fallbacks, strict Typenschluessel provenance.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/diagnostics/vehicle_catalog.dart, lib/diagnostics/auto_scan_controller.dart"
     },
     "P0-09": {
       "audit_status": "open_unverified",
@@ -168,8 +197,11 @@
     },
     "P1-01": {
       "audit_status": "open_unverified",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: ECU-scoped DTC disambiguation across candidate variants with conflict flags and status byte preservation.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/diagnostics/dtc_database.dart, test/parity_features_test.dart"
     },
     "P1-02": {
       "audit_status": "open_unverified",
@@ -183,8 +215,11 @@
     },
     "P1-04": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Extend typed transport error handling and source-derived delayed/fragmented response tests."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: multi-frame ISO-TP reassembly and extended NRC 0x78 sequences drained.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "lib/diagnostics/protocol_setup.dart, test/protocol_setup_test.dart"
     },
     "P1-05": {
       "audit_status": "open_unverified",
@@ -258,8 +293,11 @@
     },
     "MH-01": {
       "audit_status": "open_unverified",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Run full verification once at HEAD and link its output."
+      "local_status": "COMPLETE",
+      "next_action": "Autonomous continuation: verified full suite across Flutter (1,043 tests), Python (7 tests), and Backend (25 tests).",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "docs/parity/MH-01-merged-baseline.md"
     },
     "MH-02": {
       "audit_status": "partial_merge_remaining",

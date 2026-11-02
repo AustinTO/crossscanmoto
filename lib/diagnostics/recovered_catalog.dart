@@ -1817,6 +1817,25 @@ abstract final class BmwRawVehicleDatabase {
     final ids = platformEcuGroups.where((row) => row['car_platformid'] == vehicle['car_platformid']).map((row) => row['ecu_groupsid']).toSet();
     return List.unmodifiable(ecuGroups.where((row) => ids.contains(row['id'])));
   }
+
+  /// Returns all ECU groups for a given chassis/series code (e.g. "K50", "K18", "C01", "KA1", etc.).
+  static List<Map<String, String>> groupsForSeries(String seriesCode) {
+    final clean = seriesCode.trim().toUpperCase();
+    final vehicle = vehicles.where((row) => row['name']?.trim().toUpperCase() == clean).firstOrNull;
+    if (vehicle == null) return const [];
+    final ids = platformEcuGroups
+        .where((row) => row['car_platformid'] == vehicle['car_platformid'])
+        .map((row) => row['ecu_groupsid'])
+        .toSet();
+    return List.unmodifiable(ecuGroups.where((row) => ids.contains(row['id'])));
+  }
+
+  /// Returns the platform ID for a given chassis/series code.
+  static String? platformForSeries(String seriesCode) {
+    final clean = seriesCode.trim().toUpperCase();
+    final vehicle = vehicles.where((row) => row['name']?.trim().toUpperCase() == clean).firstOrNull;
+    return vehicle?['car_platformid'];
+  }
 }
 
 typedef RecoveredMotoScanCatalog = BmwRawVehicleDatabase;
