@@ -1,0 +1,43 @@
+Source: MotoScan 1.110 classes.dex, SHA-256
+869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832
+
+`fl0.g(String)` @ 0x217984 queries the same ECU key for FUNCTIONS, constructs
+`jl0` rows, and only retains rows whose parsed boolean `jl0.b` is true:
+
+217dfa: const-string v3, "FUNCTIONS"
+217dfe: invoke-static {v2, v3}, NativeLibMotoScan.n(String,String):String[]
+217e18: new-instance v6, Ljl0;
+217e1c: invoke-direct {v6, v5}, Ljl0.<init>(String)
+217e22: iget-boolean v5, v6, Ljl0.b
+217e26: if-eqz v5, 0250
+217e2a: iget-object v5, v1, Lgl0.d:ArrayList
+217e2e: invoke-virtual {v5, v6}, ArrayList.add
+
+`jl0.<init>(String)` @ 0x2198b4, field extraction:
+
+2198f6: parseInt(token 0)
+219902: packed-switch (token 0)                 ; targets resolved in JSON
+21995a: iput-object enum, jl0.a                ; FUNCTIONS category
+219960: aget-object token 1
+219964: parseInt(token 1)
+21996c: compare token 1 to 1
+219972: iput-boolean, jl0.b                    ; loader's include gate
+219978..2199a0: parseInt(tokens 2..5)          ; no fields stored here
+2199a8..2199b4: parseInt(token 6); iput jl0.c ; retained integer
+
+`kl0.<clinit>()` @ 0x219704 defines the category labels:
+
+0 CF_UNKNOWN; 1 CF_IDENTIFICATION; 2 CF_DTCREAD; 3 CF_DTCCLEAR;
+4 CF_LIVEDATA; 5 CF_INFODTCREAD; 6 CF_INFODTCCLEAR; 7 CF_ACTORS;
+8 CF_SERVICE; 9 CF_CODING; 10 CF_CONFIG; 11 CF_ADAPTIONS;
+12 CF_PROGRAMMINGINFO; 13 CF_SERVICE_FUNCTIONS.
+
+The numeric FUNCTIONS token-to-category switch is an independent mapping in
+`assets/research/recovered-native/handler-routing.json`; it is not the enum
+ordinal. The DEX wrapper at 0x4e4118 calls private native `j(String,String)`
+and maps a native null to an empty String[].
+
+Native C++ object factory excerpt: `assets/research/native-ecu-factory.asm`
+@ ELF RVA 0x88e3d0; its exact key literal branches and opaque vtable addresses
+are represented separately in `handler-routing.json`. This is a native table
+provider, not evidence of a vehicle diagnostic transport handler.

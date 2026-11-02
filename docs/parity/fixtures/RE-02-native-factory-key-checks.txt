@@ -1,0 +1,156 @@
+MotoScan 1.110 arm64 library static excerpt; no execution.
+Library SHA-256: bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71
+Extracted from `aarch64-linux-gnu-objdump -d --start-address=0x88e3d0 --stop-address=0x88f100`.
+Coverage is this bounded code window only, not a complete factory-dispatch inventory.
+For each helper comparison, the string is the ELF address formed by ADRP/ADD and decoded from the pinned library rodata.
+These are exact string arguments passed to the comparison helper; they do not establish vehicle/group association or a diagnostic-protocol handler class.
+
+ELF literal 0x210108: cuMRAUDIO
+  88e5a0:	d0ffcc01 	adrp	x1, 210000 <psa_to_md_errors@@Base-0x4bdc14>
+  88e5a4:	91042021 	add	x1, x1, #0x108
+  88e5ac:	97f9bcde 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x2ff25d: cuMRDWA
+  88e5e0:	b0ffd381 	adrp	x1, 2ff000 <psa_to_md_errors@@Base-0x3cec14>
+  88e5e4:	91097421 	add	x1, x1, #0x25d
+  88e5ec:	97f9bcce 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x2ff265: cuMRRDC
+  88e628:	b0ffd381 	adrp	x1, 2ff000 <psa_to_md_errors@@Base-0x3cec14>
+  88e62c:	91099421 	add	x1, x1, #0x265
+  88e634:	97f9bcbc 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x22ac17: cuMRKMB461
+  88e740:	90ffcce1 	adrp	x1, 22a000 <psa_to_md_errors@@Base-0x4a3c14>
+  88e744:	91305c21 	add	x1, x1, #0xc17
+  88e74c:	97f9bc76 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x405d3a: cuMRKOMB18
+  88e83c:	f0ffdba1 	adrp	x1, 405000 <psa_to_md_errors@@Base-0x2c8c14>
+  88e840:	9134e821 	add	x1, x1, #0xd3a
+  88e848:	97f9bc37 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x48a114: cuMRKOMB2D
+  88e88c:	90ffdfe1 	adrp	x1, 48a000 <psa_to_md_errors@@Base-0x243c14>
+  88e890:	91045021 	add	x1, x1, #0x114
+  88e898:	97f9bc23 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x210112: cuMRKOMB46
+  88e8e0:	d0ffcc01 	adrp	x1, 210000 <psa_to_md_errors@@Base-0x4bdc14>
+  88e8e4:	91044821 	add	x1, x1, #0x112
+  88e8ec:	97f9bc0e 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x439b3f: cuMRKOMB71
+  88e928:	f0ffdd41 	adrp	x1, 439000 <psa_to_md_errors@@Base-0x294c14>
+  88e92c:	912cfc21 	add	x1, x1, #0xb3f
+  88e934:	97f9bbfc 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x454448: cuMRKOMBI
+  88e998:	d0ffde21 	adrp	x1, 454000 <psa_to_md_errors@@Base-0x279c14>
+  88e99c:	91112021 	add	x1, x1, #0x448
+  88e9a4:	97f9bbe0 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x1c02ab: cuMRKMB181
+  88ea14:	d0ffc981 	adrp	x1, 1c0000 <psa_to_md_errors@@Base-0x50dc14>
+  88ea18:	910aac21 	add	x1, x1, #0x2ab
+  88ea20:	97f9bbc1 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x3830d6: cuMRBMSC
+  88ea54:	b0ffd7a1 	adrp	x1, 383000 <psa_to_md_errors@@Base-0x34ac14>
+  88ea58:	91035821 	add	x1, x1, #0xd6
+  88ea60:	97f9bbb1 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x1f5526: cuMRBMSC2
+  88ea9c:	f0ffcb21 	adrp	x1, 1f5000 <psa_to_md_errors@@Base-0x4d8c14>
+  88eaa0:	91149821 	add	x1, x1, #0x526
+  88eaa8:	97f9bb9f 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x367bcc: cuMRBMSE
+  88eb1c:	b0ffd6c1 	adrp	x1, 367000 <psa_to_md_errors@@Base-0x366c14>
+  88eb20:	912f3021 	add	x1, x1, #0xbcc
+  88eb28:	97f9bb7f 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x279833: cuMRBMSK
+  88eb64:	f0ffcf41 	adrp	x1, 279000 <psa_to_md_errors@@Base-0x454c14>
+  88eb68:	9120cc21 	add	x1, x1, #0x833
+  88eb70:	97f9bb6d 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x4a4984: cuMRBMSKP
+  88ebc8:	d0ffe0a1 	adrp	x1, 4a4000 <psa_to_md_errors@@Base-0x229c14>
+  88ebcc:	91261021 	add	x1, x1, #0x984
+  88ebd4:	97f9bb54 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x2ff26d: cuMRBMSKP2
+  88ec10:	b0ffd381 	adrp	x1, 2ff000 <psa_to_md_errors@@Base-0x3cec14>
+  88ec14:	9109b421 	add	x1, x1, #0x26d
+  88ec1c:	97f9bb42 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x25f5f4: cuMRKMSK16
+  88ec58:	b0ffce81 	adrp	x1, 25f000 <psa_to_md_errors@@Base-0x46ec14>
+  88ec5c:	9117d021 	add	x1, x1, #0x5f4
+  88ec64:	97f9bb30 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x34e449: cuMRBMSE13
+  88ecac:	90ffd601 	adrp	x1, 34e000 <psa_to_md_errors@@Base-0x37fc14>
+  88ecb0:	91112421 	add	x1, x1, #0x449
+  88ecb8:	97f9bb1b 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x1a4f78: cuMRBMSMP1
+  88ed18:	d0ffc8a1 	adrp	x1, 1a4000 <psa_to_md_errors@@Base-0x529c14>
+  88ed1c:	913de021 	add	x1, x1, #0xf78
+  88ed24:	97f9bb00 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x1c02b6: cuMRRBT
+  88ed40:	d0ffc981 	adrp	x1, 1c0000 <psa_to_md_errors@@Base-0x50dc14>
+  88ed44:	910ad821 	add	x1, x1, #0x2b6
+  88ed4c:	97f9baf6 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x2cb35e: cuMRZFEB
+  88edc4:	b0ffd1e1 	adrp	x1, 2cb000 <psa_to_md_errors@@Base-0x402c14>
+  88edc8:	910d7821 	add	x1, x1, #0x35e
+  88edd0:	97f9bad5 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x1c02be: cuMRZFEH
+  88ee0c:	d0ffc981 	adrp	x1, 1c0000 <psa_to_md_errors@@Base-0x50dc14>
+  88ee10:	910af821 	add	x1, x1, #0x2be
+  88ee18:	97f9bac3 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x1f5530: cuMRZFEL
+  88ee54:	f0ffcb21 	adrp	x1, 1f5000 <psa_to_md_errors@@Base-0x4d8c14>
+  88ee58:	9114c021 	add	x1, x1, #0x530
+  88ee60:	97f9bab1 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x405d45: cuX_ABS
+  88ee94:	f0ffdba1 	adrp	x1, 405000 <psa_to_md_errors@@Base-0x2c8c14>
+  88ee98:	91351421 	add	x1, x1, #0xd45
+  88eea0:	97f9baa1 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x3b7481: cuX_ABS9M
+  88eebc:	b0ffd941 	adrp	x1, 3b7000 <psa_to_md_errors@@Base-0x316c14>
+  88eec0:	91120421 	add	x1, x1, #0x481
+  88eec8:	97f9ba97 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x3ead19: cuX_ABSVI
+  88eee4:	90ffdae1 	adrp	x1, 3ea000 <psa_to_md_errors@@Base-0x2e3c14>
+  88eee8:	91346421 	add	x1, x1, #0xd19
+  88eef0:	97f9ba8d 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x405d4d: cuX_ASW
+  88ef80:	f0ffdba1 	adrp	x1, 405000 <psa_to_md_errors@@Base-0x2c8c14>
+  88ef84:	91353421 	add	x1, x1, #0xd4d
+  88ef8c:	97f9ba66 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x21011d: cuX_AUDIO
+  88f028:	b0ffcc01 	adrp	x1, 210000 <psa_to_md_errors@@Base-0x4bdc14>
+  88f02c:	91047421 	add	x1, x1, #0x11d
+  88f034:	97f9ba3c 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x27983c: cuX_AP20
+  88f050:	d0ffcf41 	adrp	x1, 279000 <psa_to_md_errors@@Base-0x454c14>
+  88f054:	9120f021 	add	x1, x1, #0x83c
+  88f05c:	97f9ba32 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>
+
+ELF literal 0x3b748b: cuX_BCA
+  88f0ec:	90ffd941 	adrp	x1, 3b7000 <psa_to_md_errors@@Base-0x316c14>
+  88f0f0:	91122c21 	add	x1, x1, #0x48b
+  88f0f8:	97f9ba0b 	bl	6fd924 <Java_de_wgsoft_libwgsoftnativemotoscan_NativeLibMotoScan_nativeInitKeyVault@@Base+0x32e4>

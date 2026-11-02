@@ -1,5 +1,14 @@
 # MotoScan service-reset recovery
 
+**Capability correction (2026-11-02, RE-02):** the original `jl0` parser maps
+FUNCTIONS token 0 value `8` to `CF_ADAPTIONS`, and value `12` to `CF_SERVICE`.
+The category-8 capability justification below incorrectly equated database
+codes with `kl0` enum ordinals. It is not valid evidence that the listed
+engine keys expose service resets. The handler payload reconstruction and
+the correct service-category/target binding must be assessed separately.
+See `docs/parity/fixtures/RE-02-functions-routing-excerpts.txt`; correction of
+the runtime service catalog is tracked under P0-05 / RE-10.
+
 Source: supplied DEX disassembly in `/tmp/motoscan-disassembly.txt` from the supplied APK. The on-screen event names and command handlers are obfuscated, so this note cites DEX addresses and preserves original labels where recoverable.
 
 ## Inputs and event IDs

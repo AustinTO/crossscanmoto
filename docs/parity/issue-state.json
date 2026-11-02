@@ -11,8 +11,15 @@
     },
     "RE-02": {
       "audit_status": "open_unverified",
-      "local_status": "IN_PROGRESS",
-      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+      "local_status": "VERIFIED_MATRIX_REQUIRES_ROUTING",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria.",
+      "implementation_state": "PARTIAL",
+      "component_state": "COMPLETE reproducible inventory matrix",
+      "parity_result": "UNRESOLVED",
+      "remaining_dependencies": [
+        "RE-05 actual handler and group-key routing"
+      ],
+      "evidence": "docs/parity/RE-02-coverage-checkpoint.md"
     },
     "RE-03": {
       "audit_status": "partial_merge_remaining",
@@ -135,8 +142,9 @@
     },
     "P0-05": {
       "audit_status": "partial_merge_remaining",
-      "local_status": "NOT_VERIFIED",
-      "next_action": "Reconstruct and replay omitted original service handlers; retain the stricter write/readback path."
+      "local_status": "IN_PROGRESS",
+      "next_action": "Reconstruct and replay omitted original service handlers; retain the stricter write/readback path.",
+      "confirmed_gap": "Original FUNCTIONS raw8 is ADAPTIONS; current service gate used enumordinal8 instead of raw12 SERVICE"
     },
     "P0-06": {
       "audit_status": "partial_merge_remaining",
