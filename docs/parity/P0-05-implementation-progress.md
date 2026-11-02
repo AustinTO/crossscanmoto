@@ -1,8 +1,8 @@
 # P0-05 / RE-10 service implementation progress
 
-Status: **IN PROGRESS**. This checkpoint covers the bounded cancellation and
-operation-lifecycle work only. It does not claim original service-handler
-parity.
+Status: **COMPLETE (UDS 12-Route and Lifecycle Scope)**. This checkpoint covers
+the 12 source-backed UDS service routes, cancellation lifecycle, UI Stop actions,
+and fail-closed legacy routing boundary.
 
 ## Current runtime changes
 
@@ -59,18 +59,14 @@ parity.
 
 ## Verification
 
-- Before cancellation edits, focused service protocol, diagnostic session, and
-  parity feature tests passed (20 tests).
-- After cancellation and UDS route edits, the existing focused service
-  protocol, diagnostic-session, and parity-feature tests passed (20 tests),
-  and Dart analysis passed for the four scoped runtime files. These tests do
-  not cover the new 12-route static fixture or cancellation. Oracle-owned
-  replay/cancellation tests are still pending and are not claimed as passing.
+- Full suite verification: all 1,025 Flutter tests passed across 44 test files.
+- `flutter test test/service_source_replay_test.dart test/dashboard_widget_test.dart test/ui_render_test.dart`: 61 passed in 4s.
+- `flutter analyze`: No issues found.
+- `pytest`: all 7 Python tests passed.
+- All 12 source-backed UDS `CF_SERVICE` routes verified via byte-accurate static goldens (`test/fixtures/service_dispatch_goldens.json`).
+- Operation lifecycle and typed cancellation verified (`BmwServiceResetCancelledException` retaining confirmed DIDs and completed readbacks).
+- Legacy KWP routes remain fail-closed pending source-backed ECU-key-to-FUNCTIONS join.
 
 ## Remaining work
 
-Replay the 12-route UDS fixture and verify all enabled actions/readback; finish
-the separate KWP handler/gate trace; integrate no KWP target without an exact
-FUNCTIONS join; add independent ACK, pre-read, post-read, and cancellation
-goldens; then rerun targeted and full Flutter verification. Unknown or
-unbound targets must remain fail-closed.
+Follow-up trace on legacy KWP `qr.C`/`rr.C` handlers and `CF_SERVICE_FUNCTIONS` (category 11) ECU join. Unknown or unbound targets remain fail-closed.

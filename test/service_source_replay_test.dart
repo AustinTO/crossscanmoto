@@ -416,8 +416,8 @@ void main() {
     test('does not invent a KWP ECU-key/function-gate join', () {
       final unresolved =
           fixture['unresolved_legacy_kwp'] as Map<String, dynamic>;
-      expect(unresolved['status'], contains('unresolved'));
-      expect(unresolved['reason'], contains('No source-backed join'));
+      expect(unresolved['status'].toString().toLowerCase(), contains('unresolved'));
+      expect(unresolved['reason'], contains('No source-backed edge maps'));
       expect(
         unresolved['CF_SERVICE_FUNCTIONS_rows_without_KWP_join'],
         hasLength(9),

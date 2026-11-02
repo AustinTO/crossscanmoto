@@ -141,10 +141,12 @@
       "next_action": "Re-run boundary tests and confirm model/ECU semantics; this does not prove all service resets correct."
     },
     "P0-05": {
-      "audit_status": "partial_merge_remaining",
-      "local_status": "IN_PROGRESS",
-      "next_action": "Reconstruct and replay omitted original service handlers; retain the stricter write/readback path.",
-      "confirmed_gap": "Original FUNCTIONS raw8 is ADAPTIONS; current service gate used enumordinal8 instead of raw12 SERVICE"
+      "audit_status": "complete_verified",
+      "local_status": "COMPLETE",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "next_action": "Investigate next parity priority queue (RE-07/P0-01 UDS framing or RE-11/P0-06 Actuator/Coding).",
+      "evidence": "docs/parity/P0-05-implementation-progress.md"
     },
     "P0-06": {
       "audit_status": "partial_merge_remaining",

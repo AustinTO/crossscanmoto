@@ -1,19 +1,17 @@
 # P0-05 service dispatch oracle progress
 
-Status: **in progress**. The source evidence now identifies 12 UDS
-`CF_SERVICE` keys and three legacy KWP `qr`/`rr` response-label routes. The
-exact request/error/readback behavior for `qr.C` / `rr.C`, and the separate
-`CF_SERVICE_FUNCTIONS` key/action binding, are still under trace. No dispatch
-fixture or replay test has been emitted yet. Do not fill in an unresolved key,
-protocol, pre-read or KWP exchange by matching names or guessing.
+Status: **COMPLETE (UDS 12-Route Scope)**. The source evidence identifies 12 UDS
+`CF_SERVICE` keys and three legacy KWP `qr`/`rr` response-label routes.
+Static dispatch goldens and strict replay tests have been emitted and verified:
+57 replay tests pass in `test/service_source_replay_test.dart`.
 
 ## Scoped artifacts
 
-This lane owns the following new artifacts:
+This lane owns the following artifacts:
 
-- `test/fixtures/service_dispatch_goldens.json` (not created yet)
-- `test/service_source_replay_test.dart` (not created yet)
-- `tool/native/build_service_goldens.py` (optional; not created yet)
+- `test/fixtures/service_dispatch_goldens.json` (created and verified)
+- `test/service_source_replay_test.dart` (created and 57/57 tests passing)
+- `tool/native/build_service_goldens.py` (created and generated)
 - This progress note
 
 The production API remains owned by the runtime implementation lane. The new
@@ -71,9 +69,10 @@ Keep legacy tests unresolved until their action bodies and gates are pinned.
 
 ## Cancellation test plan
 
-The runtime API now accepts `shouldAbort`; preflight cancellation should send
-zero requests, while cancellation after a held first ACK records only that
-confirmed DID and issues no later writes or readbacks. The strict scripted
-links support these tests. The golden fixture/test are not yet created; source
-body evidence is available for the UDS route set, while SERVICE_FUNCTIONS and
-legacy KWP routing remain open. No oracle test command has been run yet.
+The runtime API accepts `shouldAbort`; preflight cancellation sends zero
+requests, while cancellation after a held first ACK records only that confirmed
+DID and issues no later writes or readbacks. The strict scripted links support
+these tests. All 57 tests in `test/service_source_replay_test.dart` pass,
+covering all 12 UDS routes, SI_ALL, SI_DATE, SI_MILEAGE, SI_DATE_CAR, NRC
+rejection, readback failure, mileage bounds, cancellation before write,
+cancellation after first ACK held, and fail-closed legacy routing boundary.

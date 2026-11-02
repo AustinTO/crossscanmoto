@@ -5,6 +5,7 @@ import 'recovered_actuator_panel.dart';
 import 'diagnostics/coding_manager.dart';
 import 'diagnostics/ecu_friendly_names.dart';
 import 'diagnostics/service_manager.dart';
+import 'diagnostics/service_reset_protocol.dart';
 
 const _lime = Color(0xFFBCEB58);
 const _panel = Color(0xFF14191B);
