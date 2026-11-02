@@ -6,6 +6,7 @@ import 'package:crossscanmoto/diagnostics/dtc_database.dart';
 import 'package:crossscanmoto/diagnostics/ecu_catalog.dart';
 import 'package:crossscanmoto/diagnostics/live_data_definitions.dart';
 import 'package:crossscanmoto/diagnostics/protocol_setup.dart';
+import 'package:crossscanmoto/diagnostics/recovered_actuators.dart';
 import 'package:crossscanmoto/diagnostics/service_manager.dart';
 import 'package:crossscanmoto/diagnostics/service_reset_protocol.dart';
 import 'package:crossscanmoto/diagnostics/vehicle_catalog.dart';
@@ -193,6 +194,26 @@ void main() {
       );
       expect(fuelPump.durationSeconds, 5);
       expect(fuelPump.ecuAcronym, 'DME');
+    });
+
+    test('recovered actuators contain all 6 ECU definitions and positions', () {
+      expect(recoveredActuatorsByEcu.keys, containsAll([
+        'cuMRBMSMP1',
+        'cuX_ABS',
+        'cuX_BMSE2B',
+        'cuX_BMSMP1',
+        'cuX_BMSO1',
+        'cuX_BMSX',
+      ]));
+      for (final defs in recoveredActuatorsByEcu.values) {
+        expect(defs, isNotEmpty);
+        for (final def in defs) {
+          expect(def.positions, isNotEmpty);
+          for (final pos in def.positions) {
+            expect(pos.commands, isNotEmpty);
+          }
+        }
+      }
     });
   });
 

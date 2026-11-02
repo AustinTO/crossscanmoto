@@ -104,13 +104,55 @@ class BmwBikeUdsLink implements UdsRequestLink {
   ///
   /// The first character is discarded, bytes 0..1 are adapter framing, byte 2 is
   /// application payload length, and the application payload starts at byte 3.
+  /// Ignores ELM boilerplate lines and drains NRC 0x78 (response pending) if a
+  /// final response token is present in the prompt buffer.
   static List<int> decodeSingleTokenResponse(List<String> lines) {
-    if (lines.length != 1 || lines.single.length < 2) {
+    final tokens = lines
+        .map((l) => l.replaceAll('>', '').trim())
+        .where((l) =>
+            l.isNotEmpty &&
+            !l.toUpperCase().startsWith('SEARCHING') &&
+            !l.toUpperCase().startsWith('BUS INIT') &&
+            !l.toUpperCase().startsWith('STOPPED') &&
+            !l.toUpperCase().startsWith('NO DATA') &&
+            !l.toUpperCase().startsWith('?'))
+        .toList();
+
+    if (tokens.isEmpty || tokens.first.length < 2) {
       throw const FormatException(
         'BMW UDS decoder supports exactly one nonempty response token',
       );
     }
-    final hex = lines.single.substring(1);
+
+    String tokenToDecode = tokens.first;
+    if (tokens.length > 1) {
+      try {
+        final firstDecoded = _decodeSingleTokenHex(tokens.first);
+        if (firstDecoded.length == 3 &&
+            firstDecoded[0] == 0x7f &&
+            firstDecoded[2] == 0x78) {
+          tokenToDecode = tokens[1];
+        } else {
+          throw const FormatException(
+            'BMW UDS decoder supports exactly one nonempty response token',
+          );
+        }
+      } on FormatException {
+        throw const FormatException(
+          'BMW UDS decoder supports exactly one nonempty response token',
+        );
+      }
+    }
+
+    return _decodeSingleTokenHex(tokenToDecode);
+  }
+
+  static List<int> _decodeSingleTokenHex(String rawToken) {
+    final trimmed = rawToken.trim();
+    if (trimmed.length < 2) {
+      throw const FormatException('Malformed BMW UDS response token');
+    }
+    final hex = trimmed.substring(1);
     if (hex.length.isOdd || !RegExp(r'^[0-9a-fA-F]+$').hasMatch(hex)) {
       throw const FormatException('Malformed BMW UDS response token');
     }

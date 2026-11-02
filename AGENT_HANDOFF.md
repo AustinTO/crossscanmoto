@@ -6,17 +6,15 @@ verified checkpoint and before stopping or losing the session.
 <!-- REPOSITORY_SNAPSHOT:START -->
 ## Repository snapshot
 
-Captured 2026-11-02T19:13:17+00:00.
-HEAD: `6a200788812df305824b0950d78f8c1e50996f60`.
+Captured 2026-11-02T19:17:35+00:00.
+HEAD: `43b8bac80487287ec52b19ab5d443563d3d47c77`.
 Branch: `release-hardening/production-audit`.
 
 ```text
-M lib/diagnostics/auto_scan_controller.dart
- M lib/diagnostics/dtc_database.dart
- M lib/diagnostics/ecu_catalog.dart
- M lib/diagnostics/vehicle_catalog.dart
- M lib/service_coding_page.dart
+M lib/diagnostics/protocol_setup.dart
+ M lib/recovered_actuator_panel.dart
  M test/parity_features_test.dart
+ M test/protocol_setup_test.dart
 ```
 
 Refresh with `python tool/update_agent_handoff.py` after a checkpoint.

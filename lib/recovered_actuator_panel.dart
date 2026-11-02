@@ -33,6 +33,7 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> with Wi
     'cuX_BMSO1',
     'cuX_BMSX',
     'cuX_BMSE2B',
+    'cuMRBMSMP1',
   ];
 
   @override

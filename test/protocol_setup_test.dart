@@ -40,4 +40,54 @@ void main() {
     expect(transport.writes.last, 'ATSPB');
     await session.close();
   });
+
+  group('BmwBikeUdsLink decodeSingleTokenResponse', () {
+    test('decodes valid single token frame', () {
+      final payload = BmwBikeUdsLink.decodeSingleTokenResponse(['412000362E119']);
+      expect(payload, [0x62, 0xe1, 0x19]);
+    });
+
+    test('ignores ELM boilerplate lines and leading/trailing whitespace', () {
+      final payload = BmwBikeUdsLink.decodeSingleTokenResponse([
+        'SEARCHING...',
+        '  412000362E119  ',
+        '',
+      ]);
+      expect(payload, [0x62, 0xe1, 0x19]);
+    });
+
+    test('drains response-pending NRC 0x78 when followed by final response', () {
+      final payload = BmwBikeUdsLink.decodeSingleTokenResponse([
+        '41200037F2278',
+        '412000362E119',
+      ]);
+      expect(payload, [0x62, 0xe1, 0x19]);
+    });
+
+    test('returns NRC 0x78 when only pending frame is returned', () {
+      final payload = BmwBikeUdsLink.decodeSingleTokenResponse(['41200037F2278']);
+      expect(payload, [0x7f, 0x22, 0x78]);
+    });
+
+    test('rejects multiple non-pending response tokens', () {
+      expect(
+        () => BmwBikeUdsLink.decodeSingleTokenResponse([
+          '412000362E119',
+          '412000362E12A',
+        ]),
+        throwsFormatException,
+      );
+    });
+
+    test('rejects truncated header and payload', () {
+      expect(
+        () => BmwBikeUdsLink.decodeSingleTokenResponse(['412']),
+        throwsFormatException,
+      );
+      expect(
+        () => BmwBikeUdsLink.decodeSingleTokenResponse(['412000562E1']),
+        throwsFormatException,
+      );
+    });
+  });
 }
