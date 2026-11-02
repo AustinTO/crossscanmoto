@@ -1,0 +1,1307 @@
+{
+  "evidence_type": "legacy offline native object/vtable query via custom ELF loader under QEMU",
+  "source": {
+    "apk_sha256": "bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58",
+    "library_sha256": "bab0c173bb33c37262d07bbbbdc2c91213275d2a68e941d1b39fc3affd34fc71",
+    "probe_source": "tool/native/table_probe.c",
+    "probe_source_sha256": "b3fff546d73f92e0e78121afb5d9ca74816d8d31ce305c4afc4a32f78ce58a66",
+    "probe_binary_sha256": "e2379ad89cea5604668992fab2b67f09d79390071076c53f577c697073bd3a63",
+    "ecu_keys_source": "assets/research/recovered-native/observed-ecu-keys.json"
+  },
+  "limits": "No app process, network access, or ECU/vehicle connection; CPU and address space bounded per query.",
+  "results": [
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 24,
+        "stdout_sha256": "dfd0954663721d953af72ad902156bc574c56318d9c768b92743dfd4f5b65397",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 8,
+        "stdout_sha256": "cdc0a39043c8fd7557796bdeb2cbcd87085daad77923b7cbe9713dd453fdc295",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_ABS1K",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140614545572992\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140470501180544\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 8,
+        "stdout_sha256": "eca19e7371944687c0ed9c24a6c8a0f19a0276b0d6e9d6e2cc3761b4663c76a5",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_ABSVI",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_AE",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_AP20",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_ASW",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 1,
+        "stdout_sha256": "97e92644be658578d5f16acf1a78a1da6784757b386ce273ff4c7c8c92590e74",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_AUDIO",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 4,
+        "stdout_sha256": "0cf96723f52e4892e7f032055c1cdeffbbaf93742dd2d5a0781e0ed341ec4830",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BCA",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BCL",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 19,
+        "stdout_sha256": "eacf598d5c5ad1d8c703b029a45287f936786c3e099e5b90a525beb5d26e134d",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSAE1",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 22,
+        "stdout_sha256": "50d6e9363bce18ff87845c59e54791a8506113086d37365e2abda5b3f5b8de92",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 22,
+        "stdout_sha256": "3f55bb3de5dc4bc5de10b26ded47a34e66b11b0062ce5101c638662442534ca6",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 24,
+        "stdout_sha256": "231e47045c6660e2e461f8136abd3992712494d38705c8043d27c7f21fe5c0fb",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSMS1",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSN",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 139652003005568\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140383992743040\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 20,
+        "stdout_sha256": "e4ac48f7ab6ca1db176bdf59c07dd3fa303e532b891c43c6b4e25e0d44c4c55f",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSTVS",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 20,
+        "stdout_sha256": "c0f1c172227cf576c369e6df63a2f09650d646e11f95ab4c34b904c122c1f812",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BMSZ",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140590305182848\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140354438497408\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_BSK_M",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_BSK_S2",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140179248710784\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 139735757685888\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_BSK_S3",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140173997311104\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140286050370688\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_BSM_1",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140341027210368\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 139727568307328\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_CCP",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 7,
+        "stdout_sha256": "99731fe433bb4a9dbceb991d13abff6b8d1328a0fcabb746dfad24300a0b551d",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_DWA_9",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_EDME",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 139922593940608\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140139171218560\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_EDMEZ",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 139777519256704\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140420245030016\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_ESA",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 5,
+        "stdout_sha256": "b3b29d89e1a523d6be67186b7e10df31a1a9ecc2186046dfbd40bbd9024d68c6",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_EWS4",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 7,
+        "stdout_sha256": "96cebe003556f3d8eeb5418249923f719a92c0ec48ce14d46a6d964b8b271375",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_FSM",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 6,
+        "stdout_sha256": "09d4f8bbc10f64d52d0f67e5ff9c7017aea35a969cf7733d44afaff68a71d0bb",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB17",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB18",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB46",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 6,
+        "stdout_sha256": "93db7eea8bab8f35ab8ceb52f960b2c0c39b2b0fd5c4e8789d7807c712c67f78",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 6,
+        "stdout_sha256": "fd35d3cf8ac320329e6b414a4e1f78bbc1898adefd47ab092728441c80eb7cb4",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMBB2",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 7,
+        "stdout_sha256": "7371117cfec4d0c5cae709ab9229410a3b1a5e51663ebb3493bbc3d87094b31e",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 7,
+        "stdout_sha256": "885b674e143e7084d423b80882152892cdcbaa2ee468b20e2db369965854d375",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMBLO",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_KOMB_A",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_LKD",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140622175470720\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140553990898816\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_MCCU",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 139641926911104\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 139715706815616\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_MESS",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_MIC",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140003206694016\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 139859844072576\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_MRR",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_MRR_2",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_OBC",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_OBC_2",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_OBC_NV",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140101482120320\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 140248110793856\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 2,
+        "stdout_sha256": "608184878fbf46f8ba7b737a6102d5a256d7048d9a2740be96d7000c15caa69d",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SAF",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "params_capture_present": true,
+      "params_probe": {
+        "status": "nonempty",
+        "exit_code": 0,
+        "reported_rows": 5,
+        "stdout_sha256": "ad44a6dd1d256754ef9c89168124ffe1eaf5f5b02b8b6cfac7dbd0794c7817b0",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SLZ03",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SLZ_4",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SME",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SRR",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_SVA",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_TCU01",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "Invalid row count 140708806853760\n"
+      },
+      "params_tab_global_probe": {
+        "status": "error",
+        "exit_code": 3,
+        "reported_rows": null,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": "Invalid row count 139887023096960\n"
+      }
+    },
+    {
+      "ecu_key": "cuX_TPM",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_TPM4G",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_WAVE",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    },
+    {
+      "ecu_key": "cuX_ZES",
+      "params_capture_present": false,
+      "params_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": null
+      },
+      "params_tab_global_probe": {
+        "status": "empty",
+        "exit_code": 0,
+        "reported_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "rows": [],
+        "error": null
+      }
+    }
+  ],
+  "interpretation": "Superseded by re09-jni-table-probes.json, which follows public NativeLibMotoScan.n(String,String) -> private j(String,String). Invalid row-count outputs here are not proof of table absence."
+}

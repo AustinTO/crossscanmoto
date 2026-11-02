@@ -1,0 +1,634 @@
+MotoScan 1.110 classes.dex result-format excerpts
+SHA-256: 869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832
+Copied verbatim from dexdump output; inclusive DEX code-address intervals.
+
+### PARAMS_TAB_GLOBAL parser
+1b02dc: 1230                                   |0000: const/4 v0, #int 3 // #3
+1b02de: 5940 4625                              |0001: iput v0, v4, Ljw;.c:I // field@2546
+1b02e2: 6e10 6944 0500                         |0003: invoke-virtual {v5}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+1b02e8: 7010 6644 0400                         |0006: invoke-direct {v4}, Ljava/lang/Object;.<init>:()V // method@4466
+1b02ee: 7110 8b52 0500                         |0009: invoke-static {v5}, Ll74;.J0:(Ljava/lang/CharSequence;)Z // method@528b
+1b02f4: 0a01                                   |000c: move-result v1
+1b02f6: 1202                                   |000d: const/4 v2, #int 0 // #0
+1b02f8: 1a03 630c                              |000e: const-string v3, ";" // string@0c63
+1b02fc: 3901 1300                              |0010: if-nez v1, 0023 // +0013
+1b0300: 2410 fa20 0300                         |0012: filled-new-array {v3}, [Ljava/lang/String; // type@20fa
+1b0306: 0c01                                   |0015: move-result-object v1
+1b0308: 7120 9452 1500                         |0016: invoke-static {v5, v1}, Ll74;.S0:(Ljava/lang/CharSequence;[Ljava/lang/String;)Ljava/util/List; // method@5294
+1b030e: 0c05                                   |0019: move-result-object v5
+1b0310: 2321 fa20                              |001a: new-array v1, v2, [Ljava/lang/String; // type@20fa
+1b0314: 7220 3c47 1500                         |001c: invoke-interface {v5, v1}, Ljava/util/Collection;.toArray:([Ljava/lang/Object;)[Ljava/lang/Object; // method@473c
+1b031a: 0c05                                   |001f: move-result-object v5
+1b031c: 1f05 fa20                              |0020: check-cast v5, [Ljava/lang/String; // type@20fa
+1b0320: 2812                                   |0022: goto 0034 // +0012
+1b0322: 1a05 5709                              |0023: const-string v5, "0;0;;;0;" // string@0957
+1b0326: 2410 fa20 0300                         |0025: filled-new-array {v3}, [Ljava/lang/String; // type@20fa
+1b032c: 0c01                                   |0028: move-result-object v1
+1b032e: 7120 9452 1500                         |0029: invoke-static {v5, v1}, Ll74;.S0:(Ljava/lang/CharSequence;[Ljava/lang/String;)Ljava/util/List; // method@5294
+1b0334: 0c05                                   |002c: move-result-object v5
+1b0336: 2321 fa20                              |002d: new-array v1, v2, [Ljava/lang/String; // type@20fa
+1b033a: 7220 3c47 1500                         |002f: invoke-interface {v5, v1}, Ljava/util/Collection;.toArray:([Ljava/lang/Object;)[Ljava/lang/Object; // method@473c
+1b0340: 0c05                                   |0032: move-result-object v5
+1b0342: 28ed                                   |0033: goto 0020 // -0013
+1b0344: 4601 0502                              |0034: aget-object v1, v5, v2
+1b0348: 7110 0e44 0100                         |0036: invoke-static {v1}, Ljava/lang/Integer;.decode:(Ljava/lang/String;)Ljava/lang/Integer; // method@440e
+1b034e: 1211                                   |0039: const/4 v1, #int 1 // #1
+1b0350: 4601 0501                              |003a: aget-object v1, v5, v1
+1b0354: 7110 0e44 0100                         |003c: invoke-static {v1}, Ljava/lang/Integer;.decode:(Ljava/lang/String;)Ljava/lang/Integer; // method@440e
+1b035a: 0c01                                   |003f: move-result-object v1
+1b035c: 5b41 4825                              |0040: iput-object v1, v4, Ljw;.x:Ljava/lang/Object; // field@2548
+1b0360: 1221                                   |0042: const/4 v1, #int 2 // #2
+1b0362: 4601 0501                              |0043: aget-object v1, v5, v1
+1b0366: 5b41 4925                              |0045: iput-object v1, v4, Ljw;.y:Ljava/lang/Object; // field@2549
+1b036a: 4600 0500                              |0047: aget-object v0, v5, v0
+1b036e: 5b40 4425                              |0049: iput-object v0, v4, Ljw;.X:Ljava/lang/Object; // field@2544
+1b0372: 1240                                   |004b: const/4 v0, #int 4 // #4
+1b0374: 4600 0500                              |004c: aget-object v0, v5, v0
+1b0378: 7110 0e44 0000                         |004e: invoke-static {v0}, Ljava/lang/Integer;.decode:(Ljava/lang/String;)Ljava/lang/Integer; // method@440e
+1b037e: 1250                                   |0051: const/4 v0, #int 5 // #5
+1b0380: 4605 0500                              |0052: aget-object v5, v5, v0
+1b0384: 5b45 4525                              |0054: iput-object v5, v4, Ljw;.Y:Ljava/lang/Object; // field@2545
+1b0388: 2205 a90c                              |0056: new-instance v5, Ljava/util/ArrayList; // type@0ca9
+1b038c: 7010 c646 0500                         |0058: invoke-direct {v5}, Ljava/util/ArrayList;.<init>:()V // method@46c6
+1b0392: 5b45 4725                              |005b: iput-object v5, v4, Ljw;.d:Ljava/lang/Object; // field@2547
+1b0396: 0e00                                   |005d: return-void
+
+### fl0.g global row attach
+217ab8: 52cd ba25                              |0092: iget v13, v12, Lk21;.a:I // field@25ba
+217abc: 3242 5d00                              |0094: if-eq v2, v4, 00f1 // +005d
+217ac0: 1234                                   |0096: const/4 v4, #int 3 // #3
+217ac2: 3242 5a00                              |0097: if-eq v2, v4, 00f1 // +005a
+217ac6: 1304 0900                              |0099: const/16 v4, #int 9 // #9
+217aca: 3242 0800                              |009b: if-eq v2, v4, 00a3 // +0008
+217ace: 0215 0300                              |009d: move/from16 v21, v3
+217ad2: 0817 0500                              |009f: move-object/from16 v23, v5
+217ad6: 2900 7200                              |00a1: goto/16 0113 // +0072
+217ada: 2192                                   |00a3: array-length v2, v9
+217adc: 1204                                   |00a4: const/4 v4, #int 0 // #0
+217ade: 3524 f8ff                              |00a5: if-ge v4, v2, 009d // -0008
+217ae2: 0214 0200                              |00a7: move/from16 v20, v2
+217ae6: 4602 0904                              |00a9: aget-object v2, v9, v4
+217aea: 0215 0300                              |00ab: move/from16 v21, v3
+217aee: 2203 bd0d                              |00ad: new-instance v3, Ljw; // type@0dbd
+217af2: 7020 674c 2300                         |00af: invoke-direct {v3, v2}, Ljw;.<init>:(Ljava/lang/String;)V // method@4c67
+217af8: 5432 4825                              |00b2: iget-object v2, v3, Ljw;.x:Ljava/lang/Object; // field@2548
+217afc: 1f02 ea0b                              |00b4: check-cast v2, Ljava/lang/Integer; // type@0bea
+217b00: 3902 0700                              |00b6: if-nez v2, 00bd // +0007
+217b04: 0216 0400                              |00b8: move/from16 v22, v4
+217b08: 0817 0500                              |00ba: move-object/from16 v23, v5
+217b0c: 282c                                   |00bc: goto 00e8 // +002c
+217b0e: 6e10 1244 0200                         |00bd: invoke-virtual {v2}, Ljava/lang/Integer;.intValue:()I // method@4412
+217b14: 0a02                                   |00c0: move-result v2
+217b16: 33d2 f7ff                              |00c1: if-ne v2, v13, 00b8 // -0009
+217b1a: 5432 4925                              |00c3: iget-object v2, v3, Ljw;.y:Ljava/lang/Object; // field@2549
+217b1e: 1f02 050c                              |00c5: check-cast v2, Ljava/lang/String; // type@0c05
+217b22: 7110 2f27 0200                         |00c7: invoke-static {v2}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.p:(Ljava/lang/String;)[Ljava/lang/String; // method@272f
+217b28: 0c02                                   |00ca: move-result-object v2
+217b2a: 0216 0400                              |00cb: move/from16 v22, v4
+217b2e: 5434 4725                              |00cd: iget-object v4, v3, Ljw;.d:Ljava/lang/Object; // field@2547
+217b32: 1f04 a90c                              |00cf: check-cast v4, Ljava/util/ArrayList; // type@0ca9
+217b36: 6e10 cd46 0400                         |00d1: invoke-virtual {v4}, Ljava/util/ArrayList;.clear:()V // method@46cd
+217b3c: 0817 0500                              |00d4: move-object/from16 v23, v5
+217b40: 2125                                   |00d6: array-length v5, v2
+217b42: 0818 0200                              |00d7: move-object/from16 v24, v2
+217b46: 1202                                   |00d9: const/4 v2, #int 0 // #0
+217b48: 3552 0c00                              |00da: if-ge v2, v5, 00e6 // +000c
+217b4c: 0219 0200                              |00dc: move/from16 v25, v2
+217b50: 4602 1819                              |00de: aget-object v2, v24, v25
+217b54: 6e20 ca46 2400                         |00e0: invoke-virtual {v4, v2}, Ljava/util/ArrayList;.add:(Ljava/lang/Object;)Z // method@46ca
+217b5a: d802 1901                              |00e3: add-int/lit8 v2, v25, #int 1 // #01
+217b5e: 28f5                                   |00e5: goto 00da // -000b
+217b60: 5bc3 ca25                              |00e6: iput-object v3, v12, Lk21;.q:Ljw; // field@25ca
+
+### fl0.g GENERAL_VALUES_UNITS unit join
+217bf6: 5234 3931                              |0131: iget v4, v3, Lnq4;.a:I // field@3139
+217bfa: 52c5 be25                              |0133: iget v5, v12, Lk21;.e:I // field@25be
+217bfe: 3354 edff                              |0135: if-ne v4, v5, 0122 // -0013
+217c02: 5432 3a31                              |0137: iget-object v2, v3, Lnq4;.b:Ljava/lang/String; // field@313a
+217c06: 2803                                   |0139: goto 013c // +0003
+217c08: 1a02 0000                              |013a: const-string v2, "" // string@0000
+217c0c: 6e10 6944 0200                         |013c: invoke-virtual {v2}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+217c12: 5bc2 cc25                              |013f: iput-object v2, v12, Lk21;.s:Ljava/lang/String; // field@25cc
+
+### nq4 GENERAL_VALUES_UNITS row parser
+468f68: 7010 6644 0200                         |0000: invoke-direct {v2}, Ljava/lang/Object;.<init>:()V // method@4466
+468f6e: 1a00 630c                              |0003: const-string v0, ";" // string@0c63
+468f72: 2410 fa20 0000                         |0005: filled-new-array {v0}, [Ljava/lang/String; // type@20fa
+468f78: 0c00                                   |0008: move-result-object v0
+468f7a: 7120 9452 0300                         |0009: invoke-static {v3, v0}, Ll74;.S0:(Ljava/lang/CharSequence;[Ljava/lang/String;)Ljava/util/List; // method@5294
+468f80: 0c03                                   |000c: move-result-object v3
+468f82: 1200                                   |000d: const/4 v0, #int 0 // #0
+468f84: 2301 fa20                              |000e: new-array v1, v0, [Ljava/lang/String; // type@20fa
+468f88: 7220 3c47 1300                         |0010: invoke-interface {v3, v1}, Ljava/util/Collection;.toArray:([Ljava/lang/Object;)[Ljava/lang/Object; // method@473c
+468f8e: 0c03                                   |0013: move-result-object v3
+468f90: 1f03 fa20                              |0014: check-cast v3, [Ljava/lang/String; // type@20fa
+468f94: 4600 0300                              |0016: aget-object v0, v3, v0
+468f98: 7110 1544 0000                         |0018: invoke-static {v0}, Ljava/lang/Integer;.parseInt:(Ljava/lang/String;)I // method@4415
+468f9e: 0a00                                   |001b: move-result v0
+468fa0: 5920 3931                              |001c: iput v0, v2, Lnq4;.a:I // field@3139
+468fa4: 1210                                   |001e: const/4 v0, #int 1 // #1
+468fa6: 4600 0300                              |001f: aget-object v0, v3, v0
+468faa: 5b20 3a31                              |0021: iput-object v0, v2, Lnq4;.b:Ljava/lang/String; // field@313a
+468fae: 1222                                   |0023: const/4 v2, #int 2 // #2
+468fb0: 4602 0302                              |0024: aget-object v2, v3, v2
+468fb4: 7110 1544 0200                         |0026: invoke-static {v2}, Ljava/lang/Integer;.parseInt:(Ljava/lang/String;)I // method@4415
+468fba: 0e00                                   |0029: return-void
+
+### j21.b response slice and switch
+26c23a: 5467 c925                              |002b: iget-object v7, v6, Lk21;.p:Ljava/util/ArrayList; // field@25c9
+26c23e: 2118                                   |002d: array-length v8, v1
+26c240: 3908 0800                              |002e: if-nez v8, 0036 // +0008
+26c244: 0810 0400                              |0030: move-object/from16 v16, v4
+26c248: 0211 0500                              |0032: move/from16 v17, v5
+26c24c: 2900 6b02                              |0034: goto/16 029f // +026b
+26c250: 4808 0105                              |0036: aget-byte v8, v1, v5
+26c254: 1309 6200                              |0038: const/16 v9, #int 98 // #62
+26c258: 3398 f6ff                              |003a: if-ne v8, v9, 0030 // -000a
+26c25c: 2118                                   |003c: array-length v8, v1
+26c25e: 5269 c025                              |003d: iget v9, v6, Lk21;.g:I // field@25c0
+26c262: 526a c125                              |003f: iget v10, v6, Lk21;.h:I // field@25c1
+26c266: 900c 090a                              |0041: add-int v12, v9, v10
+26c26a: 520d 5c22                              |0043: iget v13, v0, Lj21;.d:I // field@225c
+26c26e: b0dc                                   |0045: add-int/2addr v12, v13
+26c270: 34c8 d6ff                              |0046: if-lt v8, v12, 001c // -002a
+26c274: 5468 bf25                              |0048: iget-object v8, v6, Lk21;.f:Ljava/lang/String; // field@25bf
+26c278: b0d9                                   |004a: add-int/2addr v9, v13
+26c27a: b09a                                   |004b: add-int/2addr v10, v9
+26c27c: 7130 f046 910a                         |004c: invoke-static {v1, v9, v10}, Ljava/util/Arrays;.copyOfRange:([BII)[B // method@46f0
+26c282: 0c0a                                   |004f: move-result-object v10
+26c284: 546c bd25                              |0050: iget-object v12, v6, Lk21;.d:Lsx2; // field@25bd
+26c288: 6e10 ee43 0c00                         |0052: invoke-virtual {v12}, Ljava/lang/Enum;.ordinal:()I // method@43ee
+26c28e: 0a0c                                   |0055: move-result v12
+26c290: 1a0d b807                              |0056: const-string v13, "-" // string@07b8
+26c294: 121e                                   |0058: const/4 v14, #int 1 // #1
+26c296: 2b0c 6302 0000                         |0059: packed-switch v12, 000002bc // +00000263
+26c29c: 0810 0400                              |005c: move-object/from16 v16, v4
+26c2a0: 0813 0700                              |005e: move-object/from16 v19, v7
+26c2a4: 2900 af01                              |0060: goto/16 020f // +01af
+26c2a8: 5468 ca25                              |0062: iget-object v8, v6, Lk21;.q:Ljw; // field@25ca
+
+### j21.b TAB_GLOBAL lookup
+26c2a8: 5468 ca25                              |0062: iget-object v8, v6, Lk21;.q:Ljw; // field@25ca
+26c2ac: 6e10 6944 0800                         |0064: invoke-virtual {v8}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c2b2: 6e10 6944 0a00                         |0067: invoke-virtual {v10}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c2b8: 7110 734e 0a00                         |006a: invoke-static {v10}, Lkb2;.o:([B)Ljava/lang/String; // method@4e73
+26c2be: 0c09                                   |006d: move-result-object v9
+26c2c0: 548c 4725                              |006e: iget-object v12, v8, Ljw;.d:Ljava/lang/Object; // field@2547
+26c2c4: 1f0c a90c                              |0070: check-cast v12, Ljava/util/ArrayList; // type@0ca9
+26c2c8: 6e10 d546 0c00                         |0072: invoke-virtual {v12}, Ljava/util/ArrayList;.isEmpty:()Z // method@46d5
+26c2ce: 0a0e                                   |0075: move-result v14
+26c2d0: 380e 0d00                              |0076: if-eqz v14, 0083 // +000d
+26c2d4: 6e10 6944 0900                         |0078: invoke-virtual {v9}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c2da: 0810 0400                              |007b: move-object/from16 v16, v4
+26c2de: 0211 0500                              |007d: move/from16 v17, v5
+26c2e2: 0813 0700                              |007f: move-object/from16 v19, v7
+26c2e6: 2900 d801                              |0081: goto/16 0259 // +01d8
+26c2ea: 6e20 d246 5c00                         |0083: invoke-virtual {v12, v5}, Ljava/util/ArrayList;.get:(I)Ljava/lang/Object; // method@46d2
+26c2f0: 0c0e                                   |0086: move-result-object v14
+26c2f2: 6e10 6944 0e00                         |0087: invoke-virtual {v14}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c2f8: 1f0e d60b                              |008a: check-cast v14, Ljava/lang/CharSequence; // type@0bd6
+26c2fc: 1a0f 630c                              |008c: const-string v15, ";" // string@0c63
+26c300: 0810 0400                              |008e: move-object/from16 v16, v4
+26c304: 2410 fa20 0f00                         |0090: filled-new-array {v15}, [Ljava/lang/String; // type@20fa
+26c30a: 0c04                                   |0093: move-result-object v4
+26c30c: 7120 9452 4e00                         |0094: invoke-static {v14, v4}, Ll74;.S0:(Ljava/lang/CharSequence;[Ljava/lang/String;)Ljava/util/List; // method@5294
+26c312: 0c04                                   |0097: move-result-object v4
+26c314: 235e fa20                              |0098: new-array v14, v5, [Ljava/lang/String; // type@20fa
+26c318: 7220 3c47 e400                         |009a: invoke-interface {v4, v14}, Ljava/util/Collection;.toArray:([Ljava/lang/Object;)[Ljava/lang/Object; // method@473c
+26c31e: 0c04                                   |009d: move-result-object v4
+26c320: 1f04 fa20                              |009e: check-cast v4, [Ljava/lang/String; // type@20fa
+26c324: 214e                                   |00a0: array-length v14, v4
+26c326: 0812 0400                              |00a1: move-object/from16 v18, v4
+26c32a: 0813 0700                              |00a3: move-object/from16 v19, v7
+26c32e: 12f4                                   |00a5: const/4 v4, #int -1 // #ff
+26c330: 1205                                   |00a6: const/4 v5, #int 0 // #0
+26c332: 12f7                                   |00a7: const/4 v7, #int -1 // #ff
+26c334: 35e5 2500                              |00a8: if-ge v5, v14, 00cd // +0025
+26c338: 0214 0500                              |00aa: move/from16 v20, v5
+26c33c: 4605 1214                              |00ac: aget-object v5, v18, v20
+26c340: 0815 0900                              |00ae: move-object/from16 v21, v9
+26c344: 5489 4425                              |00b0: iget-object v9, v8, Ljw;.X:Ljava/lang/Object; // field@2544
+26c348: 1f09 050c                              |00b2: check-cast v9, Ljava/lang/String; // type@0c05
+26c34c: 7120 9737 9500                         |00b4: invoke-static {v5, v9}, Lgt1;.k:(Ljava/lang/Object;Ljava/lang/Object;)Z // method@3797
+26c352: 0a09                                   |00b7: move-result v9
+26c354: 3809 0400                              |00b8: if-eqz v9, 00bc // +0004
+26c358: 0204 1400                              |00ba: move/from16 v4, v20
+26c35c: 5489 4525                              |00bc: iget-object v9, v8, Ljw;.Y:Ljava/lang/Object; // field@2545
+26c360: 1f09 050c                              |00be: check-cast v9, Ljava/lang/String; // type@0c05
+26c364: 7120 9737 9500                         |00c0: invoke-static {v5, v9}, Lgt1;.k:(Ljava/lang/Object;Ljava/lang/Object;)Z // method@3797
+26c36a: 0a05                                   |00c3: move-result v5
+26c36c: 3805 0400                              |00c4: if-eqz v5, 00c8 // +0004
+26c370: 0207 1400                              |00c6: move/from16 v7, v20
+26c374: d805 1401                              |00c8: add-int/lit8 v5, v20, #int 1 // #01
+26c378: 0809 1500                              |00ca: move-object/from16 v9, v21
+26c37c: 28dc                                   |00cc: goto 00a8 // -0024
+26c37e: 0815 0900                              |00cd: move-object/from16 v21, v9
+26c382: 12f5                                   |00cf: const/4 v5, #int -1 // #ff
+26c384: 3254 4d00                              |00d0: if-eq v4, v5, 011d // +004d
+26c388: 3357 0300                              |00d2: if-ne v7, v5, 00d5 // +0003
+26c38c: 2849                                   |00d4: goto 011d // +0049
+26c38e: 2205 2d0c                              |00d5: new-instance v5, Ljava/math/BigInteger; // type@0c2d
+26c392: 7020 6945 a500                         |00d7: invoke-direct {v5, v10}, Ljava/math/BigInteger;.<init>:([B)V // method@4569
+26c398: 6e10 7445 0500                         |00da: invoke-virtual {v5}, Ljava/math/BigInteger;.intValue:()I // method@4574
+26c39e: 0a05                                   |00dd: move-result v5
+26c3a0: 6e10 d646 0c00                         |00de: invoke-virtual {v12}, Ljava/util/ArrayList;.iterator:()Ljava/util/Iterator; // method@46d6
+26c3a6: 0c08                                   |00e1: move-result-object v8
+26c3a8: 6e10 6944 0800                         |00e2: invoke-virtual {v8}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c3ae: 7210 8947 0800                         |00e5: invoke-interface {v8}, Ljava/util/Iterator;.hasNext:()Z // method@4789
+26c3b4: 0a09                                   |00e8: move-result v9
+26c3b6: 3809 2e00                              |00e9: if-eqz v9, 0117 // +002e
+26c3ba: 7210 8a47 0800                         |00eb: invoke-interface {v8}, Ljava/util/Iterator;.next:()Ljava/lang/Object; // method@478a
+26c3c0: 0c09                                   |00ee: move-result-object v9
+26c3c2: 6e10 6944 0900                         |00ef: invoke-virtual {v9}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c3c8: 1f09 050c                              |00f2: check-cast v9, Ljava/lang/String; // type@0c05
+26c3cc: 2410 fa20 0f00                         |00f4: filled-new-array {v15}, [Ljava/lang/String; // type@20fa
+26c3d2: 0c0a                                   |00f7: move-result-object v10
+26c3d4: 7120 9452 a900                         |00f8: invoke-static {v9, v10}, Ll74;.S0:(Ljava/lang/CharSequence;[Ljava/lang/String;)Ljava/util/List; // method@5294
+26c3da: 0c09                                   |00fb: move-result-object v9
+26c3dc: 120a                                   |00fc: const/4 v10, #int 0 // #0
+26c3de: 23ac fa20                              |00fd: new-array v12, v10, [Ljava/lang/String; // type@20fa
+26c3e2: 7220 3c47 c900                         |00ff: invoke-interface {v9, v12}, Ljava/util/Collection;.toArray:([Ljava/lang/Object;)[Ljava/lang/Object; // method@473c
+26c3e8: 0c09                                   |0102: move-result-object v9
+26c3ea: 1f09 fa20                              |0103: check-cast v9, [Ljava/lang/String; // type@20fa
+26c3ee: 460a 0904                              |0105: aget-object v10, v9, v4
+26c3f2: 7110 b944 0500                         |0107: invoke-static {v5}, Ljava/lang/String;.valueOf:(I)Ljava/lang/String; // method@44b9
+26c3f8: 0c0c                                   |010a: move-result-object v12
+26c3fa: 7120 9737 ca00                         |010b: invoke-static {v10, v12}, Lgt1;.k:(Ljava/lang/Object;Ljava/lang/Object;)Z // method@3797
+26c400: 0a0a                                   |010e: move-result v10
+26c402: 380a d6ff                              |010f: if-eqz v10, 00e5 // -002a
+26c406: 4609 0907                              |0111: aget-object v9, v9, v7
+26c40a: 1311 0000                              |0113: const/16 v17, #int 0 // #0
+26c40e: 2900 4401                              |0115: goto/16 0259 // +0144
+26c412: 7401 6944 1500                         |0117: invoke-virtual/range {v21}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c418: 0809 1500                              |011a: move-object/from16 v9, v21
+26c41c: 28f7                                   |011c: goto 0113 // -0009
+26c41e: 7401 6944 1500                         |011d: invoke-virtual/range {v21}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c424: 28fa                                   |0120: goto 011a // -0006
+26c426: 0810 0400                              |0121: move-object/from16 v16, v4
+
+### j21.b BMWUDSECUSN
+26c426: 0810 0400                              |0121: move-object/from16 v16, v4
+26c42a: 0211 0500                              |0123: move/from16 v17, v5
+26c42e: 0813 0700                              |0125: move-object/from16 v19, v7
+26c432: 4804 0a11                              |0127: aget-byte v4, v10, v17
+26c436: 1305 3000                              |0129: const/16 v5, #int 48 // #30
+26c43a: 3554 2b00                              |012b: if-ge v4, v5, 0156 // +002b
+26c43e: 2204 070c                              |012d: new-instance v4, Ljava/lang/StringBuilder; // type@0c07
+26c442: 21a5                                   |012f: array-length v5, v10
+26c444: 7020 cc44 5400                         |0130: invoke-direct {v4, v5}, Ljava/lang/StringBuilder;.<init>:(I)V // method@44cc
+26c44a: 21a5                                   |0133: array-length v5, v10
+26c44c: 1207                                   |0134: const/4 v7, #int 0 // #0
+26c44e: 3557 1c00                              |0135: if-ge v7, v5, 0151 // +001c
+26c452: 4808 0a07                              |0137: aget-byte v8, v10, v7
+26c456: 8e89                                   |0139: int-to-char v9, v8
+26c458: 130c 2000                              |013a: const/16 v12, #int 32 // #20
+26c45c: 34c9 0d00                              |013c: if-lt v9, v12, 0149 // +000d
+26c460: 130c 7f00                              |013e: const/16 v12, #int 127 // #7f
+26c464: 35c9 0900                              |0140: if-ge v9, v12, 0149 // +0009
+26c468: d808 0830                              |0142: add-int/lit8 v8, v8, #int 48 // #30
+26c46c: 8e88                                   |0144: int-to-char v8, v8
+26c46e: 6e20 d044 8400                         |0145: invoke-virtual {v4, v8}, Ljava/lang/StringBuilder;.append:(C)Ljava/lang/StringBuilder; // method@44d0
+26c474: 2806                                   |0148: goto 014e // +0006
+26c476: 1a08 5700                              |0149: const-string v8, " " // string@0057
+26c47a: 6e20 d844 8400                         |014b: invoke-virtual {v4, v8}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+26c480: d807 0701                              |014e: add-int/lit8 v7, v7, #int 1 // #01
+26c484: 28e5                                   |0150: goto 0135 // -001b
+26c486: 6e10 e444 0400                         |0151: invoke-virtual {v4}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@44e4
+26c48c: 0c09                                   |0154: move-result-object v9
+26c48e: 28be                                   |0155: goto 0113 // -0042
+26c490: 7110 714e 0a00                         |0156: invoke-static {v10}, Lkb2;.n:([B)Ljava/lang/String; // method@4e71
+26c496: 0c09                                   |0159: move-result-object v9
+26c498: 28b9                                   |015a: goto 0113 // -0047
+26c49a: 0810 0400                              |015b: move-object/from16 v16, v4
+
+### j21.b DATETIME BITFIELD HEX ASCII
+26c49a: 0810 0400                              |015b: move-object/from16 v16, v4
+26c49e: 0813 0700                              |015d: move-object/from16 v19, v7
+26c4a2: 5264 c425                              |015f: iget v4, v6, Lk21;.k:I // field@25c4
+26c4a6: 32e4 0700                              |0161: if-eq v4, v14, 0168 // +0007
+26c4aa: 7110 734e 0a00                         |0163: invoke-static {v10}, Lkb2;.o:([B)Ljava/lang/String; // method@4e73
+26c4b0: 0c09                                   |0166: move-result-object v9
+26c4b2: 28ac                                   |0167: goto 0113 // -0054
+26c4b4: 1224                                   |0168: const/4 v4, #int 2 // #2
+26c4b6: 4805 0a04                              |0169: aget-byte v5, v10, v4
+26c4ba: 7110 8343 0500                         |016b: invoke-static {v5}, Ljava/lang/Byte;.valueOf:(B)Ljava/lang/Byte; // method@4383
+26c4c0: 0c05                                   |016e: move-result-object v5
+26c4c2: 4807 0a0e                              |016f: aget-byte v7, v10, v14
+26c4c6: 7110 8343 0700                         |0171: invoke-static {v7}, Ljava/lang/Byte;.valueOf:(B)Ljava/lang/Byte; // method@4383
+26c4cc: 0c07                                   |0174: move-result-object v7
+26c4ce: 1311 0000                              |0175: const/16 v17, #int 0 // #0
+26c4d2: 4808 0a11                              |0177: aget-byte v8, v10, v17
+26c4d6: 7110 8343 0800                         |0179: invoke-static {v8}, Ljava/lang/Byte;.valueOf:(B)Ljava/lang/Byte; // method@4383
+26c4dc: 0c08                                   |017c: move-result-object v8
+26c4de: 1239                                   |017d: const/4 v9, #int 3 // #3
+26c4e0: 2399 f820                              |017e: new-array v9, v9, [Ljava/lang/Object; // type@20f8
+26c4e4: 4d05 0911                              |0180: aput-object v5, v9, v17
+26c4e8: 4d07 090e                              |0182: aput-object v7, v9, v14
+26c4ec: 4d08 0904                              |0184: aput-object v8, v9, v4
+26c4f0: 1a04 2f04                              |0186: const-string v4, "%02x.%02x.20%02x" // string@042f
+26c4f4: 7120 9444 9400                         |0188: invoke-static {v4, v9}, Ljava/lang/String;.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String; // method@4494
+26c4fa: 0c09                                   |018b: move-result-object v9
+26c4fc: 2887                                   |018c: goto 0113 // -0079
+26c4fe: 0810 0400                              |018d: move-object/from16 v16, v4
+26c502: 0813 0700                              |018f: move-object/from16 v19, v7
+26c506: 1a09 cf10                              |0191: const-string v9, "BITFIELD-VALUE" // string@10cf
+26c50a: 2900 80ff                              |0193: goto/16 0113 // -0080
+26c50e: 0810 0400                              |0195: move-object/from16 v16, v4
+26c512: 0813 0700                              |0197: move-object/from16 v19, v7
+26c516: 7110 734e 0a00                         |0199: invoke-static {v10}, Lkb2;.o:([B)Ljava/lang/String; // method@4e73
+26c51c: 0c09                                   |019c: move-result-object v9
+26c51e: 2900 76ff                              |019d: goto/16 0113 // -008a
+26c522: 0810 0400                              |019f: move-object/from16 v16, v4
+26c526: 0813 0700                              |01a1: move-object/from16 v19, v7
+26c52a: 1a09 b90d                              |01a3: const-string v9, "ASCII-VALUE" // string@0db9
+26c52e: 2900 6eff                              |01a5: goto/16 0113 // -0092
+26c532: 0810 0400                              |01a7: move-object/from16 v16, v4
+
+### j21.b DIGITAL LIST NUMBER
+26c532: 0810 0400                              |01a7: move-object/from16 v16, v4
+26c536: 0813 0700                              |01a9: move-object/from16 v19, v7
+26c53a: 7401 d546 1300                         |01ab: invoke-virtual/range {v19}, Ljava/util/ArrayList;.isEmpty:()Z // method@46d5
+26c540: 0a04                                   |01ae: move-result v4
+26c542: 3904 6000                              |01af: if-nez v4, 020f // +0060
+26c546: 7130 c25f 8109                         |01b1: invoke-static {v1, v8, v9}, Lob2;.D:([BLjava/lang/String;I)I // method@5fc2
+26c54c: 0a04                                   |01b4: move-result v4
+26c54e: 5565 c325                              |01b5: iget-boolean v5, v6, Lk21;.j:Z // field@25c3
+26c552: 3805 0a00                              |01b7: if-eqz v5, 01c1 // +000a
+26c556: 5265 c225                              |01b9: iget v5, v6, Lk21;.i:I // field@25c2
+26c55a: b554                                   |01bb: and-int/2addr v4, v5
+26c55c: 3d04 0300                              |01bc: if-lez v4, 01bf // +0003
+26c560: 2802                                   |01be: goto 01c0 // +0002
+26c562: 120e                                   |01bf: const/4 v14, #int 0 // #0
+26c564: 01e4                                   |01c0: move v4, v14
+26c566: 7401 d646 1300                         |01c1: invoke-virtual/range {v19}, Ljava/util/ArrayList;.iterator:()Ljava/util/Iterator; // method@46d6
+26c56c: 0c05                                   |01c4: move-result-object v5
+26c56e: 7210 8947 0500                         |01c5: invoke-interface {v5}, Ljava/util/Iterator;.hasNext:()Z // method@4789
+26c574: 0a07                                   |01c8: move-result v7
+26c576: 3807 4600                              |01c9: if-eqz v7, 020f // +0046
+26c57a: 7210 8a47 0500                         |01cb: invoke-interface {v5}, Ljava/util/Iterator;.next:()Ljava/lang/Object; // method@478a
+26c580: 0c07                                   |01ce: move-result-object v7
+26c582: 1f07 c20e                              |01cf: check-cast v7, Ll21; // type@0ec2
+26c586: 5478 a128                              |01d1: iget-object v8, v7, Ll21;.b:Ljava/lang/Integer; // field@28a1
+26c58a: 6e10 1244 0800                         |01d3: invoke-virtual {v8}, Ljava/lang/Integer;.intValue:()I // method@4412
+26c590: 0a08                                   |01d6: move-result v8
+26c592: 3348 eeff                              |01d7: if-ne v8, v4, 01c5 // -0012
+26c596: 5474 a228                              |01d9: iget-object v4, v7, Ll21;.c:Ljava/lang/Integer; // field@28a2
+26c59a: 7110 bb44 0400                         |01db: invoke-static {v4}, Ljava/lang/String;.valueOf:(Ljava/lang/Object;)Ljava/lang/String; // method@44bb
+26c5a0: 0c09                                   |01de: move-result-object v9
+26c5a2: 2900 34ff                              |01df: goto/16 0113 // -00cc
+26c5a6: 0810 0400                              |01e1: move-object/from16 v16, v4
+26c5aa: 0813 0700                              |01e3: move-object/from16 v19, v7
+26c5ae: 7401 d546 1300                         |01e5: invoke-virtual/range {v19}, Ljava/util/ArrayList;.isEmpty:()Z // method@46d5
+26c5b4: 0a04                                   |01e8: move-result v4
+26c5b6: 3904 2600                              |01e9: if-nez v4, 020f // +0026
+26c5ba: 7130 c25f 8109                         |01eb: invoke-static {v1, v8, v9}, Lob2;.D:([BLjava/lang/String;I)I // method@5fc2
+26c5c0: 0a04                                   |01ee: move-result v4
+26c5c2: 7401 d646 1300                         |01ef: invoke-virtual/range {v19}, Ljava/util/ArrayList;.iterator:()Ljava/util/Iterator; // method@46d6
+26c5c8: 0c05                                   |01f2: move-result-object v5
+26c5ca: 7210 8947 0500                         |01f3: invoke-interface {v5}, Ljava/util/Iterator;.hasNext:()Z // method@4789
+26c5d0: 0a07                                   |01f6: move-result v7
+26c5d2: 3807 1800                              |01f7: if-eqz v7, 020f // +0018
+26c5d6: 7210 8a47 0500                         |01f9: invoke-interface {v5}, Ljava/util/Iterator;.next:()Ljava/lang/Object; // method@478a
+26c5dc: 0c07                                   |01fc: move-result-object v7
+26c5de: 1f07 c20e                              |01fd: check-cast v7, Ll21; // type@0ec2
+26c5e2: 5478 a128                              |01ff: iget-object v8, v7, Ll21;.b:Ljava/lang/Integer; // field@28a1
+26c5e6: 6e10 1244 0800                         |0201: invoke-virtual {v8}, Ljava/lang/Integer;.intValue:()I // method@4412
+26c5ec: 0a08                                   |0204: move-result v8
+26c5ee: 3348 eeff                              |0205: if-ne v8, v4, 01f3 // -0012
+26c5f2: 5474 a228                              |0207: iget-object v4, v7, Ll21;.c:Ljava/lang/Integer; // field@28a2
+26c5f6: 7110 bb44 0400                         |0209: invoke-static {v4}, Ljava/lang/String;.valueOf:(Ljava/lang/Object;)Ljava/lang/String; // method@44bb
+26c5fc: 0c09                                   |020c: move-result-object v9
+26c5fe: 2900 06ff                              |020d: goto/16 0113 // -00fa
+26c602: 07d9                                   |020f: move-object v9, v13
+26c604: 2900 03ff                              |0210: goto/16 0113 // -00fd
+26c608: 0810 0400                              |0212: move-object/from16 v16, v4
+26c60c: 0813 0700                              |0214: move-object/from16 v19, v7
+26c610: 7130 c25f 8109                         |0216: invoke-static {v1, v8, v9}, Lob2;.D:([BLjava/lang/String;I)I // method@5fc2
+26c616: 0a04                                   |0219: move-result v4
+26c618: 8344                                   |021a: int-to-double v4, v4
+26c61a: 5367 c525                              |021b: iget-wide v7, v6, Lk21;.l:D // field@25c5
+26c61e: cd74                                   |021d: mul-double/2addr v4, v7
+26c620: 5369 c625                              |021e: iget-wide v9, v6, Lk21;.m:D // field@25c6
+26c624: ce94                                   |0220: div-double/2addr v4, v9
+26c626: 536e c725                              |0221: iget-wide v14, v6, Lk21;.n:D // field@25c7
+26c62a: cbe4                                   |0223: add-double/2addr v4, v14
+26c62c: 190e f03f                              |0224: const-wide/high16 v14, #long 4607182418800017408 // #3ff0
+
+### j21.b numeric format and common translation/unit tail
+26c630: 2f07 070e                              |0226: cmpl-double v7, v7, v14
+26c634: 3907 1c00                              |0228: if-nez v7, 0244 // +001c
+26c638: 2f07 090e                              |022a: cmpl-double v7, v9, v14
+26c63c: 3907 1800                              |022c: if-nez v7, 0244 // +0018
+26c640: 7100 ca47 0000                         |022e: invoke-static {}, Ljava/util/Locale;.getDefault:()Ljava/util/Locale; // method@47ca
+26c646: 0c07                                   |0231: move-result-object v7
+26c648: 7120 e943 5400                         |0232: invoke-static {v4, v5}, Ljava/lang/Double;.valueOf:(D)Ljava/lang/Double; // method@43e9
+26c64e: 0c04                                   |0235: move-result-object v4
+26c650: 121c                                   |0236: const/4 v12, #int 1 // #1
+26c652: 23c5 f820                              |0237: new-array v5, v12, [Ljava/lang/Object; // type@20f8
+26c656: 1311 0000                              |0239: const/16 v17, #int 0 // #0
+26c65a: 4d04 0511                              |023b: aput-object v4, v5, v17
+26c65e: 1a04 2604                              |023d: const-string v4, "%.0f" // string@0426
+26c662: 7130 9544 4705                         |023f: invoke-static {v7, v4, v5}, Ljava/lang/String;.format:(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String; // method@4495
+26c668: 0c09                                   |0242: move-result-object v9
+26c66a: 2816                                   |0243: goto 0259 // +0016
+26c66c: 121c                                   |0244: const/4 v12, #int 1 // #1
+26c66e: 1311 0000                              |0245: const/16 v17, #int 0 // #0
+26c672: 7100 ca47 0000                         |0247: invoke-static {}, Ljava/util/Locale;.getDefault:()Ljava/util/Locale; // method@47ca
+26c678: 0c07                                   |024a: move-result-object v7
+26c67a: 7120 e943 5400                         |024b: invoke-static {v4, v5}, Ljava/lang/Double;.valueOf:(D)Ljava/lang/Double; // method@43e9
+26c680: 0c04                                   |024e: move-result-object v4
+26c682: 23c5 f820                              |024f: new-array v5, v12, [Ljava/lang/Object; // type@20f8
+26c686: 4d04 0511                              |0251: aput-object v4, v5, v17
+26c68a: 1a04 2904                              |0253: const-string v4, "%.2f" // string@0429
+26c68e: 7130 9544 4705                         |0255: invoke-static {v7, v4, v5}, Ljava/lang/String;.format:(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String; // method@4495
+26c694: 0c09                                   |0258: move-result-object v9
+26c696: 7401 d546 1300                         |0259: invoke-virtual/range {v19}, Ljava/util/ArrayList;.isEmpty:()Z // method@46d5
+26c69c: 0a04                                   |025c: move-result v4
+26c69e: 3904 1500                              |025d: if-nez v4, 0272 // +0015
+26c6a2: 7120 9737 d900                         |025f: invoke-static {v9, v13}, Lgt1;.k:(Ljava/lang/Object;Ljava/lang/Object;)Z // method@3797
+26c6a8: 0a05                                   |0262: move-result v5
+26c6aa: 3905 0f00                              |0263: if-nez v5, 0272 // +000f
+26c6ae: 6e10 6944 0900                         |0265: invoke-virtual {v9}, Ljava/lang/Object;.getClass:()Ljava/lang/Class; // method@4469
+26c6b4: 7110 1544 0900                         |0268: invoke-static {v9}, Ljava/lang/Integer;.parseInt:(Ljava/lang/String;)I // method@4415
+26c6ba: 0a05                                   |026b: move-result v5
+26c6bc: 6207 4251                              |026c: sget-object v7, Lwr1;.r:Les0; // field@5142
+26c6c0: 6e20 712e 5700                         |026e: invoke-virtual {v7, v5}, Les0;.s:(I)Ljava/lang/String; // method@2e71
+26c6c6: 0c09                                   |0271: move-result-object v9
+26c6c8: 3804 0f00                              |0272: if-eqz v4, 0281 // +000f
+26c6cc: 5464 cc25                              |0274: iget-object v4, v6, Lk21;.s:Ljava/lang/String; // field@25cc
+26c6d0: 7120 9737 d400                         |0276: invoke-static {v4, v13}, Lgt1;.k:(Ljava/lang/Object;Ljava/lang/Object;)Z // method@3797
+26c6d6: 0a04                                   |0279: move-result v4
+26c6d8: 3804 0300                              |027a: if-eqz v4, 027d // +0003
+26c6dc: 2805                                   |027c: goto 0281 // +0005
+26c6de: 5464 cc25                              |027d: iget-object v4, v6, Lk21;.s:Ljava/lang/String; // field@25cc
+26c6e2: 074a                                   |027f: move-object v10, v4
+26c6e4: 2804                                   |0280: goto 0284 // +0004
+26c6e6: 1a04 0000                              |0281: const-string v4, "" // string@0000
+26c6ea: 28fc                                   |0283: goto 027f // -0004
+
+### j21.b no-data row
+26c722: 2204 860f                              |029f: new-instance v4, Llx2; // type@0f86
+26c726: 5468 cb25                              |02a1: iget-object v8, v6, Lk21;.r:Ljava/lang/String; // field@25cb
+26c72a: d805 0b01                              |02a3: add-int/lit8 v5, v11, #int 1 // #01
+26c72e: 520c 5d22                              |02a5: iget v12, v0, Lj21;.e:I // field@225d
+26c732: 5207 5922                              |02a7: iget v7, v0, Lj21;.a:I // field@2259
+26c736: 1a09 fd6a                              |02a9: const-string v9, "no data available" // string@6afd
+26c73a: 1a0a 0000                              |02ab: const-string v10, "" // string@0000
+26c73e: 0746                                   |02ad: move-object v6, v4
+26c740: 7607 6055 0600                         |02ae: invoke-direct/range {v6, v7, v8, v9, v10, v11, v12}, Llx2;.<init>:(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V // method@5560
+26c746: 6e20 ca46 6300                         |02b1: invoke-virtual {v3, v6}, Ljava/util/ArrayList;.add:(Ljava/lang/Object;)Z // method@46ca
+26c74c: 28e4                                   |02b4: goto 0298 // -001c
+26c74e: 5420 b431                              |02b5: iget-object v0, v2, Lnx2;.a:Ljava/util/ArrayList; // field@31b4
+26c752: 6e20 cc46 3000                         |02b7: invoke-virtual {v0, v3}, Ljava/util/ArrayList;.addAll:(Ljava/util/Collection;)Z // method@46cc
+26c758: 1102                                   |02ba: return-object v2
+26c75a: 0000                                   |02bb: nop // spacer
+
+### Les0.s integer lookup switch
+24207c:                                        |[24207c] es0.s:(I)Ljava/lang/String;
+24208c: 5200 4615                              |0000: iget v0, v0, Les0;.c:I // field@1546
+242090: 2b00 0c00 0000                         |0002: packed-switch v0, 0000000e // +0000000c
+242096: 7110 1227 0100                         |0005: invoke-static {v1}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.I:(I)Ljava/lang/String; // method@2712
+24209c: 0c00                                   |0008: move-result-object v0
+24209e: 1100                                   |0009: return-object v0
+2420a0: 1a00 d816                              |000a: const-string v0, "Dummy text" // string@16d8
+2420a4: 1100                                   |000c: return-object v0
+
+### wr1.R display name mapping
+2b295c:                                        |[2b295c] wr1.R:(ILy72;)Ljava/lang/String;
+2b296c: 6200 7e4a                              |0000: sget-object v0, Lui4;.a:[I // field@4a7e
+2b2970: 6e10 ee43 0200                         |0002: invoke-virtual {v2}, Ljava/lang/Enum;.ordinal:()I // method@43ee
+2b2976: 0a02                                   |0005: move-result v2
+2b2978: 4402 0002                              |0006: aget v2, v0, v2
+2b297c: 1a00 d816                              |0008: const-string v0, "Dummy text" // string@16d8
+2b2980: 2b02 4c00 0000                         |000a: packed-switch v2, 00000056 // +0000004c
+2b2986: 1a01 126b                              |000d: const-string v1, "no text" // string@6b12
+2b298a: 1101                                   |000f: return-object v1
+2b298c: 6202 4251                              |0010: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b2990: 6e20 6f2e 1200                         |0012: invoke-virtual {v2, v1}, Les0;.q:(I)Ljava/lang/String; // method@2e6f
+2b2996: 0c01                                   |0015: move-result-object v1
+2b2998: 1101                                   |0016: return-object v1
+2b299a: 6202 4251                              |0017: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b299e: 5222 4615                              |0019: iget v2, v2, Les0;.c:I // field@1546
+2b29a2: 2b02 4d00 0000                         |001b: packed-switch v2, 00000068 // +0000004d
+2b29a8: 7110 1427 0100                         |001e: invoke-static {v1}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.K:(I)Ljava/lang/String; // method@2714
+2b29ae: 0c00                                   |0021: move-result-object v0
+2b29b0: 1100                                   |0022: return-object v0
+2b29b2: 6202 4251                              |0023: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b29b6: 5222 4615                              |0025: iget v2, v2, Les0;.c:I // field@1546
+2b29ba: 2b02 4700 0000                         |0027: packed-switch v2, 0000006e // +00000047
+2b29c0: 7110 1327 0100                         |002a: invoke-static {v1}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.J:(I)Ljava/lang/String; // method@2713
+2b29c6: 0c00                                   |002d: move-result-object v0
+2b29c8: 1100                                   |002e: return-object v0
+2b29ca: 6202 4251                              |002f: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b29ce: 6e20 702e 1200                         |0031: invoke-virtual {v2, v1}, Les0;.r:(I)Ljava/lang/String; // method@2e70
+2b29d4: 0c01                                   |0034: move-result-object v1
+2b29d6: 1101                                   |0035: return-object v1
+2b29d8: 6202 4251                              |0036: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b29dc: 5222 4615                              |0038: iget v2, v2, Les0;.c:I // field@1546
+2b29e0: 2b02 3a00 0000                         |003a: packed-switch v2, 00000074 // +0000003a
+2b29e6: 7110 1027 0100                         |003d: invoke-static {v1}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.G:(I)Ljava/lang/String; // method@2710
+2b29ec: 0c00                                   |0040: move-result-object v0
+2b29ee: 1100                                   |0041: return-object v0
+2b29f0: 6202 4251                              |0042: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b29f4: 5222 4615                              |0044: iget v2, v2, Les0;.c:I // field@1546
+2b29f8: 2b02 3400 0000                         |0046: packed-switch v2, 0000007a // +00000034
+2b29fe: 7110 0e27 0100                         |0049: invoke-static {v1}, Lde/wgsoft/libwgsoftnativemotoscan/NativeLibMotoScan;.E:(I)Ljava/lang/String; // method@270e
+2b2a04: 0c00                                   |004c: move-result-object v0
+2b2a06: 1100                                   |004d: return-object v0
+2b2a08: 6202 4251                              |004e: sget-object v2, Lwr1;.r:Les0; // field@5142
+2b2a0c: 6e20 712e 1200                         |0050: invoke-virtual {v2, v1}, Les0;.s:(I)Ljava/lang/String; // method@2e71
+2b2a12: 0c01                                   |0053: move-result-object v1
+2b2a14: 1101                                   |0054: return-object v1
+2b2a16: 0000                                   |0055: nop // spacer
+
+### kb2.n printable ASCII helper
+31bbcc:                                        |[31bbcc] kb2.n:([B)Ljava/lang/String;
+31bbdc: 2200 070c                              |0000: new-instance v0, Ljava/lang/StringBuilder; // type@0c07
+31bbe0: 2151                                   |0002: array-length v1, v5
+31bbe2: 7020 cc44 1000                         |0003: invoke-direct {v0, v1}, Ljava/lang/StringBuilder;.<init>:(I)V // method@44cc
+31bbe8: 2151                                   |0006: array-length v1, v5
+31bbea: 1202                                   |0007: const/4 v2, #int 0 // #0
+31bbec: 3512 1900                              |0008: if-ge v2, v1, 0021 // +0019
+31bbf0: 4803 0502                              |000a: aget-byte v3, v5, v2
+31bbf4: 8e33                                   |000c: int-to-char v3, v3
+31bbf6: 1304 2000                              |000d: const/16 v4, #int 32 // #20
+31bbfa: 3443 0a00                              |000f: if-lt v3, v4, 0019 // +000a
+31bbfe: 1304 7f00                              |0011: const/16 v4, #int 127 // #7f
+31bc02: 3543 0600                              |0013: if-ge v3, v4, 0019 // +0006
+31bc06: 6e20 d044 3000                         |0015: invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;.append:(C)Ljava/lang/StringBuilder; // method@44d0
+31bc0c: 2806                                   |0018: goto 001e // +0006
+31bc0e: 1a03 5700                              |0019: const-string v3, " " // string@0057
+31bc12: 6e20 d844 3000                         |001b: invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+31bc18: d802 0201                              |001e: add-int/lit8 v2, v2, #int 1 // #01
+31bc1c: 28e8                                   |0020: goto 0008 // -0018
+31bc1e: 6e10 e444 0000                         |0021: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@44e4
+31bc24: 0c05                                   |0024: move-result-object v5
+31bc26: 6e10 b644 0500                         |0025: invoke-virtual {v5}, Ljava/lang/String;.trim:()Ljava/lang/String; // method@44b6
+31bc2c: 0c05                                   |0028: move-result-object v5
+31bc2e: 1105                                   |0029: return-object v5
+
+### kb2.o uppercase HEX helper
+31bc30:                                        |[31bc30] kb2.o:([B)Ljava/lang/String;
+31bc40: 2200 070c                              |0000: new-instance v0, Ljava/lang/StringBuilder; // type@0c07
+31bc44: 7010 cb44 0000                         |0002: invoke-direct {v0}, Ljava/lang/StringBuilder;.<init>:()V // method@44cb
+31bc4a: 2161                                   |0005: array-length v1, v6
+31bc4c: 1202                                   |0006: const/4 v2, #int 0 // #0
+31bc4e: 0123                                   |0007: move v3, v2
+31bc50: 3513 1c00                              |0008: if-ge v3, v1, 0024 // +001c
+31bc54: 4804 0603                              |000a: aget-byte v4, v6, v3
+31bc58: d544 ff00                              |000c: and-int/lit16 v4, v4, #int 255 // #00ff
+31bc5c: 8d44                                   |000e: int-to-byte v4, v4
+31bc5e: 7110 8343 0400                         |000f: invoke-static {v4}, Ljava/lang/Byte;.valueOf:(B)Ljava/lang/Byte; // method@4383
+31bc64: 0c04                                   |0012: move-result-object v4
+31bc66: 1215                                   |0013: const/4 v5, #int 1 // #1
+31bc68: 2355 f820                              |0014: new-array v5, v5, [Ljava/lang/Object; // type@20f8
+31bc6c: 4d04 0502                              |0016: aput-object v4, v5, v2
+31bc70: 1a04 2d04                              |0018: const-string v4, "%02x" // string@042d
+31bc74: 7120 9444 5400                         |001a: invoke-static {v4, v5}, Ljava/lang/String;.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String; // method@4494
+31bc7a: 0c04                                   |001d: move-result-object v4
+31bc7c: 6e20 d844 4000                         |001e: invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+31bc82: d803 0301                              |0021: add-int/lit8 v3, v3, #int 1 // #01
+31bc86: 28e5                                   |0023: goto 0008 // -001b
+31bc88: 6e10 e444 0000                         |0024: invoke-virtual {v0}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@44e4
+31bc8e: 0c06                                   |0027: move-result-object v6
+31bc90: 6e10 b444 0600                         |0028: invoke-virtual {v6}, Ljava/lang/String;.toUpperCase:()Ljava/lang/String; // method@44b4
+31bc96: 0c06                                   |002b: move-result-object v6
+31bc98: 1106                                   |002c: return-object v6
+
+### live data view uses label/value/unit
+12d704: 5427 b431                              |00f6: iget-object v7, v2, Lnx2;.a:Ljava/util/ArrayList; // field@31b4
+12d708: 6e20 d246 5700                         |00f8: invoke-virtual {v7, v5}, Ljava/util/ArrayList;.get:(I)Ljava/lang/Object; // method@46d2
+12d70e: 0c05                                   |00fb: move-result-object v5
+12d710: 1f05 860f                              |00fc: check-cast v5, Llx2; // type@0f86
+12d714: 5467 d613                              |00fe: iget-object v7, v6, Le9;.b:Landroid/widget/TextView; // field@13d6
+12d718: 5450 322b                              |0100: iget-object v0, v5, Llx2;.f:Ljava/lang/String; // field@2b32
+12d71c: 6e20 c411 0700                         |0102: invoke-virtual {v7, v0}, Landroid/widget/TextView;.setText:(Ljava/lang/CharSequence;)V // method@11c4
+12d722: 5467 d513                              |0105: iget-object v7, v6, Le9;.a:Landroid/widget/TextView; // field@13d5
+12d726: 3807 1f00                              |0107: if-eqz v7, 0126 // +001f
+12d72a: 2207 070c                              |0109: new-instance v7, Ljava/lang/StringBuilder; // type@0c07
+12d72e: 7010 cb44 0700                         |010b: invoke-direct {v7}, Ljava/lang/StringBuilder;.<init>:()V // method@44cb
+12d734: 5450 342b                              |010e: iget-object v0, v5, Llx2;.h:Ljava/lang/String; // field@2b34
+12d738: 6e20 d844 0700                         |0110: invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+12d73e: 1a00 5700                              |0113: const-string v0, " " // string@0057
+12d742: 6e20 d844 0700                         |0115: invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+12d748: 5455 352b                              |0118: iget-object v5, v5, Llx2;.i:Ljava/lang/String; // field@2b35
+12d74c: 6e20 d844 5700                         |011a: invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;.append:(Ljava/lang/String;)Ljava/lang/StringBuilder; // method@44d8
+12d752: 6e10 e444 0700                         |011d: invoke-virtual {v7}, Ljava/lang/StringBuilder;.toString:()Ljava/lang/String; // method@44e4
+12d758: 0c05                                   |0120: move-result-object v5
+12d75a: 5466 d513                              |0121: iget-object v6, v6, Le9;.a:Landroid/widget/TextView; // field@13d5
+12d75e: 6e20 c411 5600                         |0123: invoke-virtual {v6, v5}, Landroid/widget/TextView;.setText:(Ljava/lang/CharSequence;)V // method@11c4
+12d764: 1104                                   |0126: return-object v4
+
+### Packed switch decodes from raw DEX bytes
+j21.b result type: switch=0x26c296 payload=0x26c75c ident=0x0100 size=9 first_key=1
+  key=1 relative_code_units=441 target=0x26c608
+  key=2 relative_code_units=392 target=0x26c5a6
+  key=3 relative_code_units=334 target=0x26c532
+  key=4 relative_code_units=326 target=0x26c522
+  key=5 relative_code_units=316 target=0x26c50e
+  key=6 relative_code_units=308 target=0x26c4fe
+  key=7 relative_code_units=258 target=0x26c49a
+  key=8 relative_code_units=200 target=0x26c426
+  key=9 relative_code_units=9 target=0x26c2a8
+Les0.s category: switch=0x242090 payload=0x2420a8 ident=0x0100 size=1 first_key=2
+  key=2 relative_code_units=8 target=0x2420a0

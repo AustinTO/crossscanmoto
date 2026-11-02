@@ -1,0 +1,4471 @@
+{
+  "evidence_type": "DEX-backed numeric key join over recovered native table rows",
+  "source": {
+    "units_table": "assets/research/recovered-native/units-runtime.txt",
+    "units_table_sha256": "ee1ff3d53ce1701de520b94ffb0e423eb5a6fd2fb893a8ab2ff19f2dd907bddc",
+    "result_table_sha256_by_ecu": {
+      "cuMRBMSMP1": "949fc807edb61f4a3c7a5c6cea594219c0656e4e221581b6b5a988361c5032af",
+      "cuX_ABS": "c1a8274d56a4c1db8fe5cdeb87ea60bb49b5148518e2bc19ab29e0d965f8ca8a",
+      "cuX_ABS9M": "94251dcd9b1dade2120b8a228fd7e5d99325c783253357db7c7b51e4fd56b593",
+      "cuX_ASW": "4199115cf65d8d7443caaffb65f14c7785fd76d8c84349e015c04b2fa9c236a2",
+      "cuX_AUDIO": "7157e54b7c1a018d5805e02f99c5e39eeb9e120fbcdce466de3ed9f1db48acfa",
+      "cuX_BCO": "ad6a5dfaf9e75691fd735d5e2e9adf86732aad7290d15e1e23f704cb9aa6d291",
+      "cuX_BMSE2": "f833ae455e228a10041759ae79ef67e7f00794a3885122e4a3d76d593b323d8e",
+      "cuX_BMSE2B": "27aa825c6856a0f81943c08dc306560fc4214b6b769f7d1254f830c835638ec0",
+      "cuX_BMSMP1": "1999c8fd5406461bbdf6a4e11dadd3950c465143db76c862483740b5008b29f2",
+      "cuX_BMSO1": "bd03060d7f1108f3c4973c42d846a34cb5e03dc5c1a079c0cd011723549493e2",
+      "cuX_BMSX": "d2642857cd7dacb6ff0830015d5381972f0b9ed13dac00989e9269c615615f02",
+      "cuX_DWA": "e18b7edb419553f0ceff678fb89a384d221967e1774e43fbfdb7a1d82f3de7b6",
+      "cuX_ESA": "46c78a3f02e9049d9cec383f63e2ee02c1f22816befb5453eb1ef5fafe628435",
+      "cuX_FSA": "b340983f1fd1528ed05dcc3d9be1c8e5deee8477a421c8ae15a761dc1ff7a0fe",
+      "cuX_KOMB03": "5243ec078e54baf0c53a82891b09c3943c13ac319b0a81f63f4cbcca1a5b8462",
+      "cuX_KOMB50": "9e611edec4ae9b851dd7b67690dac5e42bfe5c83616bf36d20bd622031848ba8",
+      "cuX_KOMB53": "3fd38635d74bde4b2ba21f97dac8359920cbd8294db0595f9172f017918e14cd",
+      "cuX_KOMBHI": "6ba2fc82731a1cb4775849f014f0731f89dac1271a2d23801ab34ff8e5f41234",
+      "cuX_KOMBI": "5d3421de7092665516d7d2bd433404c7f63d97316e344340add0d55722e8841f",
+      "cuX_RDC": "9dc8e368b73ae8b13a514b057724c815f1d232b81392e6f154a1c6bd8e2f12d0",
+      "cuX_SLZ": "ffc18cb1aa600fa882facd676a7b1db8b477221a0bb5ea08db80f3fb21ed6329"
+    },
+    "dex_evidence": "fl0.g at 0x217bf6-0x217c12 compares nq4.a with k21.e and assigns nq4.b to k21.s; nq4 parser at 0x468f58 stores tokens 0 and 1 and does not retain token 2.",
+    "semantic_limit": "The result-to-GENERAL_VALUES_UNITS string association is proven; this does not prove that every display string is a physical measurement unit."
+  },
+  "general_values_by_id": {
+    "1": "0/1",
+    "2": "V",
+    "3": "TEXT",
+    "4": "min",
+    "5": "s",
+    "6": "DATA",
+    "7": "°C",
+    "8": "km/h",
+    "9": "hPa",
+    "10": "1/min",
+    "11": "-",
+    "12": "°",
+    "13": "ms",
+    "14": "%",
+    "15": "0-n",
+    "16": "mm",
+    "17": "°/s",
+    "18": "m/s²",
+    "19": "km",
+    "20": "Schritte",
+    "21": "Liter",
+    "22": "Counts",
+    "23": "bar",
+    "24": "Inkremente",
+    "25": "kHz",
+    "26": "dBµV",
+    "27": "Fehler",
+    "28": "Hz",
+    "29": "Stufen",
+    "30": "Volt",
+    "31": "Grad",
+    "32": "mA",
+    "33": "d",
+    "34": "m",
+    "35": "mV",
+    "36": "l",
+    "37": "A",
+    "38": "1/s",
+    "39": "Stufe",
+    "40": "HEX",
+    "41": "l/s",
+    "42": "+",
+    "43": "Nm",
+    "44": "Schritt",
+    "45": "count",
+    "46": "m/s",
+    "47": "Ohm",
+    "48": "lx",
+    "49": "dBm",
+    "50": "Bit",
+    "51": "mbar",
+    "52": "° KW",
+    "53": "cm",
+    "54": "µs",
+    "55": "mg",
+    "56": "[-]",
+    "57": "J",
+    "58": "W"
+  },
+  "association_count": 486,
+  "unresolved_count": 0,
+  "associations": [
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10276,
+      "parameter_id": 3034,
+      "name": "STAT_TEMPERATUR_ANSAUGLUFT_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "10276;3034;STAT_TEMPERATUR_ANSAUGLUFT_WERT;1;7;high;signed int;0;2;;1;0.05;1.0;0.0;105652;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10278,
+      "parameter_id": 3034,
+      "name": "STAT_TEMPERATUR_MOTOR_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "10278;3034;STAT_TEMPERATUR_MOTOR_WERT;1;7;high;signed int;4;2;;1;0.05;1.0;0.0;105654;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10280,
+      "parameter_id": 3034,
+      "name": "STAT_TEMPERATUR_OEL_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "10280;3034;STAT_TEMPERATUR_OEL_WERT;1;7;high;signed int;8;2;;1;0.05;1.0;0.0;105656;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10292,
+      "parameter_id": 3037,
+      "name": "STAT_DREHZAHL_LEERLAUF_SOLL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "10292;3037;STAT_DREHZAHL_LEERLAUF_SOLL_WERT;1;10;high;unsigned int;2;2;;1;1.0;4.0;0.0;105668;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10291,
+      "parameter_id": 3037,
+      "name": "STAT_DREHZAHL_MOTOR_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "10291;3037;STAT_DREHZAHL_MOTOR_WERT;1;10;high;unsigned int;0;2;;1;1.0;4.0;0.0;105667;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10297,
+      "parameter_id": 3037,
+      "name": "STAT_DREHZAHL_NOCKENWELLE_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "10297;3037;STAT_DREHZAHL_NOCKENWELLE_WERT;1;10;high;signed int;12;2;;1;1.0;4.0;0.0;105673;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10302,
+      "parameter_id": 3038,
+      "name": "STAT_SPANNUNG_ADC_BTS_UEKP_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10302;3038;STAT_SPANNUNG_ADC_BTS_UEKP_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105678;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10314,
+      "parameter_id": 3038,
+      "name": "STAT_SPANNUNG_ADC_VERSORGUNG_STARTERRELAIS_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10314;3038;STAT_SPANNUNG_ADC_VERSORGUNG_STARTERRELAIS_WERT;1;2;high;unsigned int;32;2;;1;1.0;1000.0;0.0;105690;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10298,
+      "parameter_id": 3038,
+      "name": "STAT_SPANNUNG_BATTERIE_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10298;3038;STAT_SPANNUNG_BATTERIE_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105674;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10344,
+      "parameter_id": 3040,
+      "name": "STAT_FAHRWERTGEBER_ISTWERT_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10344;3040;STAT_FAHRWERTGEBER_ISTWERT_WERT;1;14;high;signed int;8;2;;1;1600.0;65536.0;0.0;105746;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10351,
+      "parameter_id": 3041,
+      "name": "STAT_SENSORBOX_SCHRAEGLAGE_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "10351;3041;STAT_SENSORBOX_SCHRAEGLAGE_WERT;1;12;high;signed int;8;2;;1;0.0439;1.0;0.0;105751;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10353,
+      "parameter_id": 3042,
+      "name": "STAT_GETRIEBE_ISTGANG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "10353;3042;STAT_GETRIEBE_ISTGANG;2;15;high;unsigned char;0;1;;1;1.0;1.0;0.0;105753;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10364,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_BREMSLICHT_HINTEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10364;3043;STAT_SCHALTER_BREMSLICHT_HINTEN;3;1;high;unsigned char;9;1;;1;1.0;1.0;0.0;105764;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10363,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_BREMSLICHT_VORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10363;3043;STAT_SCHALTER_BREMSLICHT_VORN;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105763;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10365,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_FAHRZEUGMODUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10365;3043;STAT_SCHALTER_FAHRZEUGMODUS;3;1;high;unsigned char;10;1;;1;1.0;1.0;0.0;105765;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10358,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_KUPPLUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10358;3043;STAT_SCHALTER_KUPPLUNG;3;1;high;unsigned char;3;1;;1;1.0;1.0;0.0;105758;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10367,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_KUPPLUNG_2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10367;3043;STAT_SCHALTER_KUPPLUNG_2;3;1;high;unsigned char;12;1;;1;1.0;1.0;0.0;105767;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10362,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_NOTAUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10362;3043;STAT_SCHALTER_NOTAUS;3;1;high;unsigned char;7;1;;1;1.0;1.0;0.0;105762;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10359,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_OELNIVEAU",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10359;3043;STAT_SCHALTER_OELNIVEAU;3;1;high;unsigned char;4;1;;1;1.0;1.0;0.0;105759;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10357,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_SEITENSTUETZENSTAENDER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10357;3043;STAT_SCHALTER_SEITENSTUETZENSTAENDER;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105757;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10360,
+      "parameter_id": 3043,
+      "name": "STAT_SCHALTER_START",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10360;3043;STAT_SCHALTER_START;3;1;high;unsigned char;5;1;;1;1.0;1.0;0.0;105760;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10368,
+      "parameter_id": 3044,
+      "name": "STAT_ANLASSER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10368;3044;STAT_ANLASSER_ANSTEUERUNG;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105768;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10370,
+      "parameter_id": 3044,
+      "name": "STAT_ANLASSER_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10370;3044;STAT_ANLASSER_FREIGABE;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105770;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10372,
+      "parameter_id": 3045,
+      "name": "STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10372;3045;STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK1;3;1;high;unsigned char;0;1;;1;;;;105772;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10373,
+      "parameter_id": 3045,
+      "name": "STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10373;3045;STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK2;3;1;high;unsigned char;1;1;;1;;;;105773;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10379,
+      "parameter_id": 3046,
+      "name": "STAT_KRAFTSTOFFPUMPE_TESTERKONTROLLE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10379;3046;STAT_KRAFTSTOFFPUMPE_TESTERKONTROLLE;3;1;high;unsigned char;1;1;;1;1.0;1.0;0.0;105779;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10384,
+      "parameter_id": 3047,
+      "name": "STAT_ELUEFTER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10384;3047;STAT_ELUEFTER_ANSTEUERUNG;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105784;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10401,
+      "parameter_id": 3052,
+      "name": "STAT_ABGASKLAPPENSTELLER_ABGLEICH",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "10401;3052;STAT_ABGASKLAPPENSTELLER_ABGLEICH;2;15;high;unsigned char;3;1;;1;;;;105798;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10399,
+      "parameter_id": 3052,
+      "name": "STAT_ABGASKLAPPENSTELLER_POSITION_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10399;3052;STAT_ABGASKLAPPENSTELLER_POSITION_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105796;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10444,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG1_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10444;3060;STAT_ADAPTION_GETRIEBE_GANG1_WERT;1;2;high;unsigned int;2;2;;1;1.0;1000.0;0.0;105808;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10445,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG2_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10445;3060;STAT_ADAPTION_GETRIEBE_GANG2_WERT;1;2;high;unsigned int;4;2;;1;1.0;1000.0;0.0;105809;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10446,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG3_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10446;3060;STAT_ADAPTION_GETRIEBE_GANG3_WERT;1;2;high;unsigned int;6;2;;1;1.0;1000.0;0.0;105810;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10447,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG4_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10447;3060;STAT_ADAPTION_GETRIEBE_GANG4_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105811;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10448,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG5_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10448;3060;STAT_ADAPTION_GETRIEBE_GANG5_WERT;1;2;high;unsigned int;10;2;;1;1.0;1000.0;0.0;105812;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10449,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG6_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10449;3060;STAT_ADAPTION_GETRIEBE_GANG6_WERT;1;2;high;unsigned int;12;2;;1;1.0;1000.0;0.0;105813;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10443,
+      "parameter_id": 3060,
+      "name": "STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "10443;3060;STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105807;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10481,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10481;3061;STAT_ADAPTION_DROSSELKLAPPE1;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105819;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10477,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10477;3061;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105815;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10478,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10478;3061;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105816;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10479,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10479;3061;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105817;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10480,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10480;3061;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105818;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10487,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10487;3061;STAT_ADAPTION_DROSSELKLAPPE2;3;1;high;unsigned char;19;1;;1;1.0;1.0;0.0;105825;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10483,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10483;3061;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT;1;14;high;unsigned int;11;2;;1;1.0;100.0;0.0;105821;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10484,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10484;3061;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT;1;14;high;unsigned int;13;2;;1;1.0;100.0;0.0;105822;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10485,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10485;3061;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT;1;14;high;unsigned int;15;2;;1;1.0;100.0;0.0;105823;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10486,
+      "parameter_id": 3061,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10486;3061;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT;1;14;high;unsigned int;17;2;;1;1.0;100.0;0.0;105824;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10501,
+      "parameter_id": 3062,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10501;3062;STAT_ADAPTION_FAHRWERTGEBER;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105839;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10497,
+      "parameter_id": 3062,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10497;3062;STAT_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105835;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10498,
+      "parameter_id": 3062,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10498;3062;STAT_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105836;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10499,
+      "parameter_id": 3062,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10499;3062;STAT_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105837;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10500,
+      "parameter_id": 3062,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10500;3062;STAT_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105838;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10502,
+      "parameter_id": 3063,
+      "name": "STAT_ADAPTION_SCHRAEGLAGE_GIERRATE_WERT",
+      "general_value_id": 17,
+      "display_text": "°/s",
+      "raw": "10502;3063;STAT_ADAPTION_SCHRAEGLAGE_GIERRATE_WERT;1;17;high;signed int;0;2;;1;1.0;2000.0;0.0;105842;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10503,
+      "parameter_id": 3063,
+      "name": "STAT_ADAPTION_SCHRAEGLAGE_ROLLRATE_WERT",
+      "general_value_id": 17,
+      "display_text": "°/s",
+      "raw": "10503;3063;STAT_ADAPTION_SCHRAEGLAGE_ROLLRATE_WERT;1;17;high;signed int;2;2;;1;1.0;2000.0;0.0;105843;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10504,
+      "parameter_id": 3064,
+      "name": "STAT_ADAPTION_LEERLAUF_VORSTEUERUNG_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10504;3064;STAT_ADAPTION_LEERLAUF_VORSTEUERUNG_WERT;1;14;high;signed int;0;2;;1;100.0;32768.0;0.0;105844;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10507,
+      "parameter_id": 3065,
+      "name": "STAT_ADAPTION_SCHALTHEBEL_SENSOR_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10507;3065;STAT_ADAPTION_SCHALTHEBEL_SENSOR_WERT;1;14;high;signed int;0;2;;1;100.0;32768.0;0.0;105845;0;1"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10590,
+      "parameter_id": 3112,
+      "name": "STAT_LAMBDAREGELUNG_BANK1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10590;3112;STAT_LAMBDAREGELUNG_BANK1;3;1;high;unsigned char;4;1;;1;1.0;1.0;0.0;105697;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10588,
+      "parameter_id": 3112,
+      "name": "STAT_LAMBDAREGELUNG_BANK1_FAKTOR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "10588;3112;STAT_LAMBDAREGELUNG_BANK1_FAKTOR_WERT;1;11;high;unsigned int;0;2;;1;2.0;65536.0;0.0;105695;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10591,
+      "parameter_id": 3112,
+      "name": "STAT_LAMBDAREGELUNG_BANK2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10591;3112;STAT_LAMBDAREGELUNG_BANK2;3;1;high;unsigned char;5;1;;1;1.0;1.0;0.0;105698;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10589,
+      "parameter_id": 3112,
+      "name": "STAT_LAMBDAREGELUNG_BANK2_FAKTOR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "10589;3112;STAT_LAMBDAREGELUNG_BANK2_FAKTOR_WERT;1;11;high;unsigned int;2;2;;1;2.0;65536.0;0.0;105696;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10592,
+      "parameter_id": 3113,
+      "name": "STAT_LAST_LEERLAUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10592;3113;STAT_LAST_LEERLAUF;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105699;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10593,
+      "parameter_id": 3113,
+      "name": "STAT_LAST_VOLLLAST",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10593;3113;STAT_LAST_VOLLLAST;3;1;high;unsigned char;1;1;;1;1.0;1.0;0.0;105700;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10595,
+      "parameter_id": 3114,
+      "name": "STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "10595;3114;STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT;1;13;high;unsigned int;1;2;;1;1.0;1000.0;0.0;105702;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10594,
+      "parameter_id": 3114,
+      "name": "STAT_ZUENDUNG_WINKEL_IST_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "10594;3114;STAT_ZUENDUNG_WINKEL_IST_WERT;1;12;high;signed char;0;1;;1;191.25;255.0;0.0;105701;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10596,
+      "parameter_id": 3115,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK1_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "10596;3115;STAT_EINSPRITZUNG_DAUER_BANK1_WERT;1;13;high;unsigned int;0;2;;1;8.0;1000.0;0.0;105703;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10597,
+      "parameter_id": 3115,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK2_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "10597;3115;STAT_EINSPRITZUNG_DAUER_BANK2_WERT;1;13;high;unsigned int;2;2;;1;8.0;1000.0;0.0;105704;1;0"
+    },
+    {
+      "ecu_key": "cuMRBMSMP1",
+      "result_id": 10603,
+      "parameter_id": 3116,
+      "name": "STAT_ASC_RADIUSKORREKTUR_WERT",
+      "general_value_id": 16,
+      "display_text": "mm",
+      "raw": "10603;3116;STAT_ASC_RADIUSKORREKTUR_WERT;1;16;high;signed int;8;2;;1;4000.0;65536.0;0.0;105710;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1477,
+      "parameter_id": 399,
+      "name": "STAT_ECU_STATUS",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "1477;399;STAT_ECU_STATUS;2;15;High;unsigned char;0;1;;1;1.0;1.0;0.0;106627;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1499,
+      "parameter_id": 409,
+      "name": "STAT_VARIANTE",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "1499;409;STAT_VARIANTE;2;15;high;unsigned char;0;1;;1;;;;106673;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1525,
+      "parameter_id": 419,
+      "name": "STAT_GESCHWINDIGKEIT_FZG_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "1525;419;STAT_GESCHWINDIGKEIT_FZG_WERT;1;8;;unsigned int;4;2;;1;1.0;100.0;0.0;106760;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1524,
+      "parameter_id": 419,
+      "name": "STAT_GESCHWINDIGKEIT_RAD_HINTEN_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "1524;419;STAT_GESCHWINDIGKEIT_RAD_HINTEN_WERT;1;8;;unsigned int;2;2;;1;1.0;100.0;0.0;106759;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1523,
+      "parameter_id": 419,
+      "name": "STAT_GESCHWINDIGKEIT_RAD_VORNE_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "1523;419;STAT_GESCHWINDIGKEIT_RAD_VORNE_WERT;1;8;;unsigned int;0;2;;1;1.0;100.0;0.0;106758;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1534,
+      "parameter_id": 420,
+      "name": "STAT_DRUCK_RADKREIS_HINTEN_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "1534;420;STAT_DRUCK_RADKREIS_HINTEN_WERT;1;23;;signed int;6;2;;1;1.0;100.0;0.0;106774;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1533,
+      "parameter_id": 420,
+      "name": "STAT_DRUCK_RADKREIS_VORNE_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "1533;420;STAT_DRUCK_RADKREIS_VORNE_WERT;1;23;;signed int;4;2;;1;1.0;100.0;0.0;106773;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1532,
+      "parameter_id": 420,
+      "name": "STAT_DRUCK_STEUERKREIS_HINTEN_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "1532;420;STAT_DRUCK_STEUERKREIS_HINTEN_WERT;1;23;;signed int;2;2;;1;1.0;100.0;0.0;106772;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1531,
+      "parameter_id": 420,
+      "name": "STAT_DRUCK_STEUERKREIS_VORNE_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "1531;420;STAT_DRUCK_STEUERKREIS_VORNE_WERT;1;23;;signed int;0;2;;1;1.0;100.0;0.0;106771;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1536,
+      "parameter_id": 422,
+      "name": "STAT_BREMSEN",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "1536;422;STAT_BREMSEN;2;15;High;unsigned char;0;1;;1;1.0;1.0;0.0;106776;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1548,
+      "parameter_id": 424,
+      "name": "STAT_SPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "1548;424;STAT_SPANNUNG_WERT;1;2;High;unsigned int;0;2;;1;1.0;1000.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1549,
+      "parameter_id": 425,
+      "name": "STAT_TASTER_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1549;425;STAT_TASTER_EIN;3;1;High;unsigned char;0;1;;1;;;;106931;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS",
+      "result_id": 1550,
+      "parameter_id": 426,
+      "name": "STAT_SCHRAEGLAGE_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "1550;426;STAT_SCHRAEGLAGE_WERT;1;12;High;unsigned int;0;2;;1;90.0;2048.0;-90.0;106799;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 2039,
+      "parameter_id": 537,
+      "name": "STAT_ECU_STATUS",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "2039;537;STAT_ECU_STATUS;2;15;high;unsigned char;0;1;;1;1.0;1.0;0.0;106627;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1652,
+      "parameter_id": 496,
+      "name": "STAT_VARIANTE",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "1652;496;STAT_VARIANTE;2;15;high;unsigned char;0;1;;1;;;;106673;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1654,
+      "parameter_id": 498,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "1654;498;STAT_BATTERIESPANNUNG_WERT;1;2;high;unsigned char;0;1;;1;0.08;1.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1656,
+      "parameter_id": 499,
+      "name": "STAT_ANZEIGE_WL",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "1656;499;STAT_ANZEIGE_WL;2;15;high;unsigned char;0;1;0x38;1;;;;107146;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1658,
+      "parameter_id": 500,
+      "name": "STAT_V_RAD_VORNE_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "1658;500;STAT_V_RAD_VORNE_WERT;1;8;high;unsigned int;0;2;;1;0.0625;1.0;0.0;106758;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1659,
+      "parameter_id": 501,
+      "name": "STAT_V_RAD_HINTEN_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "1659;501;STAT_V_RAD_HINTEN_WERT;1;8;high;unsigned int;0;2;;1;0.0625;1.0;0.0;106759;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1660,
+      "parameter_id": 502,
+      "name": "STAT_DRUCKSENSOR_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "1660;502;STAT_DRUCKSENSOR_WERT;1;23;high;int;0;2;;1;1.0;32.0;0.0;107155;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1669,
+      "parameter_id": 506,
+      "name": "STAT_BLS_H",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1669;506;STAT_BLS_H;3;1;high;unsigned char;0;1;;1;;;;107167;1;0"
+    },
+    {
+      "ecu_key": "cuX_ABS9M",
+      "result_id": 1670,
+      "parameter_id": 506,
+      "name": "STAT_BLS_V",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1670;506;STAT_BLS_V;3;1;high;unsigned char;1;1;;1;;;;107168;1;0"
+    },
+    {
+      "ecu_key": "cuX_ASW",
+      "result_id": 1638,
+      "parameter_id": 490,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "1638;490;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_AUDIO",
+      "result_id": 1560,
+      "parameter_id": 433,
+      "name": "STAT_MUTE_MR_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1560;433;STAT_MUTE_MR_EIN;3;1;;unsigned char;0;1;;1;;;;106938;1;0"
+    },
+    {
+      "ecu_key": "cuX_AUDIO",
+      "result_id": 1585,
+      "parameter_id": 454,
+      "name": "STAT_INTERNE_TEMPERATUR_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "1585;454;STAT_INTERNE_TEMPERATUR_WERT;1;7;;int;0;2;;1;;10.0;;106981;1;0"
+    },
+    {
+      "ecu_key": "cuX_AUDIO",
+      "result_id": 1591,
+      "parameter_id": 460,
+      "name": "STAT_HECK_LAUTSPRECHER_EIN_AUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1591;460;STAT_HECK_LAUTSPRECHER_EIN_AUS;3;1;;unsigned char;0;1;;1;;;;106988;1;0"
+    },
+    {
+      "ecu_key": "cuX_AUDIO",
+      "result_id": 1615,
+      "parameter_id": 476,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "1615;476;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;;10.0;;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3472,
+      "parameter_id": 842,
+      "name": "STAT_HUPE_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3472;842;STAT_HUPE_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106229;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3474,
+      "parameter_id": 844,
+      "name": "STAT_BREMSLICHT_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "3474;844;STAT_BREMSLICHT_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;108335;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3476,
+      "parameter_id": 846,
+      "name": "STAT_KL_15_HW_DIGITAL_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3476;846;STAT_KL_15_HW_DIGITAL_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;105495;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3502,
+      "parameter_id": 858,
+      "name": "STAT_FERNLICHT_PWM_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "3502;858;STAT_FERNLICHT_PWM_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;108072;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3504,
+      "parameter_id": 860,
+      "name": "STAT_STANDLICHT_VORN_1_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3504;860;STAT_STANDLICHT_VORN_1_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108342;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3505,
+      "parameter_id": 860,
+      "name": "STAT_STANDLICHT_VORN_2_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3505;860;STAT_STANDLICHT_VORN_2_EIN;3;1;;unsigned char;1;1;;1;1.0;1.0;0.0;108343;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3510,
+      "parameter_id": 864,
+      "name": "STAT_RUECKLICHT_PWM_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "3510;864;STAT_RUECKLICHT_PWM_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;108344;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3512,
+      "parameter_id": 866,
+      "name": "STAT_KENNZEICHENLEUCHTE_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3512;866;STAT_KENNZEICHENLEUCHTE_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;107607;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3514,
+      "parameter_id": 868,
+      "name": "STAT_GRIFFHEIZUNG_LINKS_PWM_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "3514;868;STAT_GRIFFHEIZUNG_LINKS_PWM_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;108076;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3515,
+      "parameter_id": 868,
+      "name": "STAT_GRIFFHEIZUNG_RECHTS_PWM_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "3515;868;STAT_GRIFFHEIZUNG_RECHTS_PWM_WERT;1;14;;unsigned char;1;1;;1;1.0;1.0;0.0;108077;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3519,
+      "parameter_id": 870,
+      "name": "STAT_FUELLSTAND_TANK_WERT",
+      "general_value_id": 36,
+      "display_text": "l",
+      "raw": "3519;870;STAT_FUELLSTAND_TANK_WERT;1;36;;unsigned int;1;2;;1;0.05;1.0;0.0;108081;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3518,
+      "parameter_id": 870,
+      "name": "STAT_TANKGEBER_ROH_WERT",
+      "general_value_id": 35,
+      "display_text": "mV",
+      "raw": "3518;870;STAT_TANKGEBER_ROH_WERT;1;35;;unsigned char;0;1;;1;19.6;1.0;0.0;108079;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3520,
+      "parameter_id": 871,
+      "name": "STAT_STECKDOSE_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3520;871;STAT_STECKDOSE_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108083;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3522,
+      "parameter_id": 871,
+      "name": "STAT_STECKDOSE_SPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "3522;871;STAT_STECKDOSE_SPANNUNG_WERT;1;2;;unsigned char;3;1;;1;0.1;1.0;0.0;108085;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3521,
+      "parameter_id": 871,
+      "name": "STAT_STECKDOSE_STROM_WERT",
+      "general_value_id": 32,
+      "display_text": "mA",
+      "raw": "3521;871;STAT_STECKDOSE_STROM_WERT;1;32;;int;1;2;;1;1.0;1.0;0.0;108084;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3535,
+      "parameter_id": 876,
+      "name": "STAT_BREMSS_FUSS_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3535;876;STAT_BREMSS_FUSS_EIN;3;1;;unsigned char;3;1;;1;1.0;1.0;0.0;108353;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3534,
+      "parameter_id": 876,
+      "name": "STAT_BREMSS_HAND_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3534;876;STAT_BREMSS_HAND_EIN;3;1;;unsigned char;2;1;;1;1.0;1.0;0.0;108352;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3536,
+      "parameter_id": 877,
+      "name": "STAT_KL_61_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "3536;877;STAT_KL_61_WERT;1;2;;unsigned char;0;1;;1;0.1;1.0;0.0;108355;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3539,
+      "parameter_id": 879,
+      "name": "STAT_AUSSENTEMP_ROH_WERT",
+      "general_value_id": 35,
+      "display_text": "mV",
+      "raw": "3539;879;STAT_AUSSENTEMP_ROH_WERT;1;35;;unsigned char;0;1;;1;19.6;1.0;0.0;108090;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3540,
+      "parameter_id": 879,
+      "name": "STAT_AUSSENTEMP_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "3540;879;STAT_AUSSENTEMP_WERT;1;7;;unsigned char;1;1;;1;0.5;1.0;-40.0;108091;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3541,
+      "parameter_id": 880,
+      "name": "STAT_FERNLICHT_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3541;880;STAT_FERNLICHT_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108358;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3543,
+      "parameter_id": 882,
+      "name": "STAT_BLINKER_EINGANG_LINKS_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3543;882;STAT_BLINKER_EINGANG_LINKS_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108360;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3544,
+      "parameter_id": 882,
+      "name": "STAT_BLINKER_EINGANG_RECHTS_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3544;882;STAT_BLINKER_EINGANG_RECHTS_EIN;3;1;;unsigned char;1;1;;1;1.0;1.0;0.0;108361;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3545,
+      "parameter_id": 882,
+      "name": "STAT_BLINKER_EINGANG_RUECKSTELLUNG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3545;882;STAT_BLINKER_EINGANG_RUECKSTELLUNG_EIN;3;1;;unsigned char;2;1;;1;1.0;1.0;0.0;108362;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3546,
+      "parameter_id": 882,
+      "name": "STAT_BLINKER_EINGANG_WARNBLINKEN_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3546;882;STAT_BLINKER_EINGANG_WARNBLINKEN_EIN;3;1;;unsigned char;3;1;;1;1.0;1.0;0.0;108363;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3551,
+      "parameter_id": 884,
+      "name": "STAT_HUPE_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3551;884;STAT_HUPE_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108370;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3600,
+      "parameter_id": 918,
+      "name": "STAT_WECKLEITUNG_DIGITAL_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3600;918;STAT_WECKLEITUNG_DIGITAL_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106083;1;0"
+    },
+    {
+      "ecu_key": "cuX_BCO",
+      "result_id": 3601,
+      "parameter_id": 919,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "3601;919;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6735,
+      "parameter_id": 1531,
+      "name": "STAT_DIGITAL_KILL",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6735;1531;STAT_DIGITAL_KILL;3;1;high;unsigned char;0;1;;1;;;;105762;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6736,
+      "parameter_id": 1532,
+      "name": "STAT_DIGITAL_START",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6736;1532;STAT_DIGITAL_START;3;1;high;unsigned char;0;1;;1;;;;105768;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6737,
+      "parameter_id": 1533,
+      "name": "STAT_DIGITAL_SEITENSTUETZE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6737;1533;STAT_DIGITAL_SEITENSTUETZE;3;1;high;unsigned char;0;1;;1;;;;105757;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6742,
+      "parameter_id": 1536,
+      "name": "STAT_START_RELAIS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6742;1536;STAT_START_RELAIS;3;1;high;unsigned char;0;1;;1;;;;110690;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6743,
+      "parameter_id": 1537,
+      "name": "STAT_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6743;1537;STAT_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS;3;1;high;unsigned char;0;1;;1;;;;105779;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6744,
+      "parameter_id": 1538,
+      "name": "STAT_DIGITAL_LUEFTER_RELAIS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6744;1538;STAT_DIGITAL_LUEFTER_RELAIS;3;1;high;unsigned char;0;1;;1;;;;105784;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6746,
+      "parameter_id": 1540,
+      "name": "STAT_DIGITAL_START_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6746;1540;STAT_DIGITAL_START_FREIGABE;3;1;high;unsigned char;0;1;;1;;;;105770;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6755,
+      "parameter_id": 1550,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "6755;1550;STAT_BATTERIESPANNUNG_WERT;1;2;high;unsigned int;0;2;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6758,
+      "parameter_id": 1553,
+      "name": "STAT_KUPPLUNGSSCHALTER_ROHWERT_WERT",
+      "general_value_id": 35,
+      "display_text": "mV",
+      "raw": "6758;1553;STAT_KUPPLUNGSSCHALTER_ROHWERT_WERT;1;35;high;unsigned int;0;2;;1;488.0;100.0;0.0;105758;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6760,
+      "parameter_id": 1555,
+      "name": "STAT_OELNIVEAU",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "6760;1555;STAT_OELNIVEAU;2;15;high;unsigned int;0;2;;1;;;;105689;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6764,
+      "parameter_id": 1559,
+      "name": "STAT_KUEHLWASSER_TEMP_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "6764;1559;STAT_KUEHLWASSER_TEMP_WERT;1;7;high;unsigned int;0;2;;1;1.0;1.0;-40.0;105654;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6766,
+      "parameter_id": 1561,
+      "name": "STAT_ANSAUGLUFT_TEMP_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "6766;1561;STAT_ANSAUGLUFT_TEMP_WERT;1;7;high;unsigned int;0;2;;1;1.0;1.0;-40.0;105652;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6767,
+      "parameter_id": 1562,
+      "name": "STAT_LAMBDA_ROHWERT_WERT",
+      "general_value_id": 35,
+      "display_text": "mV",
+      "raw": "6767;1562;STAT_LAMBDA_ROHWERT_WERT;1;35;high;unsigned int;0;2;;1;488.0;100.0;0.0;110733;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6773,
+      "parameter_id": 1568,
+      "name": "STAT_DROSSELKLAPPE_WINKEL_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "6773;1568;STAT_DROSSELKLAPPE_WINKEL_WERT;1;12;high;unsigned int;0;2;;1;1.0;100.0;0.0;110743;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6774,
+      "parameter_id": 1569,
+      "name": "STAT_DROSSELKLAPPE_POSITION_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "6774;1569;STAT_DROSSELKLAPPE_POSITION_WERT;1;14;high;unsigned int;0;2;;1;100.0;256.0;0.0;110744;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6775,
+      "parameter_id": 1570,
+      "name": "STAT_DIGITAL_LAMBDA_HEIZUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6775;1570;STAT_DIGITAL_LAMBDA_HEIZUNG;3;1;high;unsigned char;0;1;;1;;;;110745;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6778,
+      "parameter_id": 1573,
+      "name": "STAT_DIGITAL_LAMBDA_REGELUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6778;1573;STAT_DIGITAL_LAMBDA_REGELUNG;3;1;high;unsigned char;0;1;;1;;;;110748;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6781,
+      "parameter_id": 1576,
+      "name": "STAT_ZYLINDER1_EINSPRITZDAUER_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "6781;1576;STAT_ZYLINDER1_EINSPRITZDAUER_WERT;1;13;high;unsigned long;0;4;;1;1.0;500.0;0.0;110751;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6785,
+      "parameter_id": 1580,
+      "name": "STAT_MOTORDREHZAHL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "6785;1580;STAT_MOTORDREHZAHL_WERT;1;10;high;unsigned int;0;2;;1;1.0;1.0;0.0;105667;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6786,
+      "parameter_id": 1581,
+      "name": "STAT_FAHRZEUG_GESCHWINDIGKEIT_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "6786;1581;STAT_FAHRZEUG_GESCHWINDIGKEIT_WERT;1;8;high;unsigned int;0;2;;1;1.0;4.0;0.0;106760;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6790,
+      "parameter_id": 1585,
+      "name": "STAT_STEPPERMOTOR_WERT",
+      "general_value_id": 44,
+      "display_text": "Schritt",
+      "raw": "6790;1585;STAT_STEPPERMOTOR_WERT;1;44;high;unsigned int;0;2;;1;1.0;1.0;0.0;110760;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2",
+      "result_id": 6793,
+      "parameter_id": 1588,
+      "name": "STAT_LEERLAUF_DREHZAHL_SOLL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "6793;1588;STAT_LEERLAUF_DREHZAHL_SOLL_WERT;1;10;high;unsigned int;0;2;;1;1.0;1.0;0.0;105668;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8744,
+      "parameter_id": 2731,
+      "name": "STAT_DIGITAL_KILL",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8744;2731;STAT_DIGITAL_KILL;3;1;high;unsigned char;0;1;;1;;;;105762;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8745,
+      "parameter_id": 2732,
+      "name": "STAT_DIGITAL_START",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8745;2732;STAT_DIGITAL_START;3;1;high;unsigned char;0;1;;1;;;;105768;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8746,
+      "parameter_id": 2733,
+      "name": "STAT_DIGITAL_SEITENSTUETZE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8746;2733;STAT_DIGITAL_SEITENSTUETZE;3;1;high;unsigned char;0;1;;1;;;;105757;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8750,
+      "parameter_id": 2735,
+      "name": "STAT_START_RELAIS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8750;2735;STAT_START_RELAIS;3;1;high;unsigned char;0;1;;1;;;;110690;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8751,
+      "parameter_id": 2736,
+      "name": "STAT_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8751;2736;STAT_DIGITAL_EL_KRAFTSTOFF_PUMPE_RELAIS;3;1;high;unsigned char;0;1;;1;;;;105779;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8752,
+      "parameter_id": 2737,
+      "name": "STAT_DIGITAL_LUEFTER_RELAIS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8752;2737;STAT_DIGITAL_LUEFTER_RELAIS;3;1;high;unsigned char;0;1;;1;;;;105784;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8754,
+      "parameter_id": 2739,
+      "name": "STAT_DIGITAL_START_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8754;2739;STAT_DIGITAL_START_FREIGABE;3;1;high;unsigned char;0;1;;1;;;;105770;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8761,
+      "parameter_id": 2748,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "8761;2748;STAT_BATTERIESPANNUNG_WERT;1;2;high;unsigned int;0;2;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8763,
+      "parameter_id": 2750,
+      "name": "STAT_KUPPLUNGSSCHALTER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8763;2750;STAT_KUPPLUNGSSCHALTER;3;1;high;unsigned char;0;1;;1;;;;105758;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8765,
+      "parameter_id": 2752,
+      "name": "STAT_KUEHLWASSER_TEMP_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "8765;2752;STAT_KUEHLWASSER_TEMP_WERT;1;7;high;unsigned int;0;2;;1;1.0;1.0;-40.0;105654;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8767,
+      "parameter_id": 2754,
+      "name": "STAT_ANSAUGLUFT_TEMP_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "8767;2754;STAT_ANSAUGLUFT_TEMP_WERT;1;7;high;unsigned int;0;2;;1;1.0;1.0;-40.0;105652;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8768,
+      "parameter_id": 2755,
+      "name": "STAT_LAMBDA_ROHWERT_WERT",
+      "general_value_id": 35,
+      "display_text": "mV",
+      "raw": "8768;2755;STAT_LAMBDA_ROHWERT_WERT;1;35;high;unsigned int;0;2;;1;488.0;100.0;0.0;110733;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8774,
+      "parameter_id": 2761,
+      "name": "STAT_DROSSELKLAPPE_WINKEL_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "8774;2761;STAT_DROSSELKLAPPE_WINKEL_WERT;1;12;high;unsigned int;0;2;;1;1.0;100.0;0.0;110743;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8775,
+      "parameter_id": 2762,
+      "name": "STAT_DROSSELKLAPPE_POSITION_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "8775;2762;STAT_DROSSELKLAPPE_POSITION_WERT;1;14;high;unsigned int;0;2;;1;100.0;256.0;0.0;110744;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8777,
+      "parameter_id": 2764,
+      "name": "STAT_GANG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "8777;2764;STAT_GANG;2;15;high;unsigned char;0;1;;1;;;;105753;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8778,
+      "parameter_id": 2765,
+      "name": "STAT_DIGITAL_LAMBDA_HEIZUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8778;2765;STAT_DIGITAL_LAMBDA_HEIZUNG;3;1;high;unsigned char;0;1;;1;;;;110745;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8781,
+      "parameter_id": 2768,
+      "name": "STAT_DIGITAL_LAMBDA_REGELUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "8781;2768;STAT_DIGITAL_LAMBDA_REGELUNG;3;1;high;unsigned char;0;1;;1;;;;110748;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8784,
+      "parameter_id": 2771,
+      "name": "STAT_ZYLINDER1_EINSPRITZDAUER_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "8784;2771;STAT_ZYLINDER1_EINSPRITZDAUER_WERT;1;13;high;unsigned long;0;4;;1;1.0;500.0;0.0;110751;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8791,
+      "parameter_id": 2778,
+      "name": "STAT_MOTORDREHZAHL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "8791;2778;STAT_MOTORDREHZAHL_WERT;1;10;high;unsigned int;0;2;;1;1.0;1.0;0.0;105667;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8792,
+      "parameter_id": 2779,
+      "name": "STAT_FAHRZEUG_GESCHWINDIGKEIT_WERT",
+      "general_value_id": 8,
+      "display_text": "km/h",
+      "raw": "8792;2779;STAT_FAHRZEUG_GESCHWINDIGKEIT_WERT;1;8;high;unsigned int;0;2;;1;1.0;4.0;0.0;106760;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8796,
+      "parameter_id": 2783,
+      "name": "STAT_STEPPERMOTOR_WERT",
+      "general_value_id": 44,
+      "display_text": "Schritt",
+      "raw": "8796;2783;STAT_STEPPERMOTOR_WERT;1;44;high;unsigned int;0;2;;1;1.0;1.0;0.0;110760;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSE2B",
+      "result_id": 8799,
+      "parameter_id": 2786,
+      "name": "STAT_LEERLAUF_DREHZAHL_SOLL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "8799;2786;STAT_LEERLAUF_DREHZAHL_SOLL_WERT;1;10;high;unsigned int;0;2;;1;1.0;1.0;0.0;105668;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7033,
+      "parameter_id": 1663,
+      "name": "STAT_TEMPERATUR_ANSAUGLUFT_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "7033;1663;STAT_TEMPERATUR_ANSAUGLUFT_WERT;1;7;high;signed int;0;2;;1;0.05;1.0;0.0;105652;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7035,
+      "parameter_id": 1663,
+      "name": "STAT_TEMPERATUR_MOTOR_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "7035;1663;STAT_TEMPERATUR_MOTOR_WERT;1;7;high;signed int;4;2;;1;0.05;1.0;0.0;105654;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7037,
+      "parameter_id": 1663,
+      "name": "STAT_TEMPERATUR_OEL_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "7037;1663;STAT_TEMPERATUR_OEL_WERT;1;7;high;signed int;8;2;;1;0.05;1.0;0.0;105656;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7046,
+      "parameter_id": 1665,
+      "name": "STAT_DRUCK_KRAFTSTOFF_WERT",
+      "general_value_id": 9,
+      "display_text": "hPa",
+      "raw": "7046;1665;STAT_DRUCK_KRAFTSTOFF_WERT;1;9;high;unsigned int;4;2;;1;1.0;5.0;0.0;110836;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7044,
+      "parameter_id": 1665,
+      "name": "STAT_DRUCK_UMGEBUNG_WERT",
+      "general_value_id": 9,
+      "display_text": "hPa",
+      "raw": "7044;1665;STAT_DRUCK_UMGEBUNG_WERT;1;9;high;unsigned int;0;2;;1;10.0;256.0;0.0;110835;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7049,
+      "parameter_id": 1666,
+      "name": "STAT_DREHZAHL_LEERLAUF_SOLL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "7049;1666;STAT_DREHZAHL_LEERLAUF_SOLL_WERT;1;10;high;unsigned int;2;2;;1;1.0;4.0;0.0;105668;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7048,
+      "parameter_id": 1666,
+      "name": "STAT_DREHZAHL_MOTOR_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "7048;1666;STAT_DREHZAHL_MOTOR_WERT;1;10;high;unsigned int;0;2;;1;1.0;4.0;0.0;105667;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7054,
+      "parameter_id": 1666,
+      "name": "STAT_DREHZAHL_NOCKENWELLE_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "7054;1666;STAT_DREHZAHL_NOCKENWELLE_WERT;1;10;high;signed int;12;2;;1;1.0;4.0;0.0;105673;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7059,
+      "parameter_id": 1667,
+      "name": "STAT_SPANNUNG_ADC_BTS_UEKP_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7059;1667;STAT_SPANNUNG_ADC_BTS_UEKP_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105678;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7070,
+      "parameter_id": 1667,
+      "name": "STAT_SPANNUNG_ADC_OELSTANDSGEBER_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7070;1667;STAT_SPANNUNG_ADC_OELSTANDSGEBER_WERT;1;2;high;unsigned int;30;2;;1;1.0;1000.0;0.0;105689;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7055,
+      "parameter_id": 1667,
+      "name": "STAT_SPANNUNG_BATTERIE_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7055;1667;STAT_SPANNUNG_BATTERIE_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105674;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7101,
+      "parameter_id": 1669,
+      "name": "STAT_FAHRWERTGEBER_ISTWERT_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7101;1669;STAT_FAHRWERTGEBER_ISTWERT_WERT;1;14;high;signed int;8;2;;1;1600.0;65536.0;0.0;105746;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7108,
+      "parameter_id": 1670,
+      "name": "STAT_SENSORBOX_SCHRAEGLAGE_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "7108;1670;STAT_SENSORBOX_SCHRAEGLAGE_WERT;1;12;high;signed int;8;2;;1;0.0439;1.0;0.0;105751;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7110,
+      "parameter_id": 1671,
+      "name": "STAT_GETRIEBE_ISTGANG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "7110;1671;STAT_GETRIEBE_ISTGANG;2;15;high;unsigned char;0;1;;1;1.0;1.0;0.0;105753;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7121,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_BREMSLICHT_HINTEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7121;1672;STAT_SCHALTER_BREMSLICHT_HINTEN;3;1;high;unsigned char;9;1;;1;1.0;1.0;0.0;105764;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7120,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_BREMSLICHT_VORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7120;1672;STAT_SCHALTER_BREMSLICHT_VORN;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105763;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7122,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_FAHRZEUGMODUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7122;1672;STAT_SCHALTER_FAHRZEUGMODUS;3;1;high;unsigned char;10;1;;1;1.0;1.0;0.0;105765;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7115,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_KUPPLUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7115;1672;STAT_SCHALTER_KUPPLUNG;3;1;high;unsigned char;3;1;;1;1.0;1.0;0.0;105758;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7124,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_KUPPLUNG_2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7124;1672;STAT_SCHALTER_KUPPLUNG_2;3;1;high;unsigned char;12;1;;1;1.0;1.0;0.0;105767;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7119,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_NOTAUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7119;1672;STAT_SCHALTER_NOTAUS;3;1;high;unsigned char;7;1;;1;1.0;1.0;0.0;105762;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7116,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_OELNIVEAU",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7116;1672;STAT_SCHALTER_OELNIVEAU;3;1;high;unsigned char;4;1;;1;1.0;1.0;0.0;105759;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7114,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_SEITENSTUETZENSTAENDER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7114;1672;STAT_SCHALTER_SEITENSTUETZENSTAENDER;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105757;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7117,
+      "parameter_id": 1672,
+      "name": "STAT_SCHALTER_START",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7117;1672;STAT_SCHALTER_START;3;1;high;unsigned char;5;1;;1;1.0;1.0;0.0;105760;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7125,
+      "parameter_id": 1673,
+      "name": "STAT_ANLASSER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7125;1673;STAT_ANLASSER_ANSTEUERUNG;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105768;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7127,
+      "parameter_id": 1673,
+      "name": "STAT_ANLASSER_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7127;1673;STAT_ANLASSER_FREIGABE;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105770;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7129,
+      "parameter_id": 1674,
+      "name": "STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7129;1674;STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK1;3;1;high;unsigned char;0;1;;1;;;;105772;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7130,
+      "parameter_id": 1674,
+      "name": "STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7130;1674;STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK2;3;1;high;unsigned char;1;1;;1;;;;105773;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7136,
+      "parameter_id": 1675,
+      "name": "STAT_KRAFTSTOFFPUMPE_TESTERKONTROLLE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7136;1675;STAT_KRAFTSTOFFPUMPE_TESTERKONTROLLE;3;1;high;unsigned char;1;1;;1;1.0;1.0;0.0;105779;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7141,
+      "parameter_id": 1676,
+      "name": "STAT_ELUEFTER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7141;1676;STAT_ELUEFTER_ANSTEUERUNG;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105784;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7158,
+      "parameter_id": 1681,
+      "name": "STAT_ABGASKLAPPENSTELLER_ABGLEICH",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "7158;1681;STAT_ABGASKLAPPENSTELLER_ABGLEICH;2;15;high;unsigned char;3;1;;1;;;;105798;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7156,
+      "parameter_id": 1681,
+      "name": "STAT_ABGASKLAPPENSTELLER_POSITION_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7156;1681;STAT_ABGASKLAPPENSTELLER_POSITION_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105796;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7201,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG1_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7201;1689;STAT_ADAPTION_GETRIEBE_GANG1_WERT;1;2;high;unsigned int;2;2;;1;1.0;1000.0;0.0;105808;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7202,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG2_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7202;1689;STAT_ADAPTION_GETRIEBE_GANG2_WERT;1;2;high;unsigned int;4;2;;1;1.0;1000.0;0.0;105809;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7203,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG3_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7203;1689;STAT_ADAPTION_GETRIEBE_GANG3_WERT;1;2;high;unsigned int;6;2;;1;1.0;1000.0;0.0;105810;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7204,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG4_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7204;1689;STAT_ADAPTION_GETRIEBE_GANG4_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105811;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7205,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG5_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7205;1689;STAT_ADAPTION_GETRIEBE_GANG5_WERT;1;2;high;unsigned int;10;2;;1;1.0;1000.0;0.0;105812;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7206,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG6_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7206;1689;STAT_ADAPTION_GETRIEBE_GANG6_WERT;1;2;high;unsigned int;12;2;;1;1.0;1000.0;0.0;105813;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7200,
+      "parameter_id": 1689,
+      "name": "STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7200;1689;STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105807;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7220,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7220;1690;STAT_ADAPTION_DROSSELKLAPPE1;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105819;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7216,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7216;1690;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105815;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7217,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7217;1690;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105816;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7218,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7218;1690;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105817;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7219,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7219;1690;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105818;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7226,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7226;1690;STAT_ADAPTION_DROSSELKLAPPE2;3;1;high;unsigned char;19;1;;1;1.0;1.0;0.0;105825;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7222,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7222;1690;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT;1;14;high;unsigned int;11;2;;1;1.0;100.0;0.0;105821;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7223,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7223;1690;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT;1;14;high;unsigned int;13;2;;1;1.0;100.0;0.0;105822;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7224,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7224;1690;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT;1;14;high;unsigned int;15;2;;1;1.0;100.0;0.0;105823;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7225,
+      "parameter_id": 1690,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7225;1690;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT;1;14;high;unsigned int;17;2;;1;1.0;100.0;0.0;105824;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7240,
+      "parameter_id": 1691,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7240;1691;STAT_ADAPTION_FAHRWERTGEBER;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105839;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7236,
+      "parameter_id": 1691,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7236;1691;STAT_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105835;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7237,
+      "parameter_id": 1691,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7237;1691;STAT_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105836;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7238,
+      "parameter_id": 1691,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7238;1691;STAT_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105837;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7239,
+      "parameter_id": 1691,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7239;1691;STAT_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105838;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7241,
+      "parameter_id": 1692,
+      "name": "STAT_ADAPTION_SCHRAEGLAGE_GIERRATE_WERT",
+      "general_value_id": 17,
+      "display_text": "°/s",
+      "raw": "7241;1692;STAT_ADAPTION_SCHRAEGLAGE_GIERRATE_WERT;1;17;high;signed int;0;2;;1;1.0;2000.0;0.0;105842;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7242,
+      "parameter_id": 1692,
+      "name": "STAT_ADAPTION_SCHRAEGLAGE_ROLLRATE_WERT",
+      "general_value_id": 17,
+      "display_text": "°/s",
+      "raw": "7242;1692;STAT_ADAPTION_SCHRAEGLAGE_ROLLRATE_WERT;1;17;high;signed int;2;2;;1;1.0;2000.0;0.0;105843;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7243,
+      "parameter_id": 1693,
+      "name": "STAT_ADAPTION_LEERLAUF_VORSTEUERUNG_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7243;1693;STAT_ADAPTION_LEERLAUF_VORSTEUERUNG_WERT;1;14;high;signed int;0;2;;1;100.0;32768.0;0.0;105844;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7246,
+      "parameter_id": 1694,
+      "name": "STAT_ADAPTION_SCHALTHEBEL_SENSOR_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "7246;1694;STAT_ADAPTION_SCHALTHEBEL_SENSOR_WERT;1;14;high;signed int;0;2;;1;100.0;32768.0;0.0;105845;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7329,
+      "parameter_id": 1741,
+      "name": "STAT_LAMBDAREGELUNG_BANK1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7329;1741;STAT_LAMBDAREGELUNG_BANK1;3;1;high;unsigned char;4;1;;1;1.0;1.0;0.0;105697;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7327,
+      "parameter_id": 1741,
+      "name": "STAT_LAMBDAREGELUNG_BANK1_FAKTOR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "7327;1741;STAT_LAMBDAREGELUNG_BANK1_FAKTOR_WERT;1;11;high;unsigned int;0;2;;1;2.0;65536.0;0.0;105695;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7330,
+      "parameter_id": 1741,
+      "name": "STAT_LAMBDAREGELUNG_BANK2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7330;1741;STAT_LAMBDAREGELUNG_BANK2;3;1;high;unsigned char;5;1;;1;1.0;1.0;0.0;105698;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7328,
+      "parameter_id": 1741,
+      "name": "STAT_LAMBDAREGELUNG_BANK2_FAKTOR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "7328;1741;STAT_LAMBDAREGELUNG_BANK2_FAKTOR_WERT;1;11;high;unsigned int;2;2;;1;2.0;65536.0;0.0;105696;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7331,
+      "parameter_id": 1742,
+      "name": "STAT_LAST_LEERLAUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7331;1742;STAT_LAST_LEERLAUF;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105699;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7332,
+      "parameter_id": 1742,
+      "name": "STAT_LAST_VOLLLAST",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7332;1742;STAT_LAST_VOLLLAST;3;1;high;unsigned char;1;1;;1;1.0;1.0;0.0;105700;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7334,
+      "parameter_id": 1743,
+      "name": "STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "7334;1743;STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT;1;13;high;unsigned int;1;2;;1;1.0;1000.0;0.0;105702;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7333,
+      "parameter_id": 1743,
+      "name": "STAT_ZUENDUNG_WINKEL_IST_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "7333;1743;STAT_ZUENDUNG_WINKEL_IST_WERT;1;12;high;signed char;0;1;;1;191.25;255.0;0.0;105701;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7335,
+      "parameter_id": 1744,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK1_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "7335;1744;STAT_EINSPRITZUNG_DAUER_BANK1_WERT;1;13;high;unsigned int;0;2;;1;8.0;1000.0;0.0;105703;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7336,
+      "parameter_id": 1744,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK2_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "7336;1744;STAT_EINSPRITZUNG_DAUER_BANK2_WERT;1;13;high;unsigned int;2;2;;1;8.0;1000.0;0.0;105704;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7342,
+      "parameter_id": 1745,
+      "name": "STAT_ASC_RADIUSKORREKTUR_WERT",
+      "general_value_id": 16,
+      "display_text": "mm",
+      "raw": "7342;1745;STAT_ASC_RADIUSKORREKTUR_WERT;1;16;high;signed int;8;2;;1;4000.0;65536.0;0.0;105710;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSMP1",
+      "result_id": 7341,
+      "parameter_id": 1745,
+      "name": "STAT_ASC_TASTER",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "7341;1745;STAT_ASC_TASTER;2;15;high;unsigned char;7;1;;1;1.0;1.0;0.0;105709;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9231,
+      "parameter_id": 2865,
+      "name": "STAT_TEMPERATUR_ANSAUGLUFT_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "9231;2865;STAT_TEMPERATUR_ANSAUGLUFT_WERT;1;7;high;signed int;0;2;;1;0.05;1.0;0.0;105652;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9233,
+      "parameter_id": 2865,
+      "name": "STAT_TEMPERATUR_MOTOR_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "9233;2865;STAT_TEMPERATUR_MOTOR_WERT;1;7;high;signed int;4;2;;1;0.05;1.0;0.0;105654;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9235,
+      "parameter_id": 2865,
+      "name": "STAT_TEMPERATUR_OEL_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "9235;2865;STAT_TEMPERATUR_OEL_WERT;1;7;high;signed int;8;2;;1;0.05;1.0;0.0;105656;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9247,
+      "parameter_id": 2867,
+      "name": "STAT_DRUCK_KRAFTSTOFF_WERT",
+      "general_value_id": 9,
+      "display_text": "hPa",
+      "raw": "9247;2867;STAT_DRUCK_KRAFTSTOFF_WERT;1;9;high;unsigned int;4;2;;1;1.0;5.0;0.0;110836;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9245,
+      "parameter_id": 2867,
+      "name": "STAT_DRUCK_UMGEBUNG_WERT",
+      "general_value_id": 9,
+      "display_text": "hPa",
+      "raw": "9245;2867;STAT_DRUCK_UMGEBUNG_WERT;1;9;high;unsigned int;0;2;;1;10.0;256.0;0.0;110835;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9250,
+      "parameter_id": 2868,
+      "name": "STAT_DREHZAHL_LEERLAUF_SOLL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "9250;2868;STAT_DREHZAHL_LEERLAUF_SOLL_WERT;1;10;high;unsigned int;2;2;;1;1.0;4.0;0.0;105668;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9249,
+      "parameter_id": 2868,
+      "name": "STAT_DREHZAHL_MOTOR_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "9249;2868;STAT_DREHZAHL_MOTOR_WERT;1;10;high;unsigned int;0;2;;1;1.0;4.0;0.0;105667;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9255,
+      "parameter_id": 2868,
+      "name": "STAT_DREHZAHL_NOCKENWELLE_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "9255;2868;STAT_DREHZAHL_NOCKENWELLE_WERT;1;10;high;signed int;12;2;;1;1.0;4.0;0.0;105673;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9262,
+      "parameter_id": 2869,
+      "name": "STAT_SPANNUNG_ADC_BTS_UEKP_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9262;2869;STAT_SPANNUNG_ADC_BTS_UEKP_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105678;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9273,
+      "parameter_id": 2869,
+      "name": "STAT_SPANNUNG_ADC_OELSTANDSGEBER_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9273;2869;STAT_SPANNUNG_ADC_OELSTANDSGEBER_WERT;1;2;high;unsigned int;30;2;;1;1.0;1000.0;0.0;105689;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9258,
+      "parameter_id": 2869,
+      "name": "STAT_SPANNUNG_BATTERIE_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9258;2869;STAT_SPANNUNG_BATTERIE_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105674;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9279,
+      "parameter_id": 2870,
+      "name": "STAT_DROSSELKLAPPE1_KANAL1_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9279;2870;STAT_DROSSELKLAPPE1_KANAL1_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105728;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9281,
+      "parameter_id": 2870,
+      "name": "STAT_DROSSELKLAPPE1_KANAL2_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9281;2870;STAT_DROSSELKLAPPE1_KANAL2_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105730;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9283,
+      "parameter_id": 2870,
+      "name": "STAT_DROSSELKLAPPE2_KANAL1_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9283;2870;STAT_DROSSELKLAPPE2_KANAL1_WERT;1;14;high;unsigned int;8;2;;1;1.0;100.0;0.0;105732;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9285,
+      "parameter_id": 2870,
+      "name": "STAT_DROSSELKLAPPE2_KANAL2_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9285;2870;STAT_DROSSELKLAPPE2_KANAL2_WERT;1;14;high;unsigned int;12;2;;1;1.0;100.0;0.0;105734;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9304,
+      "parameter_id": 2871,
+      "name": "STAT_FAHRWERTGEBER_ISTWERT_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9304;2871;STAT_FAHRWERTGEBER_ISTWERT_WERT;1;14;high;signed int;8;2;;1;1600.0;65536.0;0.0;105746;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9311,
+      "parameter_id": 2872,
+      "name": "STAT_SENSORBOX_SCHRAEGLAGE_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "9311;2872;STAT_SENSORBOX_SCHRAEGLAGE_WERT;1;12;high;signed int;8;2;;1;0.0439;1.0;0.0;105751;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9314,
+      "parameter_id": 2873,
+      "name": "STAT_GETRIEBE_ISTGANG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "9314;2873;STAT_GETRIEBE_ISTGANG;2;15;high;unsigned char;0;1;;1;1.0;1.0;0.0;105753;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9330,
+      "parameter_id": 2874,
+      "name": "STAT_SCHALTER_FAHRZEUGMODUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9330;2874;STAT_SCHALTER_FAHRZEUGMODUS;3;1;high;unsigned char;10;1;;1;1.0;1.0;0.0;105765;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9323,
+      "parameter_id": 2874,
+      "name": "STAT_SCHALTER_KUPPLUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9323;2874;STAT_SCHALTER_KUPPLUNG;3;1;high;unsigned char;3;1;;1;1.0;1.0;0.0;105758;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9332,
+      "parameter_id": 2874,
+      "name": "STAT_SCHALTER_KUPPLUNG_2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9332;2874;STAT_SCHALTER_KUPPLUNG_2;3;1;high;unsigned char;12;1;;1;1.0;1.0;0.0;105767;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9327,
+      "parameter_id": 2874,
+      "name": "STAT_SCHALTER_NOTAUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9327;2874;STAT_SCHALTER_NOTAUS;3;1;high;unsigned char;7;1;;1;1.0;1.0;0.0;105762;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9322,
+      "parameter_id": 2874,
+      "name": "STAT_SCHALTER_SEITENSTUETZENSTAENDER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9322;2874;STAT_SCHALTER_SEITENSTUETZENSTAENDER;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105757;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9333,
+      "parameter_id": 2875,
+      "name": "STAT_ANLASSER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9333;2875;STAT_ANLASSER_ANSTEUERUNG;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105768;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9335,
+      "parameter_id": 2875,
+      "name": "STAT_ANLASSER_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9335;2875;STAT_ANLASSER_FREIGABE;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105770;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9345,
+      "parameter_id": 2877,
+      "name": "STAT_KRAFTSTOFFPUMPE_BTS_EKP_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9345;2877;STAT_KRAFTSTOFFPUMPE_BTS_EKP_FREIGABE;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105779;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9368,
+      "parameter_id": 2883,
+      "name": "STAT_ABGASKLAPPENSTELLER_ABGLEICH",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "9368;2883;STAT_ABGASKLAPPENSTELLER_ABGLEICH;2;15;high;unsigned char;3;1;;1;;;;105798;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9366,
+      "parameter_id": 2883,
+      "name": "STAT_ABGASKLAPPENSTELLER_POSITION_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9366;2883;STAT_ABGASKLAPPENSTELLER_POSITION_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105796;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9437,
+      "parameter_id": 2892,
+      "name": "STAT_BREITBANDLAMBDASONDE_IST_LAMBDA_BANK1_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "9437;2892;STAT_BREITBANDLAMBDASONDE_IST_LAMBDA_BANK1_WERT;1;11;high;unsigned int;0;2;;1;16.0;65536.0;0.0;105695;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9440,
+      "parameter_id": 2892,
+      "name": "STAT_BREITBANDLAMBDASONDE_IST_LAMBDA_BANK2_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "9440;2892;STAT_BREITBANDLAMBDASONDE_IST_LAMBDA_BANK2_WERT;1;11;high;unsigned int;6;2;;1;16.0;65536.0;0.0;105696;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9513,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG1_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9513;2895;STAT_ADAPTION_GETRIEBE_GANG1_WERT;1;2;high;unsigned int;2;2;;1;1.0;1000.0;0.0;105808;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9514,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG2_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9514;2895;STAT_ADAPTION_GETRIEBE_GANG2_WERT;1;2;high;unsigned int;4;2;;1;1.0;1000.0;0.0;105809;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9515,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG3_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9515;2895;STAT_ADAPTION_GETRIEBE_GANG3_WERT;1;2;high;unsigned int;6;2;;1;1.0;1000.0;0.0;105810;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9516,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG4_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9516;2895;STAT_ADAPTION_GETRIEBE_GANG4_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105811;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9517,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG5_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9517;2895;STAT_ADAPTION_GETRIEBE_GANG5_WERT;1;2;high;unsigned int;10;2;;1;1.0;1000.0;0.0;105812;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9518,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG6_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9518;2895;STAT_ADAPTION_GETRIEBE_GANG6_WERT;1;2;high;unsigned int;12;2;;1;1.0;1000.0;0.0;105813;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9512,
+      "parameter_id": 2895,
+      "name": "STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "9512;2895;STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105807;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9532,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9532;2896;STAT_ADAPTION_DROSSELKLAPPE1;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105819;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9528,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9528;2896;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105815;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9529,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9529;2896;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105816;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9530,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9530;2896;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105817;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9531,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9531;2896;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105818;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9538,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "9538;2896;STAT_ADAPTION_DROSSELKLAPPE2;3;1;high;unsigned char;19;1;;1;1.0;1.0;0.0;105825;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9534,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9534;2896;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT;1;14;high;unsigned int;11;2;;1;1.0;100.0;0.0;105821;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9535,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9535;2896;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT;1;14;high;unsigned int;13;2;;1;1.0;100.0;0.0;105822;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9536,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9536;2896;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT;1;14;high;unsigned int;15;2;;1;1.0;100.0;0.0;105823;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9537,
+      "parameter_id": 2896,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "9537;2896;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT;1;14;high;unsigned int;17;2;;1;1.0;100.0;0.0;105824;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9589,
+      "parameter_id": 2931,
+      "name": "STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "9589;2931;STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT;1;13;high;unsigned int;1;2;;1;1.0;1000.0;0.0;105702;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9588,
+      "parameter_id": 2931,
+      "name": "STAT_ZUENDUNG_WINKEL_IST_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "9588;2931;STAT_ZUENDUNG_WINKEL_IST_WERT;1;12;high;signed char;0;1;;1;191.25;255.0;0.0;105701;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9590,
+      "parameter_id": 2932,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK1_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "9590;2932;STAT_EINSPRITZUNG_DAUER_BANK1_WERT;1;13;high;unsigned int;0;2;;1;8.0;1000.0;0.0;105703;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 9597,
+      "parameter_id": 2933,
+      "name": "STAT_ASC_RADIUSKORREKTUR_WERT",
+      "general_value_id": 16,
+      "display_text": "mm",
+      "raw": "9597;2933;STAT_ASC_RADIUSKORREKTUR_WERT;1;16;high;signed int;8;2;;1;4000.0;65536.0;0.0;105710;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 10036,
+      "parameter_id": 2966,
+      "name": "STAT_IDR_ADAPTION_FAHRWERTGEBER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "10036;2966;STAT_IDR_ADAPTION_FAHRWERTGEBER;3;1;high;unsigned char;8;1;;1;;;;105839;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 10032,
+      "parameter_id": 2966,
+      "name": "STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10032;2966;STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105835;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 10033,
+      "parameter_id": 2966,
+      "name": "STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10033;2966;STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105836;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 10034,
+      "parameter_id": 2966,
+      "name": "STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10034;2966;STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105837;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 10035,
+      "parameter_id": 2966,
+      "name": "STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10035;2966;STAT_IDR_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105838;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSO1",
+      "result_id": 10038,
+      "parameter_id": 2968,
+      "name": "STAT_IDR_ADAPTION_SCHALTHEBEL_SENSOR_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "10038;2968;STAT_IDR_ADAPTION_SCHALTHEBEL_SENSOR_WERT;1;14;high;signed int;0;2;;1;100.0;32768.0;0.0;105845;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 173,
+      "parameter_id": 21,
+      "name": "STAT_TEMPERATUR_ANSAUGLUFT_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "173;21;STAT_TEMPERATUR_ANSAUGLUFT_WERT;1;7;high;signed int;0;2;;1;0.05;1.0;0.0;105652;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 175,
+      "parameter_id": 21,
+      "name": "STAT_TEMPERATUR_MOTOR_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "175;21;STAT_TEMPERATUR_MOTOR_WERT;1;7;high;signed int;4;2;;1;0.05;1.0;0.0;105654;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 177,
+      "parameter_id": 21,
+      "name": "STAT_TEMPERATUR_OEL_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "177;21;STAT_TEMPERATUR_OEL_WERT;1;7;high;signed int;8;2;;1;0.05;1.0;0.0;105656;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 186,
+      "parameter_id": 23,
+      "name": "STAT_DRUCK_KRAFTSTOFF_WERT",
+      "general_value_id": 9,
+      "display_text": "hPa",
+      "raw": "186;23;STAT_DRUCK_KRAFTSTOFF_WERT;1;9;high;signed int;4;2;;1;1.0;5.0;0.0;105665;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 184,
+      "parameter_id": 23,
+      "name": "STAT_DRUCK_UMGEBUNG_WERT",
+      "general_value_id": 9,
+      "display_text": "hPa",
+      "raw": "184;23;STAT_DRUCK_UMGEBUNG_WERT;1;9;high;unsigned int;0;2;;1;10.0;256.0;0.0;105663;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 189,
+      "parameter_id": 24,
+      "name": "STAT_DREHZAHL_LEERLAUF_SOLL_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "189;24;STAT_DREHZAHL_LEERLAUF_SOLL_WERT;1;10;high;unsigned int;2;2;;1;1.0;4.0;0.0;105668;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 188,
+      "parameter_id": 24,
+      "name": "STAT_DREHZAHL_MOTOR_WERT",
+      "general_value_id": 10,
+      "display_text": "1/min",
+      "raw": "188;24;STAT_DREHZAHL_MOTOR_WERT;1;10;high;unsigned int;0;2;;1;1.0;4.0;0.0;105667;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 195,
+      "parameter_id": 25,
+      "name": "STAT_SPANNUNG_BATTERIE_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "195;25;STAT_SPANNUNG_BATTERIE_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105674;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 218,
+      "parameter_id": 26,
+      "name": "STAT_LAMBDAREGELUNG_BANK1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "218;26;STAT_LAMBDAREGELUNG_BANK1;3;1;high;unsigned char;4;1;;1;1.0;1.0;0.0;105697;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 216,
+      "parameter_id": 26,
+      "name": "STAT_LAMBDAREGELUNG_BANK1_FAKTOR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "216;26;STAT_LAMBDAREGELUNG_BANK1_FAKTOR_WERT;1;11;high;unsigned int;0;2;;1;2.0;65536.0;0.0;105695;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 219,
+      "parameter_id": 26,
+      "name": "STAT_LAMBDAREGELUNG_BANK2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "219;26;STAT_LAMBDAREGELUNG_BANK2;3;1;high;unsigned char;5;1;;1;1.0;1.0;0.0;105698;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 217,
+      "parameter_id": 26,
+      "name": "STAT_LAMBDAREGELUNG_BANK2_FAKTOR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "217;26;STAT_LAMBDAREGELUNG_BANK2_FAKTOR_WERT;1;11;high;unsigned int;2;2;;1;2.0;65536.0;0.0;105696;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 223,
+      "parameter_id": 28,
+      "name": "STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "223;28;STAT_ZUENDUNG_SCHLIESSZEIT_ZUENDSPULEN_WERT;1;13;high;unsigned int;1;2;;1;1.0;1000.0;0.0;105702;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 222,
+      "parameter_id": 28,
+      "name": "STAT_ZUENDUNG_WINKEL_IST_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "222;28;STAT_ZUENDUNG_WINKEL_IST_WERT;1;12;high;signed char;0;1;;1;191.25;255.0;0.0;105701;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 224,
+      "parameter_id": 29,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK1_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "224;29;STAT_EINSPRITZUNG_DAUER_BANK1_WERT;1;13;high;unsigned int;0;2;;1;8.0;1000.0;0.0;105703;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 225,
+      "parameter_id": 29,
+      "name": "STAT_EINSPRITZUNG_DAUER_BANK2_WERT",
+      "general_value_id": 13,
+      "display_text": "ms",
+      "raw": "225;29;STAT_EINSPRITZUNG_DAUER_BANK2_WERT;1;13;high;unsigned int;2;2;;1;8.0;1000.0;0.0;105704;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 231,
+      "parameter_id": 30,
+      "name": "STAT_ASC_RADIUSKORREKTUR_WERT",
+      "general_value_id": 16,
+      "display_text": "mm",
+      "raw": "231;30;STAT_ASC_RADIUSKORREKTUR_WERT;1;16;high;signed int;8;2;;1;4000.0;65536.0;0.0;105710;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 230,
+      "parameter_id": 30,
+      "name": "STAT_ASC_TASTER",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "230;30;STAT_ASC_TASTER;2;15;high;unsigned char;7;1;;1;1.0;1.0;0.0;105709;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 249,
+      "parameter_id": 32,
+      "name": "STAT_DROSSELKLAPPE1_KANAL1_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "249;32;STAT_DROSSELKLAPPE1_KANAL1_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105728;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 251,
+      "parameter_id": 32,
+      "name": "STAT_DROSSELKLAPPE1_KANAL2_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "251;32;STAT_DROSSELKLAPPE1_KANAL2_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105730;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 253,
+      "parameter_id": 32,
+      "name": "STAT_DROSSELKLAPPE2_KANAL1_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "253;32;STAT_DROSSELKLAPPE2_KANAL1_WERT;1;14;high;unsigned int;8;2;;1;1.0;100.0;0.0;105732;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 255,
+      "parameter_id": 32,
+      "name": "STAT_DROSSELKLAPPE2_KANAL2_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "255;32;STAT_DROSSELKLAPPE2_KANAL2_WERT;1;14;high;unsigned int;12;2;;1;1.0;100.0;0.0;105734;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 267,
+      "parameter_id": 33,
+      "name": "STAT_FAHRWERTGEBER_ISTWERT_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "267;33;STAT_FAHRWERTGEBER_ISTWERT_WERT;1;14;high;signed int;8;2;;1;1600.0;65536.0;0.0;105746;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 272,
+      "parameter_id": 34,
+      "name": "STAT_SENSORBOX_SCHRAEGLAGE_WERT",
+      "general_value_id": 12,
+      "display_text": "°",
+      "raw": "272;34;STAT_SENSORBOX_SCHRAEGLAGE_WERT;1;12;high;signed int;8;2;;1;0.0439;1.0;0.0;105751;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 274,
+      "parameter_id": 35,
+      "name": "STAT_GETRIEBE_ISTGANG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "274;35;STAT_GETRIEBE_ISTGANG;2;15;high;unsigned char;0;1;;1;1.0;1.0;0.0;105753;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 285,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_BREMSLICHT_HINTEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "285;36;STAT_SCHALTER_BREMSLICHT_HINTEN;3;1;high;unsigned char;9;1;;1;1.0;1.0;0.0;105764;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 284,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_BREMSLICHT_VORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "284;36;STAT_SCHALTER_BREMSLICHT_VORN;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105763;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 286,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_FAHRZEUGMODUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "286;36;STAT_SCHALTER_FAHRZEUGMODUS;3;1;high;unsigned char;10;1;;1;1.0;1.0;0.0;105765;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 279,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_KUPPLUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "279;36;STAT_SCHALTER_KUPPLUNG;3;1;high;unsigned char;3;1;;1;1.0;1.0;0.0;105758;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 283,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_NOTAUS",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "283;36;STAT_SCHALTER_NOTAUS;3;1;high;unsigned char;7;1;;1;1.0;1.0;0.0;105762;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 280,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_OELNIVEAU",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "280;36;STAT_SCHALTER_OELNIVEAU;3;1;high;unsigned char;4;1;;1;1.0;1.0;0.0;105759;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 278,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_SEITENSTUETZENSTAENDER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "278;36;STAT_SCHALTER_SEITENSTUETZENSTAENDER;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105757;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 281,
+      "parameter_id": 36,
+      "name": "STAT_SCHALTER_START",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "281;36;STAT_SCHALTER_START;3;1;high;unsigned char;5;1;;1;1.0;1.0;0.0;105760;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 289,
+      "parameter_id": 37,
+      "name": "STAT_ANLASSER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "289;37;STAT_ANLASSER_ANSTEUERUNG;3;1;high;unsigned char;0;1;;1;1.0;1.0;0.0;105768;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 291,
+      "parameter_id": 37,
+      "name": "STAT_ANLASSER_FREIGABE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "291;37;STAT_ANLASSER_FREIGABE;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105770;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 293,
+      "parameter_id": 38,
+      "name": "STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "293;38;STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK1;3;1;high;unsigned char;0;1;;1;;;;105772;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 294,
+      "parameter_id": 38,
+      "name": "STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "294;38;STAT_SONDENHEIZUNG_ANSTEUERUNG_BANK2;3;1;high;unsigned char;1;1;;1;;;;105773;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 300,
+      "parameter_id": 39,
+      "name": "STAT_KRAFTSTOFFPUMPE_TESTERKONTROLLE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "300;39;STAT_KRAFTSTOFFPUMPE_TESTERKONTROLLE;3;1;high;unsigned char;1;1;;1;1.0;1.0;0.0;105779;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 305,
+      "parameter_id": 40,
+      "name": "STAT_ELUEFTER_ANSTEUERUNG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "305;40;STAT_ELUEFTER_ANSTEUERUNG;3;1;high;unsigned char;2;1;;1;1.0;1.0;0.0;105784;1;0"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 335,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "335;48;STAT_ADAPTION_GETRIEBE;3;1;high;unsigned char;14;1;;1;;;;105814;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 329,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG1_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "329;48;STAT_ADAPTION_GETRIEBE_GANG1_WERT;1;2;high;unsigned int;2;2;;1;1.0;1000.0;0.0;105808;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 330,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG2_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "330;48;STAT_ADAPTION_GETRIEBE_GANG2_WERT;1;2;high;unsigned int;4;2;;1;1.0;1000.0;0.0;105809;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 331,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG3_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "331;48;STAT_ADAPTION_GETRIEBE_GANG3_WERT;1;2;high;unsigned int;6;2;;1;1.0;1000.0;0.0;105810;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 332,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG4_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "332;48;STAT_ADAPTION_GETRIEBE_GANG4_WERT;1;2;high;unsigned int;8;2;;1;1.0;1000.0;0.0;105811;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 333,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG5_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "333;48;STAT_ADAPTION_GETRIEBE_GANG5_WERT;1;2;high;unsigned int;10;2;;1;1.0;1000.0;0.0;105812;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 334,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_GANG6_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "334;48;STAT_ADAPTION_GETRIEBE_GANG6_WERT;1;2;high;unsigned int;12;2;;1;1.0;1000.0;0.0;105813;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 328,
+      "parameter_id": 48,
+      "name": "STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "328;48;STAT_ADAPTION_GETRIEBE_NEUTRAL_WERT;1;2;high;unsigned int;0;2;;1;1.0;1000.0;0.0;105807;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 340,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "340;49;STAT_ADAPTION_DROSSELKLAPPE1;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105819;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 336,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "336;49;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105815;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 337,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "337;49;STAT_ADAPTION_DROSSELKLAPPE1_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105816;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 338,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "338;49;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105817;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 339,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "339;49;STAT_ADAPTION_DROSSELKLAPPE1_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105818;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 346,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "346;49;STAT_ADAPTION_DROSSELKLAPPE2;3;1;high;unsigned char;19;1;;1;1.0;1.0;0.0;105825;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 342,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "342;49;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_OBEN_WERT;1;14;high;unsigned int;11;2;;1;1.0;100.0;0.0;105821;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 343,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "343;49;STAT_ADAPTION_DROSSELKLAPPE2_KANAL1_UNTEN_WERT;1;14;high;unsigned int;13;2;;1;1.0;100.0;0.0;105822;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 344,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "344;49;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_OBEN_WERT;1;14;high;unsigned int;15;2;;1;1.0;100.0;0.0;105823;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 345,
+      "parameter_id": 49,
+      "name": "STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "345;49;STAT_ADAPTION_DROSSELKLAPPE2_KANAL2_UNTEN_WERT;1;14;high;unsigned int;17;2;;1;1.0;100.0;0.0;105824;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 360,
+      "parameter_id": 50,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "360;50;STAT_ADAPTION_FAHRWERTGEBER;3;1;high;unsigned char;8;1;;1;1.0;1.0;0.0;105839;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 356,
+      "parameter_id": 50,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "356;50;STAT_ADAPTION_FAHRWERTGEBER_KANAL1_OBEN_WERT;1;14;high;unsigned int;0;2;;1;1.0;100.0;0.0;105835;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 357,
+      "parameter_id": 50,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "357;50;STAT_ADAPTION_FAHRWERTGEBER_KANAL1_UNTEN_WERT;1;14;high;unsigned int;2;2;;1;1.0;100.0;0.0;105836;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 358,
+      "parameter_id": 50,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "358;50;STAT_ADAPTION_FAHRWERTGEBER_KANAL2_OBEN_WERT;1;14;high;unsigned int;4;2;;1;1.0;100.0;0.0;105837;0;1"
+    },
+    {
+      "ecu_key": "cuX_BMSX",
+      "result_id": 359,
+      "parameter_id": 50,
+      "name": "STAT_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "359;50;STAT_ADAPTION_FAHRWERTGEBER_KANAL2_UNTEN_WERT;1;14;high;unsigned int;6;2;;1;1.0;100.0;0.0;105838;0;1"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2754,
+      "parameter_id": 627,
+      "name": "STAT_INT_BATTERIE_MR",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "2754;627;STAT_INT_BATTERIE_MR;2;15;;signed char;0;1;;1;1.0;1.0;0.0;107635;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2755,
+      "parameter_id": 627,
+      "name": "STAT_INT_BATTERIE_SPANNUNG_MR_WERT",
+      "general_value_id": 30,
+      "display_text": "Volt",
+      "raw": "2755;627;STAT_INT_BATTERIE_SPANNUNG_MR_WERT;1;30;;unsigned char;1;1;;1;1.0;10.0;0.0;107641;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2757,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_X_ASOLUT_MR_WERT",
+      "general_value_id": 31,
+      "display_text": "Grad",
+      "raw": "2757;628;STAT_NEIGUNG_X_ASOLUT_MR_WERT;1;31;;signed int;1;2;;1;1.0;10.0;0.0;107649;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2760,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_X_RELATIV_MR_WERT",
+      "general_value_id": 31,
+      "display_text": "Grad",
+      "raw": "2760;628;STAT_NEIGUNG_X_RELATIV_MR_WERT;1;31;;signed char;7;1;;1;1.0;10.0;0.0;107652;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2758,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_Y_ASOLUT_MR_WERT",
+      "general_value_id": 31,
+      "display_text": "Grad",
+      "raw": "2758;628;STAT_NEIGUNG_Y_ASOLUT_MR_WERT;1;31;;signed int;3;2;;1;1.0;10.0;0.0;107650;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2761,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_Y_RELATIV_MR_WERT",
+      "general_value_id": 31,
+      "display_text": "Grad",
+      "raw": "2761;628;STAT_NEIGUNG_Y_RELATIV_MR_WERT;1;31;;signed char;8;1;;1;1.0;10.0;0.0;107653;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2756,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_ZUSTAND_MR",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "2756;628;STAT_NEIGUNG_ZUSTAND_MR;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;107643;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2759,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_Z_ASOLUT_MR_WERT",
+      "general_value_id": 31,
+      "display_text": "Grad",
+      "raw": "2759;628;STAT_NEIGUNG_Z_ASOLUT_MR_WERT;1;31;;signed int;5;2;;1;1.0;10.0;0.0;107651;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2762,
+      "parameter_id": 628,
+      "name": "STAT_NEIGUNG_Z_RELATIV_MR_WERT",
+      "general_value_id": 31,
+      "display_text": "Grad",
+      "raw": "2762;628;STAT_NEIGUNG_Z_RELATIV_MR_WERT;1;31;;signed char;9;1;;1;1.0;10.0;0.0;107654;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2766,
+      "parameter_id": 630,
+      "name": "STAT_FERNB_ANZ_MR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "2766;630;STAT_FERNB_ANZ_MR_WERT;1;11;;unsigned char;2;1;;1;1.0;1.0;0.0;107659;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2768,
+      "parameter_id": 631,
+      "name": "STAT_DWA_ALARM_MR",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "2768;631;STAT_DWA_ALARM_MR;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;107662;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2769,
+      "parameter_id": 631,
+      "name": "STAT_DWA_ANZ_AALARMS_MR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "2769;631;STAT_DWA_ANZ_AALARMS_MR_WERT;1;11;;unsigned int;1;2;;1;1.0;1.0;0.0;107669;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2770,
+      "parameter_id": 632,
+      "name": "STAT_ZV_MR",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "2770;632;STAT_ZV_MR;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;107671;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2771,
+      "parameter_id": 632,
+      "name": "STAT_ZV_TASTER_MR",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "2771;632;STAT_ZV_TASTER_MR;3;1;;unsigned char;1;1;;1;1.0;1.0;0.0;107672;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2776,
+      "parameter_id": 635,
+      "name": "STAT_VORFELD_BEL_MR",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "2776;635;STAT_VORFELD_BEL_MR;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;107677;1;0"
+    },
+    {
+      "ecu_key": "cuX_DWA",
+      "result_id": 2781,
+      "parameter_id": 639,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "2781;639;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_ESA",
+      "result_id": 4118,
+      "parameter_id": 953,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "4118;953;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;;10.0;;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4165,
+      "parameter_id": 965,
+      "name": "STAT_HUPE_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "4165;965;STAT_HUPE_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106229;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4172,
+      "parameter_id": 970,
+      "name": "STAT_ZSW_ANSTEUERUNG_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "4172;970;STAT_ZSW_ANSTEUERUNG_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108900;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4181,
+      "parameter_id": 976,
+      "name": "STAT_TASTER_NAVIFACH_EIN",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "4181;976;STAT_TASTER_NAVIFACH_EIN;2;15;;unsigned char;0;1;;1;;;;108913;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4206,
+      "parameter_id": 982,
+      "name": "STAT_SITZHEIZUNG_FAHRER_EINGANG_MR",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "4206;982;STAT_SITZHEIZUNG_FAHRER_EINGANG_MR;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;108937;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4207,
+      "parameter_id": 982,
+      "name": "STAT_SITZHEIZUNG_SOZIA__EINGANG_MR",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "4207;982;STAT_SITZHEIZUNG_SOZIA__EINGANG_MR;2;15;;unsigned char;1;1;;1;1.0;1.0;0.0;108939;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4209,
+      "parameter_id": 984,
+      "name": "STAT_FERNLICHT_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "4209;984;STAT_FERNLICHT_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;108358;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4215,
+      "parameter_id": 987,
+      "name": "STAT_BREMSSCHALTER_FUSS_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "4215;987;STAT_BREMSSCHALTER_FUSS_EINGANG_EIN;3;1;;unsigned char;1;1;;1;1.0;1.0;0.0;105764;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4214,
+      "parameter_id": 987,
+      "name": "STAT_BREMSSCHALTER_HAND_EINGANG_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "4214;987;STAT_BREMSSCHALTER_HAND_EINGANG_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;105763;1;0"
+    },
+    {
+      "ecu_key": "cuX_FSA",
+      "result_id": 4220,
+      "parameter_id": 990,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "4220;990;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5859,
+      "parameter_id": 1160,
+      "name": "STAT_GWSZ_ANZEIGE_WERT",
+      "general_value_id": 19,
+      "display_text": "km",
+      "raw": "5859;1160;STAT_GWSZ_ANZEIGE_WERT;1;19;;unsigned long;0;4;;1;1.0;1.0;0.0;45473;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5861,
+      "parameter_id": 1161,
+      "name": "STAT_GEBERWIDERSTAND_WERT",
+      "general_value_id": 47,
+      "display_text": "Ohm",
+      "raw": "5861;1161;STAT_GEBERWIDERSTAND_WERT;1;47;high;unsigned int;2;2;;1;1.0;1.0;0.0;110181;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5860,
+      "parameter_id": 1161,
+      "name": "STAT_TANKINHALT_WERT",
+      "general_value_id": 36,
+      "display_text": "l",
+      "raw": "5860;1161;STAT_TANKINHALT_WERT;1;36;high;unsigned int;0;2;;1;1.0;1000.0;0.0;108081;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5870,
+      "parameter_id": 1170,
+      "name": "STAT_GANG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "5870;1170;STAT_GANG;2;15;;unsigned char;0;1;;1;1.0;1.0;0.0;106110;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5892,
+      "parameter_id": 1178,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "5892;1178;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5901,
+      "parameter_id": 1182,
+      "name": "STAT_EINGANG_FERNLICHT",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "5901;1182;STAT_EINGANG_FERNLICHT;3;1;high;unsigned char;0;1;;1;;;;110200;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB03",
+      "result_id": 5903,
+      "parameter_id": 1183,
+      "name": "STAT_EINGANG_BLINKER_RECHTS_SCHALTER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "5903;1183;STAT_EINGANG_BLINKER_RECHTS_SCHALTER;3;1;high;unsigned char;1;1;;1;;;;106228;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6271,
+      "parameter_id": 1352,
+      "name": "STAT_PHOTOSENS_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "6271;1352;STAT_PHOTOSENS_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;106082;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6272,
+      "parameter_id": 1353,
+      "name": "STAT_WECKLEITUNG_DIGITAL_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6272;1353;STAT_WECKLEITUNG_DIGITAL_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106083;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6273,
+      "parameter_id": 1354,
+      "name": "STAT_TEMPERATUR_DISPLAY_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "6273;1354;STAT_TEMPERATUR_DISPLAY_WERT;1;7;;char;0;1;;1;1.0;1.0;0.0;106084;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6278,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_BLINKER_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6278;1355;STAT_TASTE_BLINKER_LI;3;1;;unsigned int;0;2;0x0010;1;1.0;1.0;0.0;106226;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6279,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_BLINKER_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6279;1355;STAT_TASTE_BLINKER_RE;3;1;;unsigned int;0;2;0x0020;1;1.0;1.0;0.0;106227;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6280,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_BLINKER_RUECKSTELL",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6280;1355;STAT_TASTE_BLINKER_RUECKSTELL;3;1;;unsigned int;0;2;0x0040;1;1.0;1.0;0.0;106228;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6287,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_FERNLICHT",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6287;1355;STAT_TASTE_FERNLICHT;3;1;;unsigned int;0;2;0x0200;1;1.0;1.0;0.0;106235;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6281,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_HORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6281;1355;STAT_TASTE_HORN;3;1;;unsigned int;0;2;0x0080;1;1.0;1.0;0.0;106229;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6286,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6286;1355;STAT_TASTE_LI;3;1;;unsigned int;0;2;0x4000;1;1.0;1.0;0.0;106234;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6276,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6276;1355;STAT_TASTE_RE;3;1;;unsigned int;0;2;0x0004;1;1.0;1.0;0.0;106224;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6283,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6283;1355;STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN;3;1;;unsigned int;0;2;0x0800;1;1.0;1.0;0.0;106231;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6277,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_TEMPOMAT_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6277;1355;STAT_TASTE_TEMPOMAT_EIN;3;1;;unsigned int;0;2;0x0008;1;1.0;1.0;0.0;106225;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6282,
+      "parameter_id": 1355,
+      "name": "STAT_TASTE_TEMPOMAT_VERZOEGERN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6282;1355;STAT_TASTE_TEMPOMAT_VERZOEGERN;3;1;;unsigned int;0;2;0x0400;1;1.0;1.0;0.0;106230;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6284,
+      "parameter_id": 1355,
+      "name": "STAT_WIPPE_LI_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6284;1355;STAT_WIPPE_LI_AB;3;1;;unsigned int;0;2;0x1000;1;1.0;1.0;0.0;106232;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6285,
+      "parameter_id": 1355,
+      "name": "STAT_WIPPE_LI_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6285;1355;STAT_WIPPE_LI_AUF;3;1;;unsigned int;0;2;0x2000;1;1.0;1.0;0.0;106233;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6274,
+      "parameter_id": 1355,
+      "name": "STAT_WIPPE_RE_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6274;1355;STAT_WIPPE_RE_AB;3;1;;unsigned int;0;2;0x0001;1;1.0;1.0;0.0;106220;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6275,
+      "parameter_id": 1355,
+      "name": "STAT_WIPPE_RE_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6275;1355;STAT_WIPPE_RE_AUF;3;1;;unsigned int;0;2;0x0002;1;1.0;1.0;0.0;106223;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6288,
+      "parameter_id": 1356,
+      "name": "STAT_MMC_BEDIENUNG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "6288;1356;STAT_MMC_BEDIENUNG;2;15;;unsigned char;0;1;0x02;1;1.0;1.0;0.0;106090;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6289,
+      "parameter_id": 1356,
+      "name": "STAT_MMC_POSITION_WERT",
+      "general_value_id": 20,
+      "display_text": "Schritte",
+      "raw": "6289;1356;STAT_MMC_POSITION_WERT;1;20;;unsigned char;1;1;;1;1.0;1.0;0.0;106096;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB50",
+      "result_id": 6358,
+      "parameter_id": 1375,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "6358;1375;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6376,
+      "parameter_id": 1388,
+      "name": "STAT_PHOTOSENS_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "6376;1388;STAT_PHOTOSENS_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;106082;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6377,
+      "parameter_id": 1389,
+      "name": "STAT_WECKLEITUNG_DIGITAL_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6377;1389;STAT_WECKLEITUNG_DIGITAL_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106083;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6378,
+      "parameter_id": 1390,
+      "name": "STAT_TEMPERATUR_DISPLAY_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "6378;1390;STAT_TEMPERATUR_DISPLAY_WERT;1;7;;char;0;1;;1;1.0;1.0;0.0;106084;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6383,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_BLINKER_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6383;1391;STAT_TASTE_BLINKER_LI;3;1;;unsigned int;0;2;0x0010;1;1.0;1.0;0.0;106226;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6384,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_BLINKER_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6384;1391;STAT_TASTE_BLINKER_RE;3;1;;unsigned int;0;2;0x0020;1;1.0;1.0;0.0;106227;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6385,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_BLINKER_RUECKSTELL",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6385;1391;STAT_TASTE_BLINKER_RUECKSTELL;3;1;;unsigned int;0;2;0x0040;1;1.0;1.0;0.0;106228;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6392,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_FERNLICHT",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6392;1391;STAT_TASTE_FERNLICHT;3;1;;unsigned int;0;2;0x0200;1;1.0;1.0;0.0;106235;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6386,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_HORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6386;1391;STAT_TASTE_HORN;3;1;;unsigned int;0;2;0x0080;1;1.0;1.0;0.0;106229;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6391,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6391;1391;STAT_TASTE_LI;3;1;;unsigned int;0;2;0x4000;1;1.0;1.0;0.0;106234;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6381,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6381;1391;STAT_TASTE_RE;3;1;;unsigned int;0;2;0x0004;1;1.0;1.0;0.0;106224;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6388,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6388;1391;STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN;3;1;;unsigned int;0;2;0x0800;1;1.0;1.0;0.0;106231;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6382,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_TEMPOMAT_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6382;1391;STAT_TASTE_TEMPOMAT_EIN;3;1;;unsigned int;0;2;0x0008;1;1.0;1.0;0.0;106225;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6387,
+      "parameter_id": 1391,
+      "name": "STAT_TASTE_TEMPOMAT_VERZOEGERN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6387;1391;STAT_TASTE_TEMPOMAT_VERZOEGERN;3;1;;unsigned int;0;2;0x0400;1;1.0;1.0;0.0;106230;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6389,
+      "parameter_id": 1391,
+      "name": "STAT_WIPPE_LI_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6389;1391;STAT_WIPPE_LI_AB;3;1;;unsigned int;0;2;0x1000;1;1.0;1.0;0.0;106232;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6390,
+      "parameter_id": 1391,
+      "name": "STAT_WIPPE_LI_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6390;1391;STAT_WIPPE_LI_AUF;3;1;;unsigned int;0;2;0x2000;1;1.0;1.0;0.0;106233;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6379,
+      "parameter_id": 1391,
+      "name": "STAT_WIPPE_RE_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6379;1391;STAT_WIPPE_RE_AB;3;1;;unsigned int;0;2;0x0001;1;1.0;1.0;0.0;106220;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6380,
+      "parameter_id": 1391,
+      "name": "STAT_WIPPE_RE_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6380;1391;STAT_WIPPE_RE_AUF;3;1;;unsigned int;0;2;0x0002;1;1.0;1.0;0.0;106223;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6393,
+      "parameter_id": 1392,
+      "name": "STAT_MMC_BEDIENUNG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "6393;1392;STAT_MMC_BEDIENUNG;2;15;;unsigned char;0;1;0x02;1;1.0;1.0;0.0;106090;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6394,
+      "parameter_id": 1392,
+      "name": "STAT_MMC_POSITION_WERT",
+      "general_value_id": 20,
+      "display_text": "Schritte",
+      "raw": "6394;1392;STAT_MMC_POSITION_WERT;1;20;;unsigned char;1;1;;1;1.0;1.0;0.0;106096;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMB53",
+      "result_id": 6467,
+      "parameter_id": 1413,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "6467;1413;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6497,
+      "parameter_id": 1444,
+      "name": "STAT_PHOTOSENS_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "6497;1444;STAT_PHOTOSENS_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;106082;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6502,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_BLINKER_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6502;1445;STAT_TASTE_BLINKER_LI;3;1;;unsigned int;0;2;0x0010;1;1.0;1.0;0.0;106226;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6503,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_BLINKER_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6503;1445;STAT_TASTE_BLINKER_RE;3;1;;unsigned int;0;2;0x0020;1;1.0;1.0;0.0;106227;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6504,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_BLINKER_RUECKSTELL",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6504;1445;STAT_TASTE_BLINKER_RUECKSTELL;3;1;;unsigned int;0;2;0x0040;1;1.0;1.0;0.0;106228;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6511,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_FERNLICHT",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6511;1445;STAT_TASTE_FERNLICHT;3;1;;unsigned int;0;2;0x0200;1;1.0;1.0;0.0;106235;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6505,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_HORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6505;1445;STAT_TASTE_HORN;3;1;;unsigned int;0;2;0x0080;1;1.0;1.0;0.0;106229;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6510,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6510;1445;STAT_TASTE_LI;3;1;;unsigned int;0;2;0x4000;1;1.0;1.0;0.0;106234;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6500,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6500;1445;STAT_TASTE_RE;3;1;;unsigned int;0;2;0x0004;1;1.0;1.0;0.0;106224;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6507,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6507;1445;STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN;3;1;;unsigned int;0;2;0x0800;1;1.0;1.0;0.0;106231;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6501,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_TEMPOMAT_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6501;1445;STAT_TASTE_TEMPOMAT_EIN;3;1;;unsigned int;0;2;0x0008;1;1.0;1.0;0.0;106225;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6506,
+      "parameter_id": 1445,
+      "name": "STAT_TASTE_TEMPOMAT_VERZOEGERN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6506;1445;STAT_TASTE_TEMPOMAT_VERZOEGERN;3;1;;unsigned int;0;2;0x0400;1;1.0;1.0;0.0;106230;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6508,
+      "parameter_id": 1445,
+      "name": "STAT_WIPPE_LI_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6508;1445;STAT_WIPPE_LI_AB;3;1;;unsigned int;0;2;0x1000;1;1.0;1.0;0.0;106232;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6509,
+      "parameter_id": 1445,
+      "name": "STAT_WIPPE_LI_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6509;1445;STAT_WIPPE_LI_AUF;3;1;;unsigned int;0;2;0x2000;1;1.0;1.0;0.0;106233;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6498,
+      "parameter_id": 1445,
+      "name": "STAT_WIPPE_RE_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6498;1445;STAT_WIPPE_RE_AB;3;1;;unsigned int;0;2;0x0001;1;1.0;1.0;0.0;106220;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6499,
+      "parameter_id": 1445,
+      "name": "STAT_WIPPE_RE_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "6499;1445;STAT_WIPPE_RE_AUF;3;1;;unsigned int;0;2;0x0002;1;1.0;1.0;0.0;106223;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6512,
+      "parameter_id": 1446,
+      "name": "STAT_MMC_BEDIENUNG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "6512;1446;STAT_MMC_BEDIENUNG;2;15;;unsigned char;0;1;0x02;1;1.0;1.0;0.0;106090;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6513,
+      "parameter_id": 1446,
+      "name": "STAT_MMC_POSITION_WERT",
+      "general_value_id": 20,
+      "display_text": "Schritte",
+      "raw": "6513;1446;STAT_MMC_POSITION_WERT;1;20;;unsigned char;1;1;;1;1.0;1.0;0.0;106096;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6540,
+      "parameter_id": 1459,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "6540;1459;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6554,
+      "parameter_id": 1465,
+      "name": "STAT_HELLIGKEIT_IN_PROZENT_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "6554;1465;STAT_HELLIGKEIT_IN_PROZENT_WERT;1;14;high;unsigned char;2;1;;1;1.0;2.0;0.0;110569;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6584,
+      "parameter_id": 1471,
+      "name": "STAT_VOLUMEAUDIO_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "6584;1471;STAT_VOLUMEAUDIO_WERT;1;14;High;unsigned char;0;1;;1;1.0;1.0;0.0;110590;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBHI",
+      "result_id": 6608,
+      "parameter_id": 1476,
+      "name": "STAT_TANKINHALT_KOMBIINTERN_WERT",
+      "general_value_id": 36,
+      "display_text": "l",
+      "raw": "6608;1476;STAT_TANKINHALT_KOMBIINTERN_WERT;1;36;;unsigned int;2;2;;1;1.0;10.0;0.0;106122;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1008,
+      "parameter_id": 339,
+      "name": "STAT_PHOTOSENS_WERT",
+      "general_value_id": 14,
+      "display_text": "%",
+      "raw": "1008;339;STAT_PHOTOSENS_WERT;1;14;;unsigned char;0;1;;1;1.0;1.0;0.0;106082;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1009,
+      "parameter_id": 340,
+      "name": "STAT_WECKLEITUNG_DIGITAL_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1009;340;STAT_WECKLEITUNG_DIGITAL_EIN;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106083;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1010,
+      "parameter_id": 341,
+      "name": "STAT_TEMPERATUR_DISPLAY_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "1010;341;STAT_TEMPERATUR_DISPLAY_WERT;1;7;;char;0;1;;1;1.0;1.0;0.0;106084;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1011,
+      "parameter_id": 342,
+      "name": "STAT_KOMBI_TASTER",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1011;342;STAT_KOMBI_TASTER;3;1;;unsigned char;0;1;;1;1.0;1.0;0.0;106085;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1016,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_BLINKER_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1016;344;STAT_TASTE_BLINKER_LI;3;1;;unsigned int;0;2;0x0010;1;1.0;1.0;0.0;106226;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1017,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_BLINKER_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1017;344;STAT_TASTE_BLINKER_RE;3;1;;unsigned int;0;2;0x0020;1;1.0;1.0;0.0;106227;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1018,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_BLINKER_RUECKSTELL",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1018;344;STAT_TASTE_BLINKER_RUECKSTELL;3;1;;unsigned int;0;2;0x0040;1;1.0;1.0;0.0;106228;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1025,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_FERNLICHT",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1025;344;STAT_TASTE_FERNLICHT;3;1;;unsigned int;0;2;0x0200;1;1.0;1.0;0.0;106235;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1019,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_HORN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1019;344;STAT_TASTE_HORN;3;1;;unsigned int;0;2;0x0080;1;1.0;1.0;0.0;106229;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1024,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_LI",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1024;344;STAT_TASTE_LI;3;1;;unsigned int;0;2;0x4000;1;1.0;1.0;0.0;106234;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1014,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_RE",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1014;344;STAT_TASTE_RE;3;1;;unsigned int;0;2;0x0004;1;1.0;1.0;0.0;106224;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1021,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1021;344;STAT_TASTE_TEMPOMAT_BESCHLEUNIGEN;3;1;;unsigned int;0;2;0x0800;1;1.0;1.0;0.0;106231;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1015,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_TEMPOMAT_EIN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1015;344;STAT_TASTE_TEMPOMAT_EIN;3;1;;unsigned int;0;2;0x0008;1;1.0;1.0;0.0;106225;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1020,
+      "parameter_id": 344,
+      "name": "STAT_TASTE_TEMPOMAT_VERZOEGERN",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1020;344;STAT_TASTE_TEMPOMAT_VERZOEGERN;3;1;;unsigned int;0;2;0x0400;1;1.0;1.0;0.0;106230;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1022,
+      "parameter_id": 344,
+      "name": "STAT_WIPPE_LI_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1022;344;STAT_WIPPE_LI_AB;3;1;;unsigned int;0;2;0x1000;1;1.0;1.0;0.0;106232;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1023,
+      "parameter_id": 344,
+      "name": "STAT_WIPPE_LI_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1023;344;STAT_WIPPE_LI_AUF;3;1;;unsigned int;0;2;0x2000;1;1.0;1.0;0.0;106233;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1012,
+      "parameter_id": 344,
+      "name": "STAT_WIPPE_RE_AB",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1012;344;STAT_WIPPE_RE_AB;3;1;;unsigned int;0;2;0x0001;1;1.0;1.0;0.0;106220;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1013,
+      "parameter_id": 344,
+      "name": "STAT_WIPPE_RE_AUF",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "1013;344;STAT_WIPPE_RE_AUF;3;1;;unsigned int;0;2;0x0002;1;1.0;1.0;0.0;106220;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1026,
+      "parameter_id": 345,
+      "name": "STAT_MMC_BEDIENUNG",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "1026;345;STAT_MMC_BEDIENUNG;2;15;;unsigned char;0;1;0x02;1;1.0;1.0;0.0;106090;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1027,
+      "parameter_id": 345,
+      "name": "STAT_MMC_POSITION_WERT",
+      "general_value_id": 20,
+      "display_text": "Schritte",
+      "raw": "1027;345;STAT_MMC_POSITION_WERT;1;20;;unsigned char;1;1;;1;1.0;1.0;0.0;106096;1;0"
+    },
+    {
+      "ecu_key": "cuX_KOMBI",
+      "result_id": 1110,
+      "parameter_id": 369,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "1110;369;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105674;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3424,
+      "parameter_id": 827,
+      "name": "STAT_BAT_RDC_SENSOR_HINTEN_WARN_MR",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3424;827;STAT_BAT_RDC_SENSOR_HINTEN_WARN_MR;3;1;;unsigned char;3;1;;1;1.0;1.0;0.0;112576;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3423,
+      "parameter_id": 827,
+      "name": "STAT_BAT_RDC_SENSOR_VORN_WARN_MR",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "3423;827;STAT_BAT_RDC_SENSOR_VORN_WARN_MR;3;1;;unsigned char;2;1;;1;1.0;1.0;0.0;112575;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3426,
+      "parameter_id": 827,
+      "name": "STAT_REIFEN_DRUCK_HINTEN_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "3426;827;STAT_REIFEN_DRUCK_HINTEN_WERT;1;23;;unsigned char;5;1;;1;2.0;100.0;0.0;108280;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3425,
+      "parameter_id": 827,
+      "name": "STAT_REIFEN_DRUCK_VORN_WERT",
+      "general_value_id": 23,
+      "display_text": "bar",
+      "raw": "3425;827;STAT_REIFEN_DRUCK_VORN_WERT;1;23;;unsigned char;4;1;;1;2.0;100.0;0.0;108279;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3428,
+      "parameter_id": 827,
+      "name": "STAT_TEMP_HINTEN_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "3428;827;STAT_TEMP_HINTEN_WERT;1;7;;unsigned char;7;1;;1;1.0;1.0;-50.0;108282;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3427,
+      "parameter_id": 827,
+      "name": "STAT_TEMP_VORN_WERT",
+      "general_value_id": 7,
+      "display_text": "°C",
+      "raw": "3427;827;STAT_TEMP_VORN_WERT;1;7;;unsigned char;6;1;;1;1.0;1.0;-50.0;108281;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3430,
+      "parameter_id": 827,
+      "name": "STAT_TRANSMITTER_ID_HINTEN_MR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "3430;827;STAT_TRANSMITTER_ID_HINTEN_MR_WERT;1;11;;unsigned long;12;4;;1;1.0;1.0;0.0;108284;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3429,
+      "parameter_id": 827,
+      "name": "STAT_TRANSMITTER_ID_VORN_MR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "3429;827;STAT_TRANSMITTER_ID_VORN_MR_WERT;1;11;;unsigned long;8;4;;1;1.0;1.0;0.0;108283;1;0"
+    },
+    {
+      "ecu_key": "cuX_RDC",
+      "result_id": 3435,
+      "parameter_id": 832,
+      "name": "STAT_BATTERIESPANNUNG_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "3435;832;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7825,
+      "parameter_id": 1860,
+      "name": "STAT_POSITION",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "7825;1860;STAT_POSITION;2;15;high;unsigned char;0;1;;1;;;;111301;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7799,
+      "parameter_id": 1841,
+      "name": "STAT_ERSTZULASSUNGSDATUM_JAHR_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "7799;1841;STAT_ERSTZULASSUNGSDATUM_JAHR_WERT;1;11;;unsigned int;7;2;;1;1.0;1.0;0.0;110285;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7798,
+      "parameter_id": 1841,
+      "name": "STAT_ERSTZULASSUNGSDATUM_MONAT_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "7798;1841;STAT_ERSTZULASSUNGSDATUM_MONAT_WERT;1;11;;unsigned char;6;1;;1;1.0;1.0;0.0;110284;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7797,
+      "parameter_id": 1841,
+      "name": "STAT_ERSTZULASSUNGSDATUM_TAG_WERT",
+      "general_value_id": 11,
+      "display_text": "-",
+      "raw": "7797;1841;STAT_ERSTZULASSUNGSDATUM_TAG_WERT;1;11;;unsigned char;5;1;;1;1.0;1.0;0.0;110283;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7796,
+      "parameter_id": 1841,
+      "name": "STAT_HAENDLER_NUMMER_TEXT",
+      "general_value_id": 3,
+      "display_text": "TEXT",
+      "raw": "7796;1841;STAT_HAENDLER_NUMMER_TEXT;4;3;;string[5];0;5;;1;1.0;1.0;0.0;110282;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7804,
+      "parameter_id": 1843,
+      "name": "STAT_KL15_DIG",
+      "general_value_id": 1,
+      "display_text": "0/1",
+      "raw": "7804;1843;STAT_KL15_DIG;3;1;high;unsigned char;0;1;;1;;;;111246;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7807,
+      "parameter_id": 1845,
+      "name": "STAT_KL15_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7807;1845;STAT_KL15_WERT;1;2;high;unsigned char;1;1;;1;1.0;10.0;0.0;111250;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7806,
+      "parameter_id": 1845,
+      "name": "STAT_KL30_WERT",
+      "general_value_id": 2,
+      "display_text": "V",
+      "raw": "7806;1845;STAT_KL30_WERT;1;2;high;unsigned char;0;1;;1;1.0;10.0;0.0;111249;1;0"
+    },
+    {
+      "ecu_key": "cuX_SLZ",
+      "result_id": 7812,
+      "parameter_id": 1847,
+      "name": "STAT_FB_BATTERIE",
+      "general_value_id": 15,
+      "display_text": "0-n",
+      "raw": "7812;1847;STAT_FB_BATTERIE;2;15;high;unsigned char;2;1;;1;;;;111278;1;0"
+    }
+  ],
+  "unresolved": []
+}

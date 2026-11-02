@@ -1,0 +1,328 @@
+{
+  "source": {
+    "artifact": "MotoScan 1.110 classes.dex",
+    "dex_sha256": "869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832",
+    "decode_methods": [
+      "j21.b @ 0x26c1d4",
+      "ob2.D @ 0x31d9a4",
+      "Ll21.<init> @ 0x26cb64"
+    ],
+    "classification": "Static source-derived cases, hand calculated. No live ECU output claimed."
+  },
+  "cases": [
+    {
+      "name": "NUMBER uses zero decimals for identity multiplier and divisor",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "uds_data": [
+        255
+      ],
+      "result_raw": "10;1;VALUE;1;7;high;unsigned char;0;1;;1;1;1;0",
+      "expected": "255",
+      "expected_raw": 255
+    },
+    {
+      "name": "NUMBER uses two decimals when scale differs from identity",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "uds_data": [
+        255
+      ],
+      "result_raw": "10;1;VALUE;1;7;high;unsigned char;0;1;;1;1;10;0",
+      "expected": "25.50",
+      "expected_raw": 255,
+      "unit": "V",
+      "expected_unit": "V"
+    },
+    {
+      "name": "LIST maps matching TAB raw value to localized value id",
+      "format": 2,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;2;7;high;unsigned char;0;1;;0;1;1;0",
+      "uds_data": [
+        2
+      ],
+      "tabs_raw": [
+        "100;10;0x02;105500"
+      ],
+      "expected": "Gear two",
+      "expected_raw": 2,
+      "tab_texts": {
+        "105500": "Gear two"
+      },
+      "unit": "V",
+      "expected_unit": ""
+    },
+    {
+      "name": "LIST unmatched value displays source dash fallback",
+      "format": 2,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;2;7;high;unsigned char;0;1;;0;1;1;0",
+      "uds_data": [
+        3
+      ],
+      "tabs_raw": [],
+      "expected": "-",
+      "expected_raw": 3
+    },
+    {
+      "name": "DIGITAL applies nonempty mask before TAB lookup",
+      "format": 3,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;3;7;high;unsigned char;0;1;0x04;1;1;1;0",
+      "uds_data": [
+        4
+      ],
+      "tabs_raw": [
+        "100;10;0x01;105501"
+      ],
+      "expected": "Active",
+      "expected_raw": 4,
+      "tab_texts": {
+        "105501": "Active"
+      }
+    },
+    {
+      "name": "ASCII returns source literal token",
+      "format": 4,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;4;7;high;data;0;2;;0;1;1;0",
+      "uds_data": [
+        65,
+        66
+      ],
+      "expected": "ASCII-VALUE",
+      "expected_placeholder": true
+    },
+    {
+      "name": "HEX emits contiguous uppercase bytes",
+      "format": 5,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;5;7;high;data;0;3;;0;1;1;0",
+      "uds_data": [
+        0,
+        10,
+        255
+      ],
+      "expected": "000AFF"
+    },
+    {
+      "name": "BITFIELD returns source literal token",
+      "format": 6,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;6;7;high;BITFIELD;0;1;;0;1;1;0",
+      "uds_data": [
+        5
+      ],
+      "expected": "BITFIELD-VALUE",
+      "expected_placeholder": true
+    },
+    {
+      "name": "DATETIME date layout reverses bytes and inserts 20 prefix",
+      "format": 7,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;7;7;high;data;0;3;;1;1;1;0",
+      "uds_data": [
+        24,
+        12,
+        31
+      ],
+      "expected": "1f.0c.2018"
+    },
+    {
+      "name": "DATETIME flag other than one follows HEX path",
+      "format": 7,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;7;7;high;data;0;2;;0;1;1;0",
+      "uds_data": [
+        171,
+        205
+      ],
+      "expected": "ABCD"
+    },
+    {
+      "name": "BMWUDSECUSN follows low-first-byte shifted text branch",
+      "format": 8,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;8;7;high;data;0;2;;0;1;1;0",
+      "uds_data": [
+        18,
+        52
+      ],
+      "expected": " d"
+    },
+    {
+      "name": "TAB_GLOBAL uses hex when no lookup table is attached",
+      "format": 9,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;9;7;high;data;0;2;;0;1;1;0",
+      "uds_data": [
+        18,
+        52
+      ],
+      "expected": "1234"
+    },
+    {
+      "name": "BMWUDSECUSN low first byte decodes shifted printable bytes",
+      "format": 8,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;8;7;high;data;0;3;;0;1;1;0",
+      "uds_data": [
+        1,
+        65,
+        31
+      ],
+      "expected": " q ",
+      "expected_raw": null
+    },
+    {
+      "name": "BMWUDSECUSN high first byte renders printable bytes then trims",
+      "format": 8,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;8;7;high;data;0;4;;0;1;1;0",
+      "uds_data": [
+        72,
+        1,
+        32,
+        127
+      ],
+      "expected": "H",
+      "expected_raw": null
+    },
+    {
+      "name": "TAB_GLOBAL converts signed big-endian data to low signed int for table lookup",
+      "format": 9,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;9;7;high;data;0;4;;0;1;1;0",
+      "uds_data": [
+        255,
+        255,
+        255,
+        254
+      ],
+      "tab_global_raw": [
+        "code;description",
+        "-2;Recovered label"
+      ],
+      "tab_global_key_header": "code",
+      "tab_global_value_header": "description",
+      "expected": "Recovered label",
+      "expected_raw": -2
+    },
+    {
+      "name": "TAB_GLOBAL falls back to uppercase hex without source table",
+      "format": 9,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;9;7;high;data;0;2;;0;1;1;0",
+      "uds_data": [
+        171,
+        205
+      ],
+      "expected": "ABCD",
+      "expected_raw": null
+    },
+    {
+      "name": "keeps a TAB localization id unresolved when display text is unavailable",
+      "format": 2,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;2;7;high;unsigned char;0;1;;0;1;1;0",
+      "uds_data": [
+        2
+      ],
+      "tabs_raw": [
+        "100;10;0x02;105500"
+      ],
+      "expected_unresolved": true,
+      "reason": "Localized TAB value text is unavailable",
+      "expected_raw": 2
+    },
+    {
+      "name": "NUMBER Java decimal HALF_UP rounds 65.535 to 65.54",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned long;0;4;;1;1;1000;0",
+      "uds_data": [
+        0,
+        0,
+        255,
+        255
+      ],
+      "expected": "65.54",
+      "expected_raw": 65535
+    },
+    {
+      "name": "NUMBER Java decimal HALF_UP rounds negative tie away from zero",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;int;0;2;;1;1;200;0",
+      "uds_data": [
+        255,
+        55
+      ],
+      "expected": "-1.01",
+      "expected_raw": -201
+    },
+    {
+      "name": "NUMBER Java decimal HALF_UP rounds positive tie away from zero",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned int;0;2;;1;1;200;0",
+      "uds_data": [
+        0,
+        201
+      ],
+      "expected": "1.01",
+      "expected_raw": 201
+    },
+    {
+      "name": "NUMBER preserves negative zero sign in fixed output",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned char;0;1;;1;-1;1;-0.0",
+      "uds_data": [
+        0
+      ],
+      "expected": "-0.00",
+      "expected_raw": 0
+    },
+    {
+      "name": "NUMBER supports caller-supplied comma decimal separator",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned char;0;1;;1;1;10;0",
+      "uds_data": [
+        255
+      ],
+      "decimal_separator": ",",
+      "zero_digit": "0",
+      "expected": "25,50",
+      "expected_raw": 255
+    },
+    {
+      "name": "NUMBER supports Java Arabic zero digit and decimal separator",
+      "format": 1,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned char;0;1;;1;1;10;0",
+      "uds_data": [
+        255
+      ],
+      "decimal_separator": "\u066b",
+      "zero_digit": "\u0660",
+      "expected": "\u0662\u0665\u066b\u0665\u0660",
+      "expected_raw": 255
+    },
+    {
+      "name": "ASCII placeholder retains the source TEXT unit",
+      "format": 4,
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;4;7;high;data;0;1;;0;1;1;0",
+      "uds_data": [
+        65
+      ],
+      "unit": "TEXT",
+      "expected": "ASCII-VALUE",
+      "expected_unit": "TEXT",
+      "expected_placeholder": true
+    }
+  ]
+}

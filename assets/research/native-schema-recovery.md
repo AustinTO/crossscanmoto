@@ -4,7 +4,7 @@ Artifact: MotoScan 1.110 APK (`classes.dex`) paired with arm64 `libmotoscan-help
 
 ## ECU-scoped table access
 
-In `fl0.g(String)` (DEX method offset `0x217984`), the string argument is saved as the current ECU key. The loader calls the JNI wrapper `NativeLibMotoScan.n(String,String):String[]` with that same key and each literal table name below. The public wrapper delegates to private native `n(String,String):String[]`.
+In `fl0.g(String)` (DEX method offset `0x217984`), the string argument is saved as the current ECU key. The loader calls the public wrapper `NativeLibMotoScan.n(String,String):String[]` with that same key and each literal table name below. **Wrapper correction, 2026-11-02:** the public wrapper delegates to private native `j(String,String):String[]`, exported as JNI `NativeLibMotoScan_j` at ELF RVA `0x6f6d84`. Private native `n(String):String[]` at `0x6f9574` takes a series name and is a different API. These names must not be equated by spelling alone. This mapping was rechecked with the supplied DEX and a single-class JADX 1.5.6 decompilation; see `docs/parity/RE-09-global-values.md` for targeted native probe evidence. Likewise public `p(String)` delegates to private native `k(String)` for global tables.
 
 | ECU-keyed table | Use proven by caller |
 |---|---|

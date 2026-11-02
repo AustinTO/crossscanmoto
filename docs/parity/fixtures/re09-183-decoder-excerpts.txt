@@ -1,0 +1,103 @@
+MotoScan 1.83 `classes.dex` focused decoder excerpts
+APK SHA-256: f4b168234e2b3a042f35f3c0e8ee27a19e47bec0b32d01f1d6efa235ab39eacc
+DEX SHA-256: fa527331a06735012c0b3f680940c12096d543e8ed1b22df054e4977c1394ffb
+Dump: /tmp/crossmoto-183-dexdump.txt (raw DEX disassembly; text decoded with errors=replace)
+Dump SHA-256: fd0ad1b55d9016050ce02ef9949cec95868eb41943641aad48292d6c49e50ea1
+
+Offsets below are DEX code addresses. The disassembly text is retained, with
+short semantic annotations added after some `//` comments.
+
+### Caller framing and slice dispatch (`r3.b.b`, `0x46cacc`)
+46cb0e: 4804 0f02                              |0019: aget-byte v4, v15, v2
+46cb12: 1305 6200                              |001b: const/16 v5, #int 98 // #62
+46cb16: 3354 6500                              |001d: if-ne v4, v5, 0082 // +0065
+46cb1a: 21f4                                   |001f: array-length v4, v15
+46cb1c: 6e10 9caf 0300                         |0020: invoke-virtual {v3}, Lr3/c;.c:()I // method@af9c
+46cb22: 0a05                                   |0023: move-result v5
+46cb24: 6e10 a9af 0300                         |0024: invoke-virtual {v3}, Lr3/c;.p:()I // method@afa9
+46cb2a: 0a06                                   |0027: move-result v6
+46cb2c: b065                                   |0028: add-int/2addr v5, v6
+46cb2e: 52e6 2f91                              |0029: iget v6, v14, Lr3/b;.d:I // field@912f
+46cb32: b065                                   |002b: add-int/2addr v5, v6
+46cb34: 3454 e1ff                              |002c: if-lt v4, v5, 000d // -001f
+46cb38: 7130 feb4 6f03                         |002e: invoke-static {v15, v6, v3}, Lv3/e;.e:([BILr3/c;)Ljava/lang/String; // method@b4fe
+
+### Row result copy (`v3.e.e`, `0x484e78`)
+484e88: 6e10 9caf 0900                         |0000: invoke-virtual {v9}, Lr3/c;.c:()I // method@af9c
+484e90: b080                                   |0004: add-int/2addr v0, v8
+484e92: 6e10 9caf 0900                         |0005: invoke-virtual {v9}, Lr3/c;.c:()I // method@af9c
+484e9a: b081                                   |0009: add-int/2addr v1, v8
+484e9c: 6e10 a9af 0900                         |000a: invoke-virtual {v9}, Lr3/c;.p:()I // method@afa9
+484ea4: b021                                   |000e: add-int/2addr v1, v2
+484ea6: 7130 9351 0701                         |000f: invoke-static {v7, v0, v1}, Ljava/util/Arrays;.copyOfRange:([BII)[B // method@5193
+484eac: 0c00                                   |0012: move-result-object v0
+
+### Raw C-type label mapping (`m3.d$a.a`, `0x2593e0`)
+25941c: 6205 c969                              |0016: sget-object v5, Lm3/d$b;.l:Lm3/d$b; // BITFIELD
+259434: 6205 c469                              |0022: sget-object v5, Lm3/d$b;.f:Lm3/d$b; // unsigned int
+25944c: 6205 c669                              |002e: sget-object v5, Lm3/d$b;.h:Lm3/d$b; // unsigned long
+259464: 6205 c269                              |003a: sget-object v5, Lm3/d$b;.d:Lm3/d$b; // unsigned char
+25947c: 6205 c169                              |0046: sget-object v5, Lm3/d$b;.c:Lm3/d$b; // char
+259494: 6205 c369                              |0052: sget-object v5, Lm3/d$b;.e:Lm3/d$b; // int
+2594ac: 6205 c269                              |005e: sget-object v5, Lm3/d$b;.d:Lm3/d$b; // signed char
+2594c4: 6205 c369                              |006a: sget-object v5, Lm3/d$b;.e:Lm3/d$b; // signed int
+
+`m3.d$b.<clinit>` at `0x259650` declares `.c = dtCHAR`, `.d = dtUNSIGNED_CHAR`,
+`.e = dtSHORT_INT`, `.f = dtUNSIGNED_SHORT_INT`, `.g = dtLONG` and
+`.h = dtUNSIGNED_LONG`.
+
+### Numeric reader (`v3.e.i`, `0x484c6c`)
+484c7c: 7110 ab4f 0300                         |0000: invoke-static {v3}, Ljava/nio/ByteBuffer;.wrap:([B)Ljava/nio/ByteBuffer; // method@4fab
+484c84: 6201 f954                              |0004: sget-object v1, Ljava/nio/ByteOrder;.BIG_ENDIAN:Ljava/nio/ByteOrder; // field@54f9
+484c88: 6e20 a84f 1000                         |0006: invoke-virtual {v0, v1}, Ljava/nio/ByteBuffer;.order:(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer; // method@4fa8
+484cac: 2b04 7400 0000                         |0018: packed-switch v4, 0000008c // +00000074
+484cb4: 6e20 a54f 5000                         |001c: invoke-virtual {v0, v5}, Ljava/nio/ByteBuffer;.getInt:(I)I // unsigned-long branch; then mask 0xffffffff and cast to int
+484cce: 6e20 a54f 5000                         |0029: invoke-virtual {v0, v5}, Ljava/nio/ByteBuffer;.getInt:(I)I // signed int branch
+484d5e: 6e20 a64f 5000                         |0071: invoke-virtual {v0, v5}, Ljava/nio/ByteBuffer;.getShort:(I)S // unsigned int branch; then mask 0xffff
+484d72: 6e20 a64f 5000                         |007b: invoke-virtual {v0, v5}, Ljava/nio/ByteBuffer;.getShort:(I)S // signed int branch
+484d7c: 6e20 a34f 5000                         |0080: invoke-virtual {v0, v5}, Ljava/nio/ByteBuffer;.get:(I)B // unsigned char branch; then mask 0xff
+484d8a: 6e20 a34f 5000                         |0087: invoke-virtual {v0, v5}, Ljava/nio/ByteBuffer;.get:(I)B // signed char branch
+484d92: 0f01                                   |008b: return v1 // default zero
+
+The packed payload is at DEX offset `0x484d94`: identifier `0x0100`, six
+entries, first key 1, relative code-unit targets `[0x6f,0x68,0x63,0x16,0x11,0x04]`.
+Resolved from the switch at `0x484cac`, cases 1..6 land at
+`0x484d8a`, `0x484d7c`, `0x484d72`, `0x484cd8`, `0x484cce`, `0x484cb4`.
+The enum mapping above identifies these as char, unsigned char, int,
+unsigned int, signed int (same enum/read as int), and unsigned long.
+
+### NUMBER scale and precision (`v3.e.e`, `0x48502e-0x4850de`)
+48502e: 6e10 9daf 0900                         |00d3: invoke-virtual {v9}, Lr3/c;.d:()Ljava/lang/String; // method@af9d
+485036: 6e10 9caf 0900                         |00d7: invoke-virtual {v9}, Lr3/c;.c:()I // method@af9c
+48503e: b081                                   |00db: add-int/2addr v1, v8
+485040: 7130 02b5 0701                         |00dc: invoke-static {v7, v0, v1}, Lv3/e;.i:([BLjava/lang/String;I)I // method@b502
+485048: 8377                                   |00e0: int-to-double v7, v7
+48504a: 6e10 a1af 0900                         |00e1: invoke-virtual {v9}, Lr3/c;.h:()D // method@afa1
+485058: ad07 0700                              |00e8: mul-double v7, v7, v0
+48505c: 6e10 a0af 0900                         |00ea: invoke-virtual {v9}, Lr3/c;.g:()D // method@afa0
+485064: ce07                                   |00ee: div-double/2addr v7, v0
+485066: 6e10 9faf 0900                         |00ef: invoke-virtual {v9}, Lr3/c;.f:()D // method@af9f
+48506e: cb07                                   |00f3: add-double/2addr v7, v0
+485078: 1904 f03f                              |00f8: const-wide/high16 v4, #long 4607182418800017408 // #3ff0 (1.0)
+4850ac: 1a07 7d03                              |0112: const-string v7, "%.0f" // multiplier/divisor both 1.0
+4850d2: 1a07 7f03                              |0125: const-string v7, "%.2f" // otherwise
+
+`e` passes the original `bArr` parameter as `v7`; it passes row offset plus
+base offset as `v1`. Thus the NUMBER helper reads the full response at the
+absolute position, even though `e` also made a slice for the other formatters.
+
+### 1.83 result enum labels (`m3.o.<clinit>`, `0x25b190`)
+25b1a4: 1a01 3545                              |0002: const-string v1, "RES_DATA_TYPE_UNKNOWN" // #0
+25b1b8: 1a01 3345                              |000c: const-string v1, "RES_DATA_TYPE_NUMBER" // #1
+25b1cc: 1a01 3245                              |0016: const-string v1, "RES_DATA_TYPE_LIST" // #2
+25b1e0: 1a01 3045                              |0020: const-string v1, "RES_DATA_TYPE_DIGITAL" // #3
+25b1f4: 1a01 2c45                              |002a: const-string v1, "RES_DATA_TYPE_ASCII" // #4
+25b208: 1a01 3145                              |0034: const-string v1, "RES_DATA_TYPE_HEX" // #5
+25b21c: 1a01 2d45                              |003e: const-string v1, "RES_DATA_TYPE_BITFIELD" // #6
+25b230: 1a01 2f45                              |0048: const-string v1, "RES_DATA_TYPE_DATETIME" // #7
+25b244: 1a01 2e45                              |0052: const-string v1, "RES_DATA_TYPE_BMWUDSECUSN" // #8
+25b25a: 1a01 3445                              |005d: const-string v1, "RES_DATA_TYPE_TAB_GLOBAL" // #9
+
+The 1.110 comparison excerpt already exists in
+[`re09-decoder-excerpts.txt`](re09-decoder-excerpts.txt), sections
+`j21.b numeric` and `ob2.D readers`.

@@ -1,0 +1,21 @@
+{
+  "fixture_id": "KWP_SETUP_1_83_ECU_12",
+  "evidence": {
+    "apk_sha256": "f4b168234e2b3a042f35f3c0e8ee27a19e47bec0b32d01f1d6efa235ab39eacc",
+    "source_method": "i3/g.c0",
+    "source_note": "assets/research/historical-protocol-1.83.md",
+    "kind": "source-derived command sequence; no original-executed reply golden"
+  },
+  "commands": [
+    "ATPC",
+    "ATAL",
+    "ATSH8112F1",
+    "ATWM8112F13E",
+    "ATST50",
+    "ATSP5"
+  ],
+  "scripted_replies": {
+    "value": "OK",
+    "kind": "synthetic adapter mechanics"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "source": {
+    "artifact": "MotoScan 1.110 classes.dex",
+    "apk_sha256": "bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58",
+    "dex_sha256": "869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832",
+    "decode_methods": [
+      "j21.b @ 0x26c1d4",
+      "ob2.D @ 0x31d9a4"
+    ],
+    "response_framing": "Original decoder receives positive SID + DID + data; UdsClient strips the first three response bytes.",
+    "classification": "Expected numbers are hand-calculated static goldens; no captured ECU response is claimed."
+  },
+  "cases": [
+    {
+      "name": "actual FSA battery voltage definition",
+      "provenance": {
+        "kind": "ACTUAL_NATIVE_ROW",
+        "ecu_key": "cuX_FSA",
+        "params_capture_sha256": "96cebe003556f3d8eeb5418249923f719a92c0ec48ce14d46a6d964b8b271375",
+        "params_file_sha256": "daba2f956018bedf485da95d0eca9de88bba2b4b61ac1a668bafec35ce51772a",
+        "params_res_capture_sha256": "b340983f1fd1528ed05dcc3d9be1c8e5deee8477a421c8ae15a761dc1ff7a0fe",
+        "params_res_file_sha256": "5950e8a2634a7c27bcfcb2e13ad75964ab644cb31021a3d9c5cbdfc0a8f0781e"
+      },
+      "parameter_raw": "990;22,E1,42;BATTERIESPANNUNG_MR;3;0;105496;1;0",
+      "result_raw": "4220;990;STAT_BATTERIESPANNUNG_WERT;1;2;;unsigned char;0;1;;1;1.0;10.0;0.0;105496;1;0",
+      "uds_data": [
+        255
+      ],
+      "expected_raw": 255,
+      "expected_value": 25.5
+    },
+    {
+      "name": "signed char source branch is unsigned 8 bit",
+      "provenance": {
+        "kind": "STATIC_GOLDEN"
+      },
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;signed char;0;1;;1;1;1;0",
+      "uds_data": [
+        255
+      ],
+      "expected_raw": 255,
+      "expected_value": 255.0
+    },
+    {
+      "name": "char is signed 8 bit",
+      "provenance": {
+        "kind": "STATIC_GOLDEN"
+      },
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;char;0;1;;1;1;1;0",
+      "uds_data": [
+        255
+      ],
+      "expected_raw": -1,
+      "expected_value": -1.0
+    },
+    {
+      "name": "unsigned int source branch is unsigned 16 bit",
+      "provenance": {
+        "kind": "STATIC_GOLDEN"
+      },
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned int;0;2;;1;1;1;0",
+      "uds_data": [
+        255,
+        254
+      ],
+      "expected_raw": 65534,
+      "expected_value": 65534.0
+    },
+    {
+      "name": "signed int source branch is signed 16 bit with scale",
+      "provenance": {
+        "kind": "STATIC_GOLDEN"
+      },
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;signed int;0;2;;1;0.5;2;1",
+      "uds_data": [
+        255,
+        254
+      ],
+      "expected_raw": -2,
+      "expected_value": 0.5
+    },
+    {
+      "name": "int source branch is signed 16 bit",
+      "provenance": {
+        "kind": "STATIC_GOLDEN"
+      },
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;int;0;2;;1;1;1;0",
+      "uds_data": [
+        128,
+        0
+      ],
+      "expected_raw": -32768,
+      "expected_value": -32768.0
+    },
+    {
+      "name": "unsigned long source branch casts 32 bits to signed int",
+      "provenance": {
+        "kind": "STATIC_GOLDEN"
+      },
+      "parameter_raw": "1;22,62,00;VALUE;3;0;0;1;0",
+      "result_raw": "10;1;VALUE;1;7;high;unsigned long;0;4;;1;1;1;0",
+      "uds_data": [
+        128,
+        0,
+        0,
+        0
+      ],
+      "expected_raw": -2147483648,
+      "expected_value": -2147483648.0
+    }
+  ]
+}
