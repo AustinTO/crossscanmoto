@@ -12,6 +12,7 @@ class BmwDtcRecord {
     required this.recommendedAction,
     this.statusByte,
     this.isAmbiguous = false,
+    this.isUds = true,
   });
 
   final int code; // 24-bit integer code
@@ -23,15 +24,22 @@ class BmwDtcRecord {
   final String recommendedAction;
   final int? statusByte;
   final bool isAmbiguous;
+  final bool isUds;
 
   UdsDtcStatusFlags? get statusFlags =>
-      statusByte != null ? UdsDtcStatusFlags(statusByte!) : null;
+      (isUds && statusByte != null) ? UdsDtcStatusFlags(statusByte!) : null;
 
-  String get statusSummary =>
-      statusFlags?.summary ??
-      (statusByte != null
-          ? 'Status 0x${statusByte!.toRadixString(16).padLeft(2, '0').toUpperCase()}'
-          : 'Status Unreported');
+  String get statusSummary {
+    if (!isUds) {
+      return statusByte != null
+          ? 'Raw Record Byte 0x${statusByte!.toRadixString(16).padLeft(2, '0').toUpperCase()}'
+          : 'Status Unreported';
+    }
+    return statusFlags?.summary ??
+        (statusByte != null
+            ? 'Status 0x${statusByte!.toRadixString(16).padLeft(2, '0').toUpperCase()}'
+            : 'Status Unreported');
+  }
 
   String get hexCode =>
       '0x${code.toRadixString(16).padLeft(6, '0').toUpperCase()}';
@@ -75,6 +83,7 @@ class BmwDtcDatabase {
     String? ecuKey,
     Iterable<String>? candidateKeys,
     int? statusByte,
+    bool isUds = true,
   }) {
     String? text;
     final hex = '0x${code.toRadixString(16).padLeft(6, '0').toUpperCase()}';
@@ -107,6 +116,7 @@ class BmwDtcDatabase {
               'Connect directly to the specific control unit or read ECU identification to resolve fault ambiguity.',
           statusByte: statusByte,
           isAmbiguous: true,
+          isUds: isUds,
         );
       }
     }
@@ -124,6 +134,7 @@ class BmwDtcDatabase {
           'Use the repair procedure for the identified motorcycle and control unit.',
       statusByte: statusByte,
       isAmbiguous: false,
+      isUds: isUds,
     );
   }
 }

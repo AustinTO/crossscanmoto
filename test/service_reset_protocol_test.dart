@@ -85,6 +85,27 @@ void main() {
   });
 
   group('Legacy KWP Service Reset (qr.C / rr.C Parity)', () {
+    test('executeKwp enforces source-verified ECU allowlist inside execution engine', () async {
+      final kwpLink = _RecordingKwpLink();
+      for (final badKey in ['cuMRBMSMP1', 'cuMRABS', 'cuMRDWA', 'cuX_KOMBI']) {
+        final result = await BmwServiceManager.executeKwp(
+          item: const ServiceFunctionItem(
+            type: ServiceFunctionType.setNextServiceDate,
+            title: 'Date',
+            description: '',
+            preconditions: '',
+          ),
+          link: kwpLink,
+          ecuKey: badKey,
+          nextServiceDate: DateTime(2027, 1, 1),
+        );
+
+        expect(result.success, isFalse);
+        expect(result.message, contains('not a source-verified legacy KWP service reset target'));
+        expect(kwpLink.requests, isEmpty);
+      }
+    });
+
     test('executeKwp rejects invalid mileage before sending writes', () async {
       final kwpLink = _RecordingKwpLink();
       final result = await BmwServiceManager.executeKwp(
@@ -124,9 +145,10 @@ void main() {
       );
 
       expect(result.success, isTrue);
-      expect(result.message, contains('Legacy KWP service reset completed on cuMRKOMB46'));
-      expect(result.newServiceDate, testServiceDate);
-      expect(result.newServiceMileageKm, 10000);
+      expect(result.message, contains('Legacy KWP ECU cuMRKOMB46 acknowledged Service 0x3B write'));
+      expect(result.message, contains('verification readback is unsupported on legacy KWP cluster'));
+      expect(result.newServiceDate, isNull);
+      expect(result.newServiceMileageKm, isNull);
 
       // Verify requests sent:
       // Filter out StartCommunication (81) to inspect Service 0x3B payloads

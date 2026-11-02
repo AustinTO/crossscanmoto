@@ -258,8 +258,9 @@ class BmwEcuCatalog {
 
   /// Resolves the authentic control units for a given motorcycle model or series code
   /// based on the recovered platform routing tables from MotoScan native data.
-  static List<BmwEcuDefinition> forSeries(String seriesCode) {
-    final groups = BmwRawVehicleDatabase.groupsForSeries(seriesCode);
+  /// If [platformId] is supplied, routes directly to that platform.
+  static List<BmwEcuDefinition> forSeries(String seriesCode, {String? platformId}) {
+    final groups = BmwRawVehicleDatabase.groupsForSeries(seriesCode, platformId: platformId);
     if (groups.isEmpty) {
       return all;
     }

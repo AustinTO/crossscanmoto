@@ -9,6 +9,7 @@ class BmwMotorcycleModel {
     required this.displacementCc,
     required this.startYear,
     required this.endYear,
+    this.platformId,
     this.primaryEcuAddresses = const [0x12, 0x28, 0x60, 0x00, 0x24, 0x39, 0x58],
     this.vinVdsCodes = const [],
   });
@@ -19,6 +20,7 @@ class BmwMotorcycleModel {
   final int displacementCc;
   final int startYear;
   final int endYear;
+  final String? platformId;
   final List<int> primaryEcuAddresses;
   final List<String> vinVdsCodes;
 
@@ -115,13 +117,26 @@ class BmwVehicleCatalog {
       vinVdsCodes: ['0450', '0460', '0303', '0313'],
     ),
     BmwMotorcycleModel(
-      name: 'R nineT',
+      name: 'R nineT (2014–2016)',
       seriesCode: 'K21',
+      platformId: '1',
       engineType: 'Boxer Twin (Air/Oil-cooled)',
       displacementCc: 1170,
       startYear: 2014,
-      endYear: 2024,
+      endYear: 2016,
       primaryEcuAddresses: [0x12, 0x28, 0x60, 0x00, 0x24],
+      vinVdsCodes: ['0A06', '0A16'],
+    ),
+    BmwMotorcycleModel(
+      name: 'R nineT MUE (2017–2023)',
+      seriesCode: 'K21',
+      platformId: '2',
+      engineType: 'Boxer Twin (Air/Oil-cooled EU4/EU5)',
+      displacementCc: 1170,
+      startYear: 2017,
+      endYear: 2023,
+      primaryEcuAddresses: [0x12, 0x28, 0x60, 0x00, 0x24, 0x39],
+      vinVdsCodes: ['0J01', '0J03', '0J11', '0J13', '0J21', '0J23', '0J31', '0J33', '0L51', '0L53'],
     ),
     BmwMotorcycleModel(
       name: 'R 18',

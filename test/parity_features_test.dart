@@ -4,12 +4,22 @@ import 'package:crossscanmoto/diagnostics/auto_scan_controller.dart';
 import 'package:crossscanmoto/diagnostics/coding_manager.dart';
 import 'package:crossscanmoto/diagnostics/dtc_database.dart';
 import 'package:crossscanmoto/diagnostics/ecu_catalog.dart';
+import 'package:crossscanmoto/diagnostics/kwp_client.dart';
 import 'package:crossscanmoto/diagnostics/live_data_definitions.dart';
 import 'package:crossscanmoto/diagnostics/protocol_setup.dart';
 import 'package:crossscanmoto/diagnostics/recovered_actuators.dart';
+import 'package:crossscanmoto/diagnostics/recovered_catalog.dart';
 import 'package:crossscanmoto/diagnostics/service_manager.dart';
 import 'package:crossscanmoto/diagnostics/service_reset_protocol.dart';
 import 'package:crossscanmoto/diagnostics/vehicle_catalog.dart';
+
+class _DummyKwpLink implements KwpRequestLink {
+  @override
+  Future<List<int>> request(List<int> payload, {Duration? timeout}) async => [0x7B];
+
+  @override
+  Future<bool> startCommunication() async => true;
+}
 
 void main() {
   group('BMW ECU & Vehicle Catalog Parity', () {
@@ -80,6 +90,30 @@ void main() {
       final inferred = BmwVehicleCatalog.inferModelFromAddresses([0x12, 0x60]);
       expect(inferred, isNull, reason: 'Generic DME+KOMBI bus addresses must not guess a specific model');
     });
+
+    test('K21 ambiguous series correctly isolates KWP (2014-2016) from UDS (2017-2023)', () {
+      expect(BmwRawVehicleDatabase.isAmbiguousSeries('K21'), isTrue);
+
+      final kwpEcus = BmwEcuCatalog.forSeries('K21', platformId: '1');
+      expect(kwpEcus, isNotEmpty);
+      expect(kwpEcus.every((e) => e.isLegacyKwp), isTrue);
+      expect(kwpEcus.any((e) => e.germanAbbrev == 'DME'), isTrue);
+
+      final udsEcus = BmwEcuCatalog.forSeries('K21', platformId: '2');
+      expect(udsEcus, isNotEmpty);
+      expect(udsEcus.every((e) => !e.isLegacyKwp), isTrue);
+      expect(udsEcus.any((e) => e.germanAbbrev == 'DME'), isTrue);
+
+      final rNineTPre = BmwVehicleCatalog.identifyFromVin('WB10A0600EZ123456');
+      expect(rNineTPre, isNotNull);
+      expect(rNineTPre!.name, 'R nineT (2014–2016)');
+      expect(rNineTPre.platformId, '1');
+
+      final rNineTPost = BmwVehicleCatalog.identifyFromVin('WB10J0100HZ123456');
+      expect(rNineTPost, isNotNull);
+      expect(rNineTPost!.name, 'R nineT MUE (2017–2023)');
+      expect(rNineTPost.platformId, '2');
+    });
   });
 
   group('BMW DTC Database', () {
@@ -139,6 +173,21 @@ void main() {
       expect(record.statusSummary, contains('Confirmed'));
       expect(record.statusSummary, contains('Test Failed'));
     });
+
+    test('legacy KWP fault record preserves raw byte without UDS status interpretation', () {
+      final record = BmwDtcDatabase.lookup(
+        4401,
+        ecuKey: 'cuMRBMSMP1',
+        defaultEcu: 'DME',
+        statusByte: 0x29,
+        isUds: false,
+      );
+      expect(record.statusByte, 0x29);
+      expect(record.isUds, isFalse);
+      expect(record.statusFlags, isNull,
+          reason: 'KWP record byte must not be parsed as ISO 14229-1 UDS status');
+      expect(record.statusSummary, 'Raw Record Byte 0x29');
+    });
   });
 
   group('Live Telemetry Definitions', () {
@@ -197,6 +246,22 @@ void main() {
       expect(result.success, isFalse);
       expect(result.newServiceDate, isNull);
       expect(result.message, contains('Configure a BMW UDS ECU link'));
+    });
+
+    test('KWP service execution rejects unauthorized ECU keys and does not claim unverified readback', () async {
+      expect(BmwServiceManager.supportedKwpEcuKeys, contains('cuMRKOMB'));
+      expect(BmwServiceManager.supportedKwpEcuKeys.contains('cuMRBMSMP1'), isFalse);
+
+      final result = await BmwServiceManager.executeKwp(
+        item: BmwServiceManager.actions.first,
+        link: _DummyKwpLink(),
+        ecuKey: 'cuMRBMSMP1',
+        nextServiceDate: DateTime(2027, 5, 1),
+      );
+      expect(result.success, isFalse);
+      expect(result.message, contains('not a source-verified legacy KWP service reset target'));
+      expect(result.newServiceDate, isNull);
+      expect(result.newServiceMileageKm, isNull);
     });
   });
 

@@ -6,18 +6,11 @@ verified checkpoint and before stopping or losing the session.
 <!-- REPOSITORY_SNAPSHOT:START -->
 ## Repository snapshot
 
-Captured 2026-11-02T21:11:11+00:00.
-HEAD: `cb1aee8aca230c4d3ddca83543c78b17a3d58611`.
+Captured 2026-11-02T21:58:33+00:00.
+HEAD: `9bf53e083c99b4f2aa968b846a9c64723aae0f2e`.
 Branch: `release-hardening/production-audit`.
 
 ```text
-M lib/diagnostics/ecu_friendly_names.dart
- M lib/diagnostics/kwp_client.dart
- M lib/diagnostics/service_manager.dart
- M lib/legacy_kwp_page.dart
- M lib/service_coding_page.dart
- M test/kwp_client_test.dart
- M test/service_reset_protocol_test.dart
 ?? iconbackground.png
 ?? iconforeground.png
 ```

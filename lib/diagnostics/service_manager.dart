@@ -224,6 +224,14 @@ abstract final class BmwServiceManager {
     int? nextServiceMileage,
     bool Function()? shouldAbort,
   }) async {
+    // Fail-closed source-verified ECU allowlist check inside execution engine
+    if (!supportedKwpEcuKeys.contains(ecuKey)) {
+      return ServiceExecutionResult(
+        success: false,
+        message: 'ECU $ecuKey is not a source-verified legacy KWP service reset target.',
+      );
+    }
+
     if (shouldAbort?.call() == true) {
       return const ServiceExecutionResult(
         success: false,
@@ -292,16 +300,9 @@ abstract final class BmwServiceManager {
       return ServiceExecutionResult(
         success: true,
         message:
-            'Legacy KWP service reset completed on $ecuKey (${writtenOperations.join(", ")}).',
-        newServiceDate: (item.type == ServiceFunctionType.setNextServiceDate ||
-                item.type == ServiceFunctionType.setAllServiceData)
-            ? effectiveServiceDate
-            : null,
-        newServiceMileageKm:
-            (item.type == ServiceFunctionType.setNextServiceMileage ||
-                    item.type == ServiceFunctionType.setAllServiceData)
-                ? effectiveMileage
-                : null,
+            'Legacy KWP ECU $ecuKey acknowledged Service 0x3B write (${writtenOperations.join(", ")}); verification readback is unsupported on legacy KWP cluster.',
+        newServiceDate: null,
+        newServiceMileageKm: null,
       );
     } catch (error) {
       return ServiceExecutionResult(

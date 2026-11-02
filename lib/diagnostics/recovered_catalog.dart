@@ -1818,23 +1818,65 @@ abstract final class BmwRawVehicleDatabase {
     return List.unmodifiable(ecuGroups.where((row) => ids.contains(row['id'])));
   }
 
-  /// Returns all ECU groups for a given chassis/series code (e.g. "K50", "K18", "C01", "KA1", etc.).
-  static List<Map<String, String>> groupsForSeries(String seriesCode) {
+  /// Returns all matching vehicle records for a given chassis/series code.
+  static List<Map<String, String>> vehiclesForSeries(String seriesCode) {
     final clean = seriesCode.trim().toUpperCase();
-    final vehicle = vehicles.where((row) => row['name']?.trim().toUpperCase() == clean).firstOrNull;
-    if (vehicle == null) return const [];
+    return List.unmodifiable(vehicles.where((row) => row['name']?.trim().toUpperCase() == clean));
+  }
+
+  /// True if the chassis/series code spans multiple platforms or protocol families (e.g. K21: R nineT vs R nineT MUE).
+  static bool isAmbiguousSeries(String seriesCode) {
+    final list = vehiclesForSeries(seriesCode);
+    final platforms = list.map((v) => v['car_platformid']).toSet();
+    return platforms.length > 1;
+  }
+
+  /// Returns all ECU groups for a given chassis/series code (e.g. "K50", "K18", "C01", "KA1", etc.).
+  /// If [platformId] is provided, resolves the exact platform.
+  /// If the series is ambiguous (e.g. K21) and [platformId] is not provided,
+  /// combines the candidate ECU groups across candidate platforms so dual-protocol
+  /// scanners can discover the active modules without misrouting.
+  static List<Map<String, String>> groupsForSeries(String seriesCode, {String? platformId}) {
+    final clean = seriesCode.trim().toUpperCase();
+    final matches = vehicles.where((row) => row['name']?.trim().toUpperCase() == clean).toList();
+    if (matches.isEmpty) return const [];
+
+    final Set<String> targetPlatformIds;
+    if (platformId != null) {
+      targetPlatformIds = {platformId};
+    } else if (isAmbiguousSeries(seriesCode)) {
+      targetPlatformIds = matches.map((m) => m['car_platformid'] ?? '').where((id) => id.isNotEmpty).toSet();
+    } else {
+      targetPlatformIds = {matches.first['car_platformid'] ?? ''};
+    }
+
     final ids = platformEcuGroups
-        .where((row) => row['car_platformid'] == vehicle['car_platformid'])
+        .where((row) => targetPlatformIds.contains(row['car_platformid']))
         .map((row) => row['ecu_groupsid'])
         .toSet();
     return List.unmodifiable(ecuGroups.where((row) => ids.contains(row['id'])));
   }
 
   /// Returns the platform ID for a given chassis/series code.
-  static String? platformForSeries(String seriesCode) {
+  /// If the series is ambiguous (e.g. K21) and no description hint is given,
+  /// returns null to indicate explicit variant resolution is required.
+  static String? platformForSeries(String seriesCode, {String? vehicleDescription}) {
     final clean = seriesCode.trim().toUpperCase();
-    final vehicle = vehicles.where((row) => row['name']?.trim().toUpperCase() == clean).firstOrNull;
-    return vehicle?['car_platformid'];
+    final matches = vehicles.where((row) => row['name']?.trim().toUpperCase() == clean).toList();
+    if (matches.isEmpty) return null;
+    if (vehicleDescription != null) {
+      final descUpper = vehicleDescription.toUpperCase();
+      final match = matches.firstWhere(
+        (v) => v['description']?.toUpperCase().contains(descUpper) ?? false,
+        orElse: () => matches.first,
+      );
+      return match['car_platformid'];
+    }
+    if (matches.length > 1) {
+      final platforms = matches.map((v) => v['car_platformid']).toSet();
+      if (platforms.length > 1) return null; // Explicitly ambiguous
+    }
+    return matches.first['car_platformid'];
   }
 }
 
