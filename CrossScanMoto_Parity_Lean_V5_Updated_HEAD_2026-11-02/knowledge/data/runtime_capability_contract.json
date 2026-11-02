@@ -1,0 +1,84 @@
+{
+  "schema_version": "3.0.0",
+  "capability_states": [
+    "ABSENT",
+    "RECOVERED_METADATA_ONLY",
+    "IMPLEMENTED_UNTESTED",
+    "READ_ONLY_HARDWARE_VERIFIED",
+    "SERVICE_HARDWARE_VERIFIED",
+    "RESTRICTED",
+    "UNSUPPORTED"
+  ],
+  "module_states": [
+    "NOT_ATTEMPTED",
+    "RESPONDING",
+    "NO_RESPONSE",
+    "ERROR",
+    "UNSUPPORTED",
+    "NOT_FITTED_CONFIRMED"
+  ],
+  "identity_rules": {
+    "source_preference": [
+      "ecu_identification_observed",
+      "verified_vin_to_type_code",
+      "vehicle_label_confirmed",
+      "manual_edition",
+      "user_selected",
+      "address_signature_hypothesis"
+    ],
+    "minimum_for_service_rule": [
+      "confirmed_chassis",
+      "model_year_or_build",
+      "manual_revision",
+      "option_if_applicable"
+    ],
+    "vin_privacy": "do not transmit full VIN by default; redact before LLM"
+  },
+  "ecu_read_proof": {
+    "required": [
+      "motorcycle_identity",
+      "ecu_key",
+      "module_address",
+      "protocol_and_transport",
+      "adapter_hardware",
+      "request_kind",
+      "response_raw_hash",
+      "timestamp",
+      "test_state",
+      "source_build_sha",
+      "manual_checked",
+      "tester_signoff"
+    ],
+    "never_infer": [
+      "no_response => absent",
+      "zero_DTC => healthy",
+      "DID_name => correct_unit",
+      "coding_row => safe_operation"
+    ]
+  },
+  "action_gate": {
+    "llm_allowed": [
+      "explain",
+      "ask_question",
+      "select_existing_guide",
+      "create_note",
+      "request_explicit_user_approved_read_only_scan"
+    ],
+    "llm_forbidden": [
+      "send_raw_hex",
+      "write_did",
+      "routine_control",
+      "clear_faults",
+      "actuate",
+      "code_configuration",
+      "authorize_sensitive_service"
+    ],
+    "hardware_state_transition": "performed only in deterministic native code with ECU-specific reviewed allowlist, interlocks, audit, user confirmation and physical test",
+    "default": "READ_ONLY"
+  },
+  "normalization": {
+    "dtc": "ECU key + 24-bit code + status + ECU identifier + response timestamp; avoid global code text guessing",
+    "telemetry": "ECU key + DID + raw bytes + valid offset/endian/signedness/scale/units + validation record + operating state",
+    "vehicle": "use exact chassis/type code and build boundary, not name-only"
+  }
+}

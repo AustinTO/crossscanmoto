@@ -23,6 +23,9 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabs;
   bool _busy = false;
+  bool _serviceCancelRequested = false;
+  bool _disposed = false;
+  int _serviceOperationGeneration = 0;
   String? _notice;
   String? _serviceEcuKey;
   bool _showAdvancedEcuSelection = false;
@@ -35,7 +38,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
   @override
   void initState() {
     super.initState();
-    _serviceEcuKey = DiagnosticSession.instance.ecuDefinitionKey ??
+    _serviceEcuKey =
+        DiagnosticSession.instance.ecuDefinitionKey ??
         BmwServiceManager.supportedEcuKeys.first;
     _tabs = TabController(length: 4, vsync: this);
     DiagnosticSession.instance.addListener(_sessionChanged);
@@ -43,6 +47,9 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
 
   @override
   void dispose() {
+    _disposed = true;
+    _serviceCancelRequested = true;
+    _serviceOperationGeneration++;
     DiagnosticSession.instance.removeListener(_sessionChanged);
     _tabs.dispose();
     _serviceMileageController.dispose();
@@ -52,7 +59,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
   void _sessionChanged() {
     if (mounted) {
       final active = DiagnosticSession.instance.ecuDefinitionKey;
-      if (active != null && BmwServiceManager.supportedEcuKeys.contains(active)) {
+      if (active != null &&
+          BmwServiceManager.supportedEcuKeys.contains(active)) {
         _serviceEcuKey = active;
       }
       setState(() {});
@@ -65,8 +73,10 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
       backgroundColor: _ink,
       appBar: AppBar(
         backgroundColor: _panel,
-        title: const Text('Workshop Functions',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text(
+          'Workshop Functions',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
         bottom: TabBar(
           controller: _tabs,
           isScrollable: true,
@@ -74,8 +84,10 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           indicatorColor: _lime,
           labelColor: _lime,
           unselectedLabelColor: Colors.white54,
-          labelStyle:
-              const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          labelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
           tabs: const [
             Tab(text: 'Service Resets'),
             Tab(text: 'Vehicle Coding'),
@@ -102,13 +114,20 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                       const Icon(Icons.info_outline, color: _lime, size: 18),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: Text(_notice!,
-                            style:
-                                const TextStyle(fontSize: 12, color: Colors.white)),
+                        child: Text(
+                          _notice!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close,
-                            size: 16, color: Colors.white54),
+                        icon: const Icon(
+                          Icons.close,
+                          size: 16,
+                          color: Colors.white54,
+                        ),
                         onPressed: () => setState(() => _notice = null),
                       ),
                     ],
@@ -167,12 +186,16 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                             color: _lime.withValues(alpha: 0.15),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.verified, color: _lime, size: 18),
+                          child: const Icon(
+                            Icons.verified,
+                            color: _lime,
+                            size: 18,
+                          ),
                         ),
                         const SizedBox(width: 10),
                         const Expanded(
                           child: Text(
-                            'ENGINE MANAGEMENT',
+                            'SOURCE-ROUTED SERVICE ECU',
                             style: TextStyle(
                               color: _muted,
                               fontSize: 10,
@@ -183,13 +206,15 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: _lime.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: const Text(
-                            'AUTO-CONFIGURED',
+                            'SELECTED ECU',
                             style: TextStyle(
                               color: _lime,
                               fontSize: 9,
@@ -205,7 +230,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                         Expanded(
                           child: Text(
                             BmwEcuHelper.friendlyName(
-                                _serviceEcuKey ?? 'cuX_BMSX'),
+                              _serviceEcuKey ?? 'cuX_BMSX',
+                            ),
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -216,9 +242,10 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                           ),
                         ),
                         TextButton(
-                          onPressed: () => setState(() =>
-                              _showAdvancedEcuSelection =
-                                  !_showAdvancedEcuSelection),
+                          onPressed: () => setState(
+                            () => _showAdvancedEcuSelection =
+                                !_showAdvancedEcuSelection,
+                          ),
                           style: TextButton.styleFrom(
                             visualDensity: VisualDensity.compact,
                             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -260,8 +287,9 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                 initialValue: _serviceAction,
                 isExpanded: true,
                 decoration: const InputDecoration(
-                    labelText: 'Service operation',
-                    border: OutlineInputBorder()),
+                  labelText: 'Service operation',
+                  border: OutlineInputBorder(),
+                ),
                 items: [
                   for (final item in actions)
                     DropdownMenuItem(value: item.type, child: Text(item.title)),
@@ -304,23 +332,40 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : const Icon(Icons.build_circle_outlined, size: 18),
-                label: Text(_busy
-                    ? 'Writing and verifying…'
-                    : 'Execute verified reset'),
+                label: Text(
+                  _busy ? 'Writing and verifying…' : 'Execute verified reset',
+                ),
                 style: FilledButton.styleFrom(
                   backgroundColor: _lime,
                   foregroundColor: _ink,
                   minimumSize: const Size.fromHeight(42),
                 ),
               ),
+              if (_busy)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: _serviceCancelRequested
+                        ? null
+                        : _requestServiceCancellation,
+                    icon: const Icon(Icons.stop_circle_outlined, size: 18),
+                    label: Text(
+                      _serviceCancelRequested
+                          ? 'Stopping after the current request…'
+                          : 'Stop service operation',
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
         for (final item in actions)
           ListTile(
             title: Text(item.title),
-            subtitle: Text(item.description,
-                style: const TextStyle(color: Colors.white54, fontSize: 12)),
+            subtitle: Text(
+              item.description,
+              style: const TextStyle(color: Colors.white54, fontSize: 12),
+            ),
           ),
       ],
     );
@@ -330,20 +375,19 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     required String label,
     required DateTime value,
     required VoidCallback onPressed,
-  }) =>
-      Padding(
-        padding: const EdgeInsets.only(top: 8),
-        child: OutlinedButton(
-          onPressed: _busy ? null : onPressed,
-          child: Row(
-            children: [
-              const Icon(Icons.calendar_month_outlined, size: 18),
-              const SizedBox(width: 10),
-              Expanded(child: Text('$label • ${_dateLabel(value)}')),
-            ],
-          ),
-        ),
-      );
+  }) => Padding(
+    padding: const EdgeInsets.only(top: 8),
+    child: OutlinedButton(
+      onPressed: _busy ? null : onPressed,
+      child: Row(
+        children: [
+          const Icon(Icons.calendar_month_outlined, size: 18),
+          const SizedBox(width: 10),
+          Expanded(child: Text('$label • ${_dateLabel(value)}')),
+        ],
+      ),
+    ),
+  );
 
   Future<void> _chooseServiceDate({required bool vehicleDateTime}) async {
     final current = vehicleDateTime ? _vehicleDateTime : _nextServiceDate;
@@ -374,22 +418,28 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
   Future<void> _executeService() async {
     final mileage = int.tryParse(_serviceMileageController.text.trim());
     if (mileage == null) {
-      setState(() =>
-          _notice = 'Please enter a valid numeric service mileage value.');
+      setState(
+        () => _notice = 'Please enter a valid numeric service mileage value.',
+      );
       return;
     }
 
-    final item = BmwServiceManager.actions
-        .firstWhere((candidate) => candidate.type == _serviceAction);
+    final item = BmwServiceManager.actions.firstWhere(
+      (candidate) => candidate.type == _serviceAction,
+    );
     setState(() => _pendingServiceItem = item);
   }
 
   Future<void> _confirmAndPerformService() async {
+    final operationGeneration = ++_serviceOperationGeneration;
+    _serviceCancelRequested = false;
     final item = _pendingServiceItem;
     final key = _serviceEcuKey ?? BmwServiceManager.supportedEcuKeys.first;
     final mileage = int.tryParse(_serviceMileageController.text.trim());
     if (mileage == null || mileage < 0 || mileage > 65535) {
-      setState(() => _notice = 'Enter a service mileage value from 0 to 65535.');
+      setState(
+        () => _notice = 'Enter a service mileage value from 0 to 65535.',
+      );
       return;
     }
     setState(() => _pendingServiceItem = null);
@@ -400,35 +450,85 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     var link = shared.activeLink;
     if ((link == null || shared.ecuDefinitionKey != key) && shared.connected) {
       link = null;
-      setState(() { _busy = true; _notice = 'Establishing diagnostic link to ${BmwEcuHelper.friendlyName(key)}…'; });
+      setState(() {
+        _busy = true;
+        _notice =
+            'Establishing diagnostic link to ${BmwEcuHelper.friendlyName(key)}…';
+      });
       try {
-        await shared.configureUdsTarget(ecuKey: key, address: BmwEcuHelper.standardAddress(key));
+        final route = BmwServiceResetCatalog.routeForEcuKey(key);
+        if (route == null) {
+          throw UnsupportedError('No source-backed service route for $key.');
+        }
+        await shared.configureUdsTarget(
+          ecuKey: key,
+          address: route.address,
+        );
         link = shared.activeLink;
-      } catch (error) { if (mounted) setState(() => _notice = 'Connection failed: $error'); }
-      finally { if (mounted) setState(() => _busy = false); }
+      } catch (error) {
+        if (mounted) setState(() => _notice = 'Connection failed: $error');
+      } finally {
+        if (mounted) setState(() => _busy = false);
+      }
     }
 
-    if (link == null) {
-      setState(() => _notice =
-          'Connect your OBD adapter in the Adapter tab to execute live service operations.');
+    if (!mounted ||
+        _disposed ||
+        _serviceCancelRequested ||
+        operationGeneration != _serviceOperationGeneration) {
+      if (mounted) {
+        setState(() {
+          _busy = false;
+          _notice = 'Service operation cancelled before any write was sent.';
+        });
+      }
       return;
     }
 
+    if (link == null) {
+      if (mounted) {
+        setState(
+          () => _notice =
+              'Connect your OBD adapter in the Adapter tab to execute live service operations.',
+        );
+      }
+      return;
+    }
+
+    final targetGeneration = shared.generation;
+    bool shouldAbort() =>
+        _serviceCancelRequested ||
+        _disposed ||
+        operationGeneration != _serviceOperationGeneration ||
+        shared.generation != targetGeneration ||
+        !identical(shared.activeLink, link) ||
+        shared.ecuDefinitionKey != key;
+
+    if (!mounted) return;
     setState(() {
       _busy = true;
       _notice = null;
     });
-    final result = await DiagnosticSession.instance.runExclusive(() =>
-        BmwServiceManager.execute(
-          item: item,
-          link: link!,
-          ecuKey: key,
-          vehicleDateTime: _vehicleDateTime,
-          nextServiceDate: _nextServiceDate,
-          nextServiceMileage: mileage,
-        )).catchError((Object error) =>
-        ServiceExecutionResult(success: false, message: error.toString()));
-    if (!mounted) return;
+    final result = await DiagnosticSession.instance
+        .runExclusive(
+          () => BmwServiceManager.execute(
+            item: item,
+            link: link!,
+            ecuKey: key,
+            vehicleDateTime: _vehicleDateTime,
+            nextServiceDate: _nextServiceDate,
+            nextServiceMileage: mileage,
+            shouldAbort: shouldAbort,
+          ),
+        )
+        .catchError(
+          (Object error) =>
+              ServiceExecutionResult(success: false, message: error.toString()),
+        );
+    if (!mounted ||
+        _disposed ||
+        operationGeneration != _serviceOperationGeneration)
+      return;
     setState(() {
       _busy = false;
       _notice = result.message;
@@ -438,6 +538,14 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
       if (result.success && result.newServiceMileageKm != null) {
         _serviceMileageController.text = result.newServiceMileageKm.toString();
       }
+    });
+  }
+
+  void _requestServiceCancellation() {
+    if (!_busy || _serviceCancelRequested) return;
+    setState(() {
+      _serviceCancelRequested = true;
+      _notice = 'Stopping after the current diagnostic request completes…';
     });
   }
 
@@ -472,8 +580,11 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                       color: _lime.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.build_circle_outlined,
-                        color: _lime, size: 24),
+                    child: const Icon(
+                      Icons.build_circle_outlined,
+                      color: _lime,
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   const Expanded(
@@ -635,7 +746,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           onChanged: (val) {
             setState(() => manager.setValue('led_indicators', val));
             _showCodingSuccess(
-                'LED Turn Signals retrofit ${val ? "enabled" : "disabled"}');
+              'LED Turn Signals retrofit ${val ? "enabled" : "disabled"}',
+            );
           },
         ),
 
@@ -648,7 +760,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           onChanged: (val) {
             setState(() => manager.setValue('daytime_running_lights', val));
             _showCodingSuccess(
-                'Daytime Running Lights ${val ? "enabled" : "disabled"}');
+              'Daytime Running Lights ${val ? "enabled" : "disabled"}',
+            );
           },
         ),
 
@@ -661,7 +774,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           onChanged: (val) {
             setState(() => manager.setValue('auxiliary_fog_lights', val));
             _showCodingSuccess(
-                'Auxiliary Fog Lights ${val ? "enabled" : "disabled"}');
+              'Auxiliary Fog Lights ${val ? "enabled" : "disabled"}',
+            );
           },
         ),
       ],
@@ -681,28 +795,34 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
             const Text(
               'LOCAL CONFIGURATION DRAFTS',
               style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.2,
-                  color: Colors.white60),
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+                color: Colors.white60,
+              ),
             ),
             FilledButton.icon(
               onPressed: () {
                 final snap = manager.createSnapshot(
-                  model: DiagnosticSession.instance.profile.modelName ??
+                  model:
+                      DiagnosticSession.instance.profile.modelName ??
                       'Unidentified motorcycle',
                   vin: DiagnosticSession.instance.profile.vin ?? 'UNKNOWN',
                 );
-                setState(() => _notice =
-                    'Snapshot ${snap.id} saved in memory; no ECU data was read.');
+                setState(
+                  () => _notice =
+                      'Snapshot ${snap.id} saved in memory; no ECU data was read.',
+                );
               },
               icon: const Icon(Icons.add, size: 16),
               label: const Text('Save Local Draft'),
               style: FilledButton.styleFrom(
                 backgroundColor: _lime,
                 foregroundColor: _ink,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
               ),
             ),
           ],
@@ -743,25 +863,33 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                       Text(
                         snap.id,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: _lime,
-                            fontFamily: 'monospace'),
+                          fontWeight: FontWeight.bold,
+                          color: _lime,
+                          fontFamily: 'monospace',
+                        ),
                       ),
-                      Text(snap.formattedDate,
-                          style: const TextStyle(
-                              color: Colors.white38, fontSize: 11)),
+                      Text(
+                        snap.formattedDate,
+                        style: const TextStyle(
+                          color: Colors.white38,
+                          fontSize: 11,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 6),
-                  Text('${snap.vehicleModel} • VIN: ${snap.vin}',
-                      style:
-                          const TextStyle(fontSize: 12, color: Colors.white70)),
+                  Text(
+                    '${snap.vehicleModel} • VIN: ${snap.vin}',
+                    style: const TextStyle(fontSize: 12, color: Colors.white70),
+                  ),
                   const SizedBox(height: 12),
                   OutlinedButton.icon(
                     onPressed: () {
                       manager.restoreSnapshot(snap.id);
-                      setState(() =>
-                          _notice = 'Restored configuration from ${snap.id}');
+                      setState(
+                        () =>
+                            _notice = 'Restored configuration from ${snap.id}',
+                      );
                     },
                     icon: const Icon(Icons.restore, size: 16),
                     label: const Text('Load Local Draft'),
@@ -807,33 +935,44 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                   color: _lime.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(ecu,
-                    style: const TextStyle(
-                        color: _lime,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10)),
+                child: Text(
+                  ecu,
+                  style: const TextStyle(
+                    color: _lime,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 14)),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(description,
-              style: const TextStyle(color: Colors.white54, fontSize: 11)),
+          Text(
+            description,
+            style: const TextStyle(color: Colors.white54, fontSize: 11),
+          ),
           const SizedBox(height: 12),
           DropdownButtonFormField<T>(
             initialValue: value,
             decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 12, vertical: 8)),
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            ),
             items: options
-                .map((opt) =>
-                    DropdownMenuItem(value: opt, child: Text(opt.toString())))
+                .map(
+                  (opt) =>
+                      DropdownMenuItem(value: opt, child: Text(opt.toString())),
+                )
                 .toList(),
             onChanged: (newVal) {
               if (newVal != null) onChanged(newVal);
@@ -869,29 +1008,39 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: _lime.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text(ecu,
-                          style: const TextStyle(
-                              color: _lime,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10)),
+                      child: Text(
+                        ecu,
+                        style: const TextStyle(
+                          color: _lime,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(title,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14)),
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 6),
-                Text(description,
-                    style:
-                        const TextStyle(color: Colors.white54, fontSize: 11)),
+                Text(
+                  description,
+                  style: const TextStyle(color: Colors.white54, fontSize: 11),
+                ),
               ],
             ),
           ),

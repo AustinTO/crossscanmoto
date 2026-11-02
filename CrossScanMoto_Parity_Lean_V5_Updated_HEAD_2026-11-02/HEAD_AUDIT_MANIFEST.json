@@ -1,0 +1,25 @@
+{
+  "package": "CrossScanMoto Parity-First Lean V5",
+  "audit_date": "2026-11-02",
+  "repo": "https://github.com/AustinTO/crossscanmoto",
+  "previous_audit_sha": "ceee4cbb4c116f807db4f8fa93873e94b1907f0c",
+  "audited_merge_sha": "adf98d171d0c828e60e6d7cf6fbb4d06e87c9437",
+  "pull_request": "https://github.com/AustinTO/crossscanmoto/pull/1",
+  "merged_at_utc": "2026-11-02T16:35:38Z",
+  "compare_ahead_by": 3,
+  "changed_file_paths": 67,
+  "ticket_count": 53,
+  "old_ticket_count": 47,
+  "new_regression_count": 6,
+  "status_counts": {
+    "open_unverified": 31,
+    "partial_merge_remaining": 19,
+    "merged_verify_only": 3
+  },
+  "test_counts_source": "PR #1 description (not rerun)",
+  "reported_flutter_tests": 91,
+  "reported_worker_tests": 22,
+  "original_binary_included": false,
+  "app_code_modified": false,
+  "validation": "ZIP and issue packet generator validated locally; repository code tests NOT run here"
+}

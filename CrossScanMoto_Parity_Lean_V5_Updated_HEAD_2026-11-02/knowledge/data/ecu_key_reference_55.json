@@ -1,0 +1,502 @@
+{
+  "as_of": "2026-11-02",
+  "source_tree_sha": "ceee4cbb4c116f807db4f8fa93873e94b1907f0c",
+  "notes": "Observed current repo source, no proprietary raw table contents or execution commands. Counts are row occurrences, not validation.",
+  "records": [
+    {
+      "ecu_definition_key": "cuX_BMSO1",
+      "troublecode_row_occurrences": 717,
+      "parameter_request_rows": 20,
+      "parameter_result_rows": 57,
+      "actuator_definition_rows": 9,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_CCP",
+      "troublecode_row_occurrences": 712,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSAE1",
+      "troublecode_row_occurrences": 363,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSMP1",
+      "troublecode_row_occurrences": 352,
+      "parameter_request_rows": 24,
+      "parameter_result_rows": 69,
+      "actuator_definition_rows": 9,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSX",
+      "troublecode_row_occurrences": 287,
+      "parameter_request_rows": 20,
+      "parameter_result_rows": 62,
+      "actuator_definition_rows": 8,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_AE",
+      "troublecode_row_occurrences": 283,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SME",
+      "troublecode_row_occurrences": 198,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BCL",
+      "troublecode_row_occurrences": 187,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BCA",
+      "troublecode_row_occurrences": 181,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuMRBMSMP1",
+      "troublecode_row_occurrences": 166,
+      "parameter_request_rows": 24,
+      "parameter_result_rows": 66,
+      "actuator_definition_rows": 9,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_ABS",
+      "troublecode_row_occurrences": 148,
+      "parameter_request_rows": 8,
+      "parameter_result_rows": 13,
+      "actuator_definition_rows": 2,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_ABSVI",
+      "troublecode_row_occurrences": 147,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BCO",
+      "troublecode_row_occurrences": 139,
+      "parameter_request_rows": 19,
+      "parameter_result_rows": 28,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SAF",
+      "troublecode_row_occurrences": 100,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB18",
+      "troublecode_row_occurrences": 92,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB_A",
+      "troublecode_row_occurrences": 91,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_OBC",
+      "troublecode_row_occurrences": 82,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMBB2",
+      "troublecode_row_occurrences": 76,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_FSA",
+      "troublecode_row_occurrences": 75,
+      "parameter_request_rows": 7,
+      "parameter_result_rows": 9,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_TPM4G",
+      "troublecode_row_occurrences": 73,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_OBC_2",
+      "troublecode_row_occurrences": 72,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSE2",
+      "troublecode_row_occurrences": 69,
+      "parameter_request_rows": 22,
+      "parameter_result_rows": 22,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_ABS9M",
+      "troublecode_row_occurrences": 67,
+      "parameter_request_rows": 8,
+      "parameter_result_rows": 9,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_MRR",
+      "troublecode_row_occurrences": 65,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSE2B",
+      "troublecode_row_occurrences": 63,
+      "parameter_request_rows": 22,
+      "parameter_result_rows": 22,
+      "actuator_definition_rows": 7,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SVA",
+      "troublecode_row_occurrences": 63,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_WAVE",
+      "troublecode_row_occurrences": 59,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB46",
+      "troublecode_row_occurrences": 58,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SLZ03",
+      "troublecode_row_occurrences": 56,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SLZ_4",
+      "troublecode_row_occurrences": 54,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_TPM",
+      "troublecode_row_occurrences": 54,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_AP20",
+      "troublecode_row_occurrences": 53,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_ASW",
+      "troublecode_row_occurrences": 51,
+      "parameter_request_rows": 1,
+      "parameter_result_rows": 1,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMBHI",
+      "troublecode_row_occurrences": 49,
+      "parameter_request_rows": 7,
+      "parameter_result_rows": 21,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMBI",
+      "troublecode_row_occurrences": 46,
+      "parameter_request_rows": 7,
+      "parameter_result_rows": 21,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMBLO",
+      "troublecode_row_occurrences": 45,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_DWA",
+      "troublecode_row_occurrences": 42,
+      "parameter_request_rows": 7,
+      "parameter_result_rows": 16,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB17",
+      "troublecode_row_occurrences": 40,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_AUDIO",
+      "troublecode_row_occurrences": 37,
+      "parameter_request_rows": 4,
+      "parameter_result_rows": 4,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB53",
+      "troublecode_row_occurrences": 36,
+      "parameter_request_rows": 6,
+      "parameter_result_rows": 20,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB03",
+      "troublecode_row_occurrences": 35,
+      "parameter_request_rows": 6,
+      "parameter_result_rows": 7,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_KOMB50",
+      "troublecode_row_occurrences": 35,
+      "parameter_request_rows": 6,
+      "parameter_result_rows": 20,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_MRR_2",
+      "troublecode_row_occurrences": 32,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SRR",
+      "troublecode_row_occurrences": 30,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_ESA",
+      "troublecode_row_occurrences": 29,
+      "parameter_request_rows": 5,
+      "parameter_result_rows": 1,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_RDC",
+      "troublecode_row_occurrences": 28,
+      "parameter_request_rows": 2,
+      "parameter_result_rows": 9,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_SLZ",
+      "troublecode_row_occurrences": 24,
+      "parameter_request_rows": 5,
+      "parameter_result_rows": 9,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_EWS4",
+      "troublecode_row_occurrences": 23,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_DWA_9",
+      "troublecode_row_occurrences": 21,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSMS1",
+      "troublecode_row_occurrences": 0,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BMSTVS",
+      "troublecode_row_occurrences": 0,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_BSK_M",
+      "troublecode_row_occurrences": 0,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_FSM",
+      "troublecode_row_occurrences": 0,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_MESS",
+      "troublecode_row_occurrences": 0,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    },
+    {
+      "ecu_definition_key": "cuX_ZES",
+      "troublecode_row_occurrences": 0,
+      "parameter_request_rows": 0,
+      "parameter_result_rows": 0,
+      "actuator_definition_rows": 0,
+      "status": "RECOVERED_METADATA_NOT_PHYSICALLY_VERIFIED",
+      "source_path": "assets/data/recovered_ecu_definitions.json"
+    }
+  ]
+}

@@ -47,7 +47,9 @@ The handlers inspect only the first returned wrapper's byte-array length when
 a response exists; the length is assigned to an unused local. They do not
 validate a positive ACK, read data back, or condition later writes on ACK
 content. After all enabled writes they return `qx2(ERROR_OK, empty bytes)`.
-There is no pre-read or cleanup frame in either C body. `qr.C` checks its enum
+There is no pre-read, explicit inter-write sleep, or cleanup frame in either C
+body; the sequential requests each wait through the 3000 ms transport timeout.
+`qr.C` checks its enum
 and both date arguments for null before dispatch. `rr.C` dereferences `date2`
 before dispatch; it uses `date` only for SI_DATE/SI_ALL.
 
@@ -95,6 +97,10 @@ converts the request bytes to contiguous uppercase hex and calls `vq4.r`; `r`
 writes that text followed by carriage return to the selected adapter stream.
 This evidence identifies the adapter command bytes, not ISO-TP/CAN wire
 framing.
+
+The timeout passed to `vq4.q(timeout)` is a response-read loop budget, not a
+whole-operation deadline. The send path also sleeps 10 ms before writing and
+waits in 5 ms increments for an existing busy flag for up to 5 seconds.
 
 For a returned response beginning `7f`, `vq4.t` recursively resends the same
 request for NRC `0x21`; for NRC `0x78`, it drops consecutive pending frames and

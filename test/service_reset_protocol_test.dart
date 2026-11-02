@@ -37,7 +37,7 @@ void main() {
     final protocol = BmwServiceResetProtocol(
       link: link,
       profile: BmwServiceResetProfile.udsServiceData,
-      ecuKey: 'cuX_BMSX',
+      ecuKey: 'cuX_KOMB18',
       delay: (_) async {},
     );
 

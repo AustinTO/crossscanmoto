@@ -1,0 +1,290 @@
+{
+  "baseline": "adf98d171d0c828e60e6d7cf6fbb4d06e87c9437",
+  "tickets": {
+    "RE-01": {
+      "audit_status": "open_unverified",
+      "local_status": "COMPLETE",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria.",
+      "implementation_state": "COMPLETE",
+      "parity_result": "PASS",
+      "evidence": "docs/parity/RE-01-artifact-baseline.md"
+    },
+    "RE-02": {
+      "audit_status": "open_unverified",
+      "local_status": "VERIFIED_MATRIX_REQUIRES_ROUTING",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria.",
+      "implementation_state": "PARTIAL",
+      "component_state": "COMPLETE reproducible inventory matrix",
+      "parity_result": "UNRESOLVED",
+      "remaining_dependencies": [
+        "RE-05 actual handler and group-key routing"
+      ],
+      "evidence": "docs/parity/RE-02-coverage-checkpoint.md"
+    },
+    "RE-03": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Retain new fail-closed setup behavior. Resume original UDS response/framing reconstruction and source-derived golden tests."
+    },
+    "RE-04": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Keep KWP service matching; reconstruct remaining families and verify against 1.83 and 1.110."
+    },
+    "RE-05": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-06": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-07": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Reuse these tests; add independent source-derived golden cases, no broad virtual adapter."
+    },
+    "RE-08": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-09": {
+      "audit_status": "open_unverified",
+      "local_status": "VERIFIED_RETAINED_CATALOG",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria.",
+      "evidence": "docs/parity/RE-09-checkpoint.md",
+      "remaining_dependencies": [
+        "RE-02",
+        "RE-05",
+        "RE-17"
+      ],
+      "implementation_state": "COMPLETE",
+      "implementation_scope": "all nine decoder branches and all486 retained 1.110 layouts",
+      "parity_result": "UNRESOLVED"
+    },
+    "RE-10": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-11": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Preserve cancellation/cleanup, expand ECU-specific sequencing and original-derived goldens."
+    },
+    "RE-12": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-13": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-14": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-15": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Validate full UDS, KWA, KWP, FTE error/state coverage and reference-derived bounds."
+    },
+    "RE-16": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Re-run checks at current HEAD, then build complete per-ECU parity matrix and fixture coverage."
+    },
+    "RE-17": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-18": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-19": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "RE-20": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P0-01": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Preserve rebind safeguard; recover original capability matrix and add model/ECU gate tests."
+    },
+    "P0-02": {
+      "audit_status": "merged_verify_only",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Run newly added target-switch and cross-ECU actuator regression tests; inspect edge cases before declaring closed."
+    },
+    "P0-03": {
+      "audit_status": "merged_verify_only",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Verify the new wording, lifecycle cancellation and cleanup tests. Do not add mechanical-success claims."
+    },
+    "P0-04": {
+      "audit_status": "merged_verify_only",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Re-run boundary tests and confirm model/ECU semantics; this does not prove all service resets correct."
+    },
+    "P0-05": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "IN_PROGRESS",
+      "next_action": "Reconstruct and replay omitted original service handlers; retain the stricter write/readback path.",
+      "confirmed_gap": "Original FUNCTIONS raw8 is ADAPTIONS; current service gate used enumordinal8 instead of raw12 SERVICE"
+    },
+    "P0-06": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Change success notifications to Saved local draft only; keep live coding disabled until exact ECU write is recovered."
+    },
+    "P0-07": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P0-08": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P0-09": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-01": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-02": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-03": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-04": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Extend typed transport error handling and source-derived delayed/fragmented response tests."
+    },
+    "P1-05": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-06": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-07": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-08": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-09": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-10": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Audit live data/DTC/scan/connection changes for overlap and rejection/recovery semantics."
+    },
+    "P1-11": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P1-12": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P2-01": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P2-02": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P2-03": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect current HEAD and address the original remaining acceptance criteria."
+    },
+    "P2-04": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Preserve these; implement AI subscription as a distinct entitlement without migrating legacy unlocks."
+    },
+    "P2-05": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Add AI evidence opt-in/export/delete and verify retention, not just account deletion."
+    },
+    "P2-06": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Add fixture-backed original parity gate; keep actual hardware and store validation clearly separate."
+    },
+    "MH-01": {
+      "audit_status": "open_unverified",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Run full verification once at HEAD and link its output."
+    },
+    "MH-02": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Review regression suite, migration ordering and idempotency; do not replace implemented security layer."
+    },
+    "MH-03": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Check actual workflow run and customer signing settings if available."
+    },
+    "MH-04": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Inspect release runtime config and ensure notifications/revocations are properly labeled."
+    },
+    "MH-05": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Re-run new UI tests and inspect modified state transitions."
+    },
+    "MH-06": {
+      "audit_status": "partial_merge_remaining",
+      "local_status": "NOT_VERIFIED",
+      "next_action": "Review all consumers rather than rebuilding configurator."
+    }
+  }
+}

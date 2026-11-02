@@ -17,6 +17,11 @@ parity.
 - `lib/diagnostics/service_manager.dart` forwards cancellation and returns
   `success: false, cancelled: true` with confirmed partial DIDs. It cannot
   report verified success after cancellation.
+- The service catalog now has exact UDS routes for all 12 enabled raw-12
+  `CF_SERVICE` keys: 11 `G_MRKOMB` selector/response-ID branches and the
+  `G_MRSLZ` CCP branch. Each route records its module group, selector, response
+  ID, ECU address, and raw category ID. Raw-8 BMS keys and legacy MRKOMB labels
+  are excluded. The UI rebind now uses the source route address.
 - `lib/service_coding_page.dart` exposes a Stop action, requests cancellation
   on disposal, and checks the captured `DiagnosticSession.generation`, active
   link identity, ECU key, and operation token before/after async work. It uses
@@ -44,9 +49,10 @@ parity.
   `MRKOMBI`, but does not establish an association to the `cuX_KOMB*`
   FUNCTIONS keys.
 - Oracle worker owns strict service request/readback fixtures and cancellation
-  tests. It is preparing exact UDS fixtures for the 12 verified
-  `CF_SERVICE` keys; cancellation tests are still pending. No runtime payload
-  or allowlist changes have been added yet.
+  tests. The 12-route static golden is on disk; its replay test and cancellation
+  tests are still pending. No KWP profile has been added because the current
+  source route evidence does not join legacy labels to an ECU-scoped FUNCTION
+  gate.
 - `assets/research/service-reset-recovery.md` contains a stale raw-8 service
   mapping. Its payload notes may be reviewed, but its category-to-target gate
   must not be reused.
@@ -55,16 +61,16 @@ parity.
 
 - Before cancellation edits, focused service protocol, diagnostic session, and
   parity feature tests passed (20 tests).
-- After cancellation edits, the existing focused service protocol,
-  diagnostic-session, and parity-feature tests passed (20 tests), and Dart
-  analysis passed for the four scoped runtime files. These tests do not cover
-  cancellation. Oracle-owned cancellation/replay tests are still pending and
-  are not claimed as passing.
+- After cancellation and UDS route edits, the existing focused service
+  protocol, diagnostic-session, and parity-feature tests passed (20 tests),
+  and Dart analysis passed for the four scoped runtime files. These tests do
+  not cover the new 12-route static fixture or cancellation. Oracle-owned
+  replay/cancellation tests are still pending and are not claimed as passing.
 
 ## Remaining work
 
-Resolve each enabled raw-12 ECU through the exact DEX factory and controller
-constructor; recover the separate KWP profile matrix; integrate only the
-source-backed UDS/KWP handlers; add independent exact payload, ACK, pre-read,
-post-read, and cancellation goldens; then rerun targeted and full Flutter
-verification. Unknown or unbound targets must remain fail-closed.
+Replay the 12-route UDS fixture and verify all enabled actions/readback; finish
+the separate KWP handler/gate trace; integrate no KWP target without an exact
+FUNCTIONS join; add independent ACK, pre-read, post-read, and cancellation
+goldens; then rerun targeted and full Flutter verification. Unknown or
+unbound targets must remain fail-closed.

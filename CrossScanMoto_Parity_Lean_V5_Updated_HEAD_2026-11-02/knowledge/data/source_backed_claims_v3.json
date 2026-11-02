@@ -1,0 +1,117 @@
+{
+  "as_of": "2026-11-02",
+  "claims": [
+    {
+      "id": "C3-01",
+      "claim": "The recovered vehicle catalog has 84 entries, including two Husqvarna entries and a duplicate K61 K1600B label.",
+      "status": "REPO_CONFIRMED",
+      "source_ids": [
+        "GITHUB03"
+      ],
+      "strict_scope": "Repo snapshot only; not 84 physically supported bikes."
+    },
+    {
+      "id": "C3-02",
+      "claim": "The curated BmwVehicleCatalog.models list contains 26 model entries, not 84.",
+      "status": "REPO_CONFIRMED",
+      "source_ids": [
+        "GITHUB02"
+      ],
+      "strict_scope": "Different catalogs may serve separate UI paths."
+    },
+    {
+      "id": "C3-03",
+      "claim": "Core auto scanner cycles through nine static BmwEcuCatalog definitions.",
+      "status": "REPO_CONFIRMED",
+      "source_ids": [
+        "GITHUB05"
+      ],
+      "strict_scope": "A nine-module attempt is not a scan of all 29 groups."
+    },
+    {
+      "id": "C3-04",
+      "claim": "Recovered data includes 55 ECU keys; 5,805 TROUBLECODES table row occurrences, 230 PARAMS request entries, 486 PARAMS_RES rows, 665 PARAMS_TAB rows, 44 actuators, 61 positions and 130 command rows.",
+      "status": "REPO_CONFIRMED",
+      "source_ids": [
+        "GITHUB06",
+        "GITHUB07",
+        "GITHUB09"
+      ],
+      "strict_scope": "Rows and recovered metadata; not validated unique DTC definitions or hardware functions."
+    },
+    {
+      "id": "C3-05",
+      "claim": "LiveDataPage renders a DID query response as raw hexadecimal bytes; decoded units/scaling are not demonstrated there.",
+      "status": "REPO_CONFIRMED",
+      "source_ids": [
+        "GITHUB04"
+      ],
+      "strict_scope": "This screen path only, other code may implement different views."
+    },
+    {
+      "id": "C3-06",
+      "claim": "CE 04 is K09 in curated catalog but K07 in recovered source; recovered K09 is C 400 X.",
+      "status": "REPO_CONFLICT",
+      "source_ids": [
+        "GITHUB02",
+        "GITHUB03"
+      ],
+      "strict_scope": "Require human resolution before app model-to-manual mapping."
+    },
+    {
+      "id": "C3-07",
+      "claim": "Auto scan marks responded/no-DTC as healthy and looks up DTC without ECU-specific key; such output may be misleading or unresolved.",
+      "status": "REPO_CONFIRMED",
+      "source_ids": [
+        "GITHUB05",
+        "GITHUB08"
+      ],
+      "strict_scope": "App presentation/lookup semantics issue."
+    },
+    {
+      "id": "C3-08",
+      "claim": "BMW SIB 33 04 23 gives specified K5x 20k inspection/lube and 60k driveshaft-life replacement.",
+      "status": "OEM_SUPPORTED_WITH_APPLICABILITY",
+      "source_ids": [
+        "NHTSA_K5X"
+      ],
+      "strict_scope": "K50-K54 and VIN/type code, confirm campaign in AIR; do not apply to R1300 or R18."
+    },
+    {
+      "id": "C3-09",
+      "claim": "For certain MA2.4 models, historical ISTA D3.49 could show false camshaft/Hall fault immediately after deleting memory.",
+      "status": "OEM_HISTORICAL",
+      "source_ids": [
+        "NHTSA_MA24"
+      ],
+      "strict_scope": "Historic tool version, not universal Hall-sensor DTC rule."
+    },
+    {
+      "id": "C3-10",
+      "claim": "OBDLink LX is Bluetooth Classic and not supported by iOS, while MX+ and CX are supported on iOS at hardware/driver level.",
+      "status": "VENDOR_SUPPORTED",
+      "source_ids": [
+        "OBDLINK_IOS"
+      ],
+      "strict_scope": "No CrossScanMoto motorcycle ECU support implied."
+    },
+    {
+      "id": "C3-11",
+      "claim": "MotoScan states certain old FTE ABS modules with diagnostic pin 2 need blink-code diagnosis.",
+      "status": "THIRD_PARTY_VENDOR",
+      "source_ids": [
+        "MOTOSCAN_V"
+      ],
+      "strict_scope": "Competitor documentation; verify on exact motorcycle before presenting as BMW technical directive."
+    },
+    {
+      "id": "C3-12",
+      "claim": "BMW US automotive TIS help explicitly states motorcycle repair information is not available there.",
+      "status": "OEM_PLATFORM_SUPPORTED",
+      "source_ids": [
+        "BMW_TIS_LIMIT"
+      ],
+      "strict_scope": "Do not claim generic TIS subscription unlocks motorcycle repair manual access."
+    }
+  ]
+}

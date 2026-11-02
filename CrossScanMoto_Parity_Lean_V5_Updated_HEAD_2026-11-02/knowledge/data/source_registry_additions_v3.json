@@ -1,0 +1,206 @@
+{
+  "version": "3.0.0",
+  "existing_source_registry": "previous_v2/CrossScanMoto_AI_Companion_V2/curated_source_registry.json",
+  "new_sources": [
+    {
+      "source_id": "GITHUB01",
+      "classification": "PROJECT_CODE",
+      "title": "CrossScanMoto GitHub default branch",
+      "url": "https://github.com/AustinTO/crossscanmoto",
+      "use_restriction": "User project source; code-level fact, not physical validation",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB02",
+      "classification": "PROJECT_CODE",
+      "title": "Vehicle model selector Dart",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/lib/diagnostics/vehicle_catalog.dart",
+      "use_restriction": "Curated model list and VIN heuristics; raw model count separate",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB03",
+      "classification": "PROJECT_CODE",
+      "title": "Recovered raw vehicle catalog",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/lib/diagnostics/recovered_catalog.dart",
+      "use_restriction": "84 raw records, includes duplicates and Husqvarna; not verified compatibility",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB04",
+      "classification": "PROJECT_CODE",
+      "title": "Live Data view",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/lib/live_data_page.dart",
+      "use_restriction": "Reads returned DID payload into raw hex representation",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB05",
+      "classification": "PROJECT_CODE",
+      "title": "Auto scan controller",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/lib/diagnostics/auto_scan_controller.dart",
+      "use_restriction": "Nine static ECU scan list; use observed coverage and no-code caveat",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB06",
+      "classification": "PROJECT_CODE",
+      "title": "Recovered parameter metadata",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/assets/data/recovered_uds_parameters.json",
+      "use_restriction": "230 0x22 read request definitions for 21 recovered keys; no verified unit mapping",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB07",
+      "classification": "PROJECT_CODE",
+      "title": "Recovered native definition bundle",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/assets/data/recovered_ecu_definitions.json",
+      "use_restriction": "Recovered rows, not hardware execution records",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB08",
+      "classification": "PROJECT_CODE",
+      "title": "DTC lookup implementation",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/lib/diagnostics/dtc_database.dart",
+      "use_restriction": "Controller key required for some descriptions",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "GITHUB09",
+      "classification": "PROJECT_CODE",
+      "title": "Recovered actuator catalog",
+      "url": "https://github.com/AustinTO/crossscanmoto/blob/main/assets/data/recovered_actuators.json",
+      "use_restriction": "No assistant access to commands; no universal bike support",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "BMW_SVC",
+      "classification": "OEM_PUBLIC",
+      "title": "BMW Motorrad service overview",
+      "url": "https://www.bmwmotorcycles.com/en/service/services.html",
+      "use_restriction": "Brake/battery/air filter/seasonal service overview, non-numeric",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "BMW_MAN",
+      "classification": "OEM_PUBLIC",
+      "title": "BMW Motorrad official rider manual index",
+      "url": "https://www.bmwmotorcycles.com/en/service/manuals/rider-manual.html",
+      "use_restriction": "Model-specific manual selection and edition",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "BMW_RECALL",
+      "classification": "OEM_PUBLIC",
+      "title": "BMW Motorrad recall search",
+      "url": "https://nhtsa.bmwgroup.com/safetyrecall/pages/motorradRecallSearch.xhtml",
+      "use_restriction": "VIN result must be checked live; prior 1999 gap, update delay",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "MOTOSCAN_V",
+      "classification": "VENDOR_COMPARISON",
+      "title": "MotoScan supported bike limitations",
+      "url": "https://www.motoscan.de/docs/allgemein/unterstuetzte-motorraeder/",
+      "use_restriction": "Older 3-pin blink-code and FTE ABS pin2 exceptions; competitor-only support",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "OBDLINK_IOS",
+      "classification": "VENDOR_ADAPTER",
+      "title": "OBDLink platform matrix",
+      "url": "https://support.obdlink.com/support/solutions/articles/43000713351",
+      "use_restriction": "LX Bluetooth Classic, CX BLE, MX+ Bluetooth Classic, OS-specific app support",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "OBDLINK_BIKES",
+      "classification": "VENDOR_ADAPTER",
+      "title": "OBDLink motorcycle app support",
+      "url": "https://support.obdlink.com/support/solutions/articles/43000701308-do-obdlink-adapters-work-on-motorcycles-",
+      "use_restriction": "Adapter connection does not prove CrossScanMoto protocol support",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "NHTSA_K5X",
+      "classification": "OEM_BULLETIN",
+      "title": "BMW SIB 33 04 23 K5x driveshaft service",
+      "url": "https://static.nhtsa.gov/odi/tsbs/2024/MC-11006753-0001.pdf",
+      "use_restriction": "K5x 20,000km checks; 60,000km driveshaft-life replacement; exact VIN AIR",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "NHTSA_MA24",
+      "classification": "OEM_BULLETIN_RESTRICTED_TEXT",
+      "title": "BMW diagnostic D3.49 MA2.4 bulletin",
+      "url": "https://static.nhtsa.gov/odi/tsbs/2015/MC-10147165-9999.pdf",
+      "use_restriction": "Historical false Hall-sensor code after clearing; document marked confidential, link/reference only",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "NHTSA_PORTAL",
+      "classification": "GOVERNMENT",
+      "title": "NHTSA recalls",
+      "url": "https://www.nhtsa.gov/recalls",
+      "use_restriction": "US recall search, known coverage limits",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "BMW_TIS_LIMIT",
+      "classification": "OEM_PLATFORM",
+      "title": "BMW US automotive TIS documentation",
+      "url": "https://minitechinfo.bmwgroup.com/tisUI/assets/site_information.pdf",
+      "use_restriction": "Explicitly says motorcycle repair information not available on US automotive TIS; do not promise Motorrad repair manuals there",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    },
+    {
+      "source_id": "BMW_AOS",
+      "classification": "OEM_PLATFORM",
+      "title": "BMW Group AOS",
+      "url": "https://aos.bmwgroup.com/",
+      "use_restriction": "Professional source may require account and licensing; region/content depends on rights",
+      "last_checked": "2026-11-02",
+      "full_text_redistribution_permitted": false,
+      "scope_verification_required": true
+    }
+  ]
+}

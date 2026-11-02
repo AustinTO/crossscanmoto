@@ -1,0 +1,32 @@
+{
+  "capability_id": "example_only|cuX_BMSX|read_dtcs|adapter_unknown",
+  "reference": {
+    "version": "1.110",
+    "method": "EXAMPLE_SOURCE_METHOD",
+    "offset": "SOURCE_OFFSET_REQUIRED",
+    "sha256": "PINNED_HASH_REQUIRED"
+  },
+  "scope": {
+    "vehicle_record_id": null,
+    "platform": null,
+    "ecu_key": "cuX_BMSX",
+    "protocol": "BMW_UDS",
+    "function": "DTC_READ"
+  },
+  "implementation": {
+    "state": "PARTIAL",
+    "path": "lib/diagnostics/uds_client.dart"
+  },
+  "evidence": {
+    "offline": [
+      "STATIC_GOLDEN"
+    ],
+    "real_world": "NOT_TESTED",
+    "fixture_paths": []
+  },
+  "parity_result": "UNRESOLVED",
+  "action_safety": "READ_ONLY",
+  "limitations": [
+    "EXAMPLE: supply real source evidence before PASS"
+  ]
+}

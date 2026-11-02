@@ -15,19 +15,158 @@ enum BmwServiceResetProfile {
 /// standard UDS service reset and interval calibration.
 abstract final class BmwServiceResetCatalog {
   static const supportedUdsEcuKeys = <String>{
-    'cuX_BMSX',
-    'cuX_BMSE2B',
-    'cuX_BMSE2',
-    'cuX_BMSMP1',
-    'cuX_BMSO1',
+    'cuX_KOMBI',
+    'cuX_KOMB03',
+    'cuX_KOMB17',
+    'cuX_KOMB18',
+    'cuX_KOMB46',
+    'cuX_KOMB50',
+    'cuX_KOMB53',
+    'cuX_KOMBB2',
+    'cuX_KOMBHI',
+    'cuX_KOMBLO',
+    'cuX_KOMB_A',
+    'cuX_CCP',
+  };
+
+  /// Exact response-key routes from `fx.I`/controller selectors and the
+  /// enabled raw FUNCTIONS category 12 (`CF_SERVICE`) records.
+  static const udsRoutes = <String, BmwServiceResetRoute>{
+    'cuX_KOMBI': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMBI',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1017856,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB50': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB50',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1017936,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB53': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB53',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1017952,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB17': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB17',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1017984,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB46': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB46',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1018000,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB18': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB18',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1019968,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB03': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB03',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1020000,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMBLO': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMBLO',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1020016,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMBHI': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMBHI',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1020032,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMBB2': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMBB2',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1020034,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_KOMB_A': BmwServiceResetRoute(
+      ecuKey: 'cuX_KOMB_A',
+      moduleGroup: 'G_MRKOMB',
+      factorySelector: 'cr(23)',
+      responseId: 1020037,
+      address: 96,
+      functionCategoryId: 12,
+    ),
+    'cuX_CCP': BmwServiceResetRoute(
+      ecuKey: 'cuX_CCP',
+      moduleGroup: 'G_MRSLZ',
+      factorySelector: 'ak1(0)',
+      responseId: 1020064,
+      address: 64,
+      functionCategoryId: 12,
+    ),
   };
 
   @Deprecated('Use supportedUdsEcuKeys')
   static const sl0UdsEcuKeys = supportedUdsEcuKeys;
 
-  /// Returns true if the specified control unit supports UDS service resets.
-  static bool supportsEcuKey(String ecuKey) =>
-      supportedUdsEcuKeys.contains(ecuKey);
+  static BmwServiceResetRoute? routeForEcuKey(String ecuKey) =>
+      udsRoutes[ecuKey];
+
+  static int? addressForEcuKey(String ecuKey) => routeForEcuKey(ecuKey)?.address;
+
+  /// Only source-enabled raw category 12 rows with an exact UDS handler route
+  /// can reach the service-data profile.
+  static bool supportsEcuKey(String ecuKey) {
+    final route = routeForEcuKey(ecuKey);
+    return route != null &&
+        route.functionCategoryId == 12 &&
+        route.functionEnabled &&
+        supportedUdsEcuKeys.contains(ecuKey);
+  }
+}
+
+final class BmwServiceResetRoute {
+  const BmwServiceResetRoute({
+    required this.ecuKey,
+    required this.moduleGroup,
+    required this.factorySelector,
+    required this.responseId,
+    required this.address,
+    required this.functionCategoryId,
+    this.functionEnabled = true,
+  });
+
+  final String ecuKey;
+  final String moduleGroup;
+  final String factorySelector;
+  final int responseId;
+  final int address;
+  final int functionCategoryId;
+  final bool functionEnabled;
 }
 
 /// Service reset action types for BMW Motorrad maintenance operations.
@@ -87,6 +226,7 @@ class BmwServiceResetProtocol {
     required this.ecuKey,
     this.writeTimeout = const Duration(seconds: 2),
     this.readbackTimeout = const Duration(seconds: 1),
+    this.shouldAbort,
     Future<void> Function(Duration)? delay,
   }) : _delay = delay ?? _defaultDelay;
 
@@ -95,6 +235,7 @@ class BmwServiceResetProtocol {
   final String ecuKey;
   final Duration writeTimeout;
   final Duration readbackTimeout;
+  final bool Function()? shouldAbort;
   final Future<void> Function(Duration) _delay;
 
   static const int vehicleDateTimeDid = 0xe12b;
@@ -171,10 +312,13 @@ class BmwServiceResetProtocol {
       nextServiceDate: nextServiceDate,
       nextServiceMileage: nextServiceMileage,
     );
+    final writtenDids = <int>[];
+    final readback = <int, List<int>>{};
 
     for (final write in writes) {
-      final responseBytes = await _write(write.request);
-      final response = UdsResponse.decode(responseBytes, requestService: 0x2e);
+      _throwIfAborted(writtenDids, readback);
+      final exchange = await _write(write.request, writtenDids, readback);
+      final response = UdsResponse.decode(exchange.bytes, requestService: 0x2e);
       if (response is UdsNegativeResponse) {
         throw UdsNegativeResponseException(response);
       }
@@ -186,17 +330,26 @@ class BmwServiceResetProtocol {
           'WriteDataByIdentifier did not echo DID 0x${write.did.toRadixString(16)}',
         );
       }
+      writtenDids.add(write.did);
+      if (exchange.abortedAfterRequest || exchange.abortedAfterSettle) {
+        throw BmwServiceResetCancelledException(
+          writtenDids: writtenDids,
+          readback: readback,
+        );
+      }
+      _throwIfAborted(writtenDids, readback);
     }
 
     final client = UdsClient(link, timeout: readbackTimeout);
-    final readback = <int, List<int>>{};
     for (final did in const [
       odometerDid,
       vehicleDateTimeDid,
       nextServiceMileageDid,
       nextServiceDateDid,
     ]) {
+      _throwIfAborted(writtenDids, readback);
       readback[did] = await client.readDataByIdentifier(did);
+      _throwIfAborted(writtenDids, readback);
     }
 
     for (final write in writes) {
@@ -231,12 +384,37 @@ class BmwServiceResetProtocol {
     );
   }
 
-  Future<List<int>> _write(List<int> payload) async {
+  Future<({List<int> bytes, bool abortedAfterRequest, bool abortedAfterSettle})>
+  _write(
+    List<int> payload,
+    List<int> writtenDids,
+    Map<int, List<int>> readback,
+  ) async {
+    _throwIfAborted(writtenDids, readback);
+    var response = const <int>[];
+    var abortedAfterRequest = false;
+    var abortedAfterSettle = false;
     try {
-      return await link.request(payload, timeout: writeTimeout);
+      response = await link.request(payload, timeout: writeTimeout);
+      abortedAfterRequest = shouldAbort?.call() ?? false;
     } finally {
       // Settle delay of 1.5 s after each write transaction for non-volatile memory write cycle.
       await _delay(const Duration(milliseconds: 1500));
+      abortedAfterSettle = shouldAbort?.call() ?? false;
+    }
+    return (
+      bytes: response,
+      abortedAfterRequest: abortedAfterRequest,
+      abortedAfterSettle: abortedAfterSettle,
+    );
+  }
+
+  void _throwIfAborted(List<int> writtenDids, Map<int, List<int>> readback) {
+    if (shouldAbort?.call() ?? false) {
+      throw BmwServiceResetCancelledException(
+        writtenDids: writtenDids,
+        readback: readback,
+      );
     }
   }
 
@@ -273,4 +451,28 @@ class BmwServiceResetProtocol {
 
   static Future<void> _defaultDelay(Duration duration) =>
       Future<void>.delayed(duration);
+}
+
+/// Cancellation is reported separately from transport and ECU failures.
+/// [writtenDids] contains only writes whose positive DID acknowledgement was
+/// validated; partial writes must never be reported as a successful reset.
+final class BmwServiceResetCancelledException implements Exception {
+  BmwServiceResetCancelledException({
+    required List<int> writtenDids,
+    required Map<int, List<int>> readback,
+  }) : writtenDids = List.unmodifiable(writtenDids),
+       readback = Map.unmodifiable({
+         for (final entry in readback.entries)
+           entry.key: List<int>.unmodifiable(entry.value),
+       });
+
+  final List<int> writtenDids;
+  final Map<int, List<int>> readback;
+
+  bool get isPartial => writtenDids.isNotEmpty;
+
+  @override
+  String toString() => isPartial
+      ? 'Service reset cancelled after ${writtenDids.length} confirmed write(s).'
+      : 'Service reset cancelled before any confirmed writes.';
 }

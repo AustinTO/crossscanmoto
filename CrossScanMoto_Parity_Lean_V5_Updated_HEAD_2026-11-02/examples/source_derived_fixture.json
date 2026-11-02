@@ -1,0 +1,32 @@
+{
+  "id": "EXAMPLE_ONLY_UDS_DTC_READ",
+  "reference": {
+    "source_version": "1.110",
+    "sha256": "REFERENCE_HASH_REQUIRED",
+    "method": "SOURCE_METHOD_REQUIRED",
+    "offset": "SOURCE_OFFSET_REQUIRED"
+  },
+  "scope": {
+    "ecu_key": "cuX_BMSX",
+    "protocol": "BMW_UDS"
+  },
+  "expected_requests": [
+    [
+      25,
+      2,
+      255
+    ]
+  ],
+  "scripted_replies": [
+    [
+      "SOURCE_DERIVED_REPLY_BYTES_REQUIRED"
+    ]
+  ],
+  "expected_outcome": {
+    "note": "FILL FROM ORIGINAL SOURCE, NOT FROM NEW APP"
+  },
+  "evidence_kind": "EXAMPLE_NOT_PARITY_PROOF",
+  "limitations": [
+    "This schema example is not a runnable original-derived fixture."
+  ]
+}

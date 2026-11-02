@@ -7,6 +7,7 @@ import 'package:crossscanmoto/diagnostics/ecu_catalog.dart';
 import 'package:crossscanmoto/diagnostics/live_data_definitions.dart';
 import 'package:crossscanmoto/diagnostics/protocol_setup.dart';
 import 'package:crossscanmoto/diagnostics/service_manager.dart';
+import 'package:crossscanmoto/diagnostics/service_reset_protocol.dart';
 import 'package:crossscanmoto/diagnostics/vehicle_catalog.dart';
 
 void main() {
@@ -91,15 +92,24 @@ void main() {
           ]));
       expect(
           BmwServiceManager.supportedEcuKeys,
-          containsAll([
-            'cuX_BMSX',
-            'cuX_BMSE2B',
-            'cuX_BMSE2',
-            'cuX_BMSMP1',
-            'cuX_BMSO1',
-          ]));
-      expect(BmwServiceManager.supportedEcuKeys, isNot(contains('cuMRBMSMP1')));
-      expect(BmwServiceManager.supportedEcuKeys, isNot(contains('cuX_KOMBI')));
+          unorderedEquals(BmwServiceResetCatalog.supportedUdsEcuKeys));
+      expect(BmwServiceManager.supportedEcuKeys, hasLength(12));
+      for (final key in [
+        'cuX_BMSX',
+        'cuX_BMSE2B',
+        'cuX_BMSE2',
+        'cuX_BMSMP1',
+        'cuX_BMSO1',
+        'cuX_KOMB',
+        'MRKOMB18',
+      ]) {
+        expect(BmwServiceResetCatalog.supportsEcuKey(key), isFalse);
+      }
+      expect(
+        BmwServiceResetCatalog.addressForEcuKey('cuX_KOMB18'),
+        96,
+      );
+      expect(BmwServiceResetCatalog.addressForEcuKey('cuX_CCP'), 64);
     });
 
     test('service execution without an explicitly configured link is rejected',
@@ -107,7 +117,7 @@ void main() {
       final result = await BmwServiceManager.execute(
         item: BmwServiceManager.actions.first,
         link: null,
-        ecuKey: 'cuX_BMSX',
+        ecuKey: 'cuX_KOMB18',
         vehicleDateTime: DateTime(2026, 10, 31),
         nextServiceDate: DateTime(2027, 10, 31),
         nextServiceMileage: 12000,

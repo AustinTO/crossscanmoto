@@ -1,0 +1,91 @@
+{
+  "schema_version": "3.0.0",
+  "as_of": "2026-11-02",
+  "flow_id": "diagnosis_event",
+  "stages": [
+    "INTAKE",
+    "SAFETY_SCREEN",
+    "IDENTITY_CONFIRM",
+    "CAPTURE_BASELINE",
+    "EXTRACT_CLUES",
+    "SELECT_NEXT_TEST",
+    "RECORD_RESULT",
+    "COMPARE_EVIDENCE",
+    "DECIDE_OR_ESCALATE",
+    "POST_REPAIR_VERIFY"
+  ],
+  "required_event_fields": [
+    "investigation_id",
+    "vehicle_profile_id",
+    "event_id",
+    "event_time",
+    "author",
+    "event_type",
+    "source_id",
+    "raw_or_note",
+    "validity_status"
+  ],
+  "observation_contract": {
+    "fields": [
+      "ecu_key",
+      "ecu_address",
+      "status",
+      "dtc_code_24bit",
+      "dtc_status_byte",
+      "raw_response",
+      "did",
+      "raw_bytes",
+      "decoded_value",
+      "unit",
+      "decoder_id",
+      "sample_time",
+      "engine_state",
+      "odometer_km",
+      "adapter_model",
+      "os",
+      "firmware",
+      "measurement_method",
+      "confidence_basis"
+    ],
+    "unavailable_default": null,
+    "verified_numeric": "Only if decoder_id resolves to tested manifest for ECU key and software ID"
+  },
+  "candidate_causes": {
+    "ranking": "rule-based hypotheses with explicit evidence for/against, no fabricated numeric probability",
+    "states": [
+      "POSSIBLE",
+      "SUPPORTED_BY_OBSERVATION",
+      "DISFAVORED_BY_OBSERVATION",
+      "NOT_TESTED",
+      "RESOLVED_WITH_VERIFICATION"
+    ]
+  },
+  "response_schema": {
+    "type": "object",
+    "required": [
+      "severity",
+      "scope",
+      "summary",
+      "evidence_used",
+      "unknowns",
+      "question",
+      "safe_next_step",
+      "escalation",
+      "source_ids",
+      "action_requested"
+    ],
+    "properties": {
+      "severity": [
+        "INFO",
+        "CAUTION",
+        "STOP_RIDING",
+        "PROFESSIONAL_ONLY"
+      ],
+      "action_requested": [
+        "NONE",
+        "APPROVED_READ_ONLY_ONLY"
+      ],
+      "confidence": "qualitative, tied to verified and unverified evidence"
+    }
+  }
+}

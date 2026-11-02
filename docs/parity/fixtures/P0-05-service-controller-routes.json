@@ -1,0 +1,1417 @@
+{
+  "source": {
+    "apk_sha256": "bfc07ce264a0c35df9d63558f4fa64c4bd3dd845903d3e0417532250ea0e7e58",
+    "dex_sha256": "869025551e5339811c300f2ae5ec92563c7e6b228d9498b8e835e2ac79283832",
+    "functions_tables_sha256_by_key": {
+      "cuX_ABS": "519d98a4f257f0c169c7751339e984d92ccfe10773a3e4e2bbe0f0c71155bca6",
+      "cuX_ABS9M": "9aa7cdc9cd5b8487a8c79a928b32ade50f5e0f50279f85d712c1a7765b575828",
+      "cuX_ABSVI": "2b20fe7c4ae230ac084790e26e0dd22e254dc322c27749875c7d5a8f3e5074ab",
+      "cuX_CCP": "b756ff77fa3d4e3fa073cd785f3ce91d496c7e7374c5d31e69c188b12acfcdf6",
+      "cuX_ESA": "9aa7cdc9cd5b8487a8c79a928b32ade50f5e0f50279f85d712c1a7765b575828",
+      "cuX_FSA": "9aa7cdc9cd5b8487a8c79a928b32ade50f5e0f50279f85d712c1a7765b575828",
+      "cuX_KOMB03": "690df2357fc7c13048756c64f8ea8aaa2c001277663fb92c5662baca90e546d5",
+      "cuX_KOMB17": "47688308416cc3b382b08e7dc7b5e715668b092c36012e3ba69ba28834832fde",
+      "cuX_KOMB18": "47688308416cc3b382b08e7dc7b5e715668b092c36012e3ba69ba28834832fde",
+      "cuX_KOMB46": "47688308416cc3b382b08e7dc7b5e715668b092c36012e3ba69ba28834832fde",
+      "cuX_KOMB50": "690df2357fc7c13048756c64f8ea8aaa2c001277663fb92c5662baca90e546d5",
+      "cuX_KOMB53": "690df2357fc7c13048756c64f8ea8aaa2c001277663fb92c5662baca90e546d5",
+      "cuX_KOMBB2": "81468b0a5eeec26a7d958e1d9859a21102ed85f235cbc56f72da4fc7c728b57e",
+      "cuX_KOMBHI": "690df2357fc7c13048756c64f8ea8aaa2c001277663fb92c5662baca90e546d5",
+      "cuX_KOMBI": "98fd486e5513e9250e08209b803c7f830da6f4c4064736f0e04384295ca303fe",
+      "cuX_KOMBLO": "47688308416cc3b382b08e7dc7b5e715668b092c36012e3ba69ba28834832fde",
+      "cuX_KOMB_A": "47688308416cc3b382b08e7dc7b5e715668b092c36012e3ba69ba28834832fde",
+      "cuX_RDC": "0fef5cce206344b762a083e14aa9517deee535b157fc768d066865866386b333",
+      "cuX_SAF": "0bd60860bd713be840621f37678a498518dcb9d6948db1cd5db63198569fee31",
+      "cuX_SLZ03": "913efa46086c264ce921066926b82558c8e07c36c52b21d27aeaa103fd67e0c1",
+      "cuX_SLZ_4": "c93659876948c0fdf37930cfe3b7d9c3ed258a726089433efa1d7a75f706fb1e"
+    },
+    "dex_excerpts": "docs/parity/fixtures/P0-05-service-dispatch-excerpts.txt"
+  },
+  "category_routes": [
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1017856,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_KOMBI",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1017936,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_KOMB50",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1017952,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_KOMB53",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1017984,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_KOMB17",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1018000,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_KOMB46",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1019968,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_KOMB18",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1020000,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_KOMB03",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1020016,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_KOMBLO",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1020032,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_KOMBHI",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1020034,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_KOMBB2",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRKOMB",
+      "group_source_row": {
+        "id": "276",
+        "modulegroup": "G_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "96",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 23,
+        "address": 96,
+        "fx_offset": "0x1b5eca",
+        "protocol_id": "8"
+      },
+      "response_id": 1020037,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_KOMB_A",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;0;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 12,
+      "category": "CF_SERVICE",
+      "category_menu_method": "Lel0.M",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRSLZ",
+      "group_source_row": {
+        "id": "281",
+        "modulegroup": "G_MRSLZ",
+        "controlmoduletype": "EWS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "64",
+        "languageid": "49573",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "64",
+      "fx_factory": {
+        "factory_class": "ak1",
+        "selector": 0,
+        "address": 64,
+        "fx_offset": "0x1b5b18",
+        "protocol_id": "8"
+      },
+      "response_id": 1020064,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_CCP",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "12;1;1;0;0;0;49701",
+          "category_id": 12
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "ak1.c(int) @ 0x297c4c",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRABS",
+      "group_source_row": {
+        "id": "268",
+        "modulegroup": "G_MRABS",
+        "controlmoduletype": "ABS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "41",
+        "languageid": "49550",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "41",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 11,
+        "address": 41,
+        "fx_offset": "0x1b5df2",
+        "protocol_id": "8"
+      },
+      "response_id": 1016576,
+      "controller_handler_class": "d15",
+      "controller_handler_key": "cuX_ABS",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRABS",
+      "group_source_row": {
+        "id": "268",
+        "modulegroup": "G_MRABS",
+        "controlmoduletype": "ABS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "41",
+        "languageid": "49550",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "41",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 11,
+        "address": 41,
+        "fx_offset": "0x1b5df2",
+        "protocol_id": "8"
+      },
+      "response_id": 1016608,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_ABS1K",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRABS",
+      "group_source_row": {
+        "id": "268",
+        "modulegroup": "G_MRABS",
+        "controlmoduletype": "ABS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "41",
+        "languageid": "49550",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "41",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 11,
+        "address": 41,
+        "fx_offset": "0x1b5df2",
+        "protocol_id": "8"
+      },
+      "response_id": 1016656,
+      "controller_handler_class": "e15",
+      "controller_handler_key": "cuX_ABSVI",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRABS",
+      "group_source_row": {
+        "id": "268",
+        "modulegroup": "G_MRABS",
+        "controlmoduletype": "ABS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "41",
+        "languageid": "49550",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "41",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 11,
+        "address": 41,
+        "fx_offset": "0x1b5df2",
+        "protocol_id": "8"
+      },
+      "response_id": 1016704,
+      "controller_handler_class": "c15",
+      "controller_handler_key": "cuX_ABS9M",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRESA",
+      "group_source_row": {
+        "id": "274",
+        "modulegroup": "G_MRESA",
+        "controlmoduletype": "ESA",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "56",
+        "languageid": "49665",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "56",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 20,
+        "address": 56,
+        "fx_offset": "0x1b5c64",
+        "protocol_id": "8"
+      },
+      "response_id": 1016832,
+      "controller_handler_class": "g15",
+      "controller_handler_key": "cuX_ESA",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRFSA",
+      "group_source_row": {
+        "id": "275",
+        "modulegroup": "G_MRFSA",
+        "controlmoduletype": "GMS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "14",
+        "languageid": "49695",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "14",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 21,
+        "address": 14,
+        "fx_offset": "0x1b5c3e",
+        "protocol_id": "8"
+      },
+      "response_id": 1015808,
+      "controller_handler_class": "h15",
+      "controller_handler_key": "cuX_FSA",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRFSA",
+      "group_source_row": {
+        "id": "275",
+        "modulegroup": "G_MRFSA",
+        "controlmoduletype": "GMS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "14",
+        "languageid": "49695",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "14",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 21,
+        "address": 14,
+        "fx_offset": "0x1b5c3e",
+        "protocol_id": "8"
+      },
+      "response_id": 1015824,
+      "controller_handler_class": "f15",
+      "controller_handler_key": "cuX_FSM",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRRDC",
+      "group_source_row": {
+        "id": "279",
+        "modulegroup": "G_MRRDC",
+        "controlmoduletype": "RDC",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "32",
+        "languageid": "49497",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "32",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 28,
+        "address": 32,
+        "fx_offset": "0x1b5b6c",
+        "protocol_id": "8"
+      },
+      "response_id": 1016064,
+      "controller_handler_class": "j15",
+      "controller_handler_key": "cuX_RDC",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRSAF",
+      "group_source_row": {
+        "id": "280",
+        "modulegroup": "G_MRSAF",
+        "controlmoduletype": "DDC",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "57",
+        "languageid": "49697",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "57",
+      "fx_factory": {
+        "factory_class": "cr",
+        "selector": 29,
+        "address": 57,
+        "fx_offset": "0x1b5b42",
+        "protocol_id": "8"
+      },
+      "response_id": 1017088,
+      "controller_handler_class": "k15",
+      "controller_handler_key": "cuX_SAF",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "cr.c(int) @ 0x175288",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRSLZ",
+      "group_source_row": {
+        "id": "281",
+        "modulegroup": "G_MRSLZ",
+        "controlmoduletype": "EWS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "64",
+        "languageid": "49573",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "64",
+      "fx_factory": {
+        "factory_class": "ak1",
+        "selector": 0,
+        "address": 64,
+        "fx_offset": "0x1b5b18",
+        "protocol_id": "8"
+      },
+      "response_id": 1017344,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_SLZ",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "ak1.c(int) @ 0x297c4c",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRSLZ",
+      "group_source_row": {
+        "id": "281",
+        "modulegroup": "G_MRSLZ",
+        "controlmoduletype": "EWS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "64",
+        "languageid": "49573",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "64",
+      "fx_factory": {
+        "factory_class": "ak1",
+        "selector": 0,
+        "address": 64,
+        "fx_offset": "0x1b5b18",
+        "protocol_id": "8"
+      },
+      "response_id": 1017424,
+      "controller_handler_class": "l15",
+      "controller_handler_key": "cuX_SLZ03",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "ak1.c(int) @ 0x297c4c",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRSLZ",
+      "group_source_row": {
+        "id": "281",
+        "modulegroup": "G_MRSLZ",
+        "controlmoduletype": "EWS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "64",
+        "languageid": "49573",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "64",
+      "fx_factory": {
+        "factory_class": "ak1",
+        "selector": 0,
+        "address": 64,
+        "fx_offset": "0x1b5b18",
+        "protocol_id": "8"
+      },
+      "response_id": 1017440,
+      "controller_handler_class": "m15",
+      "controller_handler_key": "cuX_SLZ_4",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [
+        {
+          "raw": "11;1;0;0;0;0;49477",
+          "category_id": 11
+        }
+      ],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "ak1.c(int) @ 0x297c4c",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    },
+    {
+      "category_token0_id": 11,
+      "category": "CF_SERVICE_FUNCTIONS",
+      "category_menu_method": "Lel0.L",
+      "menu_dispatch_dex_offset": "0x1d6578; case target 0x1d661c for ordinal8 or 0x1d6586 for ordinal13",
+      "modulegroup": "G_MRSLZ",
+      "group_source_row": {
+        "id": "281",
+        "modulegroup": "G_MRSLZ",
+        "controlmoduletype": "EWS",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "8",
+        "defaultaddress": "64",
+        "languageid": "49573",
+        "description": ""
+      },
+      "group_protocol_id_raw": "8",
+      "group_defaultaddress_raw": "64",
+      "fx_factory": {
+        "factory_class": "ak1",
+        "selector": 0,
+        "address": 64,
+        "fx_offset": "0x1b5b18",
+        "protocol_id": "8"
+      },
+      "response_id": 1018880,
+      "controller_handler_class": "i15",
+      "controller_handler_key": "cuX_EWS4",
+      "controller_handler_superclass": "sl0",
+      "inherits_service_write_C": true,
+      "function_rows_for_key": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_identifier_selector": "ak1.c(int) @ 0x297c4c",
+        "handler_construction": "cr.c/ak1.c sets Lel0.e to the exact key above; the class directly extends sl0."
+      },
+      "limitations": [
+        "Category presence is source-backed; `Lel0.M` has an `el0.s` view gate; exact service-page reachability and per-action replay are documented separately."
+      ]
+    }
+  ],
+  "legacy_kwp_routes": [
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 24832,
+      "controller_handler_class": "rr",
+      "constructor_selector": 1,
+      "controller_handler_key": "MRKOMBI",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    },
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 24848,
+      "controller_handler_class": "rr",
+      "constructor_selector": 0,
+      "controller_handler_key": "MRKOMB46",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    },
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 24864,
+      "controller_handler_class": "jr",
+      "constructor_selector": 8,
+      "controller_handler_key": "MRKMB461",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    },
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 26624,
+      "controller_handler_class": "jr",
+      "constructor_selector": 11,
+      "controller_handler_key": "MRKOMB71",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    },
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 26640,
+      "controller_handler_class": "qr",
+      "constructor_selector": null,
+      "controller_handler_key": "MRKOMB18",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    },
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 26656,
+      "controller_handler_class": "jr",
+      "constructor_selector": 7,
+      "controller_handler_key": "MRKMB181",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    },
+    {
+      "modulegroup": "D_MRKOMB",
+      "group_source_row": {
+        "id": "143",
+        "modulegroup": "D_MRKOMB",
+        "controlmoduletype": "KOMBI",
+        "car_manufacturerid": "3",
+        "defaultprotocolid": "3",
+        "defaultaddress": "96",
+        "languageid": "49591",
+        "description": ""
+      },
+      "group_factory": {
+        "factory_class": "cr",
+        "selector": 6,
+        "address": 96,
+        "fx_offset": "0x1b5f1e",
+        "protocol_id": "3"
+      },
+      "response_id": 27648,
+      "controller_handler_class": "jr",
+      "constructor_selector": 10,
+      "controller_handler_key": "MRKOMB2D",
+      "protocol_evidence": "Handler implementation is KWP-style; qr.C/rr.C use 0x3B templates. Group defaultprotocolid remains raw ID 3.",
+      "functions_row": [],
+      "source_dex": {
+        "group_factory_method": "fx.I(String) @ 0x1b59d8",
+        "response_selector": "cr.c(int) @ 0x175288"
+      },
+      "limitations": [
+        "No direct FUNCTIONS row/key join for the legacy MRKOMB* labels is present in the retained catalog. jr routes require separate handler support checks."
+      ]
+    }
+  ],
+  "ui_dispatch": {
+    "CF_SERVICE": {
+      "token0_id": 12,
+      "kl0_ordinal": 8,
+      "target": "Lel0.M",
+      "dex_offsets": [
+        "s40.onItemClick 0x1d661c",
+        "sl0.M 0x2203fc",
+        "pl0.M 0x21b7ac"
+      ]
+    },
+    "CF_SERVICE_FUNCTIONS": {
+      "token0_id": 11,
+      "kl0_ordinal": 13,
+      "target": "Lel0.L",
+      "dex_offsets": [
+        "s40.onItemClick 0x1d6586",
+        "sl0.L 0x2203e0"
+      ]
+    },
+    "CF_ADAPTIONS": {
+      "token0_id": 8,
+      "kl0_ordinal": 11,
+      "target": "Lel0.E",
+      "dex_offsets": [
+        "s40.onItemClick 0x1d65c2",
+        "sl0.E 0x2202e8"
+      ]
+    },
+    "service_reset_action": {
+      "fragment": "sy3",
+      "handler_call": "Lel0.C(dl0,int,Date,Date)",
+      "dex_offsets": [
+        "sy3.g 0x401e58",
+        "ry3.doInBackground 0x40197c / invoke C 0x4019c6"
+      ]
+    },
+    "service_page_gate": {
+      "condition": "sl0.M/pl0.M return generic Gv2 if Lel0.s == true; return sy3 if false.",
+      "dex_offsets": [
+        "Lel0.<init> initializes s=true at 0x22a262",
+        "sl0.M 0x22040c-0x220428",
+        "pl0.M 0x21b7bc-0x21b7d8"
+      ],
+      "boundary": "No additional DEX field writes to Lel0.s were found; do not infer runtime mutation or global page reachability from this search alone."
+    }
+  }
+}

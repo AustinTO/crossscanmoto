@@ -33,17 +33,21 @@ class ServiceExecutionResult {
     required this.message,
     this.newServiceDate,
     this.newServiceMileageKm,
+    this.cancelled = false,
+    this.writtenDids = const [],
   });
 
   final bool success;
   final String message;
   final DateTime? newServiceDate;
   final int? newServiceMileageKm;
+  final bool cancelled;
+  final List<int> writtenDids;
 }
 
 /// BMW Motorrad service reset and maintenance coordinator.
 abstract final class BmwServiceManager {
-  /// Supported engine management and vehicle controllers for service calibration.
+  /// Exact source-enabled KOMB/CCP service controllers with an `sl0.C` route.
   static const supportedEcuKeys = BmwServiceResetCatalog.supportedUdsEcuKeys;
 
   /// These actions require an explicit ECU key and a configured UDS link.
@@ -86,6 +90,7 @@ abstract final class BmwServiceManager {
     DateTime? vehicleDateTime,
     DateTime? nextServiceDate,
     int? nextServiceMileage,
+    bool Function()? shouldAbort,
   }) async {
     if (link == null || !link.isConfigured) {
       return const ServiceExecutionResult(
@@ -114,6 +119,7 @@ abstract final class BmwServiceManager {
         link: link,
         profile: BmwServiceResetProfile.udsServiceData,
         ecuKey: ecuKey,
+        shouldAbort: shouldAbort,
       );
       final result = await protocol.execute(
         action: switch (item.type) {
@@ -149,6 +155,13 @@ abstract final class BmwServiceManager {
             'ECU $ecuKey acknowledged the reset and returned service-data readback.',
         newServiceDate: date,
         newServiceMileageKm: mileage,
+      );
+    } on BmwServiceResetCancelledException catch (error) {
+      return ServiceExecutionResult(
+        success: false,
+        cancelled: true,
+        writtenDids: error.writtenDids,
+        message: error.toString(),
       );
     } catch (error) {
       return ServiceExecutionResult(

@@ -1,0 +1,18 @@
+area,observed_repository_inventory,remaining_original_parity_target,original_evidence_anchor,offline_pass_gate,ticket_ids
+vehicle_series_and_platform,84 recovered vehicle rows,vehicle group/year/protocol links,native pointer tables + factory,"84 entries joined, duplicates kept","RE-02,RE-13"
+ECU_inventory,55 observed ECU keys,factory dispatch/function flags,runtime table extraction,all keys provenance and unresolved table probes,"RE-02,RE-05"
+DTC_mapping,5805 row occurrences,ECU-localized descriptions/status,native TROUBLECODES + DEX,all rows coverage; ambiguous codes isolated,"RE-08,P1-01"
+parameter_queries,230 request rows/21 ECU keys,DID and request bytes,PARAMS table + caller,all requests have ECU scope,RE-09
+parameter_results,486 row occurrences,offset/type/scale/units/enum,PARAMS_RES/PARAMS_TAB/native code,all resolved branches pass golden fixtures,RE-09
+actuator_groups,44 across 6 ECU keys,"Start/On/Run/Off/End, timeouts",ACTUATOR* and executor,61 positions /130 commands parity replay,RE-11
+service_UDS_E12x,5 source-backed keys,Write data semantics/readback,service-reset-recovery.md,exact request vectors and error tests,"RE-10,P0-04"
+service_legacy_KWP,qr/rr variants,0x3B templates and routing,DEX dispatch + historical 1.83,source-backed scripted response fixture replay,"RE-10,RE-04"
+BMW_UDS,enum 18,setup and framing/pending,vq4.x and yl4.v,adapter version golden sequence tests,RE-03
+BMW_KWP,enum 17 + legacy,init/query/negative/error handling,vq4.x + historical,classic success/error golden replay,RE-04
+BMW_KWA,enums 13/14,distinct configuration,vq4.x dispatch,independent reference fixture for both,RE-04
+BMW_FTE,enums 15/16,ABS initialization / work,vq4.x conditional branch,source-proven conditional behavior verified,RE-04
+adapter_branches,ELM/STN profiles,AT/ST condition+timeouts,adapter commands and profiles,per-adapter fake transport sessions,RE-14
+coding_and_easycoding,one K50/K51 embedded example,native coding read/write handlers,native schema/callers,source-proven items available and honest drafts,"RE-12,P0-06"
+auto_scan,9 generic static categories now,original model->group->ECU routing,original factory + native group maps,multi-ECU and legacy replay,"RE-13,P0-08"
+iOS_BLE,generic GATT implementation,vendor-specific BLE only,"Swift bridge, manual compatibility",BLE transport fixtures; no LX direct claim,RE-14
+AI_companion,not in audited tree,read-only parity-aware assistant,V3 pack + app session,evidence-based no-write tests,"RE-20,P2-01"
