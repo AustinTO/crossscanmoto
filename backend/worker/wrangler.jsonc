@@ -21,6 +21,12 @@
     "PRICE_METADATA_USD": "24.99",
     "EMAIL_FROM_ADDRESS": "noreply@auth.trusthentic.com",
     "EMAIL_FROM_NAME": "CrossScan Moto",
-    "AUTH_DOMAIN": "auth.trusthentic.com"
+    "AUTH_DOMAIN": "auth.trusthentic.com",
+    "APPLE_BUNDLE_ID": "com.puphr.crossscanmoto",
+    "APPLE_UNLOCK_PRODUCT_ID": "crossscanmoto_premium_unlock",
+    "APPLE_ENVIRONMENT": "Sandbox",
+    "APPLE_APP_ID": "6829953706",
+    "APPLE_ISSUER_ID": "e5672363-1fd1-4d5e-935a-9ef958511142",
+    "APPLE_KEY_ID": "P2KWR28358"
   }
 }
