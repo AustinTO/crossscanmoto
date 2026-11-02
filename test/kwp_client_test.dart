@@ -340,6 +340,59 @@ void main() {
       await session.close();
     });
 
+    test('writes vehicle date and time via Service 0x3B 0x10 (qr.C / rr.C Record P)', () async {
+      final (session, transport, link) = await _newConfiguredLink();
+      transport.replies
+        ..add(_elmFrame([0xc1]))
+        ..add(_elmFrame([0x7b, 0x10]));
+
+      final testDate = DateTime(2024, 6, 15, 14, 30, 45);
+      await KwpClient(link).writeVehicleDateTime(testDate);
+
+      // Payload: 3B 10 0E 1E 2D 0F 06 07 E8
+      // hour=14(0E), min=30(1E), sec=45(2D), day=15(0F), month=6(06), year=2024(07E8)
+      expect(transport.writes.last, '3B100E1E2D0F0607E8');
+      await session.close();
+    });
+
+    test('writes next service date via Service 0x3B 0x11 (qr.C / rr.C Record Q)', () async {
+      final (session, transport, link) = await _newConfiguredLink();
+      transport.replies
+        ..add(_elmFrame([0xc1]))
+        ..add(_elmFrame([0x7b, 0x11]));
+
+      final testDate = DateTime(2025, 7, 20);
+      await KwpClient(link).writeNextServiceDate(testDate);
+
+      // Payload: 3B 11 14 07 07 E9
+      // day=20(14), month=7(07), year=2025(07E9)
+      expect(transport.writes.last, '3B11140707E9');
+      await session.close();
+    });
+
+    test('writes next service mileage via Service 0x3B 0x12 (qr.C / rr.C Record R)', () async {
+      final (session, transport, link) = await _newConfiguredLink();
+      transport.replies
+        ..add(_elmFrame([0xc1]))
+        ..add(_elmFrame([0x7b, 0x12]));
+
+      // 10,000 km = 0x2710
+      await KwpClient(link).writeNextServiceMileage(10000);
+      expect(transport.writes.last, '3B122710');
+
+      // Boundary check: mileage > 65535 or < 0 throws RangeError fail-closed
+      await expectLater(
+        KwpClient(link).writeNextServiceMileage(65536),
+        throwsRangeError,
+      );
+      await expectLater(
+        KwpClient(link).writeNextServiceMileage(-1),
+        throwsRangeError,
+      );
+
+      await session.close();
+    });
+
     test('requires adapter configuration before sending KWP bytes', () async {
       final transport = _ScriptedTransport();
       final session = ElmSession(transport);

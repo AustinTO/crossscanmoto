@@ -303,6 +303,56 @@ class KwpClient {
     return List.unmodifiable(response.data);
   }
 
+  /// Writes vehicle date and time to legacy KWP instrument cluster (Service 0x3B, Subfunction 0x10).
+  ///
+  /// Matches recovered MotoScan handler qr.C / rr.C Record P template:
+  /// `[0x3B, 0x10, hour, minute, second, day, month, year_hi, year_lo]`.
+  Future<void> writeVehicleDateTime(DateTime dateTime) async {
+    final payload = [
+      0x10,
+      dateTime.hour,
+      dateTime.minute,
+      dateTime.second,
+      dateTime.day,
+      dateTime.month,
+      (dateTime.year >> 8) & 0xff,
+      dateTime.year & 0xff,
+    ];
+    await _startCommunication();
+    await _positive(0x3b, payload, timeout: const Duration(seconds: 4));
+  }
+
+  /// Writes next service date to legacy KWP instrument cluster (Service 0x3B, Subfunction 0x11).
+  ///
+  /// Matches recovered MotoScan handler qr.C / rr.C Record Q template:
+  /// `[0x3B, 0x11, day, month, year_hi, year_lo]`.
+  Future<void> writeNextServiceDate(DateTime date) async {
+    final payload = [
+      0x11,
+      date.day,
+      date.month,
+      (date.year >> 8) & 0xff,
+      date.year & 0xff,
+    ];
+    await _startCommunication();
+    await _positive(0x3b, payload, timeout: const Duration(seconds: 4));
+  }
+
+  /// Writes next service mileage to legacy KWP instrument cluster (Service 0x3B, Subfunction 0x12).
+  ///
+  /// Matches recovered MotoScan handler qr.C / rr.C Record R template:
+  /// `[0x3B, 0x12, (mileageKm >> 8) & 0xff, mileageKm & 0xff]`.
+  Future<void> writeNextServiceMileage(int mileageKm) async {
+    _checkU16(mileageKm, 'mileageKm');
+    final payload = [
+      0x12,
+      (mileageKm >> 8) & 0xff,
+      mileageKm & 0xff,
+    ];
+    await _startCommunication();
+    await _positive(0x3b, payload, timeout: const Duration(seconds: 4));
+  }
+
   Future<KwpPositiveResponse> _positive(
     int service,
     List<int> parameters, {

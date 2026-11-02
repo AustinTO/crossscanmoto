@@ -27,11 +27,15 @@ class BmwEcuHelper {
         return 'ABS / Integral ABS (I-ABS 2)';
       case 'cuX_KOMBI':
       case 'cuMRKOMBI':
+      case 'cuMRKOMB':
         return 'Instrument Cluster (KOMBI / TFT)';
       case 'cuX_KOMB18':
       case 'cuX_KOMB17':
       case 'cuX_KOMB46':
-        final suffix = key.replaceFirst('cuX_', '');
+      case 'cuMRKOMB18':
+      case 'cuMRKOMB46':
+      case 'cuMRKOMB24':
+        final suffix = key.replaceFirst('cuX_', '').replaceFirst('cuMR', '');
         return 'Instrument Cluster ($suffix)';
       case 'cuX_SAF':
       case 'cuX_ESA':

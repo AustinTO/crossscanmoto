@@ -4,6 +4,7 @@ import 'diagnostic_session.dart';
 import 'recovered_actuator_panel.dart';
 import 'diagnostics/coding_manager.dart';
 import 'diagnostics/ecu_friendly_names.dart';
+import 'diagnostics/kwp_client.dart';
 import 'diagnostics/service_manager.dart';
 import 'diagnostics/service_reset_protocol.dart';
 
@@ -41,7 +42,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     super.initState();
     _serviceEcuKey =
         DiagnosticSession.instance.ecuDefinitionKey ??
-        BmwServiceManager.supportedEcuKeys.first;
+        BmwServiceManager.allSupportedEcuKeys.first;
     _tabs = TabController(length: 4, vsync: this);
     DiagnosticSession.instance.addListener(_sessionChanged);
   }
@@ -61,7 +62,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     if (mounted) {
       final active = DiagnosticSession.instance.ecuDefinitionKey;
       if (active != null &&
-          BmwServiceManager.supportedEcuKeys.contains(active)) {
+          BmwServiceManager.allSupportedEcuKeys.contains(active)) {
         _serviceEcuKey = active;
       }
       setState(() {});
@@ -269,7 +270,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                           isDense: true,
                         ),
                         items: [
-                          for (final key in BmwServiceManager.supportedEcuKeys)
+                          for (final key in BmwServiceManager.allSupportedEcuKeys)
                             DropdownMenuItem(
                               value: key,
                               child: Text(BmwEcuHelper.friendlyName(key)),
@@ -435,7 +436,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     final operationGeneration = ++_serviceOperationGeneration;
     _serviceCancelRequested = false;
     final item = _pendingServiceItem;
-    final key = _serviceEcuKey ?? BmwServiceManager.supportedEcuKeys.first;
+    final key = _serviceEcuKey ?? BmwServiceManager.allSupportedEcuKeys.first;
     final mileage = int.tryParse(_serviceMileageController.text.trim());
     if (mileage == null || mileage < 0 || mileage > 65535) {
       setState(
@@ -448,9 +449,36 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     if (item == null) return;
 
     final shared = DiagnosticSession.instance;
-    var link = shared.activeLink;
-    if ((link == null || shared.ecuDefinitionKey != key) && shared.connected) {
-      link = null;
+    final isKwp = BmwServiceManager.supportedKwpEcuKeys.contains(key);
+    var udsLink = shared.activeLink;
+    BmwBikeKwpLink? kwpLink;
+
+    if (isKwp) {
+      final session = shared.elmSession;
+      if (session != null) {
+        kwpLink = BmwBikeKwpLink(session);
+        setState(() {
+          _busy = true;
+          _notice =
+              'Configuring legacy KWP link for ${BmwEcuHelper.friendlyName(key)}…';
+        });
+        try {
+          final configured = await shared.runExclusive(() async {
+            shared.invalidateVehicleProtocol();
+            return kwpLink!.configure(ecuAddress: 0x60);
+          });
+          if (!configured) {
+            throw StateError('Adapter rejected legacy KWP setup for KOMBI (0x60).');
+          }
+        } catch (error) {
+          if (mounted) setState(() => _notice = 'Connection failed: $error');
+          kwpLink = null;
+        } finally {
+          if (mounted) setState(() => _busy = false);
+        }
+      }
+    } else if ((udsLink == null || shared.ecuDefinitionKey != key) && shared.connected) {
+      udsLink = null;
       setState(() {
         _busy = true;
         _notice =
@@ -465,7 +493,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           ecuKey: key,
           address: route.address,
         );
-        link = shared.activeLink;
+        udsLink = shared.activeLink;
       } catch (error) {
         if (mounted) setState(() => _notice = 'Connection failed: $error');
       } finally {
@@ -486,7 +514,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
       return;
     }
 
-    if (link == null) {
+    if ((!isKwp && udsLink == null) || (isKwp && kwpLink == null)) {
       if (mounted) {
         setState(
           () => _notice =
@@ -502,8 +530,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
         _disposed ||
         operationGeneration != _serviceOperationGeneration ||
         shared.generation != targetGeneration ||
-        !identical(shared.activeLink, link) ||
-        shared.ecuDefinitionKey != key;
+        (!isKwp && !identical(shared.activeLink, udsLink)) ||
+        (!isKwp && shared.ecuDefinitionKey != key);
 
     if (!mounted) return;
     setState(() {
@@ -514,7 +542,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
         .runExclusive(
           () => BmwServiceManager.execute(
             item: item,
-            link: link!,
+            link: udsLink,
+            kwpLink: kwpLink,
             ecuKey: key,
             vehicleDateTime: _vehicleDateTime,
             nextServiceDate: _nextServiceDate,

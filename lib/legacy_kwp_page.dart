@@ -38,6 +38,7 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
   bool _busy = false;
   String? _status;
   List<int>? _identification;
+  String? _vin;
   KwpDtcReport? _dtcReport;
   List<int>? _parameterBytes;
 
@@ -298,6 +299,21 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
     );
   }
 
+  Future<void> _readVin() async {
+    setState(() => _vin = null);
+    await _run<List<int>>(
+      'Reading VIN via KWP Service 0x1A 0x90…',
+      (client, _, __, ___) => client.readIdentification(0x90),
+      (bytes) {
+        final decoded = String.fromCharCodes(bytes.where((c) => c >= 32 && c <= 126)).trim();
+        _vin = decoded.isNotEmpty ? decoded : null;
+        _status = _vin != null
+            ? 'VIN read successfully: $_vin'
+            : 'The ECU did not return a valid VIN string.';
+      },
+    );
+  }
+
   Future<void> _readDtcs() async {
     setState(() => _dtcReport = null);
     await _run<KwpDtcReport>(
@@ -480,6 +496,12 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
                             label: const Text('Identify ECU'),
                           ),
                           OutlinedButton.icon(
+                            key: const ValueKey('kwp-read-vin'),
+                            onPressed: operationLocked ? null : _readVin,
+                            icon: const Icon(Icons.badge_outlined),
+                            label: const Text('Read VIN'),
+                          ),
+                          OutlinedButton.icon(
                             key: const ValueKey('kwp-read-dtcs'),
                             onPressed: operationLocked ? null : _readDtcs,
                             icon: const Icon(Icons.list_alt),
@@ -505,6 +527,13 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
                         ),
                         onChanged: (_) => setState(() {}),
                       ),
+                      if (_vin != null) ...[
+                        const SizedBox(height: 12),
+                        _DataPanel(
+                          title: 'Vehicle Identification Number (VIN)',
+                          value: _vin!,
+                        ),
+                      ],
                       if (_identification != null) ...[
                         const SizedBox(height: 12),
                         _DataPanel(
