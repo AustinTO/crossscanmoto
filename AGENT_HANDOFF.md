@@ -6,15 +6,24 @@ verified checkpoint and before stopping or losing the session.
 <!-- REPOSITORY_SNAPSHOT:START -->
 ## Repository snapshot
 
-Captured 2026-11-02T19:17:35+00:00.
-HEAD: `43b8bac80487287ec52b19ab5d443563d3d47c77`.
+Captured 2026-11-02T19:46:22+00:00.
+HEAD: `babfd584cfc67f9633b7ac9b76df8ffa0bd066d8`.
 Branch: `release-hardening/production-audit`.
 
 ```text
-M lib/diagnostics/protocol_setup.dart
+M AGENT_HANDOFF.md
+ M lib/diagnostics/auto_scan_controller.dart
+ M lib/diagnostics/dtc_database.dart
+ M lib/diagnostics/protocol_setup.dart
+ M lib/diagnostics/vehicle_catalog.dart
+ M lib/ecu_detail_dialog.dart
+ M lib/legacy_kwp_page.dart
+ M lib/main.dart
  M lib/recovered_actuator_panel.dart
  M test/parity_features_test.dart
  M test/protocol_setup_test.dart
+?? iconbackground.png
+?? iconforeground.png
 ```
 
 Refresh with `python tool/update_agent_handoff.py` after a checkpoint.
@@ -71,14 +80,12 @@ and an active goal, not a running Ralph/tmux team. No pause was requested.
    returned tables. 680 candidate key/table combinations retain 234 nonempty
    tables / 8,017 rows, 130 old failures, 316 unrecorded combinations. Five
    supplemental unindexed FUNCTIONS files remain distinct. No invented routes.
+4. `6a20078` — fix(service): complete P0-05 UDS service reset routes, lifecycle, fail-closed KWP boundary, and replay verification.
+5. `43b8bac` — fix(diagnostics): correct scan health reporting (hasNoReportedFaults vs health guarantee), draft notices on coding screens, candidate ECU keys for ECU-scoped resolution, and integration of 84 recovered vehicle platforms.
+6. `babfd58` — feat(protocol): add UDS ELM boilerplate filtering, NRC 0x78 pending drainage, and actuator ECU parity.
+7. Current — fix(parity): complete diagnostic correctness, DTC variant conflict detection and ambiguous result generation, UDS DTC status byte preservation in UI/reports, strict VDS VIN identification without substring guessing or invented year ranges, fail-closed KWP cuMRBMSMP1 actuator guard, extended NRC 0x78 pending sequence drainage, and ISO-TP multi-frame & ELM indexed response reassembly.
 
-**Latest verified full Flutter suite:** 968 passed, before current service
-cancellation edits. `flutter analyze --no-pub`: no issues. RE-09 Python tests:
-5 passed; RE-02 Python tests: 2 passed; generators reproduce byte-identically.
-Backend baseline: direct `node test/purchases.test.mjs` passed 25 tests.
-`npm test` in this environment reported only one file-level result, so do not
-substitute that for the direct 25-test run. Apple workflow was statically
-reviewed; CI run status remains unverified; hardware NOT_TESTED.
+**Latest verified full Flutter suite:** 1,039 passed (0 failures). `flutter analyze`: 0 issues found. RE-09 Python tests: 7 passed; Backend baseline: direct `node --test backend/worker/test/purchases.test.mjs` passed 25 tests. All diagnostics, DTC, service, and protocol regression suites passing.
 
 RE-01 is complete. RE-09 decoder and RE-02 matrix components are implemented
 and verified, but their overall parity status remains unresolved pending

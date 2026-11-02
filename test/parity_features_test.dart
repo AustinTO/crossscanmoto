@@ -59,12 +59,22 @@ void main() {
       expect(BmwEcuCatalog.kombi.candidateEcuKeys, contains('cuX_KOMBI'));
     });
 
-    test('vehicle catalog integrates 84 recovered native records and avoids address guessing', () {
+    test('vehicle catalog integrates 84 recovered native records and avoids address/VIN guessing', () {
       expect(BmwVehicleCatalog.recoveredVehicles.length, 84);
-      // Matching by chassis code from 84 recovered entries
+      // Matching strictly by VDS codes
       final c1 = BmwVehicleCatalog.identifyFromVin('WB10C010000000000');
       expect(c1, isNotNull);
       expect(c1!.name, 'C1');
+      expect(c1.startYear, 2000);
+      expect(c1.endYear, 2003);
+
+      final r1250 = BmwVehicleCatalog.identifyFromVin('WB10J9100KZ123456');
+      expect(r1250, isNotNull);
+      expect(r1250!.name, 'R 1250 GS');
+
+      // False substring in serial number is NOT matched
+      final falseSubstring = BmwVehicleCatalog.identifyFromVin('WB109990000000K50');
+      expect(falseSubstring, isNull, reason: 'Substring in serial number must not match');
 
       // Generic DME + KOMBI does not falsely guess a specific model
       final inferred = BmwVehicleCatalog.inferModelFromAddresses([0x12, 0x60]);
@@ -93,12 +103,41 @@ void main() {
       expect(record.ecuAcronym, 'ABS');
     });
 
-    test('parses UDS DTC status mask flags', () {
-      const flags = UdsDtcStatusFlags(0x09); // confirmed (8) + testFailed (1)
-      expect(flags.confirmedDtc, isTrue);
-      expect(flags.testFailed, isTrue);
-      expect(flags.pendingDtc, isFalse);
-      expect(flags.summary, contains('Confirmed'));
+    test('DTC lookup flags ambiguous conflicts when candidate variants disagree', () {
+      // Code 4401 means "Fuse active: Fan motor" on cuMRBMSMP1, but "CO potentiometer" on cuMRMA24
+      final ambiguous = BmwDtcDatabase.lookup(
+        4401,
+        defaultEcu: 'DME',
+        candidateKeys: ['cuMRBMSMP1', 'cuMRMA24'],
+      );
+      expect(ambiguous.isAmbiguous, isTrue);
+      expect(ambiguous.title, contains('Ambiguous ECU fault'));
+      expect(ambiguous.description, contains('Fan motor'));
+      expect(ambiguous.description, contains('CO potentiometer'));
+
+      // Exact ECU identity resolves ambiguity
+      final exactBms = BmwDtcDatabase.lookup(4401, ecuKey: 'cuMRBMSMP1', defaultEcu: 'DME');
+      expect(exactBms.isAmbiguous, isFalse);
+      expect(exactBms.title, 'Fuse active: Fan motor');
+
+      final exactMa24 = BmwDtcDatabase.lookup(4401, ecuKey: 'cuMRMA24', defaultEcu: 'DME');
+      expect(exactMa24.isAmbiguous, isFalse);
+      expect(exactMa24.title, 'CO potentiometer');
+    });
+
+    test('preserves UDS DTC status byte and produces accurate summary', () {
+      final record = BmwDtcDatabase.lookup(
+        25378,
+        ecuKey: 'cuMRABS',
+        defaultEcu: 'ABS',
+        statusByte: 0x29, // confirmed (8) + testFailed (1) + testFailedSinceLastClear (32)
+      );
+      expect(record.statusByte, 0x29);
+      expect(record.statusFlags, isNotNull);
+      expect(record.statusFlags!.confirmedDtc, isTrue);
+      expect(record.statusFlags!.testFailed, isTrue);
+      expect(record.statusSummary, contains('Confirmed'));
+      expect(record.statusSummary, contains('Test Failed'));
     });
   });
 

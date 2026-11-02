@@ -33,7 +33,6 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> with Wi
     'cuX_BMSO1',
     'cuX_BMSX',
     'cuX_BMSE2B',
-    'cuMRBMSMP1',
   ];
 
   @override
@@ -68,6 +67,13 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> with Wi
   }
 
   Future<void> _run(RecoveredActuatorPosition position) async {
+    if (_selectedEcuKey.startsWith('cuMR')) {
+      setState(() {
+        _status = 'Legacy KWP control unit $_selectedEcuKey cannot be dispatched via generic UDS. '
+            'Actuator testing requires a verified KWP transport link.';
+      });
+      return;
+    }
     final shared = DiagnosticSession.instance;
     var client = shared.udsClient;
     final generation = shared.generation;

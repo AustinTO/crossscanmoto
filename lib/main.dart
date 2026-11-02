@@ -1544,7 +1544,7 @@ class _SystemsTabState extends State<SystemsTab> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: const Text(
-          'HEALTHY',
+          'NO FAULTS',
           style: TextStyle(
             color: _lime,
             fontSize: 9,
@@ -1600,7 +1600,7 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
         () => _faults = report.dtcs
             .map(
               (dtc) =>
-                  '${BmwDtcDatabase.lookup(dtc.code, ecuKey: DiagnosticSession.instance.ecuDefinitionKey).title} • 0x${dtc.code.toRadixString(16).padLeft(6, '0').toUpperCase()} • status 0x${dtc.status.toRadixString(16).padLeft(2, '0').toUpperCase()}',
+                  '${BmwDtcDatabase.lookup(dtc.code, ecuKey: DiagnosticSession.instance.ecuDefinitionKey, statusByte: dtc.status).title} • 0x${dtc.code.toRadixString(16).padLeft(6, '0').toUpperCase()} • status 0x${dtc.status.toRadixString(16).padLeft(2, '0').toUpperCase()}',
             )
             .toList(),
       );

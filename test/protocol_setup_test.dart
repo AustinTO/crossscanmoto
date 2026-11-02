@@ -56,12 +56,42 @@ void main() {
       expect(payload, [0x62, 0xe1, 0x19]);
     });
 
-    test('drains response-pending NRC 0x78 when followed by final response', () {
+    test('drains multiple consecutive NRC 0x78 pending frames when followed by final response', () {
       final payload = BmwBikeUdsLink.decodeSingleTokenResponse([
+        '41200037F2278',
+        '41200037F2278',
         '41200037F2278',
         '412000362E119',
       ]);
       expect(payload, [0x62, 0xe1, 0x19]);
+    });
+
+    test('reassembles ISO-TP multi-frame UDS responses', () {
+      // First frame (PCI 0x10, total length 0x00E = 14 bytes)
+      // FF carries first 6 bytes: 62 F1 90 57 42 31
+      // CF1 (PCI 0x21) carries next 7 bytes: 30 4A 39 31 30 30 50
+      // CF2 (PCI 0x22) carries remaining 1 byte: 31
+      final payload = BmwBikeUdsLink.decodeSingleTokenResponse([
+        '41200100E62F190574231',
+        '4120021304A3931303050',
+        '412002231000000000000',
+      ]);
+      expect(payload, [
+        0x62, 0xf1, 0x90, 0x57, 0x42, 0x31,
+        0x30, 0x4a, 0x39, 0x31, 0x30, 0x30, 0x50,
+        0x31,
+      ]);
+    });
+
+    test('decodes ELM auto-indexed multi-line responses', () {
+      final payload = BmwBikeUdsLink.decodeSingleTokenResponse([
+        '0: 62 F1 90 57 42 31',
+        '1: 30 4A 39 31 30 30',
+      ]);
+      expect(payload, [
+        0x62, 0xf1, 0x90, 0x57, 0x42, 0x31,
+        0x30, 0x4a, 0x39, 0x31, 0x30, 0x30,
+      ]);
     });
 
     test('returns NRC 0x78 when only pending frame is returned', () {

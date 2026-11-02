@@ -100,12 +100,14 @@ class BmwBikeUdsLink implements UdsRequestLink {
     return applicationPayload;
   }
 
-  /// Decodes single-token BMW Motorrad UDS framing.
+  /// Decodes single-token or multi-frame BMW Motorrad UDS framing.
   ///
-  /// The first character is discarded, bytes 0..1 are adapter framing, byte 2 is
-  /// application payload length, and the application payload starts at byte 3.
-  /// Ignores ELM boilerplate lines and drains NRC 0x78 (response pending) if a
-  /// final response token is present in the prompt buffer.
+  /// Discards the first character, bytes 0..1 are adapter framing.
+  /// Supports:
+  /// - Standard single-token UDS framing (byte 2 is length, byte 3+ is payload).
+  /// - Extended NRC 0x78 (response pending) sequences drained before the final response.
+  /// - ISO-TP multi-frame reassembly (First Frame PCI 0x10, Consecutive Frames PCI 0x20).
+  /// - ELM indexed multi-line sequences ('0:', '1:', etc.).
   static List<int> decodeSingleTokenResponse(List<String> lines) {
     final tokens = lines
         .map((l) => l.replaceAll('>', '').trim())
@@ -124,30 +126,107 @@ class BmwBikeUdsLink implements UdsRequestLink {
       );
     }
 
-    String tokenToDecode = tokens.first;
-    if (tokens.length > 1) {
-      try {
-        final firstDecoded = _decodeSingleTokenHex(tokens.first);
-        if (firstDecoded.length == 3 &&
-            firstDecoded[0] == 0x7f &&
-            firstDecoded[2] == 0x78) {
-          tokenToDecode = tokens[1];
-        } else {
-          throw const FormatException(
-            'BMW UDS decoder supports exactly one nonempty response token',
-          );
-        }
-      } on FormatException {
-        throw const FormatException(
-          'BMW UDS decoder supports exactly one nonempty response token',
-        );
-      }
+    // ELM auto-indexed multi-line response (e.g. "0: 62 F1 90 ...")
+    if (tokens.every((t) => RegExp(r'^\d+:').hasMatch(t))) {
+      return _decodeElmIndexedResponse(tokens);
     }
 
-    return _decodeSingleTokenHex(tokenToDecode);
+    // Drain all NRC 0x78 response pending tokens
+    final nonPendingTokens = <String>[];
+    List<int>? lastPendingPayload;
+
+    for (final token in tokens) {
+      try {
+        final decoded = _decodeSingleTokenHex(token);
+        if (decoded.length == 3 && decoded[0] == 0x7f && decoded[2] == 0x78) {
+          lastPendingPayload = decoded;
+          continue;
+        }
+      } catch (_) {
+        // Not a single-frame pending token; could be multi-frame
+      }
+      nonPendingTokens.add(token);
+    }
+
+    if (nonPendingTokens.isEmpty) {
+      if (lastPendingPayload != null) {
+        return lastPendingPayload;
+      }
+      throw const FormatException(
+        'BMW UDS decoder supports exactly one nonempty response token',
+      );
+    }
+
+    if (nonPendingTokens.length == 1) {
+      return _decodeSingleTokenHex(nonPendingTokens.first);
+    }
+
+    // Attempt ISO-TP multi-frame reassembly
+    try {
+      return _decodeIsoTpMultiFrame(nonPendingTokens);
+    } catch (_) {
+      throw const FormatException(
+        'BMW UDS decoder supports exactly one nonempty response token',
+      );
+    }
   }
 
-  static List<int> _decodeSingleTokenHex(String rawToken) {
+  static List<int> _decodeIsoTpMultiFrame(List<String> tokens) {
+    final firstRaw = _parseHexBytes(tokens.first);
+    if (firstRaw.length < 4) {
+      throw const FormatException('ISO-TP first frame is truncated');
+    }
+    final pci = firstRaw[2];
+    if ((pci & 0xf0) != 0x10) {
+      throw const FormatException('Expected ISO-TP First Frame (PCI 0x10)');
+    }
+    final totalLength = ((pci & 0x0f) << 8) | firstRaw[3];
+    if (totalLength <= 0) {
+      throw const FormatException('Invalid ISO-TP total length');
+    }
+
+    final payload = <int>[...firstRaw.skip(4)];
+    var expectedSequence = 1;
+
+    for (var i = 1; i < tokens.length && payload.length < totalLength; i++) {
+      final cfRaw = _parseHexBytes(tokens[i]);
+      if (cfRaw.length < 3) {
+        throw const FormatException('ISO-TP consecutive frame is truncated');
+      }
+      final cfPci = cfRaw[2];
+      if ((cfPci & 0xf0) != 0x20) {
+        throw const FormatException('Expected ISO-TP Consecutive Frame (PCI 0x20)');
+      }
+      final seq = cfPci & 0x0f;
+      if (seq != (expectedSequence & 0x0f)) {
+        throw FormatException('ISO-TP sequence error: expected $expectedSequence, got $seq');
+      }
+      expectedSequence++;
+      payload.addAll(cfRaw.skip(3));
+    }
+
+    if (payload.length < totalLength) {
+      throw const FormatException('ISO-TP payload incomplete');
+    }
+    return List.unmodifiable(payload.take(totalLength));
+  }
+
+  static List<int> _decodeElmIndexedResponse(List<String> tokens) {
+    final payload = <int>[];
+    for (final token in tokens) {
+      final colonIdx = token.indexOf(':');
+      final hexPart = token.substring(colonIdx + 1).replaceAll(' ', '');
+      if (hexPart.length.isOdd || !RegExp(r'^[0-9a-fA-F]+$').hasMatch(hexPart)) {
+        throw const FormatException('Malformed ELM indexed hex token');
+      }
+      for (var i = 0; i < hexPart.length; i += 2) {
+        payload.add(int.parse(hexPart.substring(i, i + 2), radix: 16));
+      }
+    }
+    return List.unmodifiable(payload);
+  }
+
+  static List<int> _parseHexBytes(String rawToken) {
     final trimmed = rawToken.trim();
     if (trimmed.length < 2) {
       throw const FormatException('Malformed BMW UDS response token');
@@ -160,6 +239,11 @@ class BmwBikeUdsLink implements UdsRequestLink {
     for (var offset = 0; offset < hex.length; offset += 2) {
       frame.add(int.parse(hex.substring(offset, offset + 2), radix: 16));
     }
+    return frame;
+  }
+
+  static List<int> _decodeSingleTokenHex(String rawToken) {
+    final frame = _parseHexBytes(rawToken);
     if (frame.length < 3) {
       throw const FormatException('BMW UDS response header is truncated');
     }

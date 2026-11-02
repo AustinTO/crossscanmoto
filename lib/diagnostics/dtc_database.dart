@@ -10,6 +10,8 @@ class BmwDtcRecord {
     required this.description,
     required this.possibleCauses,
     required this.recommendedAction,
+    this.statusByte,
+    this.isAmbiguous = false,
   });
 
   final int code; // 24-bit integer code
@@ -19,6 +21,17 @@ class BmwDtcRecord {
   final String description;
   final String possibleCauses;
   final String recommendedAction;
+  final int? statusByte;
+  final bool isAmbiguous;
+
+  UdsDtcStatusFlags? get statusFlags =>
+      statusByte != null ? UdsDtcStatusFlags(statusByte!) : null;
+
+  String get statusSummary =>
+      statusFlags?.summary ??
+      (statusByte != null
+          ? 'Status 0x${statusByte!.toRadixString(16).padLeft(2, '0').toUpperCase()}'
+          : 'Status Unreported');
 
   String get hexCode =>
       '0x${code.toRadixString(16).padLeft(6, '0').toUpperCase()}';
@@ -61,19 +74,44 @@ class BmwDtcDatabase {
     String defaultEcu = 'Unknown',
     String? ecuKey,
     Iterable<String>? candidateKeys,
+    int? statusByte,
   }) {
     String? text;
+    final hex = '0x${code.toRadixString(16).padLeft(6, '0').toUpperCase()}';
+
     if (ecuKey != null) {
       text = RecoveredDtcDescriptions.byEcu[ecuKey]?[code];
-    }
-    if (text == null && candidateKeys != null) {
+    } else if (candidateKeys != null) {
+      final matchingTexts = <String>{};
       for (final key in candidateKeys) {
-        text = RecoveredDtcDescriptions.byEcu[key]?[code];
-        if (text != null) break;
+        final candidateText = RecoveredDtcDescriptions.byEcu[key]?[code];
+        if (candidateText != null && candidateText.trim().isNotEmpty) {
+          matchingTexts.add(candidateText.trim());
+        }
+      }
+      if (matchingTexts.length == 1) {
+        text = matchingTexts.first;
+      } else if (matchingTexts.length > 1) {
+        return BmwDtcRecord(
+          code: code,
+          standardCode: hex,
+          title: 'Ambiguous ECU fault $hex (candidate variants conflict)',
+          ecuAcronym: defaultEcu,
+          description:
+              'Multiple candidate ECU definitions conflict for fault code $hex: '
+              '${matchingTexts.join(" | ")}. '
+              'Identify the exact ECU variant to resolve this definition.',
+          possibleCauses:
+              'Candidate variants checked: ${candidateKeys.join(", ")}.',
+          recommendedAction:
+              'Connect directly to the specific control unit or read ECU identification to resolve fault ambiguity.',
+          statusByte: statusByte,
+          isAmbiguous: true,
+        );
       }
     }
+
     text ??= RecoveredDtcDescriptions.unambiguous[code];
-    final hex = '0x${code.toRadixString(16).padLeft(6, '0').toUpperCase()}';
     return BmwDtcRecord(
       code: code,
       standardCode: hex,
@@ -84,6 +122,8 @@ class BmwDtcDatabase {
       possibleCauses: 'Not supplied by the diagnostic definition.',
       recommendedAction:
           'Use the repair procedure for the identified motorcycle and control unit.',
+      statusByte: statusByte,
+      isAmbiguous: false,
     );
   }
 }

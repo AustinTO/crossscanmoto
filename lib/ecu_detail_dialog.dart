@@ -386,7 +386,29 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
                       ),
                     ),
                     const Spacer(),
-                    const Text('Status: Confirmed', style: TextStyle(color: Colors.white54, fontSize: 11)),
+                     if (dtc.isAmbiguous) ...[
+                       Container(
+                         margin: const EdgeInsets.only(right: 8),
+                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                         decoration: BoxDecoration(
+                           color: Colors.amber.withValues(alpha: 0.15),
+                           borderRadius: BorderRadius.circular(4),
+                           border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
+                         ),
+                         child: const Text(
+                           'AMBIGUOUS',
+                           style: TextStyle(
+                             color: Colors.amber,
+                             fontSize: 9,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ),
+                     ],
+                     Text(
+                       'Status: ${dtc.statusSummary}',
+                       style: const TextStyle(color: Colors.white54, fontSize: 11),
+                     ),
                   ],
                 ),
                 const SizedBox(height: 10),

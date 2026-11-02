@@ -592,6 +592,7 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
                 dtc.code,
                 defaultEcu: 'BMW KWP ECU',
                 ecuKey: ecuKey.isEmpty ? null : ecuKey,
+                statusByte: dtc.opaqueRecordByte,
               );
               return Card(
                 margin: const EdgeInsets.only(bottom: 8),

@@ -131,6 +131,7 @@ class AutoScanController extends ChangeNotifier {
                         d.code,
                         defaultEcu: ecu.germanAbbrev,
                         candidateKeys: ecu.candidateEcuKeys,
+                        statusByte: d.status,
                       ))
                   .toList();
               report.state = EcuScanState.responding;

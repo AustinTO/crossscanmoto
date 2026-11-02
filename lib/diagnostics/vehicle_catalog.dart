@@ -39,6 +39,7 @@ class BmwVehicleCatalog {
       displacementCc: 1254,
       startYear: 2018,
       endYear: 2024,
+      vinVdsCodes: ['0J91', '0J93', '0M01', '0M03'],
     ),
     BmwMotorcycleModel(
       name: 'R 1250 GS Adventure',
@@ -47,6 +48,7 @@ class BmwVehicleCatalog {
       displacementCc: 1254,
       startYear: 2018,
       endYear: 2024,
+      vinVdsCodes: ['0J92', '0J94'],
     ),
     BmwMotorcycleModel(
       name: 'R 1250 RT',
@@ -247,6 +249,7 @@ class BmwVehicleCatalog {
       displacementCc: 350,
       startYear: 2018,
       endYear: 2026,
+      vinVdsCodes: ['0C05', '0C15'],
     ),
     BmwMotorcycleModel(
       name: 'CE 04',
@@ -255,6 +258,15 @@ class BmwVehicleCatalog {
       displacementCc: 0,
       startYear: 2022,
       endYear: 2026,
+    ),
+    BmwMotorcycleModel(
+      name: 'C1',
+      seriesCode: 'C01',
+      engineType: 'Single cylinder 4-stroke',
+      displacementCc: 125,
+      startYear: 2000,
+      endYear: 2003,
+      vinVdsCodes: ['0C01', '0C11'],
     ),
   ];
 
@@ -286,32 +298,14 @@ class BmwVehicleCatalog {
       BmwRawVehicleDatabase.vehicles;
 
   /// Automatically matches a vehicle model from a reported VIN string.
+  /// Matches strictly against known VDS codes (characters 4-7) of defined models,
+  /// preventing false matches against serial numbers and invented year ranges.
   static BmwMotorcycleModel? identifyFromVin(String vin) {
     final cleanVin = vin.trim().toUpperCase();
     if (cleanVin.length < 8) return null;
     final vds = cleanVin.substring(3, 7);
     for (final model in models) {
       if (model.vinVdsCodes.contains(vds)) return model;
-    }
-    for (final model in models) {
-      if (cleanVin.contains(model.seriesCode)) return model;
-    }
-    // Also check recovered vehicle records by chassis/series code (e.g. K50, K18, C01)
-    for (final raw in BmwRawVehicleDatabase.vehicles) {
-      final code = raw['name']?.trim().toUpperCase();
-      if (code != null && code.isNotEmpty && cleanVin.contains(code)) {
-        final existing = findByName(raw['description']);
-        if (existing != null) return existing;
-        final seriesId = raw['car_seriesid'] ?? '';
-        return BmwMotorcycleModel(
-          name: raw['description'] ?? code,
-          seriesCode: code,
-          engineType: 'BMW Motorrad Series $seriesId',
-          displacementCc: 0,
-          startYear: 2000,
-          endYear: 2026,
-        );
-      }
     }
     return null;
   }
