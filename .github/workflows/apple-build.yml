@@ -23,13 +23,22 @@ concurrency:
 
 jobs:
   ios:
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+      - name: Verify Apple SDK version
+        run: |
+          SDK_VERSION="$(xcrun --sdk iphoneos --show-sdk-version)"
+          echo "Using iOS SDK $SDK_VERSION"
+          SDK_MAJOR="${SDK_VERSION%%.*}"
+          if [ "$SDK_MAJOR" -lt 26 ]; then
+            echo "::error::Apple requires iOS SDK 26 or later; this runner selected $SDK_VERSION."
+            exit 1
+          fi
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -55,7 +64,7 @@ jobs:
   signed:
     if: github.event_name == 'workflow_dispatch' && inputs.build_signed
     needs: [ios, payment-backend]
-    runs-on: macos-latest
+    runs-on: macos-26
     timeout-minutes: 45
     env:
       APPLE_BUNDLE_ID: ${{ vars.APPLE_BUNDLE_ID }}
@@ -75,6 +84,15 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+      - name: Verify Apple SDK version
+        run: |
+          SDK_VERSION="$(xcrun --sdk iphoneos --show-sdk-version)"
+          echo "Using iOS SDK $SDK_VERSION"
+          SDK_MAJOR="${SDK_VERSION%%.*}"
+          if [ "$SDK_MAJOR" -lt 26 ]; then
+            echo "::error::Apple requires iOS SDK 26 or later; this runner selected $SDK_VERSION."
+            exit 1
+          fi
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
