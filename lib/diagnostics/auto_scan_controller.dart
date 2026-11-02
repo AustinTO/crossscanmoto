@@ -43,7 +43,9 @@ class EcuScanReport {
   String? statusMessage;
 
   bool get hasFaults => dtcs.isNotEmpty;
-  bool get isHealthy => state == EcuScanState.responding && dtcs.isEmpty;
+  bool get hasNoReportedFaults => state == EcuScanState.responding && dtcs.isEmpty;
+  @Deprecated('Use hasNoReportedFaults; absence of returned DTCs does not prove complete vehicle health.')
+  bool get isHealthy => hasNoReportedFaults;
 }
 
 /// Coordinates full vehicle scan across all BMW Motorrad control units.
@@ -125,7 +127,11 @@ class AutoScanController extends ChangeNotifier {
             try {
               final dtcReport = await client.readDtcByStatusMask(0xFF);
               report.dtcs = dtcReport.dtcs
-                  .map((d) => BmwDtcDatabase.lookup(d.code, defaultEcu: ecu.germanAbbrev))
+                  .map((d) => BmwDtcDatabase.lookup(
+                        d.code,
+                        defaultEcu: ecu.germanAbbrev,
+                        candidateKeys: ecu.candidateEcuKeys,
+                      ))
                   .toList();
               report.state = EcuScanState.responding;
             } catch (error) {
@@ -166,7 +172,7 @@ class AutoScanController extends ChangeNotifier {
     _isScanning = false;
     _currentStep = _cancelled
         ? 'Scan stopped'
-        : 'Scan complete ($totalResponding ECUs responding, $totalFaults fault codes)';
+        : 'Scan complete ($totalResponding ECUs responding, $totalFaults fault codes reported. Zero DTCs does not guarantee complete vehicle health.)';
 
     // Automated Model & Subsystem Identification
     if (!_cancelled && totalResponding > 0) {

@@ -47,6 +47,28 @@ void main() {
       expect(f850gs, isNotNull);
       expect(f850gs!.seriesCode, 'K81');
     });
+
+    test('ECU catalog specifies candidate ECU keys for ECU-scoped resolution', () {
+      for (final ecu in BmwEcuCatalog.all) {
+        expect(ecu.candidateEcuKeys, isNotEmpty,
+            reason: '${ecu.id} must define candidate ECU keys');
+      }
+      expect(BmwEcuCatalog.dme.candidateEcuKeys, contains('cuX_BMSX'));
+      expect(BmwEcuCatalog.abs.candidateEcuKeys, contains('cuX_ABS'));
+      expect(BmwEcuCatalog.kombi.candidateEcuKeys, contains('cuX_KOMBI'));
+    });
+
+    test('vehicle catalog integrates 84 recovered native records and avoids address guessing', () {
+      expect(BmwVehicleCatalog.recoveredVehicles.length, 84);
+      // Matching by chassis code from 84 recovered entries
+      final c1 = BmwVehicleCatalog.identifyFromVin('WB10C010000000000');
+      expect(c1, isNotNull);
+      expect(c1!.name, 'C1');
+
+      // Generic DME + KOMBI does not falsely guess a specific model
+      final inferred = BmwVehicleCatalog.inferModelFromAddresses([0x12, 0x60]);
+      expect(inferred, isNull, reason: 'Generic DME+KOMBI bus addresses must not guess a specific model');
+    });
   });
 
   group('BMW DTC Database', () {
@@ -58,6 +80,16 @@ void main() {
       final unknown = BmwDtcDatabase.lookup(0x999999);
       expect(unknown.standardCode, '0x999999');
       expect(unknown.title, startsWith('Unresolved ECU fault'));
+    });
+
+    test('DTC lookup with candidateKeys resolves ECU-scoped text', () {
+      final record = BmwDtcDatabase.lookup(
+        25378,
+        defaultEcu: 'ABS',
+        candidateKeys: BmwEcuCatalog.abs.candidateEcuKeys,
+      );
+      expect(record.title, 'Wheel-speed sensor, front');
+      expect(record.ecuAcronym, 'ABS');
     });
 
     test('parses UDS DTC status mask flags', () {
@@ -184,6 +216,18 @@ void main() {
       final dmeReport = controller.reports[0x12];
       expect(dmeReport, isNotNull);
       expect(dmeReport!.dtcs, isEmpty);
+      expect(dmeReport.hasFaults, isFalse);
+      expect(dmeReport.hasNoReportedFaults, isFalse); // state is pending, not responding
+    });
+
+    test('EcuScanReport distinguishes no-reported-faults from health guarantee', () {
+      final report = EcuScanReport(
+        definition: BmwEcuCatalog.dme,
+        state: EcuScanState.responding,
+      );
+      expect(report.hasFaults, isFalse);
+      expect(report.hasNoReportedFaults, isTrue);
+      expect(report.isHealthy, isTrue);
     });
   });
 }

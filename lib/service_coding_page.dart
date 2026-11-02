@@ -91,8 +91,8 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           ),
           tabs: const [
             Tab(text: 'Service Resets'),
-            Tab(text: 'Vehicle Coding'),
-            Tab(text: 'Local Drafts'),
+            Tab(text: 'Coding (Drafts)'),
+            Tab(text: 'Local Snapshots'),
             Tab(text: 'Actuator Tests'),
           ],
         ),
@@ -678,7 +678,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
               SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'These presets and snapshots are local coding drafts. ECU coding requires a verified definition for the selected control unit.',
+                  'These presets and snapshots are local offline drafts stored on this device. Writing coding data to motorcycle ECUs requires a verified coding session and is not performed from this draft editor.',
                   style: TextStyle(fontSize: 12, color: Colors.white70),
                 ),
               ),
@@ -1057,6 +1057,6 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
   }
 
   void _showCodingSuccess(String message) {
-    setState(() => _notice = message);
+    setState(() => _notice = 'Local draft saved: $message (not written to motorcycle)');
   }
 }

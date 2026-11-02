@@ -1,3 +1,5 @@
+import 'recovered_catalog.dart';
+
 /// BMW Motorrad motorcycle model and series definitions.
 class BmwMotorcycleModel {
   const BmwMotorcycleModel({
@@ -279,6 +281,10 @@ class BmwVehicleCatalog {
     return yearCodes[code];
   }
 
+  /// The 84 original vehicle platform definitions recovered from MotoScan native tables.
+  static List<Map<String, String>> get recoveredVehicles =>
+      BmwRawVehicleDatabase.vehicles;
+
   /// Automatically matches a vehicle model from a reported VIN string.
   static BmwMotorcycleModel? identifyFromVin(String vin) {
     final cleanVin = vin.trim().toUpperCase();
@@ -290,24 +296,33 @@ class BmwVehicleCatalog {
     for (final model in models) {
       if (cleanVin.contains(model.seriesCode)) return model;
     }
+    // Also check recovered vehicle records by chassis/series code (e.g. K50, K18, C01)
+    for (final raw in BmwRawVehicleDatabase.vehicles) {
+      final code = raw['name']?.trim().toUpperCase();
+      if (code != null && code.isNotEmpty && cleanVin.contains(code)) {
+        final existing = findByName(raw['description']);
+        if (existing != null) return existing;
+        final seriesId = raw['car_seriesid'] ?? '';
+        return BmwMotorcycleModel(
+          name: raw['description'] ?? code,
+          seriesCode: code,
+          engineType: 'BMW Motorrad Series $seriesId',
+          displacementCc: 0,
+          startYear: 2000,
+          endYear: 2026,
+        );
+      }
+    }
     return null;
   }
 
-  /// Infers likely platform family from responding standard UDS addresses.
+  /// Attempts to infer likely platform family from responding standard UDS addresses.
+  /// Does not guess an arbitrary model when addresses are generic across the fleet
+  /// (e.g. DME 0x12 + KOMBI 0x60 are shared by almost all modern BMW motorcycles).
   static BmwMotorcycleModel? inferModelFromAddresses(Iterable<int> addresses) {
-    final set = addresses.toSet();
-    if (set.contains(0x68)) {
-      // Audio controller present -> K 1600 or R 1250 RT
-      return findByName('K 1600 GT') ?? findByName('R 1250 RT');
-    }
-    if (set.contains(0x58) && set.contains(0x12)) {
-      // Dynamic ESA + Engine -> R 1250 GS or S 1000 XR
-      return findByName('R 1250 GS');
-    }
-    if (set.contains(0x12) && set.contains(0x60)) {
-      // Engine + TFT Kombi
-      return findByName('F 850 GS');
-    }
+    // Shared bus combinations (0x12, 0x60, 0x28, 0x58) are common across
+    // multiple BMW boxer, inline-4, and parallel-twin platforms. Without a VIN
+    // or specific module identification, guessing an exact model is unreliable.
     return null;
   }
 }

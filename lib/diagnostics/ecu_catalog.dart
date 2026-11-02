@@ -20,6 +20,7 @@ class BmwEcuDefinition {
     required this.legacyKwpAddress,
     required this.description,
     required this.icon,
+    this.candidateEcuKeys = const [],
     this.supportedDids = const [
       0xF190, // VIN
       0xF187, // BMW Part Number
@@ -39,6 +40,7 @@ class BmwEcuDefinition {
   final int legacyKwpAddress;
   final String description;
   final IconData icon;
+  final List<String> candidateEcuKeys;
   final List<int> supportedDids;
 
   String get hexAddress =>
@@ -67,6 +69,16 @@ class BmwEcuCatalog {
     description:
         'Engine control unit (BMS-K, BMS-KP, BMS-MP, BMS-O, ME17.2). Controls fuel injection, ignition, ShiftCam, ride-by-wire and emissions.',
     icon: Icons.settings_input_component,
+    candidateEcuKeys: [
+      'cuX_BMSX',
+      'cuX_BMSO1',
+      'cuX_BMSMP1',
+      'cuX_BMSE2B',
+      'cuX_BMSE2',
+      'cuX_BMSAE1',
+      'cuMRBMSMP1',
+      'cuMRMA24',
+    ],
   );
 
   static const abs = BmwEcuDefinition(
@@ -79,6 +91,12 @@ class BmwEcuCatalog {
     description:
         'Brake and stability control unit (I-ABS 2, ABS 8M, ABS 9M, ABS Pro). Controls anti-lock braking, cornering ABS, ASC and DTC.',
     icon: Icons.shield_outlined,
+    candidateEcuKeys: [
+      'cuX_ABS',
+      'cuX_ABS9M',
+      'cuX_ABSVI',
+      'cuMRABS',
+    ],
   );
 
   static const kombi = BmwEcuDefinition(
@@ -91,6 +109,19 @@ class BmwEcuCatalog {
     description:
         'Instrument cluster and Connectivity TFT display. Manages speedometer, tachometer, on-board computer, service intervals and animations.',
     icon: Icons.speed,
+    candidateEcuKeys: [
+      'cuX_KOMBI',
+      'cuX_KOMB50',
+      'cuX_KOMB18',
+      'cuX_KOMB17',
+      'cuX_KOMB46',
+      'cuX_KOMB53',
+      'cuX_KOMBB2',
+      'cuX_KOMBHI',
+      'cuX_KOMBLO',
+      'cuX_KOMB_A',
+      'cuX_KOMB03',
+    ],
   );
 
   static const zfe = BmwEcuDefinition(
@@ -103,6 +134,11 @@ class BmwEcuCatalog {
     description:
         'Central chassis electronics module. Manages lights, indicators, horn, grip heating, seat heating and electronic fuses.',
     icon: Icons.electrical_services,
+    candidateEcuKeys: [
+      'cuX_BCO',
+      'cuX_BCA',
+      'cuX_BCL',
+    ],
   );
 
   static const ews = BmwEcuDefinition(
@@ -115,6 +151,9 @@ class BmwEcuCatalog {
     description:
         'Electronic immobilizer and Keyless Ride controller. Authenticates transponder keys and unlocks steering and fuel filler.',
     icon: Icons.vpn_key_outlined,
+    candidateEcuKeys: [
+      'cuX_EWS4',
+    ],
   );
 
   static const rdc = BmwEcuDefinition(
@@ -127,6 +166,12 @@ class BmwEcuCatalog {
     description:
         'Tire pressure monitoring system. Receives wireless wheel sensor telegrams for front and rear pressure and temperature.',
     icon: Icons.tire_repair,
+    candidateEcuKeys: [
+      'cuX_RDC',
+      'cuMRRDC',
+      'cuX_TPM',
+      'cuX_TPM4G',
+    ],
   );
 
   static const esa = BmwEcuDefinition(
@@ -139,6 +184,10 @@ class BmwEcuCatalog {
     description:
         'Semi-active electronic suspension controller. Regulates spring preload stepper and dynamic damping valves according to ride modes.',
     icon: Icons.airline_seat_recline_extra_outlined,
+    candidateEcuKeys: [
+      'cuX_ESA',
+      'cuX_SAF',
+    ],
   );
 
   static const dwa = BmwEcuDefinition(
@@ -151,6 +200,11 @@ class BmwEcuCatalog {
     description:
         'Anti-theft alarm control unit with tilt and motion sensors, siren and RF remote receiver.',
     icon: Icons.notifications_active_outlined,
+    candidateEcuKeys: [
+      'cuX_DWA',
+      'cuX_DWA_9',
+      'cuMRDWA',
+    ],
   );
 
   static const rad = BmwEcuDefinition(
@@ -163,6 +217,9 @@ class BmwEcuCatalog {
     description:
         'Motorcycle audio system and Bluetooth audio receiver (touring models: R 1250 RT, K 1600 GT/GTL).',
     icon: Icons.radio_outlined,
+    candidateEcuKeys: [
+      'cuX_AUDIO',
+    ],
   );
 
   static const all = <BmwEcuDefinition>[

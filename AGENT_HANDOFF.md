@@ -6,24 +6,17 @@ verified checkpoint and before stopping or losing the session.
 <!-- REPOSITORY_SNAPSHOT:START -->
 ## Repository snapshot
 
-Captured 2026-11-02T18:39:23+00:00.
-HEAD: `427fe2a049d3d9204721af896e4f2cd06fd65c85`.
+Captured 2026-11-02T19:13:17+00:00.
+HEAD: `6a200788812df305824b0950d78f8c1e50996f60`.
 Branch: `release-hardening/production-audit`.
 
 ```text
-M AGENT_HANDOFF.md
- M lib/diagnostics/service_manager.dart
- M lib/diagnostics/service_reset_protocol.dart
+M lib/diagnostics/auto_scan_controller.dart
+ M lib/diagnostics/dtc_database.dart
+ M lib/diagnostics/ecu_catalog.dart
+ M lib/diagnostics/vehicle_catalog.dart
  M lib/service_coding_page.dart
-?? CrossScanMoto_Parity_Lean_V5_Updated_HEAD_2026-11-02/
-?? docs/parity/P0-05-implementation-progress.md
-?? docs/parity/P0-05-legacy-service-evidence.md
-?? docs/parity/P0-05-oracle-progress.md
-?? docs/parity/P0-05-service-dispatch-evidence.md
-?? docs/parity/fixtures/P0-05-legacy-service-excerpts.txt
-?? test/fixtures/service_dispatch_goldens.json
-?? tool/native/build_service_goldens.py
-?? tool/update_agent_handoff.py
+ M test/parity_features_test.dart
 ```
 
 Refresh with `python tool/update_agent_handoff.py` after a checkpoint.
