@@ -328,6 +328,18 @@ void main() {
       },
     );
 
+    test('reads ECU identification via Service 0x1A', () async {
+      final (session, transport, link) = await _newConfiguredLink();
+      transport.replies
+        ..add(_elmFrame([0xc1]))
+        ..add(_elmFrame([0x5a, 0x90, 0x57, 0x42, 0x31]));
+
+      final data = await KwpClient(link).readIdentification(0x90);
+      expect(data, [0x90, 0x57, 0x42, 0x31]);
+      expect(transport.writes.last, '1A90');
+      await session.close();
+    });
+
     test('requires adapter configuration before sending KWP bytes', () async {
       final transport = _ScriptedTransport();
       final session = ElmSession(transport);

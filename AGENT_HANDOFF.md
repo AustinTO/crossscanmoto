@@ -6,22 +6,15 @@ verified checkpoint and before stopping or losing the session.
 <!-- REPOSITORY_SNAPSHOT:START -->
 ## Repository snapshot
 
-Captured 2026-11-02T19:46:22+00:00.
-HEAD: `babfd584cfc67f9633b7ac9b76df8ffa0bd066d8`.
+Captured 2026-11-02T19:48:51+00:00.
+HEAD: `4cf2e90bfdbf6935c1acd006063e7291124eeacc`.
 Branch: `release-hardening/production-audit`.
 
 ```text
-M AGENT_HANDOFF.md
- M lib/diagnostics/auto_scan_controller.dart
- M lib/diagnostics/dtc_database.dart
- M lib/diagnostics/protocol_setup.dart
- M lib/diagnostics/vehicle_catalog.dart
+M lib/diagnostics/auto_scan_controller.dart
+ M lib/diagnostics/kwp_client.dart
  M lib/ecu_detail_dialog.dart
- M lib/legacy_kwp_page.dart
- M lib/main.dart
- M lib/recovered_actuator_panel.dart
- M test/parity_features_test.dart
- M test/protocol_setup_test.dart
+ M test/kwp_client_test.dart
 ?? iconbackground.png
 ?? iconforeground.png
 ```

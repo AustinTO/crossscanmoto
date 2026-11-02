@@ -157,6 +157,39 @@ class AutoScanController extends ChangeNotifier {
             } catch (_) {
               report.partNumber = null;
             }
+
+            // Read Hardware Version DID 0xF192
+            try {
+              final hwBytes = await client.readDataByIdentifier(0xF192);
+              final printable = String.fromCharCodes(hwBytes.where((c) => c >= 32 && c <= 126)).trim();
+              report.hardwareVersion = printable.isNotEmpty
+                  ? printable
+                  : hwBytes.map((b) => b.toRadixString(16).padLeft(2, '0').toUpperCase()).join();
+            } catch (_) {
+              report.hardwareVersion = null;
+            }
+
+            // Read Software Version DID 0xF189
+            try {
+              final swBytes = await client.readDataByIdentifier(0xF189);
+              final printable = String.fromCharCodes(swBytes.where((c) => c >= 32 && c <= 126)).trim();
+              report.softwareVersion = printable.isNotEmpty
+                  ? printable
+                  : swBytes.map((b) => b.toRadixString(16).padLeft(2, '0').toUpperCase()).join();
+            } catch (_) {
+              report.softwareVersion = null;
+            }
+
+            // Read Supplier Name DID 0xF18A
+            try {
+              final suppBytes = await client.readDataByIdentifier(0xF18A);
+              final printable = String.fromCharCodes(suppBytes.where((c) => c >= 32 && c <= 126)).trim();
+              report.supplierName = printable.isNotEmpty
+                  ? printable
+                  : suppBytes.map((b) => b.toRadixString(16).padLeft(2, '0').toUpperCase()).join();
+            } catch (_) {
+              report.supplierName = null;
+            }
           } else {
             report.state = EcuScanState.noResponse;
           }

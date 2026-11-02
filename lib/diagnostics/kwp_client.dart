@@ -294,6 +294,15 @@ class KwpClient {
     return List.unmodifiable(response.data);
   }
 
+  /// Reads ECU identification via KWP Service 0x1A.
+  /// Subfunction 0x90 reads VIN; 0x80 reads standard ECU identification.
+  Future<List<int>> readIdentification([int subfunction = 0x90]) async {
+    _checkByte(subfunction, 'subfunction');
+    await _startCommunication();
+    final response = await _positive(0x1a, [subfunction]);
+    return List.unmodifiable(response.data);
+  }
+
   Future<KwpPositiveResponse> _positive(
     int service,
     List<int> parameters, {
@@ -319,6 +328,12 @@ class KwpClient {
   static void _checkU16(int value, String name) {
     if (value < 0 || value > 0xffff) {
       throw RangeError.range(value, 0, 0xffff, name);
+    }
+  }
+
+  static void _checkByte(int value, String name) {
+    if (value < 0 || value > 0xff) {
+      throw RangeError.range(value, 0, 0xff, name);
     }
   }
 }
