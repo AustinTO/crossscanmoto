@@ -59,6 +59,27 @@ class UdsClient {
     return List.unmodifiable(response.data.skip(2));
   }
 
+  Future<void> writeDataByIdentifier(int did, List<int> data) async {
+    _checkU16(did, 'DID');
+    final response = await _positive(0x2E, [did >> 8, did & 0xff, ...data]);
+    if (response.data.length < 2) {
+      throw const FormatException('WriteDataByIdentifier response is missing DID');
+    }
+    final returnedDid = (response.data[0] << 8) | response.data[1];
+    if (returnedDid != did) {
+      throw FormatException(
+          'WriteDataByIdentifier returned DID 0x${returnedDid.toRadixString(16).padLeft(4, '0')} instead of 0x${did.toRadixString(16).padLeft(4, '0')}');
+    }
+  }
+
+  Future<void> ecuReset([int subfunction = 0x01]) async {
+    _checkByte(subfunction, 'ECU reset subfunction');
+    final response = await _positive(0x11, [subfunction]);
+    if (response.data.isEmpty || response.data.first != subfunction) {
+      throw const FormatException('ECUReset response did not echo the subfunction');
+    }
+  }
+
   Future<UdsDtcReport> readDtcByStatusMask(int statusMask) async {
     _checkByte(statusMask, 'DTC status mask');
     final response = await _positive(0x19, [0x02, statusMask]);

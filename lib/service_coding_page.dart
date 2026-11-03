@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'diagnostic_session.dart';
 import 'recovered_actuator_panel.dart';
+import 'recovered_coding_panel.dart';
 import 'diagnostics/ecu_friendly_names.dart';
 import 'diagnostics/kwp_client.dart';
 import 'diagnostics/service_manager.dart';
@@ -42,7 +43,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     _serviceEcuKey =
         DiagnosticSession.instance.ecuDefinitionKey ??
         BmwServiceManager.allSupportedEcuKeys.first;
-    _tabs = TabController(length: 2, vsync: this);
+    _tabs = TabController(length: 3, vsync: this);
     DiagnosticSession.instance.addListener(_sessionChanged);
   }
 
@@ -92,6 +93,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
           tabs: const [
             Tab(text: 'Service Resets'),
             Tab(text: 'Actuator Tests'),
+            Tab(text: 'ECU Coding & Backup'),
           ],
         ),
       ),
@@ -138,6 +140,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                   children: [
                     _buildServiceTab(),
                     _buildActuatorTab(),
+                    const RecoveredCodingPanel(),
                   ],
                 ),
               ),

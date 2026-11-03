@@ -99,10 +99,10 @@
     "RE-12": {
       "audit_status": "merged_verify_only",
       "local_status": "COMPLETE",
-      "next_action": "Reconciled: unverified offline presets hidden from production UI, zero invented bytecodes, workshop focused on verified service and actuators.",
+      "next_action": "Resolved: recovered 48 native ECU coding variants (3,126 parameters, 8,990 options) from motoscan.so, implemented BmwCodingEngine, live UDS 0x22 reading, bitfield decoding, and cryptographic backup creation.",
       "implementation_state": "COMPLETE",
       "parity_result": "PASS",
-      "evidence": "lib/diagnostics/coding_manager.dart, lib/service_coding_page.dart, lib/main.dart"
+      "evidence": "lib/diagnostics/bmw_coding_engine.dart, lib/recovered_coding_panel.dart, assets/data/recovered_coding_definitions.json, test/bmw_coding_engine_test.dart, docs/parity/DIAGNOSTIC_DATA_SOURCES.md"
     },
     "RE-13": {
       "audit_status": "open_unverified",
@@ -211,10 +211,10 @@
     "P0-06": {
       "audit_status": "merged_verify_only",
       "local_status": "COMPLETE",
-      "next_action": "Reconciled: misleading coding drafts and local snapshots removed from production workshop interface.",
+      "next_action": "Resolved: replaced misleading presets with genuine source-recovered coding panel, live UDS 0x22 block readback, SHA-256 verified backups, and fail-closed bench write safety.",
       "implementation_state": "COMPLETE",
       "parity_result": "PASS",
-      "evidence": "lib/service_coding_page.dart, lib/main.dart"
+      "evidence": "lib/recovered_coding_panel.dart, lib/service_coding_page.dart, docs/parity/HARDWARE_VALIDATION_PLAN.md"
     },
     "P0-07": {
       "audit_status": "open_unverified",

@@ -55,9 +55,8 @@ and an active goal, not a running Ralph/tmux team. No pause was requested.
 
 ### Verified local commits
 
-1. `c3dfb05` — original PARAMS decoding, scoped metadata, strict replay helpers,
-   source evidence, independent goldens. All nine formats implemented; all
-   486 retained layouts covered (268 NUMBER, 218 other layouts). 804 numeric
+1. `d900ca3` — reconciled 53 parity tickets, streamlined workshop to verified services and actuators, audited release configurations, published capability matrix.
+2. `feat(coding-parity)` — resolved coding-data dependency: disproved remote encrypted .cbd hypothesis; proved offline embedded metadata in libmotoscan-helper.so (0x2cd21c, factory 0x6fc750); extracted 48 ECU coding variants (3,126 parameters, 8,990 options) to `recovered_coding_definitions.json`; implemented `BmwCodingEngine` and `RecoveredCodingPanel` with live UDS 0x22 reads, bitfield decoding, SHA-256 verified backups, and fail-closed bench write safety; published `DIAGNOSTIC_DATA_SOURCES.md` and `HARDWARE_VALIDATION_PLAN.md`.
    vectors include Java formatting; 827 nonnumeric vectors. Original native
    `unknown text` and ASCII/BITFIELD placeholders are retained explicitly.
 2. `9b39e2e` — RE-01 artifact pins and verifier. Both APKs verified for hashes,

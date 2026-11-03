@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'bmw_coding_engine.dart';
+
+export 'bmw_coding_engine.dart';
+
 /// A customizable coding configuration option.
 class CodingOption<T> {
   const CodingOption({
@@ -29,6 +33,7 @@ class CodingSnapshot {
     required this.vehicleModel,
     required this.vin,
     required this.values,
+    this.sha256Hash,
   });
 
   final String id;
@@ -36,6 +41,7 @@ class CodingSnapshot {
   final String vehicleModel;
   final String vin;
   final Map<String, dynamic> values;
+  final String? sha256Hash;
 
   String get formattedDate =>
       '${timestamp.year}-${timestamp.month.toString().padLeft(2, '0')}-${timestamp.day.toString().padLeft(2, '0')} ${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}';
@@ -46,6 +52,7 @@ class CodingSnapshot {
         'vehicleModel': vehicleModel,
         'vin': vin,
         'values': values,
+        if (sha256Hash != null) 'sha256Hash': sha256Hash,
       };
 
   factory CodingSnapshot.fromJson(Map<String, dynamic> json) => CodingSnapshot(
@@ -54,13 +61,14 @@ class CodingSnapshot {
         vehicleModel: json['vehicleModel'] as String? ?? 'BMW Motorrad',
         vin: json['vin'] as String? ?? 'UNKNOWN',
         values: Map<String, dynamic>.from(json['values'] as Map),
+        sha256Hash: json['sha256Hash'] as String?,
       );
 }
 
 /// Engine managing BMW Motorrad vehicle coding and configuration backups.
 class BmwCodingManager {
-  BmwCodingManager() {
-    // Populate default current values
+  BmwCodingManager({this.catalog}) {
+    // Populate verified defaults
     _currentValues = {
       'startup_animation': 'M Motorsport',
       'clock_format': '24h',
@@ -75,6 +83,17 @@ class BmwCodingManager {
       'heated_grips_curve': 'High (Standard)',
     };
   }
+
+  final BmwCodingDefinitionCatalog? catalog;
+  late final BmwCodingEngine _engine = BmwCodingEngine(
+    catalog: catalog ??
+        const BmwCodingDefinitionCatalog(
+          variants: {},
+          totalVariants: 0,
+          totalParameters: 0,
+          totalOptions: 0,
+        ),
+  );
 
   static const startupAnimationOption = CodingOption<String>(
     id: 'startup_animation',
@@ -155,18 +174,24 @@ class BmwCodingManager {
 
   Map<String, dynamic> get currentValues => Map.unmodifiable(_currentValues);
   List<CodingSnapshot> get snapshots => List.unmodifiable(_snapshots);
+  BmwCodingEngine get engine => _engine;
 
   void setValue(String id, dynamic value) {
     _currentValues[id] = value;
   }
 
-  CodingSnapshot createSnapshot({required String model, required String vin}) {
+  CodingSnapshot createSnapshot({
+    required String model,
+    required String vin,
+    String? sha256Hash,
+  }) {
     final snapshot = CodingSnapshot(
       id: 'SNAP_${DateTime.now().millisecondsSinceEpoch}',
       timestamp: DateTime.now(),
       vehicleModel: model,
       vin: vin,
       values: Map<String, dynamic>.from(_currentValues),
+      sha256Hash: sha256Hash,
     );
     _snapshots.insert(0, snapshot);
     return snapshot;
