@@ -27,12 +27,13 @@ class AdapterResponse {
 
 /// ELM prompt framing. Requests are serialized because responses carry no ID.
 class ElmSession {
-  ElmSession(this.transport) {
+  ElmSession(this.transport, {this.onTraffic}) {
     _subscription = transport.incoming.listen(_receive,
         onError: _fail,
         onDone: () => _fail(StateError('Adapter disconnected')));
   }
   final AdapterTransport transport;
+  void Function(String direction, String message)? onTraffic;
   late final StreamSubscription<List<int>> _subscription;
   final StringBuffer _buffer = StringBuffer();
   Future<void> _queue = Future<void>.value();
@@ -59,8 +60,10 @@ class ElmSession {
         final responseFuture = pending.future.timeout(timeout);
         // Install an error handler before asynchronous transport writes.
         unawaited(responseFuture.then<void>((_) {}, onError: (Object _) {}));
+        onTraffic?.call('TX', command);
         await transport.write(ascii.encode('$command\r')).timeout(timeout);
         final raw = await responseFuture;
+        onTraffic?.call('RX', raw.trim());
         final lines = raw
             .split(RegExp(r'[\r\n]+'))
             .map((line) => line.trim())

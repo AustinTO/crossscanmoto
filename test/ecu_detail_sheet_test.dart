@@ -35,7 +35,9 @@ class _MockTransport implements AdapterTransport {
   String _defaultResponse(String cmd) {
     if (cmd.startsWith('AT')) return 'OK';
     if (cmd.startsWith('14')) return '412000154'; // UDS clear DTC positive response: CAN header 412, len 0001, service 54
+    if (cmd.startsWith('1902')) return '41200035902FF'; // UDS positive readback: 3 bytes (59 02 FF), 0 DTCs remaining
     if (cmd == '14FFFF') return '015400'; // KWP clear DTC positive frame
+    if (cmd.startsWith('18')) return '015800'; // KWP empty DTC readback
     return 'OK';
   }
 
@@ -170,7 +172,7 @@ void main() {
 
     // Verify UDS clear DTC 14FFFFFF was sent
     expect(transport.writes.any((w) => w.contains('14FFFFFF')), isTrue);
-    expect(find.textContaining('Fault memory cleared successfully on DME'), findsOneWidget);
+    expect(find.textContaining('Fault memory cleared'), findsOneWidget);
     expect(report.dtcs, isEmpty);
     expect(find.text('No Fault Codes Logged'), findsOneWidget);
   });

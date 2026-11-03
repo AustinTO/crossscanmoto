@@ -24,7 +24,39 @@ class CodingOptionValue {
   final String name;
   final String rawHex;
 
-  int get byteValue => int.tryParse(rawHex, radix: 16) ?? 0;
+  List<int> get bytes {
+    final cleaned = rawHex.trim();
+    if (cleaned.contains(',')) {
+      return cleaned
+          .split(',')
+          .map((s) => int.parse(s.trim(), radix: 16))
+          .toList(growable: false);
+    }
+    if (cleaned.contains(' ')) {
+      return cleaned
+          .split(RegExp(r'\s+'))
+          .map((s) => int.parse(s.trim(), radix: 16))
+          .toList(growable: false);
+    }
+    if (cleaned.length > 2 &&
+        cleaned.length.isEven &&
+        !cleaned.startsWith('0x') &&
+        !cleaned.startsWith('0X')) {
+      final list = <int>[];
+      for (var i = 0; i < cleaned.length; i += 2) {
+        list.add(int.parse(cleaned.substring(i, i + 2), radix: 16));
+      }
+      return List.unmodifiable(list);
+    }
+    final single = int.parse(cleaned, radix: 16);
+    return [single];
+  }
+
+  int get byteValue {
+    final b = bytes;
+    if (b.isEmpty) throw const FormatException('Empty raw hex');
+    return b.first;
+  }
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -68,9 +100,32 @@ class CodingParameterDefinition {
 
   /// Decodes the active option or formatted hex value from raw block bytes.
   String decodeValue(List<int> blockPayload) {
-    if (offset < 0 || offset >= blockPayload.length) {
+    if (offset < 0 || offset + length > blockPayload.length) {
       return 'OUT_OF_BOUNDS';
     }
+
+    if (length > 1) {
+      final slice = blockPayload.sublist(offset, offset + length);
+      for (final opt in options) {
+        try {
+          final optBytes = opt.bytes;
+          if (optBytes.length == slice.length) {
+            var match = true;
+            for (var i = 0; i < slice.length; i++) {
+              if (optBytes[i] != slice[i]) {
+                match = false;
+                break;
+              }
+            }
+            if (match) return opt.name;
+          }
+        } catch (_) {}
+      }
+      return slice
+          .map((b) => b.toRadixString(16).padLeft(2, '0').toUpperCase())
+          .join();
+    }
+
     final rawByte = blockPayload[offset];
     final masked = rawByte & bitmask;
 
@@ -88,19 +143,59 @@ class CodingParameterDefinition {
         shiftedVal.toRadixString(16).padLeft(2, '0').toUpperCase();
 
     for (final opt in options) {
-      final optVal = opt.byteValue;
-      if (optVal == shiftedVal || optVal == masked) {
-        return opt.name;
-      }
+      try {
+        final optBytes = opt.bytes;
+        if (optBytes.length == 1) {
+          final optVal = optBytes.first;
+          if (optVal == shiftedVal || optVal == masked) {
+            return opt.name;
+          }
+        }
+      } catch (_) {}
     }
     return '0x$hexStr';
   }
 
   /// Updates block bytes with a new option value, preserving unmasked bits.
   List<int> encodeValue(List<int> originalBlock, String targetOptionNameOrHex) {
-    if (offset < 0 || offset >= originalBlock.length) {
+    if (offset < 0 || offset + length > originalBlock.length) {
       throw BmwCodingSafetyException(
           'Offset $offset is out of bounds for block length ${originalBlock.length}');
+    }
+
+    if (length > 1) {
+      final optMatch =
+          options.where((o) => o.name == targetOptionNameOrHex).firstOrNull;
+      final List<int> bytesToSet;
+      if (optMatch != null) {
+        bytesToSet = optMatch.bytes;
+      } else {
+        final cleaned = targetOptionNameOrHex.trim();
+        if (cleaned.contains(',')) {
+          bytesToSet = cleaned
+              .split(',')
+              .map((s) => int.parse(s.trim(), radix: 16))
+              .toList(growable: false);
+        } else {
+          final raw = cleaned.startsWith('0x') || cleaned.startsWith('0X')
+              ? cleaned.substring(2)
+              : cleaned;
+          final list = <int>[];
+          for (var i = 0; i < raw.length; i += 2) {
+            list.add(int.parse(raw.substring(i, i + 2), radix: 16));
+          }
+          bytesToSet = list;
+        }
+      }
+      if (bytesToSet.length != length) {
+        throw BmwCodingSafetyException(
+            'Target option length ${bytesToSet.length} does not match parameter length $length');
+      }
+      final newBytes = List<int>.from(originalBlock);
+      for (var i = 0; i < length; i++) {
+        newBytes[offset + i] = bytesToSet[i];
+      }
+      return List.unmodifiable(newBytes);
     }
 
     int valueToSet;
@@ -123,6 +218,12 @@ class CodingParameterDefinition {
         shift++;
         tempMask >>= 1;
       }
+    }
+
+    if ((valueToSet << shift) & ~bitmask != 0 ||
+        (tempMask > 0 && valueToSet > (bitmask >> shift))) {
+      throw BmwCodingSafetyException(
+          'Value 0x${valueToSet.toRadixString(16)} overflows parameter bitmask 0x${bitmask.toRadixString(16)}');
     }
 
     final newBytes = List<int>.from(originalBlock);
@@ -411,6 +512,12 @@ class BmwCodingEngine {
     final results = <int, List<int>>{};
     for (final block in variant.blocks) {
       final data = await client.readDataByIdentifier(block.did);
+      if (data.length < block.length) {
+        throw BmwCodingSafetyException(
+          'DID 0x${block.did.toRadixString(16).padLeft(4, '0').toUpperCase()} '
+          'returned ${data.length} bytes, expected at least ${block.length}',
+        );
+      }
       results[block.did] = data;
     }
     return Map.unmodifiable(results);
@@ -426,7 +533,10 @@ class BmwCodingEngine {
       final payload = blockPayloads[block.did];
       if (payload == null) continue;
       for (final param in block.parameters) {
-        decoded[param.name] = param.decodeValue(payload);
+        final key = decoded.containsKey(param.name)
+            ? '${param.name} (0x${block.did.toRadixString(16).padLeft(4, '0').toUpperCase()})'
+            : param.name;
+        decoded[key] = param.decodeValue(payload);
       }
     }
     return Map.unmodifiable(decoded);
@@ -439,8 +549,25 @@ class BmwCodingEngine {
     required EcuCodingVariant variant,
     required Map<int, List<int>> blockPayloads,
   }) {
+    // Assert all expected coding blocks for variant are present
+    for (final block in variant.blocks) {
+      if (!blockPayloads.containsKey(block.did)) {
+        throw BmwCodingSafetyException(
+          'Incomplete coding blocks for variant ${variant.key}: missing DID 0x${block.did.toRadixString(16).padLeft(4, '0').toUpperCase()}',
+        );
+      }
+    }
+
     final rawHex = <String, String>{};
     final hashInput = BytesBuilder();
+
+    // Bind hash input to target vehicle identity, model, and variant
+    hashInput.add(utf8.encode(vin));
+    hashInput.addByte(0x00);
+    hashInput.add(utf8.encode(vehicleModel));
+    hashInput.addByte(0x00);
+    hashInput.add(utf8.encode(variant.key));
+    hashInput.addByte(0x00);
 
     // Sort by DID for deterministic hash
     final sortedDids = blockPayloads.keys.toList()..sort();
@@ -484,6 +611,10 @@ class BmwCodingEngine {
     required Map<int, List<int>> originalBlocks,
     required Map<int, List<int>> updatedBlocks,
   }) async {
+    if (updatedBlocks.isEmpty) {
+      return;
+    }
+
     if (!allowPhysicalWrites) {
       throw const BmwCodingSafetyException(
         'ECU write execution is disabled. Physical motorcycle writes require '

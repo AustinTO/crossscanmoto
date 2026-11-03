@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'diagnostic_session.dart';
 import 'diagnostics/actuator_manager.dart';
 import 'diagnostics/auto_scan_controller.dart';
+import 'diagnostics/dtc_database.dart';
 import 'diagnostics/ecu_catalog.dart';
 import 'diagnostics/kwp_client.dart';
 import 'diagnostics/protocol_setup.dart';
@@ -90,6 +91,7 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
       if (session == null || !DiagnosticSession.instance.connected) {
         throw StateError('Connect an adapter before clearing fault codes.');
       }
+      List<BmwDtcRecord>? readbackDtcs;
       await DiagnosticSession.instance.runExclusive(() async {
         if (ecu.isLegacyKwp) {
           DiagnosticSession.instance.invalidateVehicleProtocol();
@@ -98,6 +100,20 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
           if (!configured) throw StateError('Adapter rejected KWP setup for ECU ${ecu.germanAbbrev}.');
           final client = KwpClient(link);
           await client.clearDtc();
+          try {
+            final dtcReport = await client.readDtc();
+            readbackDtcs = dtcReport.dtcs
+                .map((d) => BmwDtcDatabase.lookup(
+                      d.code,
+                      defaultEcu: ecu.germanAbbrev,
+                      candidateKeys: ecu.candidateEcuKeys,
+                      statusByte: d.opaqueRecordByte,
+                      isUds: false,
+                    ))
+                .toList();
+          } catch (_) {
+            readbackDtcs = null;
+          }
         } else {
           final link = BmwBikeUdsLink(session);
           final configured = await link.configure(id: ecu.standardUdsAddress);
@@ -105,12 +121,35 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
           final client = UdsClient(link);
           await client.clearDtc(group: 0xffffff);
           DiagnosticSession.instance.attachUdsClient(client, link: link, ecuKey: ecu.id);
+          try {
+            final dtcReport = await client.readDtcByStatusMask(0xFF);
+            readbackDtcs = dtcReport.dtcs
+                .map((d) => BmwDtcDatabase.lookup(
+                      d.code,
+                      defaultEcu: ecu.germanAbbrev,
+                      candidateKeys: ecu.candidateEcuKeys,
+                      statusByte: d.status,
+                    ))
+                .toList();
+          } catch (_) {
+            readbackDtcs = null;
+          }
         }
       });
-      widget.report.dtcs = const [];
       if (mounted) {
         setState(() {
-          _actionNotice = 'Fault memory cleared successfully on ${ecu.germanAbbrev}.';
+          if (readbackDtcs != null) {
+            widget.report.dtcs = readbackDtcs!;
+            if (readbackDtcs!.isEmpty) {
+              _actionNotice = 'Fault memory cleared and verified on ${ecu.germanAbbrev}.';
+            } else {
+              _actionNotice =
+                  'Clear ACK received, but ${readbackDtcs!.length} active DTC(s) remain on ${ecu.germanAbbrev}.';
+            }
+          } else {
+            _actionNotice =
+                'Clear ACK received, but readback verification could not be completed.';
+          }
         });
       }
     } catch (e) {

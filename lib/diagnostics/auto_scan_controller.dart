@@ -242,7 +242,7 @@ class AutoScanController extends ChangeNotifier {
         ecus = BmwEcuCatalog.forSeries(effectiveSeries);
       }
     } else {
-      ecus = BmwEcuCatalog.all;
+      ecus = const <BmwEcuDefinition>[];
     }
 
     reset(ecus);

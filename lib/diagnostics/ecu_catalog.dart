@@ -267,7 +267,7 @@ class BmwEcuCatalog {
   static List<BmwEcuDefinition> forSeries(String seriesCode, {String? platformId}) {
     final groups = BmwRawVehicleDatabase.groupsForSeries(seriesCode, platformId: platformId);
     if (groups.isEmpty) {
-      return all;
+      return const <BmwEcuDefinition>[];
     }
     return forGroups(groups);
   }
@@ -277,8 +277,16 @@ class BmwEcuCatalog {
     final definitions = <BmwEcuDefinition>[];
     for (final group in groups) {
       final type = group['controlmoduletype']?.toUpperCase() ?? 'ECU';
-      final addr = int.tryParse(group['defaultaddress'] ?? '') ?? 0x12;
-      final protoId = int.tryParse(group['defaultprotocolid'] ?? '') ?? 8;
+      final rawAddr = group['defaultaddress'];
+      final addr = int.tryParse(rawAddr ?? '');
+      if (addr == null) {
+        throw FormatException('Malformed ECU address: $rawAddr');
+      }
+      final rawProto = group['defaultprotocolid'];
+      final protoId = int.tryParse(rawProto ?? '');
+      if (protoId == null || (protoId != 3 && protoId != 8)) {
+        throw FormatException('Unknown or unsupported native protocol ID: $rawProto');
+      }
       final isKwp = protoId == 3;
       final modGroup = group['modulegroup'] ?? '';
 

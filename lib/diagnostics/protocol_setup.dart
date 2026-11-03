@@ -213,8 +213,19 @@ class BmwBikeUdsLink implements UdsRequestLink {
 
   static List<int> _decodeElmIndexedResponse(List<String> tokens) {
     final payload = <int>[];
+    var expectedIndex = 0;
     for (final token in tokens) {
       final colonIdx = token.indexOf(':');
+      if (colonIdx < 0) {
+        throw const FormatException('Malformed ELM indexed line missing colon');
+      }
+      final indexStr = token.substring(0, colonIdx).trim();
+      final index = int.tryParse(indexStr);
+      if (index == null || index != expectedIndex) {
+        throw FormatException(
+            'ELM indexed sequence non-contiguous: expected index $expectedIndex, got $indexStr');
+      }
+      expectedIndex++;
       final hexPart = token.substring(colonIdx + 1).replaceAll(' ', '');
       if (hexPart.length.isOdd || !RegExp(r'^[0-9a-fA-F]+$').hasMatch(hexPart)) {
         throw const FormatException('Malformed ELM indexed hex token');
@@ -274,5 +285,5 @@ class BmwBikeUdsLink implements UdsRequestLink {
   }
 
   static bool _hasOk(AdapterResponse response) =>
-      response.lines.any((line) => line.contains('OK'));
+      response.lines.any((line) => line.trim().toUpperCase() == 'OK');
 }

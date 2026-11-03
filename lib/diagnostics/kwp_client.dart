@@ -81,7 +81,7 @@ class BmwBikeKwpLink implements KwpRequestLink {
     ];
     for (final command in commands) {
       final response = await session.command(command, timeout: commandTimeout);
-      if (!response.lines.any((line) => line.contains('OK'))) return false;
+      if (!response.lines.any((line) => line.trim().toUpperCase() == 'OK')) return false;
     }
 
     _configuredAddress = ecuAddress;

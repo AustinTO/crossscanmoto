@@ -55,7 +55,25 @@ class DiagnosticSession extends ChangeNotifier {
     finally { _operationBusy = false; notifyListeners(); }
   }
 
+  static void Function(bool enable)? wakeLockHandler;
+
   final List<String> _events = [];
+  final List<String> _rawTrafficLogs = [];
+  List<String> get rawTrafficLogs => List.unmodifiable(_rawTrafficLogs);
+
+  void recordTraffic(String direction, String message) {
+    if (!_debugLogging) return;
+    final ts = DateTime.now().toIso8601String().substring(11, 23);
+    _rawTrafficLogs.add('[$ts] $direction: $message');
+    if (_rawTrafficLogs.length > 1000) {
+      _rawTrafficLogs.removeAt(0);
+    }
+  }
+
+  void clearTrafficLogs() {
+    _rawTrafficLogs.clear();
+    notifyListeners();
+  }
 
   // Extended parity states
   final VehicleProfile _profile = VehicleProfile();
@@ -69,6 +87,9 @@ class DiagnosticSession extends ChangeNotifier {
   set keepScreenAwake(bool value) {
     if (_keepScreenAwake != value) {
       _keepScreenAwake = value;
+      if (connected) {
+        wakeLockHandler?.call(_keepScreenAwake);
+      }
       notifyListeners();
     }
   }
@@ -139,6 +160,10 @@ class DiagnosticSession extends ChangeNotifier {
   void attach(ElmSession session, {String? identity, String? voltage}) {
     _generation++;
     _elmSession = session;
+    session.onTraffic = recordTraffic;
+    if (_keepScreenAwake) {
+      wakeLockHandler?.call(true);
+    }
     unawaited(session.failure.then((error) {
       if (!identical(_elmSession, session)) return;
       record('Adapter connection ended: $error');
@@ -196,6 +221,7 @@ class DiagnosticSession extends ChangeNotifier {
 
   void detach() {
     if (!connected) return;
+    wakeLockHandler?.call(false);
     _generation++;
     record('Adapter disconnected');
     _elmSession = null;
