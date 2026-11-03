@@ -12,6 +12,7 @@ import 'diagnostics/vehicle_catalog.dart';
 import 'ecu_detail_dialog.dart';
 import 'live_data_page.dart';
 import 'preferences_page.dart';
+import 'recovered_actuator_panel.dart';
 import 'service_coding_page.dart';
 
 void main() {
@@ -407,10 +408,10 @@ class OverviewTab extends StatelessWidget {
                             SizedBox(width: 12),
                             Expanded(
                               child: _ActionTile(
-                                icon: Icons.tune_rounded,
-                                title: 'Vehicle coding',
-                                subtitle: 'Module configuration & backup',
-                                kind: DiagnosticKind.coding,
+                                icon: Icons.precision_manufacturing_outlined,
+                                title: 'Actuator tests',
+                                subtitle: 'Bi-directional component tests',
+                                kind: DiagnosticKind.actuator,
                               ),
                             ),
                           ],
@@ -430,10 +431,10 @@ class OverviewTab extends StatelessWidget {
                           kind: DiagnosticKind.service,
                         ),
                         _ActionTile(
-                          icon: Icons.tune_rounded,
-                          title: 'Vehicle coding',
-                          subtitle: 'Module configuration & backup',
-                          kind: DiagnosticKind.coding,
+                          icon: Icons.precision_manufacturing_outlined,
+                          title: 'Actuator tests',
+                          subtitle: 'Bi-directional component tests',
+                          kind: DiagnosticKind.actuator,
                         ),
                       ],
                       const SizedBox(height: 22),
@@ -982,7 +983,7 @@ class _SectionHeader extends StatelessWidget {
   );
 }
 
-enum DiagnosticKind { scan, service, coding }
+enum DiagnosticKind { scan, service, actuator }
 
 class _ActionTile extends StatelessWidget {
   const _ActionTile({
@@ -1578,17 +1579,9 @@ class DiagnosticPage extends StatefulWidget {
 }
 
 class _DiagnosticPageState extends State<DiagnosticPage> {
-  final _didController = TextEditingController();
   bool _busy = false;
   String? _error;
-  String? _dataResult;
   List<String>? _faults;
-
-  @override
-  void dispose() {
-    _didController.dispose();
-    super.dispose();
-  }
 
   Future<void> _scanFaults() async {
     setState(() {
@@ -1649,42 +1642,6 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
     }
   }
 
-  Future<void> _readDid() async {
-    final rawDid = _didController.text.trim();
-    if (!RegExp(r'^[0-9a-fA-F]{1,4}$').hasMatch(rawDid)) {
-      setState(() {
-        _error = 'Enter a hexadecimal data identifier (up to 4 digits).';
-        _dataResult = null;
-      });
-      return;
-    }
-    final did = int.parse(rawDid, radix: 16);
-    setState(() {
-      _busy = true;
-      _error = null;
-      _dataResult = null;
-    });
-    try {
-      final bytes = await DiagnosticSession.instance.readDataIdentifier(did);
-      if (mounted) {
-        setState(
-          () => _dataResult = bytes.isEmpty
-              ? '(empty response data)'
-              : bytes
-                    .map(
-                      (byte) =>
-                          byte.toRadixString(16).padLeft(2, '0').toUpperCase(),
-                    )
-                    .join(' '),
-        );
-      }
-    } catch (error) {
-      if (mounted) setState(() => _error = error.toString());
-    } finally {
-      if (mounted) setState(() => _busy = false);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final (title, description, icon) = switch (widget.kind) {
@@ -1698,10 +1655,10 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
         'Maintenance and reset operations for BMW Motorrad modules.',
         Icons.build_outlined,
       ),
-      DiagnosticKind.coding => (
-        'Vehicle coding',
-        'Read and modify vehicle equipment and display options.',
-        Icons.tune,
+      DiagnosticKind.actuator => (
+        'Actuator tests',
+        'Bi-directional component tests for supported BMW Motorrad modules.',
+        Icons.precision_manufacturing_outlined,
       ),
     };
     return Scaffold(
@@ -1817,67 +1774,8 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                     ),
                   ),
               ],
-              DiagnosticKind.coding => [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: _panel,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Read vehicle data by identifier',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        'Enter a DID from a definition applicable to your motorcycle. The response is shown as raw bytes.',
-                        style: TextStyle(
-                          color: Colors.white54,
-                          fontSize: 12,
-                          height: 1.4,
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      TextField(
-                        controller: _didController,
-                        enabled: !_busy,
-                        textCapitalization: TextCapitalization.characters,
-                        autocorrect: false,
-                        decoration: const InputDecoration(
-                          labelText: 'Data identifier (hex)',
-                          hintText: 'Enter known DID',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton.icon(
-                          onPressed:
-                              !DiagnosticSession.instance.protocolReady || _busy
-                              ? null
-                              : _readDid,
-                          icon: const Icon(Icons.download_outlined),
-                          label: const Text('Read identifier'),
-                        ),
-                      ),
-                      if (_dataResult != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: SelectableText(
-                            'Raw response: $_dataResult',
-                            style: const TextStyle(
-                              fontFamily: 'monospace',
-                              color: _lime,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
+              DiagnosticKind.actuator => [
+                const RecoveredActuatorPanel(),
               ],
             },
             if (widget.kind == DiagnosticKind.scan &&
