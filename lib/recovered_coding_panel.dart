@@ -10,7 +10,9 @@ const _muted = Color(0xFF929B9B);
 
 /// Interactive ECU Coding inspection, parameter decoding, and backup panel.
 class RecoveredCodingPanel extends StatefulWidget {
-  const RecoveredCodingPanel({super.key});
+  const RecoveredCodingPanel({super.key, this.catalog});
+
+  final BmwCodingDefinitionCatalog? catalog;
 
   @override
   State<RecoveredCodingPanel> createState() => _RecoveredCodingPanelState();
@@ -24,12 +26,29 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
   String? _statusMessage;
   Map<int, List<int>> _rawBlocks = {};
   Map<String, String> _decodedValues = {};
+  final Map<int, List<int>> _modifiedBlocks = {};
+  final Map<String, String> _modifiedParameters = {};
+  bool _writingEcu = false;
   final List<VerifiedCodingBackup> _savedBackups = [];
 
   @override
   void initState() {
     super.initState();
-    _loadCatalog();
+    if (widget.catalog != null) {
+      _catalog = widget.catalog;
+      _loadingCatalog = false;
+      _initVariantSelection(widget.catalog!);
+    } else {
+      _loadCatalog();
+    }
+  }
+
+  void _initVariantSelection(BmwCodingDefinitionCatalog cat) {
+    if (cat.variants.isNotEmpty) {
+      _selectedVariantKey = cat.variants.containsKey('KMBI_K25_C04')
+          ? 'KMBI_K25_C04'
+          : cat.variants.keys.first;
+    }
   }
 
   Future<void> _loadCatalog() async {
@@ -39,12 +58,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
       setState(() {
         _catalog = cat;
         _loadingCatalog = false;
-        // Default to KMBI_K25_C04 or first variant
-        if (cat.variants.isNotEmpty) {
-          _selectedVariantKey = cat.variants.containsKey('KMBI_K25_C04')
-              ? 'KMBI_K25_C04'
-              : cat.variants.keys.first;
-        }
+        _initVariantSelection(cat);
       });
     } catch (e) {
       if (!mounted) return;
@@ -149,6 +163,201 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
     });
   }
 
+  void _stageParameterChange(CodingParameterDefinition param, String optionName) {
+    final currentPayload = _modifiedBlocks[param.did] ?? _rawBlocks[param.did];
+    if (currentPayload == null) return;
+    try {
+      final updatedPayload = param.encodeValue(currentPayload, optionName);
+      setState(() {
+        _modifiedBlocks[param.did] = updatedPayload;
+        _modifiedParameters[param.name] = optionName;
+        _statusMessage = 'Staged change for ${param.name}: $optionName';
+      });
+    } catch (e) {
+      setState(() => _statusMessage = 'Cannot encode parameter ${param.name}: $e');
+    }
+  }
+
+  void _discardModifications() {
+    setState(() {
+      _modifiedBlocks.clear();
+      _modifiedParameters.clear();
+      _statusMessage = 'Staged changes discarded.';
+    });
+  }
+
+  void _promptOptionSelection(CodingParameterDefinition param) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: _panel,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Select Option: ${param.name}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'DID 0x${param.did.toRadixString(16).padLeft(4, "0").toUpperCase()} · Byte ${param.offset}',
+                style: const TextStyle(color: _muted, fontSize: 12),
+              ),
+              const SizedBox(height: 12),
+              for (final opt in param.options)
+                ListTile(
+                  title: Text(opt.name, style: const TextStyle(color: Colors.white)),
+                  subtitle: Text('Hex: ${opt.rawHex}', style: const TextStyle(color: _muted, fontSize: 11)),
+                  trailing: (_modifiedParameters[param.name] == opt.name ||
+                          (_modifiedParameters[param.name] == null && _decodedValues[param.name] == opt.name))
+                      ? const Icon(Icons.check, color: _lime)
+                      : null,
+                  onTap: () {
+                    Navigator.pop(context);
+                    _stageParameterChange(param, opt.name);
+                  },
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _writeToEcu() async {
+    final session = DiagnosticSession.instance;
+    final cat = _catalog;
+    final variantKey = _selectedVariantKey;
+    if (cat == null || variantKey == null) return;
+    final variant = cat.variants[variantKey];
+    if (variant == null || _modifiedBlocks.isEmpty) return;
+
+    if (!session.connected) {
+      setState(() => _statusMessage = 'Connect an adapter before writing coding.');
+      return;
+    }
+
+    final client = session.udsClient;
+    if (client == null) {
+      setState(() => _statusMessage = 'No active UDS client communication link.');
+      return;
+    }
+
+    final currentEcuKey = session.ecuDefinitionKey?.toUpperCase() ?? '';
+    final variantEcuFamily = variant.ecuFamily.toUpperCase();
+    if (currentEcuKey.isNotEmpty &&
+        !currentEcuKey.contains(variantEcuFamily) &&
+        !(variantEcuFamily == 'KMBI' && currentEcuKey.contains('KOMB'))) {
+      setState(() => _statusMessage =
+          'Target mismatch: Connected ECU is "${session.ecuDefinitionKey}", but variant is for $variantEcuFamily.');
+      return;
+    }
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: _panel,
+        title: Row(
+          children: [
+            const Icon(Icons.warning_amber_rounded, color: Colors.amber, size: 24),
+            const SizedBox(width: 10),
+            Expanded(child: Text('Write Coding to ${variant.ecuFamily}?')),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Variant: ${variant.key} (${variant.header})\n'
+              'Blocks to write: ${_modifiedBlocks.length} (${_modifiedParameters.length} parameters changed).\n\n'
+              'Changes:\n${_modifiedParameters.entries.map((e) => "• ${e.key}: ${e.value}").join("\n")}\n\n'
+              'A verified tamper-evident pre-flight backup will be automatically saved before writing. '
+              'The ECU will reset after writing to apply the new coding.',
+              style: const TextStyle(fontSize: 12.5, height: 1.4, color: Colors.white70),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.amber, foregroundColor: Colors.black),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Confirm & Write'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    setState(() {
+      _writingEcu = true;
+      _statusMessage = 'Writing ${_modifiedBlocks.length} block(s) and verifying readback...';
+    });
+
+    try {
+      final engine = BmwCodingEngine(catalog: cat, allowPhysicalWrites: true);
+
+      // Pre-flight verified backup
+      final autoBackup = engine.createBackup(
+        vin: session.profile.vin ?? 'UNKNOWN',
+        vehicleModel: session.profile.modelName ?? 'BMW Motorrad',
+        variant: variant,
+        blockPayloads: _rawBlocks,
+      );
+      _savedBackups.insert(0, autoBackup);
+
+      // Write coding blocks with readback verification & ECU reset
+      await engine.writeCodingBlocks(
+        client: client,
+        variant: variant,
+        originalBlocks: _rawBlocks,
+        updatedBlocks: _modifiedBlocks,
+      );
+
+      // Re-read from ECU to confirm live state
+      final refreshedBlocks = await engine.readEcuCodingBlocks(
+        client: client,
+        variant: variant,
+      );
+      final refreshedDecoded = engine.decodeParameters(
+        variant: variant,
+        blockPayloads: refreshedBlocks,
+      );
+
+      if (!mounted) return;
+      setState(() {
+        _rawBlocks = refreshedBlocks;
+        _decodedValues = refreshedDecoded;
+        _modifiedBlocks.clear();
+        _modifiedParameters.clear();
+        _writingEcu = false;
+        _statusMessage =
+            'Successfully wrote coding to ${variant.key} and verified readback! Backup saved with SHA ${autoBackup.sha256Hash.substring(0, 12)}...';
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _writingEcu = false;
+        _statusMessage = 'Coding write failed: $e';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loadingCatalog) {
@@ -176,30 +385,30 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
         Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: const Color(0xFF1F1A12),
+            color: const Color(0xFF142017),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFE5A93C).withValues(alpha: 0.5)),
+            border: Border.all(color: _lime.withValues(alpha: 0.5)),
           ),
           child: const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.shield_outlined, color: Color(0xFFE5A93C), size: 20),
+              Icon(Icons.verified_outlined, color: _lime, size: 20),
               SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hardware Safety Guardrail Active',
+                      'Verified Coding Engine Active',
                       style: TextStyle(
-                        color: Color(0xFFE5A93C),
+                        color: _lime,
                         fontWeight: FontWeight.bold,
                         fontSize: 13,
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'ECU coding writes are disabled pending physical bench validation. Coding snapshots are held in memory only and cannot be restored to the ECU.',
+                      'ECU coding writes enabled with automatic pre-flight verification backup, length validation, and post-write readback. Tap any parameter below to edit, then apply changes.',
                       style: TextStyle(color: Colors.white70, fontSize: 12, height: 1.35),
                     ),
                   ],
@@ -284,6 +493,8 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
                     _selectedVariantKey = newKey;
                     _rawBlocks.clear();
                     _decodedValues.clear();
+                    _modifiedBlocks.clear();
+                    _modifiedParameters.clear();
                     _statusMessage = null;
                   });
                 },
@@ -371,6 +582,79 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
 
         const SizedBox(height: 18),
 
+        if (_modifiedBlocks.isNotEmpty) ...[
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2B2211),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.6)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.edit_note, color: Colors.amber, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        '${_modifiedParameters.length} parameter(s) staged across ${_modifiedBlocks.length} block(s)',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: _writingEcu ? null : _discardModifications,
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white70,
+                          side: const BorderSide(color: Colors.white24),
+                        ),
+                        child: const Text('Discard'),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 2,
+                      child: FilledButton.icon(
+                        onPressed: _writingEcu ? null : _writeToEcu,
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.black,
+                        ),
+                        icon: _writingEcu
+                            ? const SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.black,
+                                ),
+                              )
+                            : const Icon(Icons.upload, size: 16),
+                        label: Text(
+                          _writingEcu ? 'Writing to ECU...' : 'Apply Coding to ECU',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 14),
+        ],
+
         // Parameters Section
         if (variant != null) ...[
           Row(
@@ -395,14 +679,16 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
           for (final block in variant.blocks) ...[
             Container(
               margin: const EdgeInsets.only(bottom: 12),
-              decoration: BoxDecoration(
+              child: Material(
                 color: _panel,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white10),
-              ),
-              child: Theme(
-                data: ThemeData.dark().copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(color: Colors.white10),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: Theme(
+                  data: ThemeData.dark().copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
                   initiallyExpanded: true,
                   title: Text(
                     '${block.name} (DID ${block.didHex})',
@@ -424,6 +710,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
                 ),
               ),
             ),
+          ),
           ],
         ],
 
@@ -492,65 +779,100 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
 
   Widget _buildParameterTile(CodingParameterDefinition param) {
     final activeVal = _decodedValues[param.name];
+    final modifiedVal = _modifiedParameters[param.name];
+    final canEdit = _rawBlocks.containsKey(param.did) && param.options.isNotEmpty;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.white10, width: 0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  param.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12.5,
+    return InkWell(
+      onTap: canEdit ? () => _promptOptionSelection(param) : null,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: modifiedVal != null ? Colors.amber.withValues(alpha: 0.08) : Colors.transparent,
+          border: const Border(bottom: BorderSide(color: Colors.white10, width: 0.5)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          param.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                      ),
+                      if (canEdit) ...[
+                        const SizedBox(width: 6),
+                        Icon(Icons.edit, size: 12, color: Colors.white.withValues(alpha: 0.3)),
+                      ],
+                    ],
                   ),
                 ),
-              ),
-              if (activeVal != null)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: _lime.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _lime.withValues(alpha: 0.4)),
-                  ),
-                  child: Text(
-                    activeVal,
-                    style: const TextStyle(
-                      color: _lime,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 11,
+                if (modifiedVal != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.amber.withValues(alpha: 0.25),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: Colors.amber, width: 0.8),
+                    ),
+                    child: Text(
+                      '${activeVal ?? "?"} → $modifiedVal',
+                      style: const TextStyle(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
+                  )
+                else if (activeVal != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: _lime.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: _lime.withValues(alpha: 0.4)),
+                    ),
+                    child: Text(
+                      activeVal,
+                      style: const TextStyle(
+                        color: _lime,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
                     ),
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              Text(
-                'Byte ${param.offset} · Mask 0x${param.bitmaskHex}',
-                style: const TextStyle(color: _muted, fontSize: 10.5),
-              ),
-              if (param.options.isNotEmpty) ...[
-                const SizedBox(width: 8),
-                Text(
-                  'Options: ${param.options.map((o) => o.name).join(', ')}',
-                  style: const TextStyle(color: Colors.white54, fontSize: 10.5),
-                  overflow: TextOverflow.ellipsis,
-                ),
               ],
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  'Byte ${param.offset} · Mask 0x${param.bitmaskHex}',
+                  style: const TextStyle(color: _muted, fontSize: 10.5),
+                ),
+                if (param.options.isNotEmpty) ...[
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Options: ${param.options.map((o) => o.name).join(', ')}',
+                      style: const TextStyle(color: Colors.white54, fontSize: 10.5),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

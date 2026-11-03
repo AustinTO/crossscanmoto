@@ -75,3 +75,4 @@ artifacts/
 
 # Local sensitive live-device catalog
 /assets/research/biketune-live/
+CrossScanMoto_Agent_*/

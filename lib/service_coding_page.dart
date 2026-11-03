@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'diagnostic_session.dart';
+import 'biketune_catalog_browser.dart';
 import 'recovered_actuator_panel.dart';
 import 'recovered_coding_panel.dart';
 import 'diagnostics/ecu_friendly_names.dart';
@@ -43,7 +44,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
     _serviceEcuKey =
         DiagnosticSession.instance.ecuDefinitionKey ??
         BmwServiceManager.allSupportedEcuKeys.first;
-    _tabs = TabController(length: 3, vsync: this);
+    _tabs = TabController(length: 4, vsync: this);
     DiagnosticSession.instance.addListener(_sessionChanged);
   }
 
@@ -94,6 +95,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
             Tab(text: 'Service Resets'),
             Tab(text: 'Actuator Tests'),
             Tab(text: 'ECU Coding & Backup'),
+            Tab(text: 'Capability Catalog'),
           ],
         ),
       ),
@@ -141,6 +143,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                     _buildServiceTab(),
                     _buildActuatorTab(),
                     const RecoveredCodingPanel(),
+                    const BiketuneCatalogBrowser(),
                   ],
                 ),
               ),

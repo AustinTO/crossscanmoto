@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:crossscanmoto/diagnostic_session.dart';
-import 'package:crossscanmoto/diagnostics/adapter_profile.dart';
 import 'package:crossscanmoto/diagnostics/auto_scan_controller.dart';
 import 'package:crossscanmoto/diagnostics/ecu_catalog.dart';
 import 'package:crossscanmoto/diagnostics/elm_session.dart';

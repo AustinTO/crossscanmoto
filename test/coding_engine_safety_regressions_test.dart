@@ -39,8 +39,8 @@ CodingBlockDefinition _block(int did, int length, List<CodingParameterDefinition
     did: did, offset: 0, length: length, parameters: fields);
 
 void main() {
-  final cat = BmwCodingDefinitionCatalog(
-    variants: const {}, totalVariants: 0, totalParameters: 0, totalOptions: 0,
+  const cat = BmwCodingDefinitionCatalog(
+    variants: {}, totalVariants: 0, totalParameters: 0, totalOptions: 0,
   );
 
   test('invalid option hex must fail, not silently become 0', () {

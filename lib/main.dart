@@ -754,6 +754,11 @@ class _BikeCard extends StatelessWidget {
                                           text: 'AUTO-IDENTIFIED',
                                           color: _lime,
                                         ),
+                                      if (profile.needsDisambiguation)
+                                        const _VehicleTag(
+                                          text: 'DISAMBIGUATION REQUIRED',
+                                          color: Colors.amber,
+                                        ),
                                       if (year != null)
                                         _VehicleTag(text: 'Model year $year'),
                                       if (year == null && !isAuto)

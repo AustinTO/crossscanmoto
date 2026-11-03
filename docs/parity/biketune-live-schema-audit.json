@@ -1,0 +1,3200 @@
+{
+  "note": "No row contents extracted; table names/columns/counts alone do not prove service executability.",
+  "schema_sha256": "6f3d9d38879286fcfac1ce91ed855ba044d9b58b050e35068060270c6d241bc5",
+  "source_bytes": 14577664,
+  "source_sha256": "9ed840d5a37ccafa89a32b7b0135257a3cf7c544d7e58234a4c465bfb7e8ab73",
+  "source_table_count": 41,
+  "sqlite_integrity": "ok",
+  "sqlite_user_version": 0,
+  "summary_by_table": {
+    "actuators": 148,
+    "adaptations": 13,
+    "bike_ecus": 778,
+    "bike_market_models": 128,
+    "bike_variants": 258,
+    "bikes": 83,
+    "bootloader_keys": 1955,
+    "coding_functions": 4758,
+    "coding_groups": 10,
+    "coding_keys": 1440,
+    "coding_labels": 4083,
+    "coding_options": 6466,
+    "coding_preset_items": 50,
+    "coding_preset_options": 10,
+    "coding_presets": 3,
+    "coding_retrofit_items": 1122,
+    "coding_retrofit_sets": 3907,
+    "coding_retrofits": 4,
+    "dtc_events": 2445,
+    "dtc_labels": 12541,
+    "ecu_aliases": 60,
+    "ecu_jobs": 2767,
+    "ecu_routines": 357,
+    "ecu_variants": 119,
+    "ecus": 95,
+    "equipment_config": 121,
+    "guide_codes": 572,
+    "guides": 33,
+    "live_param_labels": 16433,
+    "live_params": 22035,
+    "mr_coding_aliases": 4,
+    "mr_coding_params": 1301,
+    "mr_coding_records": 131,
+    "mr_coding_units": 11,
+    "ncd_pages": 354,
+    "platform_ecus": 49,
+    "sa_codes": 1496,
+    "schema_meta": 1,
+    "service_functions": 98,
+    "service_steps": 397,
+    "swe_versions": 526
+  },
+  "tables": [
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "actuator_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "parent_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "label",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "request_pdu",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "positive_response",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "wait_ms",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "name",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "name": "biketune_name",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 13,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 14,
+          "name": "biketune_hidden",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_actuators_ecu",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_actuators_1",
+          "unique": true
+        }
+      ],
+      "name": "actuators",
+      "rows": 148,
+      "tags": [
+        "actuator"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "adaptation_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "kind",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "read_did",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "reset_pdu",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "reset_response",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "text_ref",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "label",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 13,
+          "name": "sort",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 14,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 15,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_adaptations_ecu",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_adaptations_1",
+          "unique": true
+        }
+      ],
+      "name": "adaptations",
+      "rows": 13,
+      "tags": [
+        "adapt"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "ebr",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        },
+        {
+          "from_col": "ebr",
+          "id": 1,
+          "referenced_table": "bikes",
+          "to_col": "ebr"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_bike_ecus_1",
+          "unique": true
+        }
+      ],
+      "name": "bike_ecus",
+      "rows": 778,
+      "tags": [
+        "bike",
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "ebr",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "series_letter",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "ordinal",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ebr",
+          "id": 0,
+          "referenced_table": "bikes",
+          "to_col": "ebr"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_bike_market_models_series",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_bike_market_models_1",
+          "unique": true
+        }
+      ],
+      "name": "bike_market_models",
+      "rows": 128,
+      "tags": [
+        "bike",
+        "model"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "ebr",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "variant_code",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ebr",
+          "id": 0,
+          "referenced_table": "bikes",
+          "to_col": "ebr"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_bike_variants_1",
+          "unique": true
+        }
+      ],
+      "name": "bike_variants",
+      "rows": 258,
+      "tags": [
+        "bike",
+        "variant"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "ebr",
+          "notnull": false,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "series",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "model_name",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "year_begin",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 4,
+          "name": "year_end",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "name": "series_group",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "protocol",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "notes",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "ecu_types_json",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "imported_at",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "name": "biketune_model_name",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 13,
+          "name": "platform_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_bikes_1",
+          "unique": true
+        }
+      ],
+      "name": "bikes",
+      "rows": 83,
+      "tags": [
+        "bike"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "bootloader_id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "sign_key_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "sign_hash",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "sign_n",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "auth_key_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "name": "auth_hash",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "auth_n",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "auth_key_id",
+          "id": 0,
+          "referenced_table": "coding_keys",
+          "to_col": "id"
+        },
+        {
+          "from_col": "sign_key_id",
+          "id": 1,
+          "referenced_table": "coding_keys",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_bootloader_keys_auth",
+          "unique": false
+        },
+        {
+          "name": "ix_bootloader_keys_sign",
+          "unique": false
+        }
+      ],
+      "name": "bootloader_keys",
+      "rows": 1955,
+      "tags": [
+        "key"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "cafd_root",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "cafd_version",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "register",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "bit_start",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "bit_end",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "mask",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "title_ref",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "desc_ref",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "name": "factory_default",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "name": "ubiquity",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "name": "series_mask",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 13,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_coding_fn_root_v",
+          "unique": false
+        },
+        {
+          "name": "ix_coding_fn_root",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_coding_functions_1",
+          "unique": true
+        }
+      ],
+      "name": "coding_functions",
+      "rows": 4758,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "key",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "title",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "sort_order",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_coding_groups_1",
+          "unique": true
+        }
+      ],
+      "name": "coding_groups",
+      "rows": 10,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "kind",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "key_b64",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_coding_keys_1",
+          "unique": true
+        }
+      ],
+      "name": "coding_keys",
+      "rows": 1440,
+      "tags": [
+        "coding",
+        "key"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "function_id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "title",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "biketune_title",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "name": "biketune_unit",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "biketune_ui",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "biketune_step",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "name": "biketune_decode",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "name": "biketune_group_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "name": "biketune_advanced",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "function_id",
+          "id": 0,
+          "referenced_table": "coding_functions",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [],
+      "name": "coding_labels",
+      "rows": 4083,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "function_id",
+          "notnull": true,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "value",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "label",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "function_id",
+          "id": 0,
+          "referenced_table": "coding_functions",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_coding_options_1",
+          "unique": true
+        }
+      ],
+      "name": "coding_options",
+      "rows": 6466,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "option_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "register",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "bit_start",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "bit_end",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "mask",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "value",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "option_id",
+          "id": 0,
+          "referenced_table": "coding_preset_options",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [],
+      "name": "coding_preset_items",
+      "rows": 50,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "preset_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "label",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "is_default",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 4,
+          "name": "sort_order",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "preset_id",
+          "id": 0,
+          "referenced_table": "coding_presets",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [],
+      "name": "coding_preset_options",
+      "rows": 10,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "cafd_root",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "series",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "title",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "group_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "name": "sort_order",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "group_id",
+          "id": 0,
+          "referenced_table": "coding_groups",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_preset_root",
+          "unique": false
+        }
+      ],
+      "name": "coding_presets",
+      "rows": 3,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "table_hash",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "register",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "bit_start",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "bit_end",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "mask",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "value",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "base",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "sa_present",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "sa_absent",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "date_from",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "date_to",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_retrofit_items",
+          "unique": false
+        }
+      ],
+      "name": "coding_retrofit_items",
+      "rows": 1122,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "retrofit_id",
+          "notnull": true,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "cafd_version",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "type_key",
+          "notnull": true,
+          "pk": 3,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "table_hash",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "retrofit_id",
+          "id": 0,
+          "referenced_table": "coding_retrofits",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_coding_retrofit_sets_1",
+          "unique": true
+        }
+      ],
+      "name": "coding_retrofit_sets",
+      "rows": 3907,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "sa",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "cafd_root",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "title",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "group_key",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_coding_retrofits_1",
+          "unique": true
+        }
+      ],
+      "name": "coding_retrofits",
+      "rows": 4,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "code",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "variant",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_dtc_events_1",
+          "unique": true
+        }
+      ],
+      "name": "dtc_events",
+      "rows": 2445,
+      "tags": [
+        "dtc"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "code",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "variant",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "role",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "text",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "biketune_text",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "doc_ids",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_dtc_labels_code",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_dtc_labels_1",
+          "unique": true
+        }
+      ],
+      "name": "dtc_labels",
+      "rows": 12541,
+      "tags": [
+        "dtc"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "alias",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_ecu_aliases_alias",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_ecu_aliases_1",
+          "unique": true
+        }
+      ],
+      "name": "ecu_aliases",
+      "rows": 60,
+      "tags": [
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "job",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "service",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 4,
+          "name": "pdu",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_ecu_jobs_ecu",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_ecu_jobs_1",
+          "unique": true
+        }
+      ],
+      "name": "ecu_jobs",
+      "rows": 2767,
+      "tags": [
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "rid",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 3,
+          "name": "name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "arg_table",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "res_table",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_ecu_routines_1",
+          "unique": true
+        }
+      ],
+      "name": "ecu_routines",
+      "rows": 357,
+      "tags": [
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "address",
+          "notnull": true,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "variant_index",
+          "notnull": true,
+          "pk": 2,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "index_bytes",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 3,
+          "name": "sgbd",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "ecu_group",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "generation",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_ecu_variants_sgbd",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_ecu_variants_1",
+          "unique": true
+        }
+      ],
+      "name": "ecu_variants",
+      "rows": 119,
+      "tags": [
+        "variant",
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "name",
+          "notnull": false,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "address",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "cafd_root",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "name": "imported_at",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_ecus_cafd_root",
+          "unique": false
+        },
+        {
+          "name": "ix_ecus_address",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_ecus_1",
+          "unique": true
+        }
+      ],
+      "name": "ecus",
+      "rows": 95,
+      "tags": [
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "code",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "read_did",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "byte_offset",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "name": "bit_mask",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "name": "width",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "label",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "name": "sort",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_equipment_config_ecu",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_equipment_config_1",
+          "unique": true
+        }
+      ],
+      "name": "equipment_config",
+      "rows": 121,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "code",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "slug",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "slug",
+          "id": 0,
+          "referenced_table": "guides",
+          "to_col": "slug"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_guide_codes_code",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_guide_codes_1",
+          "unique": true
+        }
+      ],
+      "name": "guide_codes",
+      "rows": 572,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "slug",
+          "notnull": false,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "kind",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "goal",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "title",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "summary",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "read_min",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "name": "trust",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "free",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "video_url",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "updated",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "name": "bikes",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "name": "tags",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "name": "body",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 13,
+          "name": "search_text",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 14,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 15,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 16,
+          "name": "hero",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_guides_goal",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_guides_1",
+          "unique": true
+        }
+      ],
+      "name": "guides",
+      "rows": 33,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "param_id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "text",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "biketune_text",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "param_id",
+          "id": 0,
+          "referenced_table": "live_params",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [],
+      "name": "live_param_labels",
+      "rows": 16433,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "param_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "bmw_short",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "parent_id",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "uds_did",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "bucket",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "fields",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "text_ref",
+          "notnull": false,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 9,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "name": "biketune_hidden",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "name": "biketune_default",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_live_params_ecu",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_live_params_1",
+          "unique": true
+        }
+      ],
+      "name": "live_params",
+      "rows": 22035,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "name",
+          "notnull": false,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "file",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_mr_coding_aliases_1",
+          "unique": true
+        }
+      ],
+      "name": "mr_coding_aliases",
+      "rows": 4,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "file",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "record",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 3,
+          "name": "block",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "byte_index",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "name": "length",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 7,
+          "name": "mask",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 8,
+          "name": "options",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "sort",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 11,
+          "name": "biketune_block_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 12,
+          "name": "biketune_option_labels",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 13,
+          "name": "biketune_risky",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 14,
+          "name": "biketune_hidden",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 15,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_mr_coding_params_file",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_mr_coding_params_1",
+          "unique": true
+        }
+      ],
+      "name": "mr_coding_params",
+      "rows": 1301,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "file",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "record",
+          "notnull": true,
+          "pk": 2,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "length",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 3,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_mr_coding_records_1",
+          "unique": true
+        }
+      ],
+      "name": "mr_coding_records",
+      "rows": 131,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "sgbd",
+          "notnull": false,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "prefix",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_mr_coding_units_1",
+          "unique": true
+        }
+      ],
+      "name": "mr_coding_units",
+      "rows": 11,
+      "tags": [
+        "coding"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "cafd_root",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "page",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "kind",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "is_signature",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 4,
+          "name": "sort_order",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_ncd_pages_root",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_ncd_pages_1",
+          "unique": true
+        }
+      ],
+      "name": "ncd_pages",
+      "rows": 354,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "platform_id",
+          "notnull": true,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "address",
+          "notnull": true,
+          "pk": 2,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "modulegroup",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "control_type",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "protocol_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 5,
+          "name": "ecu_group_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 6,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_platform_ecus_platform",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_platform_ecus_1",
+          "unique": true
+        }
+      ],
+      "name": "platform_ecus",
+      "rows": 49,
+      "tags": [
+        "ecu"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "code",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "lang",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "text",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "biketune_text",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_sa_codes_code",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_sa_codes_1",
+          "unique": true
+        }
+      ],
+      "name": "sa_codes",
+      "rows": 1496,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "key",
+          "notnull": false,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "value",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_schema_meta_1",
+          "unique": true
+        }
+      ],
+      "name": "schema_meta",
+      "rows": 1,
+      "tags": []
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "ecu_name",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "function_id",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "category",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "label",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "biketune_label",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "biketune_description",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "sort",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 10,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "name": "disabled",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "ecu_name",
+          "id": 0,
+          "referenced_table": "ecus",
+          "to_col": "name"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_service_functions_ecu",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_service_functions_1",
+          "unique": true
+        }
+      ],
+      "name": "service_functions",
+      "rows": 98,
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "notnull": false,
+          "pk": 1,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 1,
+          "name": "function_pk",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 2,
+          "name": "step_order",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 3,
+          "name": "kind",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "lang",
+          "notnull": true,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 5,
+          "name": "text",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 6,
+          "name": "biketune_text",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 7,
+          "name": "request_pdu",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 8,
+          "name": "stop_pdu",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 9,
+          "name": "positive_response",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 10,
+          "name": "keepalive_ms",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 11,
+          "name": "wait_ms",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 12,
+          "name": "repeat",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 13,
+          "name": "source",
+          "notnull": true,
+          "pk": 0,
+          "type": "INTEGER"
+        },
+        {
+          "cid": 14,
+          "name": "hold_pdu",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [
+        {
+          "from_col": "function_pk",
+          "id": 0,
+          "referenced_table": "service_functions",
+          "to_col": "id"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_service_steps_1",
+          "unique": true
+        }
+      ],
+      "name": "service_steps",
+      "rows": 397,
+      "tags": [
+        "service",
+        "step"
+      ]
+    },
+    {
+      "columns": [
+        {
+          "cid": 0,
+          "name": "cafd_root",
+          "notnull": true,
+          "pk": 1,
+          "type": "TEXT"
+        },
+        {
+          "cid": 1,
+          "name": "version",
+          "notnull": true,
+          "pk": 2,
+          "type": "TEXT"
+        },
+        {
+          "cid": 2,
+          "name": "date",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 3,
+          "name": "notes",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        },
+        {
+          "cid": 4,
+          "name": "chassis",
+          "notnull": false,
+          "pk": 0,
+          "type": "TEXT"
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "name": "ix_swe_versions_root",
+          "unique": false
+        },
+        {
+          "name": "sqlite_autoindex_swe_versions_1",
+          "unique": true
+        }
+      ],
+      "name": "swe_versions",
+      "rows": 526,
+      "tags": []
+    }
+  ]
+}

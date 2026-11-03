@@ -379,7 +379,14 @@ class VehicleProfile {
     this.odometerKm,
     this.notes,
     this.isAutoIdentified = false,
-  });
+    this.sourceQualifiedId,
+    this.variantCode,
+    this.ebr,
+    this.platformId,
+    this.needsDisambiguation = false,
+  }) {
+    migrateProfile();
+  }
 
   String? modelName;
   int? modelYear;
@@ -387,10 +394,79 @@ class VehicleProfile {
   int? odometerKm;
   String? notes;
   bool isAutoIdentified;
+  String? sourceQualifiedId;
+  String? variantCode;
+  String? ebr;
+  String? platformId;
+  bool needsDisambiguation;
 
   BmwMotorcycleModel? get model => BmwVehicleCatalog.findByName(modelName);
 
   bool get hasVehicle => modelName != null;
+
+  /// Migrates legacy unversioned profiles to source-qualified variant identities
+  /// without silent misrouting or arbitrary platform guessing.
+  void migrateProfile() {
+    if (sourceQualifiedId != null || modelName == null) return;
+
+    final cleanName = modelName!.trim();
+    if (cleanName.toLowerCase() == 'r ninet' || cleanName.toUpperCase() == 'K21') {
+      ebr = 'K21';
+      if (modelYear != null && modelYear! <= 2016) {
+        platformId = '1';
+        sourceQualifiedId = 'source:motoscan:platform:1:K21';
+        variantCode = '0A06';
+        needsDisambiguation = false;
+      } else if (modelYear != null && modelYear! >= 2017) {
+        platformId = '2';
+        sourceQualifiedId = 'source:motoscan:platform:2:K21';
+        variantCode = '0J01';
+        needsDisambiguation = false;
+      } else {
+        needsDisambiguation = true;
+      }
+      return;
+    }
+
+    if (cleanName.toLowerCase().contains('s 1000 rr') || cleanName.toUpperCase() == 'K46') {
+      if (modelYear != null && modelYear! <= 2011) {
+        ebr = 'K46';
+        platformId = '1';
+        sourceQualifiedId = 'source:motoscan:platform:1:K46_2010';
+        needsDisambiguation = false;
+      } else if (modelYear != null && modelYear! >= 2012 && modelYear! <= 2018) {
+        ebr = 'K46';
+        platformId = '2';
+        sourceQualifiedId = 'source:motoscan:platform:2:K46';
+        needsDisambiguation = false;
+      } else if (modelYear != null && modelYear! >= 2019) {
+        ebr = 'K67';
+        platformId = '2';
+        sourceQualifiedId = 'source:biketune:1.9.1:bike:K67';
+        needsDisambiguation = false;
+      } else {
+        ebr = 'K46';
+        needsDisambiguation = true;
+      }
+      return;
+    }
+
+    if (cleanName.toLowerCase() == 'ce 04' || cleanName.toUpperCase() == 'K07') {
+      ebr = 'K07';
+      platformId = '2';
+      sourceQualifiedId = 'source:biketune:1.9.1:bike:K07';
+      needsDisambiguation = false;
+      return;
+    }
+
+    final m = model;
+    if (m != null) {
+      ebr = m.seriesCode;
+      platformId = m.platformId ?? '2';
+      sourceQualifiedId = 'source:biketune:1.9.1:bike:${m.seriesCode}';
+      needsDisambiguation = false;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         'modelName': modelName,
@@ -399,6 +475,11 @@ class VehicleProfile {
         'odometerKm': odometerKm,
         'notes': notes,
         'isAutoIdentified': isAutoIdentified,
+        'sourceQualifiedId': sourceQualifiedId,
+        'variantCode': variantCode,
+        'ebr': ebr,
+        'platformId': platformId,
+        'needsDisambiguation': needsDisambiguation,
       };
 
   factory VehicleProfile.fromJson(Map<String, dynamic> json) => VehicleProfile(
@@ -408,5 +489,10 @@ class VehicleProfile {
         odometerKm: json['odometerKm'] as int?,
         notes: json['notes'] as String?,
         isAutoIdentified: json['isAutoIdentified'] as bool? ?? false,
+        sourceQualifiedId: json['sourceQualifiedId'] as String?,
+        variantCode: json['variantCode'] as String?,
+        ebr: json['ebr'] as String?,
+        platformId: json['platformId'] as String?,
+        needsDisambiguation: json['needsDisambiguation'] as bool? ?? false,
       );
 }

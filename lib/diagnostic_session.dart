@@ -137,16 +137,36 @@ class DiagnosticSession extends ChangeNotifier {
     _profile.odometerKm = null;
     _profile.notes = null;
     _profile.isAutoIdentified = false;
+    _profile.sourceQualifiedId = null;
+    _profile.variantCode = null;
+    _profile.ebr = null;
+    _profile.platformId = null;
+    _profile.needsDisambiguation = false;
     record('Vehicle profile cleared');
     notifyListeners();
   }
 
-  void updateVehicleProfile({String? model, int? year, String? vin, int? odometer, bool? autoIdentified}) {
+  void updateVehicleProfile({
+    String? model,
+    int? year,
+    String? vin,
+    int? odometer,
+    bool? autoIdentified,
+    String? sourceQualifiedId,
+    String? variantCode,
+    String? ebr,
+    String? platformId,
+  }) {
     if (model != null) _profile.modelName = model;
     if (year != null) _profile.modelYear = year;
     if (vin != null) _profile.vin = vin;
     if (odometer != null) _profile.odometerKm = odometer;
     if (autoIdentified != null) _profile.isAutoIdentified = autoIdentified;
+    if (sourceQualifiedId != null) _profile.sourceQualifiedId = sourceQualifiedId;
+    if (variantCode != null) _profile.variantCode = variantCode;
+    if (ebr != null) _profile.ebr = ebr;
+    if (platformId != null) _profile.platformId = platformId;
+    _profile.migrateProfile();
     record('Vehicle profile updated: ${_profile.modelName ?? 'BMW Motorrad'} ${_profile.modelYear ?? ''}');
     notifyListeners();
   }
