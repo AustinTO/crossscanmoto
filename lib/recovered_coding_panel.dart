@@ -93,10 +93,9 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
         blockPayloads: blocks,
       );
 
-      // Automatic Pre-Flight Safety Backup:
-      // Captured automatically whenever an ECU's coding blocks are read
+      // This snapshot is held in memory only.
       final autoBackup = engine.createBackup(
-        vin: session.profile.vin ?? 'WB10BENCH00000001',
+        vin: session.profile.vin ?? 'UNKNOWN',
         vehicleModel: session.profile.modelName ?? 'BMW Motorrad',
         variant: variant,
         blockPayloads: blocks,
@@ -109,7 +108,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
         _readingEcu = false;
         _savedBackups.insert(0, autoBackup);
         _statusMessage =
-            'Successfully read ${blocks.length} blocks (${decoded.length} parameters decoded). Pre-flight backup auto-saved (${autoBackup.sha256Hash.substring(0, 10)}...).';
+            'Read ${blocks.length} blocks (${decoded.length} parameters decoded). Snapshot is in memory only and will be lost when this screen closes.';
       });
     } catch (e) {
       if (!mounted) return;
@@ -136,7 +135,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
 
     final engine = BmwCodingEngine(catalog: cat);
     final backup = engine.createBackup(
-      vin: DiagnosticSession.instance.profile.vin ?? 'WB10BENCH00000001',
+      vin: DiagnosticSession.instance.profile.vin ?? 'UNKNOWN',
       vehicleModel:
           DiagnosticSession.instance.profile.modelName ?? 'BMW Motorrad',
       variant: variant,
@@ -146,7 +145,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
     setState(() {
       _savedBackups.insert(0, backup);
       _statusMessage =
-          'Verified backup created! SHA-256: ${backup.sha256Hash.substring(0, 16)}...';
+          'Snapshot created in memory only. It will be lost when this screen closes.';
     });
   }
 
@@ -200,7 +199,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'Direct ECU coding write execution is locked until physical bench validation is certified with donor hardware. Read-only inspection, live parameter decoding, and cryptographic backups are fully operational.',
+                      'ECU coding writes are disabled pending physical bench validation. Coding snapshots are held in memory only and cannot be restored to the ECU.',
                       style: TextStyle(color: Colors.white70, fontSize: 12, height: 1.35),
                     ),
                   ],
@@ -346,7 +345,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
                 onPressed: _rawBlocks.isNotEmpty ? _createBackup : null,
                 icon: const Icon(Icons.save_alt, size: 18),
                 label: const Text(
-                  'Save Backup',
+                  'Create Temporary Snapshot',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                 ),
               ),
@@ -432,7 +431,7 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
         if (_savedBackups.isNotEmpty) ...[
           const SizedBox(height: 16),
           const Text(
-            'Cryptographic Backups',
+            'Temporary Snapshots',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

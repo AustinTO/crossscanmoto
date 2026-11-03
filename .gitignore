@@ -72,3 +72,6 @@ AuthKey_*.p8
 # Temporary artifacts and sidecars
 artifacts/
 .omx/
+
+# Local sensitive live-device catalog
+/assets/research/biketune-live/

@@ -54,9 +54,17 @@ void main() {
       expect(s1000rr, isNotNull);
       expect(s1000rr!.seriesCode, 'K67');
 
+      final k46 = BmwVehicleCatalog.findByName('S 1000 RR (K46, 2010–2012)');
+      expect(k46?.seriesCode, 'K46');
+      expect(k46?.platformId, '1');
+
       final f850gs = BmwVehicleCatalog.findByName('F 850 GS');
       expect(f850gs, isNotNull);
       expect(f850gs!.seriesCode, 'K81');
+
+      final ce04 = BmwVehicleCatalog.findByName('CE 04');
+      expect(ce04, isNotNull);
+      expect(ce04!.seriesCode, 'K07');
     });
 
     test('ECU catalog specifies candidate ECU keys for ECU-scoped resolution', () {

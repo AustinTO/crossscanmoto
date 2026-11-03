@@ -150,6 +150,15 @@ class BmwVehicleCatalog {
 
     // S-Series (Inline-4)
     BmwMotorcycleModel(
+      name: 'S 1000 RR (K46, 2010–2012)',
+      seriesCode: 'K46',
+      platformId: '1',
+      engineType: 'Inline-4',
+      displacementCc: 999,
+      startYear: 2010,
+      endYear: 2012,
+    ),
+    BmwMotorcycleModel(
       name: 'S 1000 RR',
       seriesCode: 'K67',
       engineType: 'Inline-4 (ShiftCam)',
@@ -286,7 +295,7 @@ class BmwVehicleCatalog {
     ),
     BmwMotorcycleModel(
       name: 'CE 04',
-      seriesCode: 'K09',
+      seriesCode: 'K07',
       engineType: 'Electric Motor',
       displacementCc: 0,
       startYear: 2022,

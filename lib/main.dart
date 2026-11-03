@@ -1167,7 +1167,8 @@ class _SystemsTabState extends State<SystemsTab> {
     final controller = DiagnosticSession.instance.autoScan;
     final activeVehicle = DiagnosticSession.instance.profile.model;
     final allEcus = activeVehicle != null
-        ? BmwEcuCatalog.forSeries(activeVehicle.seriesCode)
+        ? BmwEcuCatalog.forSeries(activeVehicle.seriesCode,
+            platformId: activeVehicle.platformId)
         : BmwEcuCatalog.all;
     final equippedAddresses = activeVehicle?.primaryEcuAddresses.toSet();
 
