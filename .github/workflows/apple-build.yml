@@ -166,30 +166,30 @@ jobs:
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
           security cms -D -i "$profile_path" > "$profile_plist"
           profile_uuid="$(python3 -c '
-import sys, plistlib
+          import sys, plistlib
 
-plist_path, expected_team, expected_bundle = sys.argv[1:4]
-with open(plist_path, "rb") as f:
-    pl = plistlib.load(f)
+          plist_path, expected_team, expected_bundle = sys.argv[1:4]
+          with open(plist_path, "rb") as f:
+              pl = plistlib.load(f)
 
-uuid = pl.get("UUID")
-team = pl.get("TeamIdentifier", [""])[0]
-app_id = pl.get("Entitlements", {}).get("application-identifier", "")
-prefix = pl.get("ApplicationIdentifierPrefix", [""])[0]
-task_allow = pl.get("Entitlements", {}).get("get-task-allow", False)
-provisioned_devices = "ProvisionedDevices" in pl
+          uuid = pl.get("UUID")
+          team = pl.get("TeamIdentifier", [""])[0]
+          app_id = pl.get("Entitlements", {}).get("application-identifier", "")
+          prefix = pl.get("ApplicationIdentifierPrefix", [""])[0]
+          task_allow = pl.get("Entitlements", {}).get("get-task-allow", False)
+          provisioned_devices = "ProvisionedDevices" in pl
 
-if team != expected_team:
-    raise SystemExit(f"Team mismatch: {team} != {expected_team}")
-if app_id != f"{prefix}.{expected_bundle}":
-    raise SystemExit(f"App ID mismatch: {app_id} != {prefix}.{expected_bundle}")
-if task_allow:
-    raise SystemExit("get-task-allow must be false for App Store profile")
-if provisioned_devices:
-    raise SystemExit("ProvisionedDevices present: not an App Store distribution profile")
+          if team != expected_team:
+              raise SystemExit(f"Team mismatch: {team} != {expected_team}")
+          if app_id != f"{prefix}.{expected_bundle}":
+              raise SystemExit(f"App ID mismatch: {app_id} != {prefix}.{expected_bundle}")
+          if task_allow:
+              raise SystemExit("get-task-allow must be false for App Store profile")
+          if provisioned_devices:
+              raise SystemExit("ProvisionedDevices present: not an App Store distribution profile")
 
-print(uuid)
-' "$profile_plist" "$APPLE_TEAM_ID" "$APPLE_BUNDLE_ID")"
+          print(uuid)
+          ' "$profile_plist" "$APPLE_TEAM_ID" "$APPLE_BUNDLE_ID")"
           installed_profile_path="$HOME/Library/MobileDevice/Provisioning Profiles/$profile_uuid.mobileprovision"
           cp "$profile_path" "$installed_profile_path"
 
