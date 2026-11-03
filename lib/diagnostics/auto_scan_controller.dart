@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'package:flutter/foundation.dart';
 
 import 'dtc_database.dart';
@@ -6,6 +7,7 @@ import 'ecu_catalog.dart';
 import 'elm_session.dart';
 import 'kwp_client.dart';
 import 'protocol_setup.dart';
+import 'recovered_catalog.dart';
 import 'uds_client.dart';
 import 'vehicle_catalog.dart';
 import '../diagnostic_session.dart';
@@ -49,33 +51,103 @@ class EcuScanReport {
   bool get isHealthy => hasNoReportedFaults;
 }
 
+/// Collection of ECU scan reports keyed by unique routing keys or integer addresses.
+///
+/// Prevents cross-protocol address collisions (e.g. K21 dual-platform KWP vs UDS)
+/// while maintaining transparent backwards compatibility for address-based lookups.
+class EcuReportsMap extends UnmodifiableMapBase<dynamic, EcuScanReport> {
+  EcuReportsMap(this._reportsByKey);
+
+  final Map<String, EcuScanReport> _reportsByKey;
+
+  @override
+  EcuScanReport? operator [](Object? key) {
+    if (key is int) {
+      EcuScanReport? fallback;
+      for (final report in _reportsByKey.values) {
+        if (report.definition.standardUdsAddress == key ||
+            report.definition.legacyKwpAddress == key) {
+          if (report.state == EcuScanState.responding) {
+            return report;
+          }
+          fallback ??= report;
+        }
+      }
+      return fallback;
+    }
+    if (key is String) {
+      if (_reportsByKey.containsKey(key)) {
+        return _reportsByKey[key];
+      }
+      for (final report in _reportsByKey.values) {
+        if (report.definition.id == key ||
+            report.definition.germanAbbrev.toLowerCase() == key.toLowerCase()) {
+          return report;
+        }
+      }
+    }
+    if (key is BmwEcuDefinition) {
+      return _reportsByKey[key.routingKey] ?? _reportsByKey[key.id];
+    }
+    return null;
+  }
+
+  @override
+  Iterable<dynamic> get keys => _reportsByKey.keys;
+
+  @override
+  Iterable<EcuScanReport> get values => _reportsByKey.values;
+
+  @override
+  int get length => _reportsByKey.length;
+
+  @override
+  bool containsKey(Object? key) => this[key] != null;
+}
+
 /// Coordinates full vehicle scan across all BMW Motorrad control units.
 class AutoScanController extends ChangeNotifier {
   AutoScanController();
 
-  final Map<int, EcuScanReport> _reports = {};
+  final Map<String, EcuScanReport> _reportsByKey = {};
   bool _isScanning = false;
   double _progress = 0.0;
   String _currentStep = 'Ready';
   bool _cancelled = false;
+  String? _detectedPlatformId;
+  String? _detectedPlatformName;
 
-  Map<int, EcuScanReport> get reports => Map.unmodifiable(_reports);
+  EcuReportsMap get reports => EcuReportsMap(_reportsByKey);
+  Map<String, EcuScanReport> get reportsByKey => Map.unmodifiable(_reportsByKey);
   bool get isScanning => _isScanning;
   double get progress => _progress;
   String get currentStep => _currentStep;
+  String? get detectedPlatformId => _detectedPlatformId;
+  String? get detectedPlatformName => _detectedPlatformName;
 
-  int get totalResponding => _reports.values
+  int get totalResponding => _reportsByKey.values
       .where((r) => r.state == EcuScanState.responding)
       .length;
 
   int get totalFaults =>
-      _reports.values.fold(0, (sum, report) => sum + report.dtcs.length);
+      _reportsByKey.values.fold(0, (sum, report) => sum + report.dtcs.length);
+
+  EcuScanReport? reportFor(BmwEcuDefinition ecu) =>
+      _reportsByKey[ecu.routingKey] ?? _reportsByKey[ecu.id];
+
+  EcuScanReport? reportForAddress(int address, {bool? isLegacyKwp}) {
+    if (isLegacyKwp != null) {
+      final key = '${isLegacyKwp ? "kwp" : "uds"}_0x${address.toRadixString(16).toLowerCase()}';
+      return _reportsByKey[key];
+    }
+    return reports[address];
+  }
 
   void reset([List<BmwEcuDefinition>? ecus]) {
-    _reports.clear();
+    _reportsByKey.clear();
     final targets = ecus ?? BmwEcuCatalog.all;
     for (final ecu in targets) {
-      _reports[ecu.standardUdsAddress] = EcuScanReport(
+      _reportsByKey[ecu.routingKey] = EcuScanReport(
         definition: ecu,
         state: EcuScanState.pending,
       );
@@ -93,6 +165,8 @@ class AutoScanController extends ChangeNotifier {
   ///
   /// Dynamically targets the vehicle's authentic ECU groups and protocol
   /// (UDS on CAN or legacy KWP2000) based on recovered MotoScan platform data.
+  /// Eliminates multi-platform address collisions (e.g. K21 dual-platform)
+  /// and probes primary module to identify exact platform variant.
   Future<void> runAutoScan({
     required ElmSession? session,
     required BmwUdsAdapterType adapterType,
@@ -111,14 +185,62 @@ class AutoScanController extends ChangeNotifier {
     _cancelled = false;
 
     // 1. Resolve vehicle platform and ECU targets
-    final effectiveSeries = seriesCode ??
-        DiagnosticSession.instance.profile.model?.seriesCode;
+    final profileModel = DiagnosticSession.instance.profile.model;
+    final effectiveSeries = seriesCode ?? profileModel?.seriesCode;
+    final explicitPlatformId = profileModel?.platformId;
 
     List<BmwEcuDefinition> ecus;
     if (targetEcus != null && targetEcus.isNotEmpty) {
       ecus = targetEcus;
     } else if (effectiveSeries != null) {
-      ecus = BmwEcuCatalog.forSeries(effectiveSeries);
+      if (explicitPlatformId != null) {
+        ecus = BmwEcuCatalog.forSeries(effectiveSeries, platformId: explicitPlatformId);
+        _detectedPlatformId = explicitPlatformId;
+        _detectedPlatformName = profileModel?.name;
+      } else if (BmwRawVehicleDatabase.isAmbiguousSeries(effectiveSeries)) {
+        // Disambiguate platform through initial bus probe before scanning all modules
+        String? probedPlatformId;
+        _currentStep = 'Identifying platform variant for $effectiveSeries…';
+        notifyListeners();
+
+        // 1. Probe KWP on primary engine address 0x12
+        try {
+          final kwpProbe = BmwBikeKwpLink(session);
+          if (await kwpProbe.configure(ecuAddress: 0x12)) {
+            final alive = await kwpProbe.startCommunication();
+            if (alive) {
+              probedPlatformId = '1'; // K24 platform (KWP2000)
+            }
+          }
+        } catch (_) {}
+
+        // 2. If KWP did not respond, probe UDS on address 0x12
+        if (probedPlatformId == null) {
+          try {
+            final udsProbe = BmwBikeUdsLink(session, adapterType: adapterType);
+            if (await udsProbe.configure(id: 0x12)) {
+              final client = UdsClient(udsProbe, timeout: const Duration(milliseconds: 700));
+              final vinBytes = await client.readDataByIdentifier(0xF190);
+              if (vinBytes.isNotEmpty) {
+                probedPlatformId = '2'; // K001 platform (UDS on CAN)
+              }
+            }
+          } catch (_) {}
+        }
+
+        if (probedPlatformId != null) {
+          _detectedPlatformId = probedPlatformId;
+          final vehicle = BmwRawVehicleDatabase.vehiclesForSeries(effectiveSeries)
+              .firstWhere((v) => v['car_platformid'] == probedPlatformId, orElse: () => const {});
+          _detectedPlatformName = vehicle['description'];
+          ecus = BmwEcuCatalog.forSeries(effectiveSeries, platformId: probedPlatformId);
+        } else {
+          // Both platform candidates retained without collisions
+          ecus = BmwEcuCatalog.forSeries(effectiveSeries);
+        }
+      } else {
+        ecus = BmwEcuCatalog.forSeries(effectiveSeries);
+      }
     } else {
       ecus = BmwEcuCatalog.all;
     }
@@ -129,7 +251,7 @@ class AutoScanController extends ChangeNotifier {
     for (var i = 0; i < total; i++) {
       if (_cancelled) break;
       final ecu = ecus[i];
-      final report = _reports[ecu.standardUdsAddress]!;
+      final report = _reportsByKey[ecu.routingKey]!;
       report.state = EcuScanState.scanning;
       _currentStep = 'Querying ${ecu.germanAbbrev} (${ecu.name}) via ${ecu.isLegacyKwp ? "KWP" : "UDS"}…';
       _progress = i / total;
@@ -293,7 +415,7 @@ class AutoScanController extends ChangeNotifier {
 
     // Automated Model & Subsystem Identification
     if (!_cancelled && totalResponding > 0) {
-      final validVinReport = _reports.values
+      final validVinReport = _reportsByKey.values
           .where((r) => r.vin != null && r.vin!.length >= 10)
           .firstOrNull;
       final vin = validVinReport?.vin;
@@ -303,12 +425,14 @@ class AutoScanController extends ChangeNotifier {
           vin != null ? BmwVehicleCatalog.decodeModelYear(vin) : null;
       final inferred = detected ??
           BmwVehicleCatalog.inferModelFromAddresses(
-            _reports.entries
-                .where((e) => e.value.state == EcuScanState.responding)
-                .map((e) => e.key),
+            _reportsByKey.values
+                .where((r) => r.state == EcuScanState.responding)
+                .map((r) => r.definition.standardUdsAddress),
           );
 
       if (inferred != null) {
+        _detectedPlatformId = inferred.platformId;
+        _detectedPlatformName = inferred.name;
         DiagnosticSession.instance.updateVehicleProfile(
           model: inferred.name,
           year: year ?? inferred.startYear,
@@ -327,8 +451,8 @@ class AutoScanController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearEcuFaults(int address) {
-    final report = _reports[address];
+  void clearEcuFaults(dynamic target) {
+    final report = reports[target];
     if (report != null) {
       report.dtcs = [];
       notifyListeners();

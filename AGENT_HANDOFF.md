@@ -6,13 +6,25 @@ verified checkpoint and before stopping or losing the session.
 <!-- REPOSITORY_SNAPSHOT:START -->
 ## Repository snapshot
 
-Captured 2026-11-02T21:58:33+00:00.
-HEAD: `9bf53e083c99b4f2aa968b846a9c64723aae0f2e`.
+Captured 2026-11-03T02:39:34+00:00.
+HEAD: `2d53db8d2fb18d1fe8c848aac01674715fd972be`.
 Branch: `release-hardening/production-audit`.
 
 ```text
-?? iconbackground.png
-?? iconforeground.png
+M .gitignore
+ M docs/parity/issue-state.json
+ M lib/diagnostic_session.dart
+ M lib/diagnostics/auto_scan_controller.dart
+ M lib/diagnostics/ecu_catalog.dart
+ M lib/diagnostics/service_manager.dart
+ M lib/ecu_detail_dialog.dart
+ M lib/legacy_kwp_page.dart
+ M lib/recovered_actuator_panel.dart
+ M test/legacy_kwp_page_test.dart
+ M test/service_reset_protocol_test.dart
+?? docs/parity/RE-03-protocol-mappings-evidence.md
+?? test/ecu_detail_sheet_test.dart
+?? test/k21_routing_test.dart
 ```
 
 Refresh with `python tool/update_agent_handoff.py` after a checkpoint.

@@ -48,6 +48,7 @@ local.properties
 
 # Binary Packages & Firmware Dumps
 *.apk
+*.xapk
 *.aab
 *.dex
 *.bin

@@ -45,6 +45,9 @@ class _KwpTransport implements AdapterTransport {
 
   String _defaultResponse(String command) {
     if (command.startsWith('AT')) return 'OK';
+    if (command.startsWith('3B') && command.length >= 4) {
+      return _frame([0x7b, int.parse(command.substring(2, 4), radix: 16)]);
+    }
     return switch (command) {
       '81' => _frame([0xc1]),
       '1A80' => _frame([0x5a, 0x80, 0x12]),
@@ -287,5 +290,52 @@ void main() {
     expect(harness.shared.connected, isTrue);
     expect(identical(harness.shared.elmSession, session), isTrue);
     expect(transport.closed, isFalse);
+  });
+
+  testWidgets('legacy cluster service reset executes 3B writes and updates status', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() => tester.view.resetPhysicalSize());
+
+    final harness = _Harness();
+    final transport = _KwpTransport();
+    harness.attach(transport);
+    addTearDown(() => harness.cleanup(tester));
+
+    await tester.pumpWidget(const MaterialApp(home: LegacyKwpPage()));
+    await _configure(tester);
+
+    final resetCardTitle = find.text('Legacy Cluster Service Reset (Service 0x3B)');
+    await tester.scrollUntilVisible(
+      resetCardTitle,
+      50,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(resetCardTitle, findsOneWidget);
+
+    // Scroll to the button and execute reset all
+    final resetAllButton = find.byKey(const ValueKey('kwp-service-reset-all'));
+    await tester.scrollUntilVisible(
+      resetAllButton,
+      50,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(resetAllButton);
+    await tester.pumpAndSettle();
+
+    // Verify 3B requests were sent
+    final writes3b = transport.writes.where((c) => c.startsWith('3B')).toList();
+    expect(writes3b.length, 3);
+    // 3B 10 (clock), 3B 11 (service date), 3B 12 (mileage)
+    expect(writes3b[0].startsWith('3B10'), isTrue);
+    expect(writes3b[1].startsWith('3B11'), isTrue);
+    expect(writes3b[2].startsWith('3B12'), isTrue);
+
+    // Verify status update indicates acknowledgment without independent readback
+    expect(find.textContaining('acknowledged Service 0x3B write'), findsOneWidget);
+    expect(find.textContaining('independent readback verification is unsupported'), findsOneWidget);
   });
 }

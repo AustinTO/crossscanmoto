@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'diagnostic_session.dart';
 import 'diagnostics/actuator_manager.dart';
 import 'diagnostics/auto_scan_controller.dart';
+import 'diagnostics/ecu_catalog.dart';
+import 'diagnostics/kwp_client.dart';
+import 'diagnostics/protocol_setup.dart';
+import 'diagnostics/recovered_actuators.dart';
 import 'diagnostics/service_manager.dart';
+import 'diagnostics/uds_client.dart';
+import 'recovered_actuator_panel.dart';
+import 'service_coding_page.dart';
 
 const _lime = Color(0xFFBCEB58);
 const _panel = Color(0xFF14191B);
@@ -47,13 +54,15 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
   }
 
   Future<void> _clearFaults() async {
+    final ecu = widget.report.definition;
+    final protocolName = ecu.isLegacyKwp ? 'KWP2000' : 'UDS service 0x14';
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF181F22),
-        title: Text('Clear ${widget.report.definition.germanAbbrev} DTCs?'),
-        content: const Text(
-          'This will send UDS service 0x14 to clear stored fault codes from this control unit. Continue?',
+        title: Text('Clear ${ecu.germanAbbrev} DTCs?'),
+        content: Text(
+          'This will send $protocolName to clear stored fault codes from ${ecu.germanAbbrev} (${ecu.hexAddress}). Continue?',
         ),
         actions: [
           TextButton(
@@ -77,12 +86,33 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
     });
 
     try {
-      if (!DiagnosticSession.instance.protocolReady) {
-        throw StateError('Configure the target ECU before clearing faults.');
+      final session = DiagnosticSession.instance.elmSession;
+      if (session == null || !DiagnosticSession.instance.connected) {
+        throw StateError('Connect an adapter before clearing fault codes.');
       }
-      // A scan report does not prove that the adapter is still addressed to
-      // this ECU. Do not clear through an unrelated active protocol link.
-      throw UnsupportedError('Per-report ECU target binding is not yet verified. Use the configured ECU fault panel.');
+      await DiagnosticSession.instance.runExclusive(() async {
+        if (ecu.isLegacyKwp) {
+          DiagnosticSession.instance.invalidateVehicleProtocol();
+          final link = BmwBikeKwpLink(session);
+          final configured = await link.configure(ecuAddress: ecu.legacyKwpAddress);
+          if (!configured) throw StateError('Adapter rejected KWP setup for ECU ${ecu.germanAbbrev}.');
+          final client = KwpClient(link);
+          await client.clearDtc();
+        } else {
+          final link = BmwBikeUdsLink(session);
+          final configured = await link.configure(id: ecu.standardUdsAddress);
+          if (!configured) throw StateError('Adapter rejected UDS setup for ECU ${ecu.germanAbbrev}.');
+          final client = UdsClient(link);
+          await client.clearDtc(group: 0xffffff);
+          DiagnosticSession.instance.attachUdsClient(client, link: link, ecuKey: ecu.id);
+        }
+      });
+      widget.report.dtcs = const [];
+      if (mounted) {
+        setState(() {
+          _actionNotice = 'Fault memory cleared successfully on ${ecu.germanAbbrev}.';
+        });
+      }
     } catch (e) {
       if (mounted) setState(() => _actionNotice = 'Error clearing faults: $e');
     } finally {
@@ -290,7 +320,7 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
         _buildInfoCard(
           title: 'COMMUNICATION STATUS',
           items: [
-            ('Protocol Link', 'BMW UDS on CAN (ISO 14229)'),
+            ('Protocol Link', ecu.isLegacyKwp ? 'BMW KWP2000 on K-Line (ISO 14230)' : 'BMW UDS on CAN (ISO 14229)'),
             ('Diagnostic Session', 'Extended Diagnostic (0x03) Supported'),
             ('Security Access', 'Standard Workshop Level'),
             ('Response Latency', '< 24 ms'),
@@ -454,6 +484,45 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
       );
 
   Widget _buildActuatorsTab(String ecuAcronym) {
+    final ecu = widget.report.definition;
+    if (ecu.isLegacyKwp) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.info_outline, color: Colors.amber, size: 40),
+              const SizedBox(height: 16),
+              Text(
+                'Legacy KWP Module (${ecu.germanAbbrev})',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Legacy KWP control units cannot be dispatched via generic UDS. Actuator testing requires a verified KWP transport link.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white70, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Find if any candidate ECU key has recovered actuators
+    String? matchedActuatorKey;
+    for (final key in ecu.candidateEcuKeys) {
+      if (recoveredActuatorsByEcu.containsKey(key)) {
+        matchedActuatorKey = key;
+        break;
+      }
+    }
+
+    if (matchedActuatorKey != null) {
+      return RecoveredActuatorPanel(initialEcuKey: matchedActuatorKey);
+    }
+
     final tests = BmwActuatorManager.tests
         .where((t) => t.ecuAcronym.toLowerCase() == ecuAcronym.toLowerCase().split(' ').first)
         .toList();
@@ -506,12 +575,13 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Actuating ${test.name}…')),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ServiceCodingPage()),
                     );
                   },
                   icon: const Icon(Icons.play_arrow_rounded, size: 18),
-                  label: const Text('Start Component Test'),
+                  label: const Text('Open in Actuator Workshop'),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: _lime,
                     side: const BorderSide(color: _lime),
@@ -526,69 +596,125 @@ class _EcuDetailSheetState extends State<EcuDetailSheet>
   }
 
   Widget _buildServiceTab(String ecuAcronym) {
-    final serviceItems = BmwServiceManager.items
-        .where((s) => s.ecuAcronym.toLowerCase() == ecuAcronym.toLowerCase().split(' ').first)
-        .toList();
+    final ecu = widget.report.definition;
+    final isCluster = ecu.category == EcuCategory.cockpit ||
+        ecu.germanAbbrev.toUpperCase().contains('KOMB') ||
+        ecu.candidateEcuKeys.any((k) => BmwServiceManager.allSupportedEcuKeys.contains(k));
 
-    if (serviceItems.isEmpty) {
-      return const Center(
-        child: Text(
-          'No service maintenance routines for this specific module.',
-          style: TextStyle(color: Colors.white54),
+    if (!isCluster) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.build_circle_outlined, color: Colors.white38, size: 40),
+              const SizedBox(height: 16),
+              Text(
+                'No Service Routines for ${ecu.germanAbbrev}',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Service maintenance routines (date synchronization, service date and interval mileage updates) are managed by the Instrument Cluster module (KOMBI).',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white54, fontSize: 13),
+              ),
+            ],
+          ),
         ),
       );
     }
 
+    final actions = BmwServiceManager.actions;
+
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
-        for (final item in serviceItems)
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _panel,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _lime.withValues(alpha: 0.3)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.verified, color: _lime, size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${ecu.germanAbbrev} Service Maintenance',
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                ecu.isLegacyKwp
+                    ? 'Legacy KWP cluster supporting Service 0x3B date/mileage writes (Record P, Q, R).'
+                    : 'Modern UDS cluster supporting verified DID service writes (0xE12B, 0xE12C, 0xE12D).',
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
+              ),
+              const SizedBox(height: 14),
+              FilledButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ServiceCodingPage()),
+                  );
+                },
+                icon: const Icon(Icons.launch, size: 16),
+                label: const Text('Open Workshop Service Reset Tool'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: _lime,
+                  foregroundColor: _ink,
+                  minimumSize: const Size.fromHeight(42),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          'VERIFIED MAINTENANCE OPERATIONS',
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+            color: Colors.white60,
+          ),
+        ),
+        const SizedBox(height: 10),
+        for (final item in actions)
           Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: _panel,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  item.title,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  item.description,
-                  style: const TextStyle(fontSize: 12, color: Colors.white70, height: 1.3),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Prerequisites: ${item.preconditions}',
-                  style: const TextStyle(fontSize: 11, color: Colors.white38),
-                ),
-                const SizedBox(height: 12),
-                FilledButton.icon(
-                  onPressed: () async {
-                    setState(() => _busy = true);
-                    final res = await BmwServiceManager.execute(
-                      item: item,
-                      link: DiagnosticSession.instance.activeLink,
-                    );
-                    if (mounted) {
-                      setState(() {
-                        _busy = false;
-                        _actionNotice = res.message;
-                      });
-                    }
-                  },
-                  icon: const Icon(Icons.check, size: 18),
-                  label: const Text('Execute Routine'),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: _lime,
-                    foregroundColor: _ink,
-                    minimumSize: const Size.fromHeight(40),
+                const Icon(Icons.check_circle_outline, color: _lime, size: 18),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        item.description,
+                        style: const TextStyle(color: Colors.white54, fontSize: 11),
+                      ),
+                    ],
                   ),
                 ),
               ],

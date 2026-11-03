@@ -52,6 +52,11 @@ class BmwEcuDefinition {
   String get hexAddress =>
       '0x${standardUdsAddress.toRadixString(16).padLeft(2, '0').toUpperCase()}';
 
+  /// Unique protocol-qualified routing key preventing address collisions
+  /// across differing protocols/platforms (e.g. K21 dual-platform KWP vs UDS).
+  String get routingKey =>
+      '${isLegacyKwp ? "kwp" : "uds"}_0x${standardUdsAddress.toRadixString(16).toLowerCase()}';
+
   String get categoryLabel => switch (category) {
         EcuCategory.powertrain => 'Powertrain',
         EcuCategory.chassis => 'Chassis & Brakes',
@@ -281,7 +286,7 @@ class BmwEcuCatalog {
       final candidateKeys = _candidateKeysForType(type, isKwp: isKwp);
 
       definitions.add(BmwEcuDefinition(
-        id: '${type.toLowerCase()}_0x${addr.toRadixString(16)}',
+        id: '${isKwp ? "kwp" : "uds"}_${type.toLowerCase()}_0x${addr.toRadixString(16)}',
         name: friendlyName,
         germanAbbrev: type,
         category: category,

@@ -5,6 +5,7 @@ import 'diagnostics/dtc_database.dart';
 import 'diagnostics/elm_session.dart';
 import 'diagnostics/kwp_client.dart';
 import 'diagnostics/kwp_response.dart';
+import 'diagnostics/service_manager.dart';
 
 /// Expert diagnostics for a known legacy BMW motorcycle KWP ECU address.
 /// The adapter connection remains owned by the app-wide diagnostic session.
@@ -22,6 +23,9 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
   final _address = TextEditingController();
   final _ecuKey = TextEditingController();
   final _parameterId = TextEditingController();
+  final _serviceMileage = TextEditingController(text: '10000');
+  String _serviceClusterKey = 'MRKOMBI';
+  DateTime _serviceDate = DateTime.now().add(const Duration(days: 365));
   final _shared = DiagnosticSession.instance;
 
   ElmSession? _observedSession;
@@ -65,6 +69,7 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
     _address.dispose();
     _ecuKey.dispose();
     _parameterId.dispose();
+    _serviceMileage.dispose();
     super.dispose();
   }
 
@@ -388,6 +393,39 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
     );
   }
 
+  Future<void> _executeLegacyServiceReset(ServiceFunctionType type) async {
+    final link = _link;
+    if (link == null) return;
+    final effectiveEcuKey = _ecuKey.text.trim().isNotEmpty &&
+            BmwServiceManager.supportedKwpEcuKeys.contains(_ecuKey.text.trim())
+        ? _ecuKey.text.trim()
+        : _serviceClusterKey;
+
+    final mileage = int.tryParse(_serviceMileage.text.trim());
+    if ((type == ServiceFunctionType.setNextServiceMileage ||
+            type == ServiceFunctionType.setAllServiceData) &&
+        (mileage == null || mileage < 0 || mileage > 65535)) {
+      setState(() => _status = 'Enter a valid service mileage between 0 and 65535 km.');
+      return;
+    }
+
+    final item = BmwServiceManager.actions.firstWhere((a) => a.type == type);
+    await _run<ServiceExecutionResult>(
+      'Sending KWP Service 0x3B write (${item.title})…',
+      (_, kwpLink, __, ___) => BmwServiceManager.executeKwp(
+        item: item,
+        link: kwpLink,
+        ecuKey: effectiveEcuKey,
+        vehicleDateTime: DateTime.now(),
+        nextServiceDate: _serviceDate,
+        nextServiceMileage: mileage,
+      ),
+      (res) {
+        _status = res.message;
+      },
+    );
+  }
+
   static String _hex(int value, int width) =>
       value.toRadixString(16).padLeft(width, '0').toUpperCase();
 
@@ -591,7 +629,138 @@ class _LegacyKwpPageState extends State<LegacyKwpPage> {
                   ),
                 ),
               ),
+              _buildServiceResetCard(context),
             ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildServiceResetCard(BuildContext context) {
+    final operationLocked = _busy || _shared.operationBusy;
+    final colors = Theme.of(context).colorScheme;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.build_circle_outlined, color: colors.primary),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Legacy Cluster Service Reset (Service 0x3B)',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Sets vehicle clock, service due date, and service mileage via KWP Service 0x3B '
+              '(MotoScan qr.C / rr.C parity). Supported on K25, K46, and K18 clusters.',
+              style: TextStyle(fontSize: 12),
+            ),
+            const SizedBox(height: 14),
+            DropdownButtonFormField<String>(
+              key: const ValueKey('kwp-service-cluster-key'),
+              initialValue: _serviceClusterKey,
+              isExpanded: true,
+              decoration: const InputDecoration(
+                labelText: 'Cluster model (MotoScan handler route)',
+                border: OutlineInputBorder(),
+                isDense: true,
+              ),
+              items: const [
+                DropdownMenuItem(value: 'MRKOMBI', child: Text('MRKOMBI · R1200GS / K25 (rr.C selector 1)')),
+                DropdownMenuItem(value: 'MRKOMB46', child: Text('MRKOMB46 · S1000RR / K46 (rr.C selector 0)')),
+                DropdownMenuItem(value: 'MRKOMB18', child: Text('MRKOMB18 · C600 / K18 (qr.C)')),
+                DropdownMenuItem(value: 'cuMRKOMBI', child: Text('cuMRKOMBI · Catalog alias')),
+                DropdownMenuItem(value: 'cuMRKOMB46', child: Text('cuMRKOMB46 · Catalog alias')),
+                DropdownMenuItem(value: 'cuMRKOMB18', child: Text('cuMRKOMB18 · Catalog alias')),
+                DropdownMenuItem(value: 'cuMRKOMB', child: Text('cuMRKOMB · Generic KWP Kombi')),
+              ],
+              onChanged: operationLocked
+                  ? null
+                  : (value) {
+                      if (value != null) setState(() => _serviceClusterKey = value);
+                    },
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: operationLocked
+                  ? null
+                  : () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: _serviceDate,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                      );
+                      if (picked != null) setState(() => _serviceDate = picked);
+                    },
+              icon: const Icon(Icons.calendar_month, size: 16),
+              label: Text(
+                'Next Service Date: ${_serviceDate.year}-${_serviceDate.month.toString().padLeft(2, '0')}-${_serviceDate.day.toString().padLeft(2, '0')}',
+              ),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              key: const ValueKey('kwp-service-mileage'),
+              controller: _serviceMileage,
+              enabled: !operationLocked,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Next Service Mileage (km)',
+                helperText: 'Enter mileage between 0 and 65535 km.',
+                border: OutlineInputBorder(),
+                isDense: true,
+              ),
+            ),
+            const SizedBox(height: 14),
+            FilledButton.icon(
+              key: const ValueKey('kwp-service-reset-all'),
+              onPressed: operationLocked
+                  ? null
+                  : () => _executeLegacyServiceReset(ServiceFunctionType.setAllServiceData),
+              icon: const Icon(Icons.done_all, size: 16),
+              label: const Text('Update All Service Data (3B 10 / 11 / 12)'),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                OutlinedButton.icon(
+                  key: const ValueKey('kwp-service-set-date'),
+                  onPressed: operationLocked
+                      ? null
+                      : () => _executeLegacyServiceReset(ServiceFunctionType.setNextServiceDate),
+                  icon: const Icon(Icons.event, size: 16),
+                  label: const Text('Set Date Only (3B 11)'),
+                ),
+                OutlinedButton.icon(
+                  key: const ValueKey('kwp-service-set-mileage'),
+                  onPressed: operationLocked
+                      ? null
+                      : () => _executeLegacyServiceReset(ServiceFunctionType.setNextServiceMileage),
+                  icon: const Icon(Icons.speed, size: 16),
+                  label: const Text('Set Mileage Only (3B 12)'),
+                ),
+                OutlinedButton.icon(
+                  key: const ValueKey('kwp-service-set-time'),
+                  onPressed: operationLocked
+                      ? null
+                      : () => _executeLegacyServiceReset(ServiceFunctionType.setVehicleDateTime),
+                  icon: const Icon(Icons.access_time, size: 16),
+                  label: const Text('Sync Clock (3B 10)'),
+                ),
+              ],
+            ),
           ],
         ),
       ),

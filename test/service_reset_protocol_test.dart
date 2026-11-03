@@ -146,7 +146,13 @@ void main() {
 
       expect(result.success, isTrue);
       expect(result.message, contains('Legacy KWP ECU cuMRKOMB46 acknowledged Service 0x3B write'));
-      expect(result.message, contains('verification readback is unsupported on legacy KWP cluster'));
+      expect(result.message, contains('independent readback verification is unsupported on legacy KWP cluster'));
+      expect(result.isIndependentlyVerified, isFalse);
+      expect(result.writtenOperations, [
+        'Vehicle Date/Time (0x3B 0x10)',
+        'Service Date (0x3B 0x11)',
+        'Service Mileage (0x3B 0x12)',
+      ]);
       expect(result.newServiceDate, isNull);
       expect(result.newServiceMileageKm, isNull);
 
@@ -195,9 +201,103 @@ void main() {
 
       expect(result.success, isFalse);
       expect(result.cancelled, isTrue);
+      expect(result.writtenOperations, ['Vehicle Date/Time (0x3B 0x10)']);
+      expect(result.message, contains('Partial writes performed: Vehicle Date/Time (0x3B 0x10)'));
       // Stopped after Record P; Record Q and R were not sent
       final writes3b = kwpLink.requests.where((r) => r.first == 0x3b).toList();
       expect(writes3b.length, 1);
+    });
+
+    test('execute rejects null or empty ecuKey (no implicit target)', () async {
+      final resultNull = await BmwServiceManager.execute(
+        item: const ServiceFunctionItem(
+          type: ServiceFunctionType.setAllServiceData,
+          title: 'All',
+          description: '',
+          preconditions: '',
+        ),
+        ecuKey: null,
+      );
+      expect(resultNull.success, isFalse);
+      expect(resultNull.message, contains('Select one of the supported service ECU keys explicitly'));
+
+      final resultEmpty = await BmwServiceManager.execute(
+        item: const ServiceFunctionItem(
+          type: ServiceFunctionType.setAllServiceData,
+          title: 'All',
+          description: '',
+          preconditions: '',
+        ),
+        ecuKey: '   ',
+      );
+      expect(resultEmpty.success, isFalse);
+      expect(resultEmpty.message, contains('Select one of the supported service ECU keys explicitly'));
+    });
+
+    test('executeKwp rejects missing write values (no implicit defaults)', () async {
+      final kwpLink = _RecordingKwpLink();
+
+      // Missing vehicleDateTime for setVehicleDateTime
+      final r1 = await BmwServiceManager.executeKwp(
+        item: const ServiceFunctionItem(
+          type: ServiceFunctionType.setVehicleDateTime,
+          title: 'Date',
+          description: '',
+          preconditions: '',
+        ),
+        link: kwpLink,
+        ecuKey: 'MRKOMBI',
+        vehicleDateTime: null,
+      );
+      expect(r1.success, isFalse);
+      expect(r1.message, contains('Vehicle date and time must be explicitly provided'));
+
+      // Missing nextServiceDate for setNextServiceDate
+      final r2 = await BmwServiceManager.executeKwp(
+        item: const ServiceFunctionItem(
+          type: ServiceFunctionType.setNextServiceDate,
+          title: 'Date',
+          description: '',
+          preconditions: '',
+        ),
+        link: kwpLink,
+        ecuKey: 'MRKOMBI',
+        nextServiceDate: null,
+      );
+      expect(r2.success, isFalse);
+      expect(r2.message, contains('Next service date must be explicitly provided'));
+
+      // Missing nextServiceMileage for setNextServiceMileage
+      final r3 = await BmwServiceManager.executeKwp(
+        item: const ServiceFunctionItem(
+          type: ServiceFunctionType.setNextServiceMileage,
+          title: 'Mileage',
+          description: '',
+          preconditions: '',
+        ),
+        link: kwpLink,
+        ecuKey: 'MRKOMBI',
+        nextServiceMileage: null,
+      );
+      expect(r3.success, isFalse);
+      expect(r3.message, contains('Next service mileage must be explicitly provided'));
+
+      // Missing one of the fields for setAllServiceData
+      final r4 = await BmwServiceManager.executeKwp(
+        item: const ServiceFunctionItem(
+          type: ServiceFunctionType.setAllServiceData,
+          title: 'All',
+          description: '',
+          preconditions: '',
+        ),
+        link: kwpLink,
+        ecuKey: 'MRKOMBI',
+        vehicleDateTime: DateTime(2026, 1, 1),
+        nextServiceDate: null,
+        nextServiceMileage: 10000,
+      );
+      expect(r4.success, isFalse);
+      expect(r4.message, contains('Vehicle date/time, next service date, and next service mileage must all be explicitly provided'));
     });
   });
 }

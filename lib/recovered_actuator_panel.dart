@@ -12,7 +12,9 @@ const _edge = Color(0xFF293133);
 
 /// Interactive component and actuator testing panel for BMW Motorrad control units.
 class RecoveredActuatorPanel extends StatefulWidget {
-  const RecoveredActuatorPanel({super.key});
+  const RecoveredActuatorPanel({super.key, this.initialEcuKey});
+
+  final String? initialEcuKey;
 
   @override
   State<RecoveredActuatorPanel> createState() => _RecoveredActuatorPanelState();
@@ -39,7 +41,7 @@ class _RecoveredActuatorPanelState extends State<RecoveredActuatorPanel> with Wi
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    final currentKey = DiagnosticSession.instance.ecuDefinitionKey;
+    final currentKey = widget.initialEcuKey ?? DiagnosticSession.instance.ecuDefinitionKey;
     if (currentKey != null &&
         (_supportedActuatorEcus.contains(currentKey) ||
             recoveredActuatorsByEcu.containsKey(currentKey))) {

@@ -36,6 +36,8 @@ class ServiceExecutionResult {
     this.newServiceMileageKm,
     this.cancelled = false,
     this.writtenDids = const [],
+    this.writtenOperations = const [],
+    this.isIndependentlyVerified = false,
   });
 
   final bool success;
@@ -44,6 +46,8 @@ class ServiceExecutionResult {
   final int? newServiceMileageKm;
   final bool cancelled;
   final List<int> writtenDids;
+  final List<String> writtenOperations;
+  final bool isIndependentlyVerified;
 }
 
 /// BMW Motorrad service reset and maintenance coordinator.
@@ -51,12 +55,21 @@ abstract final class BmwServiceManager {
   /// Exact source-enabled KOMB/CCP service controllers with an `sl0.C` route.
   static const supportedEcuKeys = BmwServiceResetCatalog.supportedUdsEcuKeys;
 
-  /// Exact source-enabled legacy KWP KOMB service controllers with a `qr.C` or `rr.C` route.
+  /// Exact source-verified legacy KWP instrument cluster controllers
+  /// traced to `qr.C` and `rr.C` handlers in MotoScan 1.110 (cr.c selector 6):
+  /// - Response ID 24832 -> `rr.C` selector 1 (`MRKOMBI` / `KMBI_K25`)
+  /// - Response ID 24848 -> `rr.C` selector 0 (`MRKOMB46` / `KMBI_K46`)
+  /// - Response ID 26640 -> `qr.C` (`MRKOMB18` / `KMBI_K18`)
+  /// Note: Response IDs 24864, 26624, 26656, 27648 route to `jr`, which
+  /// inherits pl0.C (ERROR_NOTSUPPORTED). cuMRKOMB24 is unverified and excluded.
   static const supportedKwpEcuKeys = <String>{
-    'cuMRKOMB',
-    'cuMRKOMB18',
+    'MRKOMBI',
+    'cuMRKOMBI',
+    'MRKOMB46',
     'cuMRKOMB46',
-    'cuMRKOMB24',
+    'MRKOMB18',
+    'cuMRKOMB18',
+    'cuMRKOMB',
   };
 
   /// All supported service ECU keys across modern UDS and legacy KWP.
@@ -108,7 +121,13 @@ abstract final class BmwServiceManager {
     int? nextServiceMileage,
     bool Function()? shouldAbort,
   }) async {
-    final effectiveKey = ecuKey ?? supportedEcuKeys.first;
+    if (ecuKey == null || ecuKey.trim().isEmpty) {
+      return const ServiceExecutionResult(
+        success: false,
+        message: 'Select one of the supported service ECU keys explicitly. Implicit target defaults are not permitted.',
+      );
+    }
+    final effectiveKey = ecuKey.trim();
 
     // Check if targeting a legacy KWP instrument cluster
     if (supportedKwpEcuKeys.contains(effectiveKey)) {
@@ -147,7 +166,7 @@ abstract final class BmwServiceManager {
       return const ServiceExecutionResult(
         success: false,
         message:
-            'Provide the vehicle date, next service date, and mileage value.',
+            'Provide the vehicle date, next service date, and mileage value explicitly.',
       );
     }
 
@@ -188,8 +207,15 @@ abstract final class BmwServiceManager {
           : null;
       return ServiceExecutionResult(
         success: true,
+        isIndependentlyVerified: true,
+        writtenDids: result.writtenDids,
+        writtenOperations: const [
+          'Vehicle Date/Time (0xE12B)',
+          'Next Service Date (0xE12C)',
+          'Next Service Mileage (0xE12D)',
+        ],
         message:
-            'ECU $effectiveKey acknowledged the reset and returned service-data readback.',
+            'ECU $effectiveKey acknowledged the reset and returned verified service-data readback.',
         newServiceDate: date,
         newServiceMileageKm: mileage,
       );
@@ -240,6 +266,33 @@ abstract final class BmwServiceManager {
       );
     }
 
+    // Require explicit parameters; remove implicit write-value defaults
+    if (item.type == ServiceFunctionType.setVehicleDateTime && vehicleDateTime == null) {
+      return const ServiceExecutionResult(
+        success: false,
+        message: 'Vehicle date and time must be explicitly provided. Implicit default dates are not permitted.',
+      );
+    }
+    if (item.type == ServiceFunctionType.setNextServiceDate && nextServiceDate == null) {
+      return const ServiceExecutionResult(
+        success: false,
+        message: 'Next service date must be explicitly provided. Implicit default dates are not permitted.',
+      );
+    }
+    if (item.type == ServiceFunctionType.setNextServiceMileage && nextServiceMileage == null) {
+      return const ServiceExecutionResult(
+        success: false,
+        message: 'Next service mileage must be explicitly provided. Implicit default mileage is not permitted.',
+      );
+    }
+    if (item.type == ServiceFunctionType.setAllServiceData &&
+        (vehicleDateTime == null || nextServiceDate == null || nextServiceMileage == null)) {
+      return const ServiceExecutionResult(
+        success: false,
+        message: 'Vehicle date/time, next service date, and next service mileage must all be explicitly provided. Implicit defaults are not permitted.',
+      );
+    }
+
     if (nextServiceMileage != null &&
         (nextServiceMileage < 0 || nextServiceMileage > 65535)) {
       return const ServiceExecutionResult(
@@ -252,61 +305,60 @@ abstract final class BmwServiceManager {
     final writtenOperations = <String>[];
 
     try {
-      final now = DateTime.now();
-      final effectiveCarDate = vehicleDateTime ?? now;
-      final effectiveServiceDate =
-          nextServiceDate ?? now.add(const Duration(days: 365));
-      final effectiveMileage = nextServiceMileage ?? 10000;
-
       switch (item.type) {
         case ServiceFunctionType.setVehicleDateTime:
-          await client.writeVehicleDateTime(effectiveCarDate);
+          await client.writeVehicleDateTime(vehicleDateTime!);
           writtenOperations.add('Vehicle Date/Time (0x3B 0x10)');
           break;
         case ServiceFunctionType.setNextServiceDate:
-          await client.writeNextServiceDate(effectiveServiceDate);
+          await client.writeNextServiceDate(nextServiceDate!);
           writtenOperations.add('Service Date (0x3B 0x11)');
           break;
         case ServiceFunctionType.setNextServiceMileage:
-          await client.writeNextServiceMileage(effectiveMileage);
+          await client.writeNextServiceMileage(nextServiceMileage!);
           writtenOperations.add('Service Mileage (0x3B 0x12)');
           break;
         case ServiceFunctionType.setAllServiceData:
-          await client.writeVehicleDateTime(effectiveCarDate);
+          await client.writeVehicleDateTime(vehicleDateTime!);
           writtenOperations.add('Vehicle Date/Time (0x3B 0x10)');
           if (shouldAbort?.call() == true) {
             return ServiceExecutionResult(
               success: false,
               cancelled: true,
+              writtenOperations: List.unmodifiable(writtenOperations),
               message:
-                  'Service operation cancelled after writing date/time to $ecuKey.',
+                  'Service operation cancelled after writing date/time to $ecuKey. Partial writes performed: ${writtenOperations.join(", ")}.',
             );
           }
-          await client.writeNextServiceDate(effectiveServiceDate);
+          await client.writeNextServiceDate(nextServiceDate!);
           writtenOperations.add('Service Date (0x3B 0x11)');
           if (shouldAbort?.call() == true) {
             return ServiceExecutionResult(
               success: false,
               cancelled: true,
+              writtenOperations: List.unmodifiable(writtenOperations),
               message:
-                  'Service operation cancelled after writing service date to $ecuKey.',
+                  'Service operation cancelled after writing date/time and service date to $ecuKey. Partial writes performed: ${writtenOperations.join(", ")}.',
             );
           }
-          await client.writeNextServiceMileage(effectiveMileage);
+          await client.writeNextServiceMileage(nextServiceMileage!);
           writtenOperations.add('Service Mileage (0x3B 0x12)');
           break;
       }
 
       return ServiceExecutionResult(
         success: true,
+        isIndependentlyVerified: false,
+        writtenOperations: List.unmodifiable(writtenOperations),
         message:
-            'Legacy KWP ECU $ecuKey acknowledged Service 0x3B write (${writtenOperations.join(", ")}); verification readback is unsupported on legacy KWP cluster.',
+            'Legacy KWP ECU $ecuKey acknowledged Service 0x3B write (${writtenOperations.join(", ")}); write acknowledged by ECU, independent readback verification is unsupported on legacy KWP cluster.',
         newServiceDate: null,
         newServiceMileageKm: null,
       );
     } catch (error) {
       return ServiceExecutionResult(
         success: false,
+        writtenOperations: List.unmodifiable(writtenOperations),
         message: 'Legacy KWP service reset failed on $ecuKey: $error',
       );
     }

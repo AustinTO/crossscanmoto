@@ -21,10 +21,10 @@
     "RE-03": {
       "audit_status": "partial_merge_remaining",
       "local_status": "COMPLETE",
-      "next_action": "Autonomous continuation: ISO-TP multi-frame reassembly (PCI 0x10, 0x20) and extended NRC 0x78 pending drained.",
+      "next_action": "Autonomous continuation: verified native protocol ID 3 and 8 mappings, ISO-TP multi-frame reassembly, and setup sequences.",
       "implementation_state": "COMPLETE",
       "parity_result": "PASS",
-      "evidence": "test/protocol_setup_test.dart"
+      "evidence": "test/protocol_setup_test.dart, docs/parity/RE-03-protocol-mappings-evidence.md"
     },
     "RE-04": {
       "audit_status": "partial_merge_remaining",

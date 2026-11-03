@@ -99,6 +99,7 @@ class DiagnosticSession extends ChangeNotifier {
     _profile.notes = null;
     _profile.isAutoIdentified = false;
     record('Vehicle profile cleared');
+    notifyListeners();
   }
 
   void updateVehicleProfile({String? model, int? year, String? vin, int? odometer, bool? autoIdentified}) {
