@@ -62,6 +62,24 @@ class DiagnosticSession extends ChangeNotifier {
   final AutoScanController _autoScan = AutoScanController();
   final BmwCodingManager _codingManager = BmwCodingManager();
   bool _liveStreaming = true;
+  bool _keepScreenAwake = true;
+  bool _debugLogging = false;
+
+  bool get keepScreenAwake => _keepScreenAwake;
+  set keepScreenAwake(bool value) {
+    if (_keepScreenAwake != value) {
+      _keepScreenAwake = value;
+      notifyListeners();
+    }
+  }
+
+  bool get debugLogging => _debugLogging;
+  set debugLogging(bool value) {
+    if (_debugLogging != value) {
+      _debugLogging = value;
+      notifyListeners();
+    }
+  }
 
   ElmSession? get elmSession => _elmSession;
   String? get identity => _identity;

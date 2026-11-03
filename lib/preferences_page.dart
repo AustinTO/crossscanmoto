@@ -103,6 +103,30 @@ class _PreferencesPageState extends State<PreferencesPage> {
                   onChanged: (val) => setState(() => _useMetric = val),
                 ),
               ),
+              const Divider(height: 1, color: _edge, indent: 16, endIndent: 16),
+              _buildRow(
+                icon: Icons.screen_lock_portrait,
+                title: 'Keep Screen Awake While Connected',
+                subtitle: 'Prevents device sleep during active scanning, live telemetry, and coding',
+                trailing: Switch(
+                  value: DiagnosticSession.instance.keepScreenAwake,
+                  activeThumbColor: _lime,
+                  onChanged: (val) => setState(
+                      () => DiagnosticSession.instance.keepScreenAwake = val),
+                ),
+              ),
+              const Divider(height: 1, color: _edge, indent: 16, endIndent: 16),
+              _buildRow(
+                icon: Icons.bug_report_outlined,
+                title: 'Raw Traffic Debug Logging',
+                subtitle: 'Records raw AT / ISO-TP frame traces into diagnostic logs for troubleshooting',
+                trailing: Switch(
+                  value: DiagnosticSession.instance.debugLogging,
+                  activeThumbColor: _lime,
+                  onChanged: (val) => setState(
+                      () => DiagnosticSession.instance.debugLogging = val),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 24),

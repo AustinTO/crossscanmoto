@@ -93,13 +93,23 @@ class _RecoveredCodingPanelState extends State<RecoveredCodingPanel> {
         blockPayloads: blocks,
       );
 
+      // Automatic Pre-Flight Safety Backup:
+      // Captured automatically whenever an ECU's coding blocks are read
+      final autoBackup = engine.createBackup(
+        vin: session.profile.vin ?? 'WB10BENCH00000001',
+        vehicleModel: session.profile.modelName ?? 'BMW Motorrad',
+        variant: variant,
+        blockPayloads: blocks,
+      );
+
       if (!mounted) return;
       setState(() {
         _rawBlocks = blocks;
         _decodedValues = decoded;
         _readingEcu = false;
+        _savedBackups.insert(0, autoBackup);
         _statusMessage =
-            'Successfully read ${blocks.length} blocks (${decoded.length} parameters decoded).';
+            'Successfully read ${blocks.length} blocks (${decoded.length} parameters decoded). Pre-flight backup auto-saved (${autoBackup.sha256Hash.substring(0, 10)}...).';
       });
     } catch (e) {
       if (!mounted) return;
