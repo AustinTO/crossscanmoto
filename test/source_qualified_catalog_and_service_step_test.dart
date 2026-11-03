@@ -63,13 +63,23 @@ void main() {
       final ce04 = VehicleProfile(modelName: 'CE 04');
       expect(ce04.ebr, 'K07');
       expect(ce04.platformId, '2');
-      expect(ce04.sourceQualifiedId, 'source:biketune:1.9.1:bike:K07');
+      expect(ce04.sourceQualifiedId, 'source:bmw_extended:bike:K07');
+    });
+
+    test('SourceQualifiedCatalog loads extended catalog asset cleanly', () async {
+      final cat = await SourceQualifiedCatalog.load();
+      expect(cat.bikes.length, 83);
+      expect(cat.ecus.length, 95);
+      expect(cat.serviceFunctions.length, 98);
+      expect(cat.serviceSteps.length, 397);
+      expect(cat.actuators.length, 148);
+      expect(cat.adaptations.length, 13);
     });
   });
 
   group('Typed Service Step Executor', () {
     test('Info step prompts operator and completes on approval', () async {
-      const step = BiketuneServiceStep(
+      const step = BmwExtendedServiceStep(
         id: 101,
         functionPk: 1,
         stepOrder: 1,
@@ -94,7 +104,7 @@ void main() {
     });
 
     test('Info step cancels cleanly if operator declines', () async {
-      const step = BiketuneServiceStep(
+      const step = BmwExtendedServiceStep(
         id: 102,
         functionPk: 1,
         stepOrder: 1,
@@ -114,7 +124,7 @@ void main() {
     });
 
     test('Uncompiled EDIABAS job step is marked unsupported without sending bytes', () async {
-      const step = BiketuneServiceStep(
+      const step = BmwExtendedServiceStep(
         id: 103,
         functionPk: 1,
         stepOrder: 2,
@@ -133,7 +143,7 @@ void main() {
     });
 
     test('Pump-hold step sends request, holds, and guarantees stop PDU execution', () async {
-      const step = BiketuneServiceStep(
+      const step = BmwExtendedServiceStep(
         id: 104,
         functionPk: 1,
         stepOrder: 1,
@@ -157,7 +167,7 @@ void main() {
     });
 
     test('Pump-hold step executes stop PDU immediately upon cancellation', () async {
-      const step = BiketuneServiceStep(
+      const step = BmwExtendedServiceStep(
         id: 105,
         functionPk: 1,
         stepOrder: 1,
@@ -182,7 +192,7 @@ void main() {
     });
 
     test('Negative response triggers stop cleanup and fails cleanly', () async {
-      const step = BiketuneServiceStep(
+      const step = BmwExtendedServiceStep(
         id: 106,
         functionPk: 1,
         stepOrder: 1,

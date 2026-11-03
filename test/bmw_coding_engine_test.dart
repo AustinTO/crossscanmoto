@@ -146,6 +146,11 @@ void main() {
       expect(restored.decodedParameters['CLOCK_MODE'], '24h');
     });
 
+    test('writes are enabled by default on BmwCodingEngine', () {
+      final engine = BmwCodingEngine(catalog: catalog);
+      expect(engine.allowPhysicalWrites, isTrue);
+    });
+
     test('fail-closed write safety: writing is rejected when allowPhysicalWrites is false', () async {
       final engine = BmwCodingEngine(catalog: catalog, allowPhysicalWrites: false);
       final kombi = catalog.matchVariant('KMBI_K25', '04')!;

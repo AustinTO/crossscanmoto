@@ -442,7 +442,7 @@ class VehicleProfile {
       } else if (modelYear != null && modelYear! >= 2019) {
         ebr = 'K67';
         platformId = '2';
-        sourceQualifiedId = 'source:biketune:1.9.1:bike:K67';
+        sourceQualifiedId = 'source:bmw_extended:bike:K67';
         needsDisambiguation = false;
       } else {
         ebr = 'K46';
@@ -454,7 +454,7 @@ class VehicleProfile {
     if (cleanName.toLowerCase() == 'ce 04' || cleanName.toUpperCase() == 'K07') {
       ebr = 'K07';
       platformId = '2';
-      sourceQualifiedId = 'source:biketune:1.9.1:bike:K07';
+      sourceQualifiedId = 'source:bmw_extended:bike:K07';
       needsDisambiguation = false;
       return;
     }
@@ -463,7 +463,7 @@ class VehicleProfile {
     if (m != null) {
       ebr = m.seriesCode;
       platformId = m.platformId ?? '2';
-      sourceQualifiedId = 'source:biketune:1.9.1:bike:${m.seriesCode}';
+      sourceQualifiedId = 'source:bmw_extended:bike:${m.seriesCode}';
       needsDisambiguation = false;
     }
   }

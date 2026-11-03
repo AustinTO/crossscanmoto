@@ -23,4 +23,4 @@ flutter:
     - assets/data/recovered_ecu_definitions.json
     - assets/data/recovered_actuators.json
     - assets/data/recovered_coding_definitions.json
-    - assets/data/bmw_biketune_catalog.json
+    - assets/data/bmw_extended_catalog.json

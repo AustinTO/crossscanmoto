@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'diagnostic_session.dart';
-import 'biketune_catalog_browser.dart';
+import 'bmw_capability_catalog.dart';
 import 'recovered_actuator_panel.dart';
 import 'recovered_coding_panel.dart';
 import 'diagnostics/ecu_friendly_names.dart';
@@ -143,7 +143,7 @@ class _ServiceCodingPageState extends State<ServiceCodingPage>
                     _buildServiceTab(),
                     _buildActuatorTab(),
                     const RecoveredCodingPanel(),
-                    const BiketuneCatalogBrowser(),
+                    const BmwCapabilityCatalogBrowser(),
                   ],
                 ),
               ),

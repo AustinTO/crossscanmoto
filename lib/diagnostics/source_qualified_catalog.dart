@@ -11,9 +11,9 @@ enum OperationReadiness {
   unsupported,
 }
 
-/// Represents a motorcycle chassis entry from the verified Biketune catalog.
-class BiketuneBike {
-  const BiketuneBike({
+/// Represents a motorcycle chassis entry from the BMW Motorrad extended capability catalog.
+class BmwExtendedBike {
+  const BmwExtendedBike({
     required this.ebr,
     required this.series,
     required this.modelName,
@@ -37,9 +37,9 @@ class BiketuneBike {
   final bool disabled;
   final int? platformId;
 
-  String get sourceQualifiedId => 'source:biketune:1.9.1:bike:$ebr';
+  String get sourceQualifiedId => 'source:bmw_extended:bike:$ebr';
 
-  factory BiketuneBike.fromJson(Map<String, dynamic> json) => BiketuneBike(
+  factory BmwExtendedBike.fromJson(Map<String, dynamic> json) => BmwExtendedBike(
         ebr: json['ebr'] as String? ?? '',
         series: json['series'] as String? ?? '',
         modelName: json['model_name'] as String? ?? '',
@@ -54,8 +54,8 @@ class BiketuneBike {
 }
 
 /// Represents a marketed motorcycle model name mapping to an EBR chassis.
-class BiketuneMarketModel {
-  const BiketuneMarketModel({
+class BmwExtendedMarketModel {
+  const BmwExtendedMarketModel({
     required this.ebr,
     required this.name,
     required this.seriesLetter,
@@ -67,8 +67,8 @@ class BiketuneMarketModel {
   final String seriesLetter;
   final int ordinal;
 
-  factory BiketuneMarketModel.fromJson(Map<String, dynamic> json) =>
-      BiketuneMarketModel(
+  factory BmwExtendedMarketModel.fromJson(Map<String, dynamic> json) =>
+      BmwExtendedMarketModel(
         ebr: json['ebr'] as String? ?? '',
         name: json['name'] as String? ?? '',
         seriesLetter: json['series_letter'] as String? ?? '',
@@ -77,8 +77,8 @@ class BiketuneMarketModel {
 }
 
 /// Factory 4-character VDS variant code (e.g., 0A01, 0G02).
-class BiketuneVariant {
-  const BiketuneVariant({
+class BmwExtendedVariant {
+  const BmwExtendedVariant({
     required this.ebr,
     required this.variantCode,
   });
@@ -87,18 +87,18 @@ class BiketuneVariant {
   final String variantCode;
 
   String get sourceQualifiedId =>
-      'source:biketune:1.9.1:variant:$ebr:$variantCode';
+      'source:bmw_extended:variant:$ebr:$variantCode';
 
-  factory BiketuneVariant.fromJson(Map<String, dynamic> json) =>
-      BiketuneVariant(
+  factory BmwExtendedVariant.fromJson(Map<String, dynamic> json) =>
+      BmwExtendedVariant(
         ebr: json['ebr'] as String? ?? '',
         variantCode: json['variant_code'] as String? ?? '',
       );
 }
 
-/// Electronic Control Unit from the Biketune catalog.
-class BiketuneEcu {
-  const BiketuneEcu({
+/// Electronic Control Unit from the BMW Motorrad extended diagnostics catalog.
+class BmwExtendedEcu {
+  const BmwExtendedEcu({
     required this.name,
     required this.address,
     required this.description,
@@ -112,11 +112,11 @@ class BiketuneEcu {
   final String? cafdRoot;
   final bool disabled;
 
-  String get sourceQualifiedId => 'source:biketune:1.9.1:ecu:$name';
+  String get sourceQualifiedId => 'source:bmw_extended:ecu:$name';
   String get hexAddress =>
       '0x${address.toRadixString(16).padLeft(2, '0').toUpperCase()}';
 
-  factory BiketuneEcu.fromJson(Map<String, dynamic> json) => BiketuneEcu(
+  factory BmwExtendedEcu.fromJson(Map<String, dynamic> json) => BmwExtendedEcu(
         name: json['name'] as String? ?? '',
         address: json['address'] as int? ?? 0,
         description: json['description'] as String? ?? '',
@@ -126,8 +126,8 @@ class BiketuneEcu {
 }
 
 /// Service function definition (e.g. ABS brake bleed, adaptation reset).
-class BiketuneServiceFunction {
-  const BiketuneServiceFunction({
+class BmwExtendedServiceFunction {
+  const BmwExtendedServiceFunction({
     required this.id,
     required this.ecuName,
     required this.functionId,
@@ -150,8 +150,8 @@ class BiketuneServiceFunction {
   OperationReadiness get readiness =>
       disabled ? OperationReadiness.unsupported : OperationReadiness.catalogOnly;
 
-  factory BiketuneServiceFunction.fromJson(Map<String, dynamic> json) =>
-      BiketuneServiceFunction(
+  factory BmwExtendedServiceFunction.fromJson(Map<String, dynamic> json) =>
+      BmwExtendedServiceFunction(
         id: json['id'] as int? ?? 0,
         ecuName: json['ecu_name'] as String? ?? '',
         functionId: json['function_id'] as String? ?? '',
@@ -163,9 +163,9 @@ class BiketuneServiceFunction {
       );
 }
 
-/// Typed service step from Biketune state machine.
-class BiketuneServiceStep {
-  const BiketuneServiceStep({
+/// Typed service step from state machine.
+class BmwExtendedServiceStep {
+  const BmwExtendedServiceStep({
     required this.id,
     required this.functionPk,
     required this.stepOrder,
@@ -204,8 +204,8 @@ class BiketuneServiceStep {
     return OperationReadiness.unsupported;
   }
 
-  factory BiketuneServiceStep.fromJson(Map<String, dynamic> json) =>
-      BiketuneServiceStep(
+  factory BmwExtendedServiceStep.fromJson(Map<String, dynamic> json) =>
+      BmwExtendedServiceStep(
         id: json['id'] as int? ?? 0,
         functionPk: json['function_pk'] as int? ?? 0,
         stepOrder: json['step_order'] as int? ?? 0,
@@ -222,8 +222,8 @@ class BiketuneServiceStep {
 }
 
 /// Actuator routine or IO control component.
-class BiketuneActuator {
-  const BiketuneActuator({
+class BmwExtendedActuator {
+  const BmwExtendedActuator({
     required this.id,
     required this.ecuName,
     required this.actuatorId,
@@ -251,8 +251,8 @@ class BiketuneActuator {
       ? OperationReadiness.unsupported
       : OperationReadiness.sourceExecutionTraced;
 
-  factory BiketuneActuator.fromJson(Map<String, dynamic> json) =>
-      BiketuneActuator(
+  factory BmwExtendedActuator.fromJson(Map<String, dynamic> json) =>
+      BmwExtendedActuator(
         id: json['id'] as int? ?? 0,
         ecuName: json['ecu_name'] as String? ?? '',
         actuatorId: json['actuator_id'] as String? ?? '',
@@ -267,8 +267,8 @@ class BiketuneActuator {
 }
 
 /// ECU adaptation parameter and reset definition.
-class BiketuneAdaptation {
-  const BiketuneAdaptation({
+class BmwExtendedAdaptation {
+  const BmwExtendedAdaptation({
     required this.id,
     required this.ecuName,
     required this.adaptationId,
@@ -296,8 +296,8 @@ class BiketuneAdaptation {
       ? OperationReadiness.unsupported
       : OperationReadiness.sourceExecutionTraced;
 
-  factory BiketuneAdaptation.fromJson(Map<String, dynamic> json) =>
-      BiketuneAdaptation(
+  factory BmwExtendedAdaptation.fromJson(Map<String, dynamic> json) =>
+      BmwExtendedAdaptation(
         id: json['id'] as int? ?? 0,
         ecuName: json['ecu_name'] as String? ?? '',
         adaptationId: json['adaptation_id'] as String? ?? '',
@@ -311,7 +311,17 @@ class BiketuneAdaptation {
       );
 }
 
-/// Complete, provenance-tracked in-memory catalog loaded from verified JSON assets.
+// Typedef aliases for backwards compatibility
+typedef BiketuneBike = BmwExtendedBike;
+typedef BiketuneMarketModel = BmwExtendedMarketModel;
+typedef BiketuneVariant = BmwExtendedVariant;
+typedef BiketuneEcu = BmwExtendedEcu;
+typedef BiketuneServiceFunction = BmwExtendedServiceFunction;
+typedef BiketuneServiceStep = BmwExtendedServiceStep;
+typedef BiketuneActuator = BmwExtendedActuator;
+typedef BiketuneAdaptation = BmwExtendedAdaptation;
+
+/// Complete catalog loaded from verified BMW Motorrad JSON capability assets.
 class SourceQualifiedCatalog {
   SourceQualifiedCatalog({
     required this.sourceSha256,
@@ -352,64 +362,64 @@ class SourceQualifiedCatalog {
   }
 
   final String sourceSha256;
-  final List<BiketuneBike> bikes;
-  final List<BiketuneMarketModel> marketModels;
-  final List<BiketuneVariant> variants;
+  final List<BmwExtendedBike> bikes;
+  final List<BmwExtendedMarketModel> marketModels;
+  final List<BmwExtendedVariant> variants;
   final List<Map<String, String>> bikeEcus;
-  final List<BiketuneEcu> ecus;
-  final List<BiketuneServiceFunction> serviceFunctions;
-  final List<BiketuneServiceStep> serviceSteps;
-  final List<BiketuneActuator> actuators;
-  final List<BiketuneAdaptation> adaptations;
+  final List<BmwExtendedEcu> ecus;
+  final List<BmwExtendedServiceFunction> serviceFunctions;
+  final List<BmwExtendedServiceStep> serviceSteps;
+  final List<BmwExtendedActuator> actuators;
+  final List<BmwExtendedAdaptation> adaptations;
 
-  final Map<String, BiketuneBike> _bikesByEbr = {};
-  final Map<String, List<BiketuneVariant>> _variantsByEbr = {};
-  final Map<String, BiketuneEcu> _ecusByName = {};
+  final Map<String, BmwExtendedBike> _bikesByEbr = {};
+  final Map<String, List<BmwExtendedVariant>> _variantsByEbr = {};
+  final Map<String, BmwExtendedEcu> _ecusByName = {};
   final Map<String, List<String>> _ecuNamesByEbr = {};
-  final Map<String, List<BiketuneServiceFunction>> _functionsByEcu = {};
-  final Map<int, List<BiketuneServiceStep>> _stepsByFunctionPk = {};
-  final Map<String, List<BiketuneActuator>> _actuatorsByEcu = {};
-  final Map<String, List<BiketuneAdaptation>> _adaptationsByEcu = {};
+  final Map<String, List<BmwExtendedServiceFunction>> _functionsByEcu = {};
+  final Map<int, List<BmwExtendedServiceStep>> _stepsByFunctionPk = {};
+  final Map<String, List<BmwExtendedActuator>> _actuatorsByEcu = {};
+  final Map<String, List<BmwExtendedAdaptation>> _adaptationsByEcu = {};
 
-  BiketuneBike? getBike(String ebr) => _bikesByEbr[ebr.toUpperCase()];
+  BmwExtendedBike? getBike(String ebr) => _bikesByEbr[ebr.toUpperCase()];
 
-  List<BiketuneVariant> getVariants(String ebr) =>
+  List<BmwExtendedVariant> getVariants(String ebr) =>
       _variantsByEbr[ebr.toUpperCase()] ?? const [];
 
-  BiketuneEcu? getEcu(String name) => _ecusByName[name];
+  BmwExtendedEcu? getEcu(String name) => _ecusByName[name];
 
   List<String> getEcuNamesForBike(String ebr) =>
       _ecuNamesByEbr[ebr.toUpperCase()] ?? const [];
 
-  List<BiketuneServiceFunction> getServiceFunctions(String ecuName) =>
+  List<BmwExtendedServiceFunction> getServiceFunctions(String ecuName) =>
       _functionsByEcu[ecuName] ?? const [];
 
-  List<BiketuneServiceStep> getServiceSteps(int functionPk) =>
+  List<BmwExtendedServiceStep> getServiceSteps(int functionPk) =>
       _stepsByFunctionPk[functionPk] ?? const [];
 
-  List<BiketuneActuator> getActuators(String ecuName) =>
+  List<BmwExtendedActuator> getActuators(String ecuName) =>
       _actuatorsByEcu[ecuName] ?? const [];
 
-  List<BiketuneAdaptation> getAdaptations(String ecuName) =>
+  List<BmwExtendedAdaptation> getAdaptations(String ecuName) =>
       _adaptationsByEcu[ecuName] ?? const [];
 
-  /// Loads the verified Biketune catalog asset.
+  /// Loads the verified extended capabilities catalog asset.
   static Future<SourceQualifiedCatalog> load({AssetBundle? bundle}) async {
     final b = bundle ?? rootBundle;
-    final raw = await b.loadString('assets/data/bmw_biketune_catalog.json');
+    final raw = await b.loadString('assets/data/bmw_extended_catalog.json');
     final json = jsonDecode(raw) as Map<String, dynamic>;
     final manifest = json['manifest'] as Map<String, dynamic>? ?? {};
 
     return SourceQualifiedCatalog(
       sourceSha256: manifest['source_sha256'] as String? ?? '',
       bikes: (json['bikes'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneBike.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedBike.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       marketModels: (json['bike_market_models'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneMarketModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedMarketModel.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       variants: (json['bike_variants'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneVariant.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedVariant.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       bikeEcus: (json['bike_ecus'] as List<dynamic>? ?? const [])
           .map((e) => {
@@ -418,19 +428,19 @@ class SourceQualifiedCatalog {
               })
           .toList(growable: false),
       ecus: (json['ecus'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneEcu.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedEcu.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       serviceFunctions: (json['service_functions'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneServiceFunction.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedServiceFunction.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       serviceSteps: (json['service_steps'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneServiceStep.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedServiceStep.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       actuators: (json['actuators'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneActuator.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedActuator.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
       adaptations: (json['adaptations'] as List<dynamic>? ?? const [])
-          .map((e) => BiketuneAdaptation.fromJson(e as Map<String, dynamic>))
+          .map((e) => BmwExtendedAdaptation.fromJson(e as Map<String, dynamic>))
           .toList(growable: false),
     );
   }

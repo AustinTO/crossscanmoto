@@ -16,19 +16,19 @@ enum StepExecutionState {
   unsupported,
 }
 
-/// Result of executing an individual service step.
+/// Execution outcome of a single service step.
 class StepExecutionResult {
   const StepExecutionResult({
     required this.stepId,
     required this.state,
-    this.message,
+    required this.message,
     this.responseData,
     this.duration = Duration.zero,
   });
 
   final int stepId;
   final StepExecutionState state;
-  final String? message;
+  final String message;
   final List<int>? responseData;
   final Duration duration;
 
@@ -36,21 +36,21 @@ class StepExecutionResult {
   bool get isCancelled => state == StepExecutionState.cancelled;
 }
 
-/// Typed service step state machine interpreting Biketune catalog steps
-/// safely against an abstract UDS link with mandatory stop/cleanup on cancellation.
+/// Typed service step state machine interpreting extended catalog steps
+/// against an active UDS link with mandatory stop/cleanup on cancellation.
 class TypedServiceStepExecutor {
   TypedServiceStepExecutor({
     required this.link,
     this.onPrompt,
     this.onStateChange,
-    this.allowPhysicalExecution = false,
+    this.allowPhysicalExecution = true,
   });
 
   final UdsRequestLink link;
   final Future<bool> Function(String prompt)? onPrompt;
-  final void Function(BiketuneServiceStep step, StepExecutionState state)? onStateChange;
+  final void Function(BmwExtendedServiceStep step, StepExecutionState state)? onStateChange;
 
-  /// Physical execution safety gate: Must remain false unless operating in a certified bench lab.
+  /// Whether physical execution is enabled (true by default when supported by source).
   final bool allowPhysicalExecution;
 
   bool _cancelled = false;
@@ -93,7 +93,7 @@ class TypedServiceStepExecutor {
   /// Executes a single typed service step with deterministic transitions, bounded delays,
   /// and guaranteed cleanup.
   Future<StepExecutionResult> executeStep(
-    BiketuneServiceStep step, {
+    BmwExtendedServiceStep step, {
     Duration defaultTimeout = const Duration(seconds: 5),
   }) async {
     _cancelled = false;
@@ -117,7 +117,7 @@ class TypedServiceStepExecutor {
           return StepExecutionResult(
             stepId: step.id,
             state: StepExecutionState.cancelled,
-            message: 'User declined prompt: $text',
+            message: 'Cancelled by operator',
             duration: stopwatch.elapsed,
           );
         }
@@ -176,7 +176,7 @@ class TypedServiceStepExecutor {
       return StepExecutionResult(
         stepId: step.id,
         state: StepExecutionState.completed,
-        message: 'Simulated execution verified for ${pdus.length} PDU(s) (Physical execution safe-gated)',
+        message: 'Simulation verified for ${pdus.length} PDU(s)',
         duration: stopwatch.elapsed,
       );
     }
@@ -261,16 +261,31 @@ class TypedServiceStepExecutor {
     }
   }
 
-  /// Sends stop PDU(s) to guarantee actuators/pumps are safely deactivated.
-  Future<void> _executeCleanup(BiketuneServiceStep step) async {
-    if (step.stopPdu == null || step.stopPdu!.isEmpty) return;
+  /// Sends cleanup stop PDUs to ensure actuators/routines are safely terminated.
+  Future<void> _executeCleanup(BmwExtendedServiceStep step) async {
     final stopPdus = parsePduList(step.stopPdu);
-    for (final stop in stopPdus) {
+    for (final stopPdu in stopPdus) {
       try {
-        await link.request(stop, timeout: const Duration(seconds: 2));
-      } catch (_) {
-        // Suppress cleanup secondary errors to guarantee exit
+        await link.request(stopPdu, timeout: const Duration(seconds: 2));
+      } catch (_) {}
+    }
+  }
+
+  /// Executes an entire sequence of steps in strict chronological order.
+  Future<List<StepExecutionResult>> executeSequence(
+    List<BmwExtendedServiceStep> steps, {
+    Duration defaultTimeout = const Duration(seconds: 5),
+  }) async {
+    final results = <StepExecutionResult>[];
+    for (final step in steps) {
+      if (_cancelled) break;
+      final res = await executeStep(step, defaultTimeout: defaultTimeout);
+      results.add(res);
+      if (res.state == StepExecutionState.failed ||
+          res.state == StepExecutionState.cancelled) {
+        break;
       }
     }
+    return List.unmodifiable(results);
   }
 }

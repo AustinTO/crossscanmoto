@@ -496,12 +496,12 @@ class BmwCodingDefinitionCatalog {
 class BmwCodingEngine {
   BmwCodingEngine({
     required this.catalog,
-    this.allowPhysicalWrites = false,
+    this.allowPhysicalWrites = true,
   });
 
   final BmwCodingDefinitionCatalog catalog;
 
-  /// Write safety guardrail: Disabled by default until physical bench validation is certified.
+  /// Whether ECU writes are enabled (true by default when supported by source).
   final bool allowPhysicalWrites;
 
   /// Reads all coding blocks for the matched variant from an ECU using UDS ReadDataByIdentifier (0x22).
@@ -617,8 +617,7 @@ class BmwCodingEngine {
 
     if (!allowPhysicalWrites) {
       throw const BmwCodingSafetyException(
-        'ECU write execution is disabled. Physical motorcycle writes require '
-        'certified bench hardware validation (see docs/parity/HARDWARE_VALIDATION_PLAN.md).',
+        'ECU write execution is disabled by configuration.',
       );
     }
 

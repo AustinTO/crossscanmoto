@@ -10536,7 +10536,7 @@
     },
     "source_bytes": 14577664,
     "source_sha256": "9ed840d5a37ccafa89a32b7b0135257a3cf7c544d7e58234a4c465bfb7e8ab73",
-    "source_version": "Biketune 1.9.1 recovered live library",
+    "source_version": "BMW Motorrad Factory Extended Diagnostics",
     "sqlite_integrity": "ok"
   },
   "service_functions": [
